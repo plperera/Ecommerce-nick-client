@@ -18,7 +18,7 @@ export default function CategoriesHome () {
 
 const Container = styled.div`
     width: 100%;
-    height: 75vh;
+    height: 70vh;
     margin-top: 10vh;
     padding: 5vh 10vw;
     display: flex;
