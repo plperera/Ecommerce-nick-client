@@ -12,6 +12,6 @@ const Container = styled.div`
     margin-top: 12vh;
     width: 100%;
     height: 73vh;
-    background-color: #E6E6E6;
+    border:1px solid #D47373;
     padding: 0 10vw;
 `
