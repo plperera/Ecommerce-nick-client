@@ -20,18 +20,19 @@ export default function BannerHome () {
             <ImageContainer backgroundImage={ExampleArray[slide].image}>
 
                 <Title>{ExampleArray[slide].title}</Title>
-                <Slide>
-                    {ExampleArray.map( (e,i) => 
-                        <SlideIcon 
-                            onClick={() => ChangeSlide()} 
-                            backgroundColor={slide === i?("#1991C4"):("")}
-                            key={i}
-                        />
-                    )}
-                </Slide>
-
 
             </ImageContainer>
+
+            <Slide>
+                {ExampleArray.map( (e,i) => 
+                    <SlideIcon 
+                        onClick={() => ChangeSlide()} 
+                        backgroundColor={slide === i?("#009395"):("")}
+                        key={i}
+                    />
+                )}
+            </Slide>
+            
         </Container>
     )
 }
@@ -61,18 +62,18 @@ const Title = styled.div`
     text-shadow: 3px 3px 5px #000000A9;
 `
 const Slide = styled.div`
-    width: 100%;
     height: 24px;
+    width: 100%;
     display: flex;
-    align-items: end;
-    justify-content: space-evenly;
+    align-items: center;
+    justify-content: center;
+    gap: 2vw;
+    margin-top: -8vh;
     position: absolute;
-    padding-left: 30vw;
-    padding-right: 40vw;
-    margin-top: 67vh;
 `
 const SlideIcon = styled.div`
     width: 80px;
     height: 18px;
-    background-color: ${props => props.backgroundColor || "#1991C434"};
+    background-color: ${props => props.backgroundColor || "#00929528"};
+    border-radius: 5px;
 `
