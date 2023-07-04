@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import logo from "../../assets/images/logo-menu.png"
+import logo from "../../assets/images/logoMenu/logo-menu.png"
 import SearchBar from "./SearchBar"
 import { AiOutlineHeart } from 'react-icons/ai';
 import CartMenu from "./CartMenu";
