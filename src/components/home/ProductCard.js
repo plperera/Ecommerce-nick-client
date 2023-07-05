@@ -48,6 +48,9 @@ const RateAndLike = styled.div`
     justify-content: center;
     font-size: 19px;
     font-weight: 700;
+    @media (max-width: 1366px) {
+        font-size: 16.5px; 
+    }
 `
 const RateContainer = styled(RateAndLike)`
 
@@ -78,17 +81,27 @@ const Title = styled.h1`
     font-weight: 500;
     margin-top: 1vh;
     text-align: center;
+    @media (max-width: 1366px) {
+        font-size: 18px; 
+    }
 `
 const Description = styled.h3`
     margin-top: 1.5vh;
     font-size: 17px;
     text-align: center;
+    @media (max-width: 1366px) {
+        font-size: 14.5px; 
+    }
 `
 const Price = styled.p`
     margin-top: 2.5vh;
     font-size: 20px;
     font-weight: 500;
     text-align: center;
+    @media (max-width: 1366px) {
+        font-size: 18px; 
+        font-weight: 600;
+    }
 `
 const ButtonStyle = styled.div`
     margin-top: 4vh;

@@ -55,6 +55,11 @@ const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    @media (max-width: 1366px) {
+        padding: 0 4vw;  
+        padding-top: 5vh;  
+    }
+    
 `
 const LeftContainer = styled.div`
     height: 100%;
@@ -66,24 +71,38 @@ const RightContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    img {
+        max-width: 100%;
+        max-height: 100%;
+    }  
 `
 const Title = styled.h1`
     border-left: 8px solid #009395;
     font-size: 42px;
     font-weight: 600;
     padding-left: 1vw;
+    @media (max-width: 1366px) {
+        font-size: 36px;    
+    }
 `
 const CategoryName = styled.h1`
-    font-size: 52px;
+    font-size: 48px;
     font-weight: 700;
     margin-top: 15vh;
+    @media (max-width: 1366px) {
+        font-size: 38px;    
+    }
 `
 const Description = styled.p`
-    font-size: 28px;
+    font-size: 26px;
     font-weight: 600;
     margin-top: 7vh;
     width: 95%;
     height: 18vh;
+    @media (max-width: 1366px) {
+        font-size: 21px; 
+        width: 90%;
+    }
 `
 const ButtonStyle = styled.div`
     width: 256px;
@@ -95,9 +114,12 @@ const ButtonStyle = styled.div`
     justify-content: center;
     color: #FFFFFF;
     border-radius: 50px;
-    font-size: 22px;
+    font-size: 21px;
     font-weight: 600;
     margin-top: 1vh;
+    @media (max-width: 1366px) {
+        font-size: 20px;    
+    }
 `
 const SlideArrow = styled.div`
     width: 50px;

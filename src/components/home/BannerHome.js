@@ -66,16 +66,19 @@ const ImageContainer = styled.div`
     justify-content: center;
     padding: 0 10vw;    
     flex-direction: column;
+    @media (max-width: 1366px) {
+        padding: 0 4vw;    
+    }
 `
 const Title = styled.div`
     user-select: none;
     color: white;
-    font-size: 64px;
+    font-size: 52px;
     width: 32vw;
     font-weight: 700;
     text-shadow: 3px 3px 5px #000000A9;
     @media (max-width: 1366px) {
-        font-size: 42px;    
+        font-size: 32px;    
     }
 `
 const Slide = styled.div`
