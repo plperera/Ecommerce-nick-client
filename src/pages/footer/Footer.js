@@ -39,6 +39,9 @@ const TopContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    @media (max-width: 1366px) {
+        padding: 0 4vw;    
+    }
 `
 const BottomContainer = styled.div`
     padding: 0 10vw;
@@ -50,6 +53,13 @@ const BottomContainer = styled.div`
     p {
         font-weight: 700;
     }
+    @media (max-width: 1366px) {
+        padding: 0 4vw;  
+        height: 7vh;
+        p {
+            font-size: 14px;
+        }
+    }
 `
 const ImageContainer = styled.div`
     display: flex;
@@ -57,7 +67,7 @@ const ImageContainer = styled.div`
     justify-content: left;
     img {
         height: 16vh;
-    }
+    }  
 `
 const InfoContainer = styled.div`
     display: flex;
@@ -70,6 +80,10 @@ const InfoContainer = styled.div`
         align-items: center;
         justify-content: right;
         text-align: center;
+
+        @media (max-width: 1366px) {
+            font-size: 14px;   
+        }
     }
 `
 const SocialContainer = styled.div`
@@ -80,7 +94,13 @@ const SocialContainer = styled.div`
 `
 const InstagramIcon = styled(BsInstagram)`
     font-size: 30px;
+    @media (max-width: 1366px) {
+        font-size: 26px;   
+    }
 `
 const WhatsappIcon = styled(BsWhatsapp)`
     font-size: 30px;
+    @media (max-width: 1366px) {
+        font-size: 26px;   
+    }
 `
