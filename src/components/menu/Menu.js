@@ -9,6 +9,7 @@ export default function Menu () {
 
     return(
         <Container>
+
             <LogoContainer>
                 <img src={logo} alt="Nick te ajuda"/>
             </LogoContainer>
@@ -26,7 +27,8 @@ export default function Menu () {
 
 const Container = styled.div`
     width: 100%;
-    height: 100%;
+    height: 75%;
+    padding: 0 10vw;
     background-color: #02131B;
     display: flex;
     align-items: center;

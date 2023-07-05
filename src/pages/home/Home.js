@@ -15,7 +15,7 @@ export default function Home () {
 }
 
 const Container = styled.div`
-    margin-top: 12vh;
+    margin-top: 14vh;
     width: 100%;
     min-height: 73vh;
     background-color: #E6E6E6;
