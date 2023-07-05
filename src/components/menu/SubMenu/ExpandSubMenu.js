@@ -13,7 +13,7 @@ export default function ExpandSubMenu ({ expandMenu, setExpandMenu }) {
                         <SubTopicContainer> {e} </SubTopicContainer>
                     )
 
-                ):(<ErrorContainer>Erro ao carregar os subtopicos</ErrorContainer>)
+                ):(<ErrorContainer>Erro ao carregar os subtopicos...</ErrorContainer>)
             }
 
             <CloseMenuContainer onClick={() => setExpandMenu(false)}>X</CloseMenuContainer>
@@ -23,11 +23,10 @@ export default function ExpandSubMenu ({ expandMenu, setExpandMenu }) {
 }
 
 const Container = styled.div`
-    width: 80%;
+    width: 55%;
     background-color: #263C4B;
     position: absolute;
     top: 14vh;
-    display: inline;
     border-radius: 0 0 15px 15px;
     display: flex;
     align-items: center;
@@ -35,6 +34,7 @@ const Container = styled.div`
     row-gap: 0.6vh;
     column-gap: 3vw;
     padding: 2vh 2vw;
+    padding-right: 4vw;
     flex-wrap: wrap;
 `
 const ErrorContainer = styled.div`
@@ -43,6 +43,9 @@ const ErrorContainer = styled.div`
     height: 100%;
     padding: 2vh 0;
     color: #00000060;
+    @media (max-width: 1366px) {
+        font-size: 16px;
+    }
 `
 const SubTopicContainer = styled.div`
     height: 100%;
@@ -57,6 +60,10 @@ const SubTopicContainer = styled.div`
     &:hover {
         border-left: 8px solid #009395;
         margin-right: -4px;
+    }
+
+    @media (max-width: 1366px) {
+        font-size: 13px;
     }
 `
 const CloseMenuContainer = styled.div`
@@ -74,4 +81,12 @@ const CloseMenuContainer = styled.div`
     position: absolute;
     right: 2vw;
     cursor: pointer;
+
+    @media (max-width: 1366px) {
+        font-size: 9px;
+        font-weight: 700;
+        border: 1px solid #FFFFFF;
+        width: 22px;
+        height: 22px;
+    }
 `

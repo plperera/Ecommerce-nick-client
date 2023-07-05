@@ -24,4 +24,7 @@ const CartIcon = styled(BsCart3)`
     font-size: 25px;
     color: #FFFFFF; 
     margin-left: -2.4vw;   
+    @media (max-width: 1366px) {
+        font-size: 23px;
+    }
 `

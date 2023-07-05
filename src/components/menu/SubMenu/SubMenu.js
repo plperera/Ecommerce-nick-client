@@ -34,5 +34,6 @@ const Container = styled.div`
     background-color: #19323D;
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
+    column-gap: 2vw;
 `

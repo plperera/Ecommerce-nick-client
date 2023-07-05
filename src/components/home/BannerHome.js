@@ -2,6 +2,7 @@ import styled from "styled-components"
 import Banner01 from "../../assets/images/banner01.jpg"
 import Banner02 from "../../assets/images/banner02.png"
 import { useState } from "react"
+import { useEffect } from "react"
 
 export default function BannerHome () {
 
@@ -14,6 +15,18 @@ export default function BannerHome () {
     function ChangeSlide(){
         (slide === (ExampleArray.length - 1)) ? (setSlide(0)):(setSlide(slide + 1))
     }
+
+    useEffect(() => {
+
+        const slideInterval = setInterval(() => {
+            (slide === (ExampleArray.length - 1)) ? (setSlide(0)):(setSlide(slide + 1))
+        }, (5 * 1000));
+
+        return () => clearInterval(slideInterval);
+
+    }, [ExampleArray.length, slide]);
+
+    
 
     return(
         <Container>
@@ -55,11 +68,15 @@ const ImageContainer = styled.div`
     flex-direction: column;
 `
 const Title = styled.div`
+    user-select: none;
     color: white;
     font-size: 64px;
     width: 32vw;
     font-weight: 700;
     text-shadow: 3px 3px 5px #000000A9;
+    @media (max-width: 1366px) {
+        font-size: 42px;    
+    }
 `
 const Slide = styled.div`
     height: 24px;
@@ -76,4 +93,5 @@ const SlideIcon = styled.div`
     height: 18px;
     background-color: ${props => props.backgroundColor || "#00929528"};
     border-radius: 5px;
+    cursor: pointer;
 `

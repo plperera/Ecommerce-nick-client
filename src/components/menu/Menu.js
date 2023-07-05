@@ -33,6 +33,9 @@ const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    @media (max-width: 1366px) {
+        padding: 0 4vw;
+    }
 `
 const LogoContainer = styled.div`
     height: 100%;
@@ -58,4 +61,8 @@ const HearthIcon = styled(AiOutlineHeart)`
     color: #FFFFFF; 
     margin-left: -2.4vw;  
     cursor: pointer; 
+
+    @media (max-width: 1366px) {
+        font-size: 23px;
+    }
 `
