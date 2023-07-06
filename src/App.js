@@ -4,6 +4,7 @@ import Home from "./pages/home/Home"
 import Menu from "./pages/menu/Menu"
 import Footer from "./pages/footer/Footer"
 import AllProducts from "./pages/products/AllProducts"
+import NotFound from "./pages/notFound/NotFound"
 
 
 export default function App (){
@@ -27,6 +28,7 @@ export default function App (){
                 <Routes>
                     <Route path="/" element={<Home/>} />
                     <Route path="/catalogo" element={<AllProducts />} />
+                    <Route path="*" element={<NotFound />} />
                 </Routes>
                 <Footer/>
             </BrowserRouter>
