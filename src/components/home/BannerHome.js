@@ -33,6 +33,7 @@ export default function BannerHome () {
             <ImageContainer backgroundImage={ExampleArray[slide].image}>
 
                 <Title>{ExampleArray[slide].title}</Title>
+                <Button>Conheça nosso catálogo</Button>
 
             </ImageContainer>
 
@@ -70,13 +71,41 @@ const ImageContainer = styled.div`
         padding: 0 4vw;    
     }
 `
+const Button = styled.div`
+    width: 18vw;
+    height: 5vh;
+    background-color: #79838b;
+    border-left: 8px solid #009395;
+    color: #FFFFFF;
+    text-shadow: 4px 2px 6px #0000006C;
+    box-shadow: 2px 2px 5px #0000001A;
+    font-weight: 700;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    padding-left: 0.65vw;
+    border-radius: 5px;
+    font-size: 21px;
+    margin-top: 3vh;
+    cursor: pointer;
+    user-select: none;
+    transition: all ease .1s !important;
+    &:hover{
+        border-left: 10px solid #00BABD;
+    }
+    @media (max-width: 1366px) {
+        font-size: 16px;  
+        width: 19vw;  
+    }
+`
 const Title = styled.div`
     user-select: none;
     color: white;
     font-size: 52px;
     width: 32vw;
     font-weight: 700;
-    text-shadow: 3px 3px 5px #000000A9;
+    text-shadow: 3px 3px 5px #00000070;
     @media (max-width: 1366px) {
         font-size: 32px;    
     }

@@ -3,6 +3,7 @@ import { ToastContainer } from "react-toastify"
 import Home from "./pages/home/Home"
 import Menu from "./pages/menu/Menu"
 import Footer from "./pages/footer/Footer"
+import AllProducts from "./pages/products/AllProducts"
 
 
 export default function App (){
@@ -25,6 +26,7 @@ export default function App (){
                 <Menu/>
                 <Routes>
                     <Route path="/" element={<Home/>} />
+                    <Route path="/catalogo" element={<AllProducts />} />
                 </Routes>
                 <Footer/>
             </BrowserRouter>
