@@ -64,7 +64,6 @@ const ProductContainer = styled.div`
 const LeftSideContainer = styled.div`
     width: 40%;
     height: 50vh;
-    //border: 1px solid blue;
     display: flex;
     flex-direction: column;
     align-items: left;
@@ -75,12 +74,10 @@ const LeftSideContainer = styled.div`
 const RightSideContainer = styled.div`
     width: 60%;
     height: 50vh;
-    border: 1px solid blue;
 `
 const CommumConfig = styled.div`
     height: 5vh;
     width: 100%;
-    //border: 1px solid red;
     display: flex; 
     align-items: center;
     justify-content: left;

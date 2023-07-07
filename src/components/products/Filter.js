@@ -106,7 +106,8 @@ const ButtonStyle = styled.div`
         border-left: 10px solid #00BABD;
     }
     @media (max-width: 1366px) {
-        font-size: 16px;  
-        width: 19vw;  
+        font-size: 13px;  
+        margin-top: 2.5vh;
+        //width: 19vw;  
     }
 `
