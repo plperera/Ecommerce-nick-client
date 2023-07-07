@@ -63,6 +63,7 @@ export default function ContentProductCard ({ productData }) {
 }
 
 const Container = styled.div`
+    flex-shrink: 0;
     width: 18.272vw;
     min-width: 235px;
     max-width: 350px;
