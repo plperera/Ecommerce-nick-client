@@ -2,6 +2,7 @@ import styled from "styled-components"
 import Category01 from "../../assets/images/Category01.png"
 import Category02 from "../../assets/images/Category02.png"
 import { useState } from "react"
+import useNavigateAndMoveUp from "../../hooks/useNavigateAndMoveUp"
 
 export default function CategoriesHome () {
 
@@ -16,6 +17,7 @@ export default function CategoriesHome () {
         (slide === (ExampleArray.length - 1)) ? (setSlide(0)):(setSlide(slide + 1))
     }
 
+    const navigateAndMoveUp = useNavigateAndMoveUp();
 
     return(
         <Container>
@@ -24,7 +26,7 @@ export default function CategoriesHome () {
                 <Title>Categorias</Title>
                 <CategoryName>{ExampleArray[slide].categoryName}</CategoryName>
                 <Description>{ExampleArray[slide].description}</Description>
-                <ButtonStyle>Ver Detalhes</ButtonStyle>
+                <ButtonStyle onClick={() => navigateAndMoveUp({locate:`catalogo/${ExampleArray[slide].categoryName}`})}>Ver Detalhes</ButtonStyle>
             </LeftContainer>
 
             <RightContainer>
@@ -117,6 +119,7 @@ const ButtonStyle = styled.div`
     font-size: 21px;
     font-weight: 600;
     margin-top: 1vh;
+    cursor: pointer;
     @media (max-width: 1366px) {
         font-size: 20px;    
     }

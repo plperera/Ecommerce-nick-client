@@ -3,6 +3,7 @@ import Banner01 from "../../assets/images/banner01.jpg"
 import Banner02 from "../../assets/images/banner02.png"
 import { useState } from "react"
 import { useEffect } from "react"
+import useNavigateAndMoveUp from "../../hooks/useNavigateAndMoveUp"
 
 export default function BannerHome () {
 
@@ -10,6 +11,7 @@ export default function BannerHome () {
         {title: "Aumente a vida útil de suas máquinas", image: Banner01}, 
         {title: "Excelência com quem realmente conhece", image: Banner02}
     ]
+
     const [slide, setSlide] = useState(0)
 
     function ChangeSlide(){
@@ -26,14 +28,14 @@ export default function BannerHome () {
 
     }, [ExampleArray.length, slide]);
 
-    
+    const navigateAndMoveUp = useNavigateAndMoveUp();
 
     return(
         <Container>
             <ImageContainer backgroundImage={ExampleArray[slide].image}>
 
                 <Title>{ExampleArray[slide].title}</Title>
-                <Button>Conheça nosso catálogo</Button>
+                <Button onClick={() => navigateAndMoveUp({locate: "catalogo"})}>Conheça nosso catálogo</Button>
 
             </ImageContainer>
 

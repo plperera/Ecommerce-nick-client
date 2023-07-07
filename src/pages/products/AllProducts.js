@@ -1,8 +1,22 @@
 import styled from "styled-components"
 import Filter from "../../components/products/Filter"
 import Content from "../../components/products/Content"
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 export default function AllProducts () {
+
+    const { categoryName } = useParams();
+
+    const [selected , setSelected] = useState(undefined)
+
+    useEffect(() => {
+
+        if (categoryName){
+            setSelected(categoryName.toLowerCase())
+        }
+
+    }, [categoryName])
 
     const imageUrl = "https://firebasestorage.googleapis.com/v0/b/imageuploads-7b8bc.appspot.com/o/maquina-teste.png?alt=media&token=ff8dd575-503d-4ca2-a4d9-9a3b3a08fa96"
 
@@ -33,7 +47,7 @@ export default function AllProducts () {
 
     return(
         <Container>
-            <Filter categories={categories}/>
+            <Filter categories={categories} selected={selected} setSelected={setSelected}/>
             <Content products={products}/>
         </Container>
     )

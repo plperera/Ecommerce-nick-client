@@ -5,6 +5,7 @@ import Menu from "./pages/menu/Menu"
 import Footer from "./pages/footer/Footer"
 import AllProducts from "./pages/products/AllProducts"
 import NotFound from "./pages/notFound/NotFound"
+import UniqueProduct from "./pages/uniqueProduct/UniqueProduct"
 
 
 export default function App (){
@@ -27,7 +28,9 @@ export default function App (){
                 <Menu/>
                 <Routes>
                     <Route path="/" element={<Home/>} />
+                    <Route path="/catalogo/:categoryName" element={<AllProducts />} />
                     <Route path="/catalogo" element={<AllProducts />} />
+                    <Route path="/produto/:productName" element={<UniqueProduct />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
                 <Footer/>

@@ -4,13 +4,17 @@ import SearchBar from "./SearchBar"
 import { AiOutlineHeart } from 'react-icons/ai';
 import CartMenu from "./CartMenu";
 import AccountMenu from "./AccountMenu";
+import useNavigateAndMoveUp from "../../hooks/useNavigateAndMoveUp";
+
 
 export default function Menu () {
+
+    const navigateAndMoveUp = useNavigateAndMoveUp();
 
     return(
         <Container>
 
-            <LogoContainer>
+            <LogoContainer onClick={() => navigateAndMoveUp({locate: ""})}>
                 <img src={logo} alt="Nick te ajuda"/>
             </LogoContainer>
 
