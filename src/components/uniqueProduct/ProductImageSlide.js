@@ -41,6 +41,7 @@ const Container = styled.div`
     justify-content: space-between;
     align-items: center;
     background-color: #ffffff;
+    border-radius: 10px;
     img {
         max-width: 90%;
         max-height: 90%;

@@ -41,10 +41,6 @@ export default function UniqueProduct ({product}) {
                 </RightSideContainer> 
 
             </ProductContainer>
-
-            <DescriptionContainer>
-                <OtherDetails></OtherDetails>
-            </DescriptionContainer>
         </Container>
     )
 }
@@ -53,6 +49,8 @@ const Container = styled.div`
     width: 100%;
     background-color: #0A1F2A;
     color: #ffffff;
+    padding: 0 10vw;
+    padding-bottom: 5vh;
 `
 const ProductContainer = styled.div`
     width: 100%;
@@ -86,7 +84,10 @@ const MainCategory = styled(CommumConfig)`
     font-size: 28px;
 `
 const ProductName = styled(CommumConfig)`
-    font-size: 36px;
+    font-size: 21px;
+    @media (max-width: 1366px) {
+        font-size: 17px;
+    }
 `
 const PriceSign = styled.span`
     margin-left: 0.3vw;
@@ -140,8 +141,4 @@ const ButtonStyle = styled.div`
     @media (max-width: 1366px) {
         font-size: 19px;
     }
-`
-const DescriptionContainer = styled.div`
-`
-const OtherDetails = styled.div`
 `

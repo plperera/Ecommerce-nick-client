@@ -1,7 +1,10 @@
 import styled from "styled-components"
 import produto01 from "../../assets/images/produto-em-destaque01.png"
+import useNavigateAndMoveUp from "../../hooks/useNavigateAndMoveUp";
 
 export default function ProductCard () {
+
+    const navigateAndMoveUp = useNavigateAndMoveUp();
 
     return(
         <Container> 
@@ -11,7 +14,7 @@ export default function ProductCard () {
                 <LikeContainer>Favoritar ♥</LikeContainer>
             </TopContainer>
 
-            <BottomContainer>
+            <BottomContainer  onClick={() => navigateAndMoveUp({locate: "produto/NOVASI400"})}>
                 <ImageContainer>
                     <img src={produto01} alt=""/>
                 </ImageContainer>
@@ -63,6 +66,7 @@ const BottomContainer = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 `
 const ImageContainer = styled.div`
     width: 100%;
@@ -117,4 +121,8 @@ const ButtonStyle = styled.div`
     font-size: 20px;
     font-weight: 600;
     cursor: pointer;
+    &:hover{
+        width: 230px;
+        background-color: #01B0B3;
+    }
 `

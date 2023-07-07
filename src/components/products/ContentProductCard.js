@@ -1,7 +1,12 @@
 import styled from "styled-components"
 import { FaStar } from 'react-icons/fa';
 import { HiOutlineHeart } from 'react-icons/hi';
+import useNavigateAndMoveUp from "../../hooks/useNavigateAndMoveUp";
+
 export default function ContentProductCard ({ productData }) {
+
+    const navigateAndMoveUp = useNavigateAndMoveUp();
+
     return(
         <Container>
             <UpContainer>
@@ -18,7 +23,7 @@ export default function ContentProductCard ({ productData }) {
 
             </UpContainer>
 
-            <MiddleContainer>
+            <MiddleContainer onClick={() => navigateAndMoveUp({locate: `produto/${productData.name}`})}>
 
                 <ImageContainer>
                     <img src={productData.image[0].imageUrl} alt={""}/>
@@ -51,7 +56,7 @@ export default function ContentProductCard ({ productData }) {
             </MiddleContainer>
 
             <ButtonContainer>
-                <ButtonStyle>{"Comprar"}</ButtonStyle>
+                <ButtonStyle onClick={() => navigateAndMoveUp({locate: `produto/${productData.name}`})}>{"Comprar"}</ButtonStyle>
             </ButtonContainer>
         </Container>
     )
@@ -246,6 +251,10 @@ const ButtonStyle = styled.div`
     font-size: 20px;
     font-weight: 600;
     cursor: pointer;
+    &:hover{
+        width: 82%;
+        background-color: #01B0B3;
+    }
 
     @media (max-width: 1366px) {
         font-size: 19px;
