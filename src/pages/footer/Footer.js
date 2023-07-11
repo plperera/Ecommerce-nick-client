@@ -1,29 +1,38 @@
 import styled from "styled-components"
 import logo from "../../assets/images/logo-footer.svg"
 import { BsInstagram, BsWhatsapp } from 'react-icons/bs';
+import { useLocation } from "react-router-dom";
 
 export default function Footer () {
 
+    const location = useLocation();
+    const isAdminRoute = location.pathname.includes("/admin");
+
+
     return(
-        <Container>
-            <TopContainer>
-                <ImageContainer>
-                    <img src={logo} alt="Nick te Ajuda"/>
-                </ImageContainer>
-                <InfoContainer> 
-                    <SocialContainer>
-                        <InstagramIcon/>
-                        <WhatsappIcon/>
-                    </SocialContainer>
-                    <p>contato@contato.com.br</p>
-                    <p>Atendimento de segunda à sexta das 8 às 17:00hrs</p>
-                </InfoContainer>
-            </TopContainer>
-            <BottomContainer>
-                <p>Todos os direitos reservados © 2023</p>
-                <p>Feito por Pedro Pereira</p>
-            </BottomContainer>
-        </Container>
+        isAdminRoute?(
+            <AdminFooterContainer></AdminFooterContainer>
+        ):(
+            <Container>
+                <TopContainer>
+                    <ImageContainer>
+                        <img src={logo} alt="Nick te Ajuda"/>
+                    </ImageContainer>
+                    <InfoContainer> 
+                        <SocialContainer>
+                            <InstagramIcon/>
+                            <WhatsappIcon/>
+                        </SocialContainer>
+                        <p>contato@contato.com.br</p>
+                        <p>Atendimento de segunda à sexta das 8 às 17:00hrs</p>
+                    </InfoContainer>
+                </TopContainer>
+                <BottomContainer>
+                    <p>Todos os direitos reservados © 2023</p>
+                    <p>Feito por Pedro Pereira</p>
+                </BottomContainer>
+            </Container>
+        )
     )
 }
 
@@ -103,4 +112,6 @@ const WhatsappIcon = styled(BsWhatsapp)`
     @media (max-width: 1366px) {
         font-size: 26px;   
     }
+`
+const AdminFooterContainer = styled.div`
 `
