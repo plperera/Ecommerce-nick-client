@@ -1,8 +1,10 @@
 import styled from "styled-components"
+import useNavigateAndMoveUp from "../../../hooks/useNavigateAndMoveUp";
 
 export default function ExpandSubMenu ({ expandMenu, setExpandMenu }) {
 
     console.log(expandMenu?.subTitle)
+    const navigateAndMoveUp = useNavigateAndMoveUp();
 
     return(
         <Container onMouseLeave={ () => setExpandMenu(false)}>
@@ -10,7 +12,7 @@ export default function ExpandSubMenu ({ expandMenu, setExpandMenu }) {
                 expandMenu?.subTitle ? (
                 
                     expandMenu?.subTitle?.map( e => 
-                        <SubTopicContainer> {e} </SubTopicContainer>
+                        <SubTopicContainer onClick={() => navigateAndMoveUp({locate:`catalogo/${e}`})}> {e} </SubTopicContainer>
                     )
 
                 ):(<ErrorContainer>Erro ao carregar os subtopicos...</ErrorContainer>)

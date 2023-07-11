@@ -1,11 +1,14 @@
-import styled from "styled-components"
+import styled, { keyframes } from "styled-components"
 import { FaStar } from 'react-icons/fa';
 import { HiOutlineHeart } from 'react-icons/hi';
 import useNavigateAndMoveUp from "../../hooks/useNavigateAndMoveUp";
+import { useState } from "react";
 
 export default function ContentProductCard ({ productData }) {
 
     const navigateAndMoveUp = useNavigateAndMoveUp();
+
+    const [isLoading, setIsLoading] = useState(true);
 
     return(
         <Container>
@@ -26,7 +29,15 @@ export default function ContentProductCard ({ productData }) {
             <MiddleContainer onClick={() => navigateAndMoveUp({locate: `produto/${productData.name}`})}>
 
                 <ImageContainer>
-                    <img src={productData.image[0].imageUrl} alt={""}/>
+
+                    {isLoading && <Spinner />}
+
+                    <img 
+                        src={productData.image[0].imageUrl} alt={""}
+                        onLoad={() => setIsLoading(false)} 
+                        style={{ display: isLoading ? "none" : "block" }}
+                    />
+                    
                 </ImageContainer>
 
                 <Title>{productData.name.substring(0, 40) + ( productData.name.length > 40?("..."):("") )}</Title>
@@ -80,6 +91,9 @@ const Container = styled.div`
     @media (max-width: 1366px) {
         padding: 1vh 1vw;
         height: 46vh;
+    }
+    &:hover{ 
+        transform: translateY(-1vh);
     }
 `
 
@@ -261,3 +275,20 @@ const ButtonStyle = styled.div`
         font-size: 19px;
     }
 `
+const spinAnimation = keyframes`
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+`;
+
+const Spinner = styled.div`
+  border-radius: 50px;
+
+  border-bottom: 2px dotted #00929544;
+  border-right: 2px dotted #00929544;
+  border-top: 4px ridge #009395;
+  border-left: 2px dotted #00929544; 
+  width: 50px;
+  height: 50px;
+  animation: ${spinAnimation} 2s linear infinite;
+  //background-color: red;
+`;

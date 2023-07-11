@@ -137,7 +137,10 @@ const ButtonStyle = styled.div`
     font-size: 20px;
     font-weight: 600;
     cursor: pointer;
-
+    &:hover{
+        width: 65%;
+        background-color: #01B0B3;
+    }
     @media (max-width: 1366px) {
         font-size: 19px;
     }

@@ -6,6 +6,7 @@ import Footer from "./pages/footer/Footer"
 import AllProducts from "./pages/products/AllProducts"
 import NotFound from "./pages/notFound/NotFound"
 import UniqueProduct from "./pages/uniqueProduct/UniqueProduct"
+import Auth from "./pages/auth/Auth"
 
 
 export default function App (){
@@ -31,6 +32,7 @@ export default function App (){
                     <Route path="/catalogo/:categoryName" element={<AllProducts />} />
                     <Route path="/catalogo" element={<AllProducts />} />
                     <Route path="/produto/:productName" element={<UniqueProduct />} />
+                    <Route path="/auth" element={<Auth />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
                 <Footer/>

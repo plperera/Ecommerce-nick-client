@@ -3,7 +3,10 @@ import { IoIosArrowDown } from 'react-icons/io';
 
 export default function TopicsMenu ({ topic, setExpandMenu, expandMenu }) {
     return(
-        <Container onMouseEnter={ () => {setExpandMenu(topic)}} onClick={ () => {setExpandMenu(topic)}} isSelect={expandMenu?.title === topic.title ? ("#263C4B"):("none")}>
+        <Container 
+            onMouseEnter={ () => {setExpandMenu(topic)}} 
+            onClick={ () => {setExpandMenu(topic)}} 
+            isSelect={expandMenu?.title === topic.title ? ("#263C4B"):("none")}>
             
             <TitleContainer isSelect={expandMenu?.title === topic.title ? ("1px solid #FFFFFF"):("none")}>{topic.title}</TitleContainer>
             <ArrowDownIcon/>
