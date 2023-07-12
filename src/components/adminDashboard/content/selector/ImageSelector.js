@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react"
-import styled from "styled-components"
+import styled, { keyframes } from "styled-components"
 
 export default function ImageSelector ({filter, refresh}) {
 
     const [imageSelected, setImageSelected] = useState([])
     const [image, setImage] = useState([]);
+    const [isLoad, setIsLoad] = useState(true);
+
     const ref = []
 
     for (var i = 1; i <= 20; i++) {
@@ -47,7 +49,10 @@ export default function ImageSelector ({filter, refresh}) {
 
                     <ImageCard key={e.id} onClick={() => selectImage(e)} isSelected={!!imageSelected[`image${e.id}`]}>
                         <h3>{e.name}</h3>
-                        <img src={e.imageUrl} alt=""/>
+                        <img src={e.imageUrl} alt="" onLoad={() => setIsLoad({ ...isLoad, [e.id]: true })} key={e.id}/>
+                        {
+                            isLoad[e.id] ? (<></>):(<Spinner/>)
+                        }
                     </ImageCard>
 
                 )
@@ -83,7 +88,7 @@ const Container = styled.div`
 const ImageCard = styled.div`
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
     flex-direction: column;
     width: 170px;
     height: 220px;
@@ -106,3 +111,19 @@ const ImageCard = styled.div`
         text-align: center;
     }
 `
+const spinAnimation = keyframes`
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+`;
+
+const Spinner = styled.div`
+    margin-top: 30px;
+    border-radius: 50px;
+    border-bottom: 2px dotted #00929544;
+    border-right: 2px dotted #00929544;
+    border-top: 4px ridge #009395;
+    border-left: 2px dotted #00929544; 
+    width: 50px;
+    height: 50px;
+    animation: ${spinAnimation} 2s linear infinite;
+`;

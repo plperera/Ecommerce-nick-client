@@ -6,6 +6,8 @@ import ImageSelector from "../selector/ImageSelector";
 import { useCustomForm } from "../../../../hooks/useCustomForms";
 import { useEffect, useState } from "react";
 import { IoMdCloseCircle } from 'react-icons/io';
+import CategoryCreator from "../creator/CategoryCreator";
+import ImageCreator from "../creator/ImageCreator";
 
 export default function NewProduct () {
 
@@ -26,6 +28,7 @@ export default function NewProduct () {
     const [refreshImage, setRefreshImage] = useState(false)
     const [refreshCategory, setRefreshCategory] = useState(false)
     const [haveAllData, setHaveAllData] = useState(false)
+    const [ showCreate, setShowCreate ] = useState({showCategoryCreate: false, showImageCreate: false})
 
     useEffect(() => {
 
@@ -107,7 +110,15 @@ export default function NewProduct () {
                 </SubContainer>
             
                 <div>
-                    <h2>{"Selecione a(s) categorias"}</h2>
+                    <h2>
+                        {"Selecione a(s) categorias"}
+                        <CreateButton onClick={() => setShowCreate({...showCreate, [`showCategoryCreate`]: !showCreate.showCategoryCreate})}>
+                            {showCreate.showCategoryCreate ?("Minimizar"):("Criar nova")}
+                        </CreateButton>
+                    </h2>
+                    
+                    {showCreate.showCategoryCreate ?(<CategoryCreator/>):(<></>)}
+
                     <FilterContainer>
                         <input 
                             placeholder="Filtrar" 
@@ -116,15 +127,22 @@ export default function NewProduct () {
                             name={"categoryFilter"}
                         />
                         <FilterButtonContainer onClick={() => setRefreshCategory(!refreshCategory)}>{"Filtrar Images"}</FilterButtonContainer>
-                        <ClearFilterContainer onClick={() => ClearFilter("categoryFilter")}>{"X"}</ClearFilterContainer>
+                        {form?.categoryFilter?(<ClearFilterContainer onClick={() => ClearFilter("categoryFilter")}>{"X"}</ClearFilterContainer>):(<></>)}
                     </FilterContainer>
 
                     <CategorySelector filter={form.categoryFilter} refresh={refreshCategory}/>
                 </div>
 
-                <div>
-                    
-                    <h2 >{"Selecione a(s) imagens"}</h2>
+                <div>  
+                    <h2>
+                        {"Selecione a(s) imagens"}
+                        <CreateButton onClick={() => setShowCreate({...showCreate, [`showImageCreate`]: !showCreate.showImageCreate})}>
+                            {showCreate.showImageCreate ?("Minimizar"):("Criar nova")}
+                        </CreateButton>
+                    </h2>
+
+                    {showCreate.showImageCreate ?(<ImageCreator/>):(<></>)}
+
                     <FilterContainer>
                         <input 
                             placeholder="Filtrar" 
@@ -133,7 +151,7 @@ export default function NewProduct () {
                             name={"imageFilter"}
                         />
                         <FilterButtonContainer onClick={() => setRefreshImage(!refreshImage)}>{"Filtrar Images"}</FilterButtonContainer>
-                        <ClearFilterContainer onClick={() => ClearFilter("imageFilter")}>{"X"}</ClearFilterContainer>
+                        {form?.imageFilter?(<ClearFilterContainer onClick={() => ClearFilter("imageFilter")}>{"X"}</ClearFilterContainer>):(<></>)}
                     </FilterContainer>
                     
                     <ImageSelector filter={form.imageFilter} refresh={refreshImage}/>
@@ -180,6 +198,8 @@ const PaddingContainer = styled.div`
     h2 {
         padding: 1.5vh 0;
         font-size: 25px;
+        display: flex;
+        align-items: center;
     }
 `
 const ButtonStyle = styled.div`
@@ -309,4 +329,14 @@ const ClearFilterContainer = styled(IoMdCloseCircle)`
     font-size: 30px;
     color: #0A1F2A69;
     cursor: pointer; 
+`
+const CreateButton = styled.span`
+    background-color: #0A1F2A1C;
+    border-radius: 50px;
+    width: auto;
+    padding: 0.4vh 1vw;
+    font-size: 14px;
+    margin-left: 0.5vw;
+    cursor: pointer;
+    user-select: none;
 `
