@@ -172,6 +172,11 @@ const Container = styled.div`
         padding: 1.5vh 0;
         font-size: 25px;
     }
+    h1 {
+        font-size: 25px;
+        margin-bottom: 2vh;
+        font-weight: 600;
+    }
 `
 const TitleContainer = styled.div`
     width: 71.6vw;

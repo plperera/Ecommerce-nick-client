@@ -19,7 +19,7 @@ export default function AdminDashboard () {
                     }
                 } 
                 >
-                    {content?(content):(<>Menu Inicial</>)}
+                    {content?(content):(<IncialMenuContainer>Menu Inicial</IncialMenuContainer>)}
                 </ContentContainer>
 
             </DashboardLayout>
@@ -60,4 +60,14 @@ const ContentContainer = styled.div`
         background-color: #01989D;
         cursor: pointer;
     }
+`
+const IncialMenuContainer = styled.div`
+    display: flex;
+    align-items: self-start;
+    justify-content: center;
+    padding-top: 7vh;
+    height: 100%;
+    font-size: 80px;
+    font-weight: 700;
+    color: #DADADA;
 `

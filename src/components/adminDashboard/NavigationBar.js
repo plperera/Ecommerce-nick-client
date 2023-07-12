@@ -1,24 +1,44 @@
 import styled from "styled-components"
 import NavigationItem from "./NavigationItem";
 import NewProduct from "./content/products/NewProduct";
+import NewCategory from "./content/category/NewCategory";
+import NewImage from "./content/image/NewCategory";
 
 export default function NavigationBar ({expandNavigationBar, setContent}) {
     const options = [
-        {
-            name:"Outros",
-            options: [
-                {
-                    name:"Voltar ao dashboard inicial",
-                    content: false
-                }
-            ]
-        },
         {
             name:"Produtos",
             options: [
                 {
                     name:"Inserir Novo Produto",
                     content: <NewProduct/>
+                }
+            ]
+        },
+        {
+            name:"Categorias",
+            options: [
+                {
+                    name:"Inserir Nova Categoria",
+                    content: <NewCategory/>
+                }
+            ]
+        },
+        {
+            name:"Imagens",
+            options: [
+                {
+                    name:"Inserir Nova Imagem",
+                    content: <NewImage/>
+                }
+            ]
+        },
+        {
+            name:"Outros",
+            options: [
+                {
+                    name:"Voltar ao dashboard inicial",
+                    content: false
                 }
             ]
         },
