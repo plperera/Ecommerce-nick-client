@@ -1,11 +1,55 @@
-import styled from "styled-components"
+import styled, { keyframes } from "styled-components"
 import { useCustomForm } from "../../../../hooks/useCustomForms";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import api from "../../../../services/API";
 
-export default function CategoryCreator () {
+export default function CategoryCreator ({setRefresh, refresh}) {
 
     const [ form, handleForm ] = useCustomForm();
     const [haveAllData, setHaveAllData] = useState(false)
+    const [isLoading, setIsLoading] = useState(false);
+
+    async function sendForm(){
+
+        if(isLoading){
+            return
+        }
+
+        if(!form?.newCategory){
+            return toast.error("Verifique os valores")
+        }
+
+        setIsLoading(true)
+
+        const body = {
+            name: form?.newCategory
+        }
+
+        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyQWRtaW5JZCI6MSwiaWF0IjoxNjg3ODA2MTk0fQ.ygwuAdiC40MOZXAjsNEr-CGDH8FZaS0Sp9Gthtmb8Cg"
+        
+        try {           
+            const response = await api.CreateCategory({body, token})
+
+            if( response.status === 201){
+                setIsLoading(false)
+                SuccessRefresh()
+                toast.dark("Categoria criada com Sucesso !!")
+            }
+
+        } catch (error) {
+            console.log(error)
+            setIsLoading(false)
+            toast.error("Verifique os valores !!")
+        }         
+    }
+    
+    function SuccessRefresh(){
+        if(refresh === undefined){
+            return
+        }
+        setRefresh(!refresh)
+    }
 
     useEffect(() => {
 
@@ -26,12 +70,13 @@ export default function CategoryCreator () {
                 value={form.newCategory}
             />
             <ButtonStyled
-                background={haveAllData?("#0C72A5"):("#0624332A")}
+                background={!isLoading?("#0C72A5"):("#0624332A")}
                 color={haveAllData?("#FFFFFF"):("#1D1D1D")}
-                cursor={haveAllData?("pointer"):("not-allowed")}
+                cursor={!isLoading?("pointer"):("not-allowed")}
                 display={haveAllData?("flex"):("none")}
+                onClick={() => sendForm()}
             >
-                {"Criar"}
+                {isLoading ?(<Spinner />):("Criar")}
             </ButtonStyled>
         </Container>
     )
@@ -79,7 +124,7 @@ const InputStyled = styled.input`
 `
 const ButtonStyled = styled.div`
     width: auto;
-    padding: 0 1vw;
+    padding: 0 1.5vw;
     height: 30px;
     display: ${props => props.display};
     align-items: center;
@@ -92,3 +137,19 @@ const ButtonStyled = styled.div`
     font-weight: 600;
     cursor: ${props => props.cursor};
 `
+const spinAnimation = keyframes`
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+`;
+const Spinner = styled.div`
+  border-radius: 50px;
+
+  border-bottom: 2px dotted #00929544;
+  border-right: 2px dotted #00929544;
+  border-top: 4px ridge #009395;
+  border-left: 2px dotted #00929544; 
+  width: 22px;
+  height: 22px;
+  animation: ${spinAnimation} 2s linear infinite;
+  //background-color: red;
+`;

@@ -1,14 +1,10 @@
 import { useEffect, useState } from "react"
 import styled from "styled-components"
 
-export default function CategorySelector ({filter, refresh}) {
+export default function CategorySelector ({filter, refresh, categories}) {
 
     const [categoriesSelected, setCategoriesSelected] = useState([])
-    const [categories, setCategories] = useState([])
-    const fakeCategories = [];
-    for (var i = 1; i <= 20; i++) {
-        fakeCategories.push({id: i, name: "Categoria " + i});
-    }
+    const [filteredCategories, setFilteredCategories] = useState([])
 
     function selectCategory({name, id}){
         if( !categoriesSelected[`category${id}`] ){
@@ -18,28 +14,34 @@ export default function CategorySelector ({filter, refresh}) {
         }
     }
 
-    useEffect(() => {
-        console.log(filter, "cate")
+    function filterCategories(){
 
         if (!filter){
-            return setCategories(fakeCategories)
+            return setFilteredCategories(categories)
         }
         
-        const filteredCategories = fakeCategories.filter(e => e.name.toLowerCase().includes(filter.toLowerCase()))
-        setCategories(filteredCategories)
+        const filterResponse = categories.filter(e => e.name.toLowerCase().includes(filter.toLowerCase()))
+        setFilteredCategories(filterResponse)
+        return
+    }
 
+    useEffect(() => {
+        
+        filterCategories()
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [refresh])
 
     useEffect(() => {
         
-        setCategories(fakeCategories)
+        setFilteredCategories(categories)
 
-    }, [])
+    }, [categories])
 
     return(
         <Container>
-            {categories ? (
-                categories.map( e => 
+            {filteredCategories ? (
+                filteredCategories.map( e => 
 
                     <CategoryCard key={e.id} onClick={() => selectCategory(e)} isSelected={!!categoriesSelected[`category${e.id}`]}>
                         {e.name}

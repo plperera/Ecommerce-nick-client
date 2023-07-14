@@ -1,24 +1,81 @@
-import styled from "styled-components"
+import styled, { keyframes } from "styled-components"
 import { useCustomForm } from "../../../../hooks/useCustomForms";
 import { useEffect, useState } from "react";
 import { GrDocumentUpload } from 'react-icons/gr';
+import { toast } from "react-toastify";
+import api from "../../../../services/API";
+import FormData from 'form-data';
 
-export default function ImageCreator () {
+export default function ImageCreator ({setRefresh, refresh}) {
 
-    const [ form, handleForm ] = useCustomForm();
+    const [ form, handleForm, setForm ] = useCustomForm();
     const [haveAllData, setHaveAllData] = useState(false)
+    const [isLoading, setIsLoading] = useState(false);
+    const [imageFile, setImageFile] = useState(undefined);
+    
+    function ClearInputs(){
+        setImageFile(undefined)
+        setForm({[`imageName`]:""})
+    }
+    function SuccessRefresh(){
+        if(refresh === undefined){
+            return
+        }
+        setRefresh(!refresh)
+    }
+    function handleFileForm({ target: { files } }){
+        const file = files[0]
+
+        if(!file){
+            return
+        }
+
+        setImageFile(file)
+    }
+    async function sendForm(){
+
+        if(isLoading){
+            return
+        }
+
+        if(!form?.imageName && !imageFile){
+            return toast.error("Verifique os valores")
+        }
+
+        setIsLoading(true)
+
+        const formData = new FormData();
+        formData.append('name', form.imageName);
+        formData.append('imageFile', imageFile);
+
+        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyQWRtaW5JZCI6MSwiaWF0IjoxNjg3ODA2MTk0fQ.ygwuAdiC40MOZXAjsNEr-CGDH8FZaS0Sp9Gthtmb8Cg"
+        
+        try {           
+            const response = await api.CreateImage({token, formData})
+
+            if( response.status === 201){
+                setIsLoading(false)
+                toast.dark("Imagem enviada com Sucesso !!")
+                SuccessRefresh()
+                ClearInputs()
+            }
+
+        } catch (error) {
+            console.log(error)
+            setIsLoading(false)
+            toast.error("Verifique os valores ou contate o desenvolvedor")
+        }
+
+    }
 
     useEffect(() => {
-        console.log(form)
-        if(form?.imageName && form?.imageFile){
+        if(form?.imageName && imageFile){
             return setHaveAllData(true)
         }
         
         return setHaveAllData(false)
+    }, [form, imageFile])
 
-        
-
-    }, [form])
 
     return(
         <Container>
@@ -29,9 +86,9 @@ export default function ImageCreator () {
                 value={form.imageName}
                 border={form?.imageName?("#0B83BE"):("#02131B75")}
             />
-            <LabelStyled border={form?.imageFile?("#0B83BE"):("#02131B75")}>
+            <LabelStyled border={imageFile?("#0B83BE"):("#02131B75")}>
                 <FileInputStyled
-                    onChange={handleForm}
+                    onChange={handleFileForm}
                     placeholder="Insira um nome para a Categoria"
                     name="imageFile"
                     type="file"
@@ -42,12 +99,13 @@ export default function ImageCreator () {
             </LabelStyled>
             
             <ButtonStyled
-                background={haveAllData?("#0C72A5"):("#0624332A")}
+                background={!isLoading?("#0C72A5"):("#0624332A")}
                 color={haveAllData?("#FFFFFF"):("#1D1D1D")}
                 cursor={haveAllData?("pointer"):("not-allowed")}
                 display={haveAllData?("flex"):("none")}
+                onClick={() => sendForm()}
             >
-                {"Enviar"}
+                {isLoading ?(<Spinner />):("Enviar")}
             </ButtonStyled>
         </Container>
     )
@@ -118,7 +176,7 @@ const UploadIcon = styled(GrDocumentUpload)`
 `
 const ButtonStyled = styled.div`
     width: auto;
-    padding: 0 1vw;
+    padding: 0 1.5vw;
     height: 30px;
     display: ${props => props.display};
     align-items: center;
@@ -131,3 +189,19 @@ const ButtonStyled = styled.div`
     font-weight: 600;
     cursor: ${props => props.cursor};
 `
+const spinAnimation = keyframes`
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+`;
+const Spinner = styled.div`
+  border-radius: 50px;
+
+  border-bottom: 2px dotted #00929544;
+  border-right: 2px dotted #00929544;
+  border-top: 4px ridge #009395;
+  border-left: 2px dotted #00929544; 
+  width: 22px;
+  height: 22px;
+  animation: ${spinAnimation} 2s linear infinite;
+  //background-color: red;
+`;

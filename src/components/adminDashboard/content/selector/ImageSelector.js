@@ -1,23 +1,11 @@
 import { useEffect, useState } from "react"
 import styled, { keyframes } from "styled-components"
 
-export default function ImageSelector ({filter, refresh}) {
+export default function ImageSelector ({filter, refresh, images}) {
 
     const [imageSelected, setImageSelected] = useState([])
-    const [image, setImage] = useState([]);
+    const [filteredImage, setFilteredImage] = useState(undefined);
     const [isLoad, setIsLoad] = useState(true);
-
-    const ref = []
-
-    for (var i = 1; i <= 20; i++) {
-        ref.push({id: i, name: "Imagem " + i, imageUrl:"https://firebasestorage.googleapis.com/v0/b/imageuploads-7b8bc.appspot.com/o/maquina-teste-2.png?alt=media&token=349fc16f-9509-4a65-8019-bed809d93c7b"});
-    }
-
-    useEffect(() => {
-        
-        setImage(ref)
-
-    }, [])
 
     function selectImage({name, id}){
         if( !imageSelected[`image${id}`] ){
@@ -27,29 +15,39 @@ export default function ImageSelector ({filter, refresh}) {
         }
     }
 
-    useEffect(() => {
-        
+    function filterImages(){
 
         if (!filter){
-            console.log(filter)
-            return setImage(ref)
+            return setFilteredImage(images)
         }
+        const filterResponse = images.filter( e => e?.imageName?.toLowerCase().includes(filter.toLowerCase()))
+        setFilteredImage(filterResponse)
+        return
+    }
 
-        const filteredImages = ref.filter( e => e.name.toLowerCase().includes(filter.toLowerCase()))
-        setImage(filteredImages)
+    useEffect(() => {
+        
+        setFilteredImage(images)
 
+    }, [images])
+
+    useEffect(() => {
+        
+        filterImages()
+        
+    // eslint-disable-next-line react-hooks/exhaustive-deps   
     }, [refresh])
 
     
  
     return(
         <Container>
-            {image ? (
-                image.map( e => 
+            {filteredImage ? (
+                filteredImage.map( e => 
 
-                    <ImageCard key={e.id} onClick={() => selectImage(e)} isSelected={!!imageSelected[`image${e.id}`]}>
-                        <h3>{e.name}</h3>
-                        <img src={e.imageUrl} alt="" onLoad={() => setIsLoad({ ...isLoad, [e.id]: true })} key={e.id}/>
+                    <ImageCard key={e?.id} onClick={() => selectImage(e)} isSelected={!!imageSelected[`image${e?.id}`]}>
+                        <h3>{e?.imageName}</h3>
+                        <img src={e?.imageUrl} alt="" onLoad={() => setIsLoad({ ...isLoad, [e.id]: true })} key={e?.id}/>
                         {
                             isLoad[e.id] ? (<></>):(<Spinner/>)
                         }

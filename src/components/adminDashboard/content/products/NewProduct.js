@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { IoMdCloseCircle } from 'react-icons/io';
 import CategoryCreator from "../creator/CategoryCreator";
 import ImageCreator from "../creator/ImageCreator";
+import api from "../../../../services/API";
 
 export default function NewProduct () {
 
@@ -25,10 +26,31 @@ export default function NewProduct () {
     });
 
     const [ form, handleForm, setForm ] = useCustomForm();
-    const [refreshImage, setRefreshImage] = useState(false)
-    const [refreshCategory, setRefreshCategory] = useState(false)
-    const [haveAllData, setHaveAllData] = useState(false)
+    const [ refreshImage, setRefreshImage ] = useState(false)
+    const [ refreshCategory, setRefreshCategory ] = useState(false)
+    const [ getRefresh, setGetRefresh ] = useState(false)
+    const [ categories, setCategories ] = useState(false)
+    const [ images, setImages ] = useState(false)
+    const [ haveAllData, setHaveAllData ] = useState(false)
     const [ showCreate, setShowCreate ] = useState({showCategoryCreate: false, showImageCreate: false})
+
+    async function GetAllCategories(){
+        const response = await api.GetAllCategories()
+        setCategories(response.data)
+    }
+    async function GetAllImages({token}){
+        const response = await api.GetAllImages({token})
+        setImages(response.data)
+    }
+
+    useEffect(() => {
+
+        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyQWRtaW5JZCI6MSwiaWF0IjoxNjg3ODA2MTk0fQ.ygwuAdiC40MOZXAjsNEr-CGDH8FZaS0Sp9Gthtmb8Cg"
+
+        GetAllCategories()
+        GetAllImages({token})
+
+    }, [getRefresh])
 
     useEffect(() => {
 
@@ -117,7 +139,7 @@ export default function NewProduct () {
                         </CreateButton>
                     </h2>
                     
-                    {showCreate.showCategoryCreate ?(<CategoryCreator/>):(<></>)}
+                    {showCreate.showCategoryCreate ?(<CategoryCreator refresh={getRefresh} setRefresh={setGetRefresh}/>):(<></>)}
 
                     <FilterContainer>
                         <input 
@@ -130,7 +152,8 @@ export default function NewProduct () {
                         {form?.categoryFilter?(<ClearFilterContainer onClick={() => ClearFilter("categoryFilter")}>{"X"}</ClearFilterContainer>):(<></>)}
                     </FilterContainer>
 
-                    <CategorySelector filter={form.categoryFilter} refresh={refreshCategory}/>
+                    {categories?(<CategorySelector filter={form.categoryFilter} refresh={refreshCategory} categories={categories}/>):(<></>)}
+                    
                 </div>
 
                 <div>  
@@ -141,7 +164,7 @@ export default function NewProduct () {
                         </CreateButton>
                     </h2>
 
-                    {showCreate.showImageCreate ?(<ImageCreator/>):(<></>)}
+                    {showCreate.showImageCreate ?(<ImageCreator refresh={getRefresh} setRefresh={setGetRefresh}/>):(<></>)}
 
                     <FilterContainer>
                         <input 
@@ -154,7 +177,7 @@ export default function NewProduct () {
                         {form?.imageFilter?(<ClearFilterContainer onClick={() => ClearFilter("imageFilter")}>{"X"}</ClearFilterContainer>):(<></>)}
                     </FilterContainer>
                     
-                    <ImageSelector filter={form.imageFilter} refresh={refreshImage}/>
+                    {images?(<ImageSelector filter={form.imageFilter} refresh={refreshImage} images={images}/>):(<></>)}
                 </div>
             </PaddingContainer>
         </Container>
@@ -176,6 +199,7 @@ const Container = styled.div`
         font-size: 25px;
         margin-bottom: 2vh;
         font-weight: 600;
+        padding-top: 1.4vh;
     }
 `
 const TitleContainer = styled.div`
@@ -189,7 +213,7 @@ const TitleContainer = styled.div`
     justify-content: space-between;
     background-color: #FFFFFF;
     position: fixed;
-    z-index: 9999;
+    z-index: 2;
 `
 const PaddingContainer = styled.div`
     display: flex;
