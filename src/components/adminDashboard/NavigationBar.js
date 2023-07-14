@@ -1,8 +1,9 @@
 import styled from "styled-components"
 import NavigationItem from "./NavigationItem";
-import NewProduct from "./content/products/NewProduct";
+
 import NewCategory from "./content/category/NewCategory";
 import NewImage from "./content/image/NewCategory";
+import NewProduct from "./content/products/NewProduct/NewProduct";
 
 export default function NavigationBar ({expandNavigationBar, setContent}) {
     const options = [

@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react"
 import styled from "styled-components"
 
-export default function CategorySelector ({filter, refresh, categories}) {
+export default function CategorySelector ({filter, refresh, categories, setForm, form}) {
 
     const [categoriesSelected, setCategoriesSelected] = useState([])
     const [filteredCategories, setFilteredCategories] = useState([])
 
-    function selectCategory({name, id}){
+    function selectCategory({id}){
         if( !categoriesSelected[`category${id}`] ){
-            setCategoriesSelected({...categoriesSelected, [`category${id}`]: name})
+            setCategoriesSelected({...categoriesSelected, [`category${id}`]: id})
         } else {
             setCategoriesSelected({...categoriesSelected, [`category${id}`]: undefined})
         }
@@ -37,6 +37,19 @@ export default function CategorySelector ({filter, refresh, categories}) {
         setFilteredCategories(categories)
 
     }, [categories])
+
+    useEffect(() => {
+
+        const bodyFormat = Object.entries(categoriesSelected).reduce((acc, [key, value]) => {
+            if(value !== undefined) {
+              acc.push({imageId: value});
+            }
+            return acc;
+          }, []);
+        
+        setForm({...form, "categories": bodyFormat})
+
+    }, [categoriesSelected])
 
     return(
         <Container>

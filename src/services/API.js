@@ -13,6 +13,9 @@ function CreateCategory({body, token}) {
 function CreateImage({formData, token}) {
     return axios.post(`${BASE_URL}/image/admin`, formData, {headers: { Authorization: `Bearer ${token}`}});
 }
+function CreateProduct({body, token}) {
+    return axios.post(`${BASE_URL}/product/admin`, body, {headers: { Authorization: `Bearer ${token}`}});
+}
 
 
 
@@ -20,7 +23,8 @@ const api = {
     GetAllCategories,
     GetAllImages,
     CreateCategory,
-    CreateImage
+    CreateImage,
+    CreateProduct
 };
 
 export default api;
