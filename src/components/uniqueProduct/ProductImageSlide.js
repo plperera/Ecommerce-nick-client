@@ -15,20 +15,21 @@ export default function ProductImageSlide ({imageArray}) {
     return(
         <Container>
             <LeftArrowContainer>
-                <LeftArrowIcon onClick={() => ChangeSlide()}/>
+                {imageArray.length > 1 && <LeftArrowIcon onClick={() => ChangeSlide()}/>}
+                
             </LeftArrowContainer>
 
             {isLoading && <Spinner />}
 
             <img 
-                src={imageArray[slide]?.imageURL} 
+                src={imageArray[slide]?.imageUrl} 
                 alt="" 
                 onLoad={() => setIsLoading(false)} 
                 style={{ display: isLoading ? "none" : "block" }}
             />
 
             <RightArrowContainer>
-                <RightArrowIcon onClick={() => ChangeSlide()}/>
+                {imageArray.length > 1 && <RightArrowIcon onClick={() => ChangeSlide()}/>}
             </RightArrowContainer>
         </Container>
     )

@@ -55,7 +55,7 @@ export default function AllProducts () {
     return(
         <Container>
             <Filter categories={categories} selectOption={selectOption} selected={selected}/>
-            <Content products={products}/>
+            <Content products={filterContent}/>
         </Container>
     )
 }

@@ -32,4 +32,5 @@ const Container = styled.div`
     font-size: 14px;
     font-weight: ${props => props.fontWeight};
     cursor: pointer;
+    user-select: none;
 `

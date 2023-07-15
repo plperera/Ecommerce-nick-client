@@ -10,6 +10,12 @@ function GetAllImages({token}) {
 function GetAllProducts() {
     return axios.get(`${BASE_URL}/product`)
 }
+function GetAllProductsByCategory(categoryId) {
+    return axios.get(`${BASE_URL}/product/category/${categoryId}`)
+}
+function GetUniqueProductByName(name) {
+    return axios.get(`${BASE_URL}/product/unique/name/${name}`)
+}
 function CreateCategory({body, token}) {
     return axios.post(`${BASE_URL}/category/admin`, body, {headers: { Authorization: `Bearer ${token}`}})
 }
@@ -25,6 +31,8 @@ function CreateProduct({body, token}) {
 const api = {
     GetAllCategories,
     GetAllImages,
+    GetAllProductsByCategory,
+    GetUniqueProductByName,
     CreateCategory,
     CreateImage,
     CreateProduct,

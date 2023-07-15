@@ -4,7 +4,10 @@ import ContentProductCard from "../products/ContentProductCard"
 export default function MoreProducts({productsData}) {
 
     return(
-        <Container>
+        <>
+        {
+        (productsData && productsData?.length > 0) ? (
+            <Container>
 
             <Title>
                 <h1>{"Mais Produtos"}</h1>
@@ -12,13 +15,19 @@ export default function MoreProducts({productsData}) {
 
             <ProductOptions>
                 {
-                    productsData?.length > 0 ? (
+                    (productsData?.length > 0 && productsData) ? (
                         productsData.map((e, i) => <ContentProductCard key={i} productData={e}/>)
                     ):(<></>)
                 }
             </ProductOptions>
 
-        </Container>
+            </Container>
+        ):(<></>) 
+            
+        }
+        </>
+        
+        
     )
 }
 

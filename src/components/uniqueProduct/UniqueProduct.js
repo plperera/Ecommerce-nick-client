@@ -5,40 +5,46 @@ export default function UniqueProduct ({product}) {
     return(
         <Container>
             <ProductContainer>
+
+                {product ? (
+                <>
+                    <LeftSideContainer>
+
+                        <MainCategory>{product?.categories[0]?.name}</MainCategory>
+                        <ProductName>{product.name.toUpperCase()}</ProductName>
+                        {
+                            product?.highPrice ? (
+                                <div>
+                                    <HighPrice>
+                                        {"De:"} <PriceSign>{"R$ "}</PriceSign><span>{ (product.highPrice / 100).toLocaleString('pt-BR') + ",00" }</span>
+                                    </HighPrice>
+                                    <LowPrice>
+                                        Por: <PriceSign>{"R$ "}</PriceSign><span>{ (product.price / 100).toLocaleString('pt-BR') + ",00" }</span>
+                                    </LowPrice>
+                                </div>
+                            ):(
+                                <>
+                                    <LowPrice>
+                                        <PriceSign>{"R$ "}</PriceSign><span>{ (product.price / 100).toLocaleString('pt-BR') + ",00" }</span>
+                                    </LowPrice>
+                                </>
+                            )
+                        }
+                        <ButtonContainer>
+                            <ButtonStyle>
+                                {"Comprar"}
+                            </ButtonStyle>
+                        </ButtonContainer>
+
+                    </LeftSideContainer>
+
+                    <RightSideContainer>
+                        <ProductImageSlide imageArray={product?.images}/>
+                    </RightSideContainer> 
+                </>
+                ):(<>Carregando...</>)}
                 
-                <LeftSideContainer>
-
-                    <MainCategory>{product.mainCategory}</MainCategory>
-                    <ProductName>{product.name.toUpperCase()}</ProductName>
-                    {
-                        product?.highPrice ? (
-                            <div>
-                                <HighPrice>
-                                    {"De:"} <PriceSign>{"R$ "}</PriceSign><span>{ (product.highPrice / 100).toLocaleString('pt-BR') + ",00" }</span>
-                                </HighPrice>
-                                <LowPrice>
-                                    Por: <PriceSign>{"R$ "}</PriceSign><span>{ (product.price / 100).toLocaleString('pt-BR') + ",00" }</span>
-                                </LowPrice>
-                            </div>
-                        ):(
-                            <>
-                                <LowPrice>
-                                    <PriceSign>{"R$ "}</PriceSign><span>{ (product.price / 100).toLocaleString('pt-BR') + ",00" }</span>
-                                </LowPrice>
-                            </>
-                        )
-                    }
-                    <ButtonContainer>
-                        <ButtonStyle>
-                            {"Comprar"}
-                        </ButtonStyle>
-                    </ButtonContainer>
-
-                </LeftSideContainer>
-
-                <RightSideContainer>
-                    <ProductImageSlide imageArray={product?.imageArray}/>
-                </RightSideContainer> 
+                
 
             </ProductContainer>
         </Container>
