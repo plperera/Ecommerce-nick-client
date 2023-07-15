@@ -1,8 +1,10 @@
-import styled from "styled-components"
-import produto01 from "../../assets/images/produto-em-destaque01.png"
+import styled, { keyframes } from "styled-components"
 import useNavigateAndMoveUp from "../../hooks/useNavigateAndMoveUp";
+import { useState } from "react";
 
-export default function ProductCard () {
+export default function ProductCard ({product}) {
+
+    const [isLoading, setIsLoading] = useState(true);
 
     const navigateAndMoveUp = useNavigateAndMoveUp();
 
@@ -16,11 +18,13 @@ export default function ProductCard () {
 
             <BottomContainer  onClick={() => navigateAndMoveUp({locate: "produto/NOVASI400"})}>
                 <ImageContainer>
-                    <img src={produto01} alt=""/>
+                    {isLoading && <Spinner />}
+                    <img src={product?.images[0]?.imageUrl} alt="" onLoad={() => setIsLoading(false)} style={{ display: isLoading ? "none" : "block" }}/>
                 </ImageContainer>
-                <Title>NOVA SI 400</Title>
-                <Description>Serra circular com serra inclinável com desempenho profissional para uma alta qualidade.</Description>
-                <Price>R$ 20.000,00</Price>
+                <Title>{product.name}</Title>
+                <Price>
+                    {product.price}
+                </Price>
                 <ButtonStyle>Comprar</ButtonStyle>
             </BottomContainer>
         </Container>
@@ -126,3 +130,19 @@ const ButtonStyle = styled.div`
         background-color: #01B0B3;
     }
 `
+const spinAnimation = keyframes`
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+`;
+
+const Spinner = styled.div`
+  border-radius: 50px;
+
+  border-bottom: 2px dotted #00929544;
+  border-right: 2px dotted #00929544;
+  border-top: 4px ridge #009395;
+  border-left: 2px dotted #00929544; 
+  width: 50px;
+  height: 50px;
+  animation: ${spinAnimation} 2s linear infinite;
+`;

@@ -2,14 +2,29 @@ import styled from "styled-components"
 import BannerHome from "../../components/home/BannerHome"
 import CategoriesHome from "../../components/home/CategoriesHome"
 import HighlightsHome from "../../components/home/HighlightsHome"
+import api from "../../services/API"
+import { useState } from "react"
+import { useEffect } from "react"
 
 export default function Home () {
+
+    const [products, setProducts] = useState(undefined)
+
+    async function GetAllProducts(){
+        const response = await api.GetAllProducts()
+        setProducts(response.data)
+    }
+
+    useEffect(() => {
+        GetAllProducts()
+        
+    },[])
 
     return(
         <Container>
             <BannerHome/>
             <CategoriesHome/>
-            <HighlightsHome/>
+            <HighlightsHome products={products}/>
         </Container>
     )
 }

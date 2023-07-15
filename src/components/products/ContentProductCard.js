@@ -33,7 +33,7 @@ export default function ContentProductCard ({ productData }) {
                     {isLoading && <Spinner />}
 
                     <img 
-                        src={productData.image[0].imageUrl} alt={""}
+                        src={productData?.images[0]?.imageUrl} alt={""}
                         onLoad={() => setIsLoading(false)} 
                         style={{ display: isLoading ? "none" : "block" }}
                     />
@@ -47,16 +47,16 @@ export default function ContentProductCard ({ productData }) {
                         productData?.highPrice ? (
                             <>
                                 <HighPrice>
-                                    {"De:"} <span>{"R$ "}</span><span>{ (productData.highPrice / 100).toLocaleString('pt-BR') + ",00" }</span>
+                                    {"De:"} <span>{"R$ "}</span><span>{ (productData.highPrice / 100).toLocaleString('pt-BR')}</span>
                                 </HighPrice>
                                 <LowPrice>
-                                    Por: <PriceSign>{"R$ "}</PriceSign><span>{ (productData.price / 100).toLocaleString('pt-BR') + ",00" }</span>
+                                    Por: <PriceSign>{"R$ "}</PriceSign><span>{ (productData.price / 100).toLocaleString('pt-BR')}</span>
                                 </LowPrice>
                             </>
                         ):(
                             <>
                                 <LowPrice>
-                                    <PriceSign>{"R$ "}</PriceSign><span>{ (productData.price / 100).toLocaleString('pt-BR') + ",00" }</span>
+                                    <PriceSign>{"R$ "}</PriceSign><span>{ (productData.price / 100).toLocaleString('pt-BR')}</span>
                                 </LowPrice>
                             </>
                         )

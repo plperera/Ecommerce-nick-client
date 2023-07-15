@@ -7,6 +7,9 @@ function GetAllCategories() {
 function GetAllImages({token}) {
     return axios.get(`${BASE_URL}/image/admin`, {headers: { Authorization: `Bearer ${token}`}})
 }
+function GetAllProducts() {
+    return axios.get(`${BASE_URL}/product`)
+}
 function CreateCategory({body, token}) {
     return axios.post(`${BASE_URL}/category/admin`, body, {headers: { Authorization: `Bearer ${token}`}})
 }
@@ -24,7 +27,8 @@ const api = {
     GetAllImages,
     CreateCategory,
     CreateImage,
-    CreateProduct
+    CreateProduct,
+    GetAllProducts
 };
 
 export default api;

@@ -1,22 +1,35 @@
+import { useEffect } from "react"
 import styled from "styled-components"
 
-export default function FilterOptionCard ({ name }) {
+export default function FilterOptionCard ({ name, selected, selectOption }) {
+
+    useEffect(() => { console.log(selected)}, [selected])
 
     return(
-        <Container>
+        <Container 
+            onClick={() => selectOption(name)} 
+            border={(selected === name) ? ("3px solid #009395ff;"):("none")} 
+            background={(selected === name) ? ("#44575F;"):("#283338")}
+            fontWeight={(selected === name) ? ("600"):("initial")}
+        >
             {name}
         </Container>
     )
 }
 
 const Container = styled.div`
-    width: 7.8865vw;
+    padding: 4px 6px;
+    width: calc(17.1695vw - (1.2vw * 6));
     height: 5vh;
     color: #FFFFFF;
-    background-color: #283338;
+    background-color: ${props => props.background};
+    border: ${props => props.border};
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
     border-radius: 5px;
+    font-size: 14px;
+    font-weight: ${props => props.fontWeight};
     cursor: pointer;
 `

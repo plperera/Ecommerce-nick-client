@@ -77,7 +77,7 @@ export default function NewProduct () {
             if( response.status === 201){
                 //setIsLoading(false)
                 //SuccessRefresh()
-                toast.dark("Categoria criada com Sucesso !!")
+                toast.dark("Produto criado com Sucesso !!")
             }
 
         } catch (error) {

@@ -134,6 +134,8 @@ const SlideArrow = styled.div`
     align-items: center;
     justify-content: center;
     font-size: 25px;
+    cursor: pointer;;
+    user-select: none;
 `;
 const LeftSlideArrow = styled(SlideArrow)`
     width: 50px;

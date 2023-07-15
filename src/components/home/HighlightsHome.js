@@ -1,16 +1,13 @@
-import styled from "styled-components"
+import styled, { keyframes } from "styled-components"
 import Background from "../../assets/images/background-produtos-em-alta.png"
-import ProductCard from "./ProductCard"
+import ContentProductCard from "../products/ContentProductCard"
 
-export default function CategoriesHome () {
-
+export default function CategoriesHome ({products}) {
     return(
         <Container backgroundImage={Background}>
             <Title>Produtos em destaque</Title>
             <ProductOptions>
-                <ProductCard/>
-                <ProductCard/>
-                <ProductCard/>
+                {products ? (products?.map((e, i) => <ContentProductCard productData={e} key={i}/>)):(<Spinner/>)}
             </ProductOptions>
         </Container>
     )
@@ -53,3 +50,20 @@ const ProductOptions = styled.div`
     justify-content: center;
     gap: 3vw;
 `
+const spinAnimation = keyframes`
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+`;
+
+const Spinner = styled.div`
+  border-radius: 50px;
+
+  border-bottom: 2px dotted #00929544;
+  border-right: 2px dotted #00929544;
+  border-top: 4px ridge #009395;
+  border-left: 2px dotted #00929544; 
+  width: 70px;
+  height: 70px;
+  animation: ${spinAnimation} 2s linear infinite;
+  //background-color: red;
+`;

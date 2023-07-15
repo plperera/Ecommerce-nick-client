@@ -1,44 +1,43 @@
-import styled from "styled-components"
+import styled, { keyframes } from "styled-components"
 import FilterOptionCard from "./FilterOptionCard"
-import useNavigateAndMoveUp from "../../hooks/useNavigateAndMoveUp";
+import { useState } from "react";
+import { IoMdCloseCircle } from 'react-icons/io';
 
-export default function Filter ({categories, selected, setSelected}) {
+export default function Filter ({categories, selected, selectOption}) {
 
-    const navigateAndMoveUp = useNavigateAndMoveUp();
-
-    function RefreshValue(){
-        
-        setSelected(undefined)
-
-        navigateAndMoveUp({ locate: "catalogo"})
-        
-    }
+    const [ expandFilter, setExpandFilter ] = useState(false)
 
     return(
         <Container>
-            {selected?(
-                <>
-                    <Title>{selected.toUpperCase()}</Title>
-                    <ButtonStyle onClick={() => RefreshValue()}>Ver o catálogo completo</ButtonStyle>
-                </>
-            ):(
-                <>
-                    <Title>{"Todos os Produtos"}</Title>
-                    <SubContainer>
-                        <SubTitle>Selecione um filtro</SubTitle>
+                
+            <Title>
+                {selected?(selected):("Todos os Produtos")}
+                {selected?(<ClearFilterContainer onClick={() => selectOption(selected)}>{"X"}</ClearFilterContainer>):(<></>)}
+            </Title>
+            
 
-                        <OptionsContainer>
+            <SubContainer>
 
-                            {
-                                categories.map( (e, i) => <FilterOptionCard name={e.name} key={i}/>)
-                            }  
+                <UpperContainer>
+                    <SubTitle>Selecione um filtro</SubTitle>
+                    <ExpandButton onClick={ () => setExpandFilter(!expandFilter)}>{ expandFilter ? ("Minimizar"):("Ver Todas")}</ExpandButton>
+                </UpperContainer>
 
-                        </OptionsContainer>
+                <OptionsContainer>
 
-                    </SubContainer>
-                </>
-            )
-        }
+                    {categories?(
+
+                        categories.map( (e, i) => 
+                            i < (expandFilter ? (99):(7)) && <FilterOptionCard name={e?.name} key={i} selected={selected} selectOption={selectOption}/>
+                        )
+
+                    ):(<SpinnerContainer><Spinner/></SpinnerContainer>)}
+
+                </OptionsContainer>
+
+            </SubContainer>
+                
+
         </Container>
     )
 }
@@ -51,7 +50,6 @@ const Container = styled.div`
 `
 const Title = styled.div`
     font-size: 38px;
-    height: 5vh;
     display: flex; 
     align-items: center;
     justify-content: left;
@@ -59,27 +57,26 @@ const Title = styled.div`
 `
 const SubContainer = styled.div`
     width: 100%;
-    height: 15vh;
     border-radius: 5px;
     background-color: #00000042;
     margin-top: 2vh;
-    padding: 1.5vh 1vw;
+    padding: 2vh 1vw;
 `
 const SubTitle = styled.div`
-    font-size: 18px;
+    font-weight: 700;
+    font-size: 19px;
     color: #ffffff;
-    height: 3vh;
     display: flex; 
     align-items: center;
     justify-content: left;
 `
 const OptionsContainer = styled.div`
     width: 100%;
-    min-height: 9vh;
     display: flex;
-    align-items: center;
+    align-items: start;
     justify-content: left;
-    column-gap: 2vw;
+    column-gap: 1.2vw;
+    row-gap: 1vh;
     flex-wrap: wrap;
 `
 const ButtonStyle = styled.div`
@@ -110,4 +107,60 @@ const ButtonStyle = styled.div`
         margin-top: 2.5vh;
         //width: 19vw;  
     }
+`
+const spinAnimation = keyframes`
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+`;
+
+const Spinner = styled.div`
+  border-radius: 50px;
+
+  border-bottom: 2px dotted #00929544;
+  border-right: 2px dotted #00929544;
+  border-top: 4px ridge #009395;
+  border-left: 2px dotted #00929544; 
+  width: 50px;
+  height: 50px;
+  animation: ${spinAnimation} 2s linear infinite;
+  //background-color: red;
+`;
+const SpinnerContainer = styled.div`
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    width: 100%;
+`
+const UpperContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding-bottom: 2vh;
+`
+const ExpandButton = styled.div`
+    padding: 0 1.7vw;
+    height: 4vh;
+    background-color: #009395;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 19px;
+    color: #FFFFFF;
+    user-select: none;
+    cursor: pointer;
+`
+const ClearFilterContainer = styled(IoMdCloseCircle)`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 24px;
+    color: #FFFFFFE7;
+    border: 2px solid #FFFFFF25;
+    border-radius: 50px;
+    margin-left: 0.5vw;
+    cursor: pointer; 
 `

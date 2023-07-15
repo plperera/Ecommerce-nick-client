@@ -42,7 +42,7 @@ export default function CategorySelector ({filter, refresh, categories, setForm,
 
         const bodyFormat = Object.entries(categoriesSelected).reduce((acc, [key, value]) => {
             if(value !== undefined) {
-              acc.push({imageId: value});
+              acc.push({categoryId: value});
             }
             return acc;
           }, []);
