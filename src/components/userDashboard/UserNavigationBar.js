@@ -11,16 +11,16 @@ export default function UserNavigationBar ({setContent, content, userData}) {
 
     const options = [
         {
+            name:"Meus Dados",
+            ref: <UserData/>
+        },
+        {
             name:"Últimos Pedidos",
             ref: <Orders/>
         },
         {
             name:"Favoritos",
             ref: <Favorites/>
-        },
-        {
-            name:"Meus Dados",
-            ref: <UserData/>
         },
         {
             name:"Meus Endereços",

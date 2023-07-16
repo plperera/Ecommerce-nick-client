@@ -41,7 +41,9 @@ const DashboardLayout = styled.div`
 const ContentContainer = styled.div`
     height: 100%;
     width: 93%;
+    border-radius: 15px;
     overflow-y: scroll;
+    background-color: #FFFFFF;
     &::-webkit-scrollbar {
         width: 7px;
         background-color: #1D1D1D00;
