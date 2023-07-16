@@ -1,10 +1,15 @@
 import styled from "styled-components"
 import Login from "../../components/auth/Login"
+import SignUp from "../../components/auth/SignUp"
+import { useState } from "react"
 
 export default function Auth () {
+
+    const [hasLogin, setHasLogin] = useState(true)
+
     return(
         <Container>
-            <Login/>
+            {hasLogin ? (<Login setHasLogin={setHasLogin}/>):(<SignUp setHasLogin={setHasLogin}/>)}
         </Container>
     )
 }

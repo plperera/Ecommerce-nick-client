@@ -6,7 +6,6 @@ import CartMenu from "./CartMenu";
 import AccountMenu from "./AccountMenu";
 import useNavigateAndMoveUp from "../../hooks/useNavigateAndMoveUp";
 
-
 export default function Menu () {
 
     const navigateAndMoveUp = useNavigateAndMoveUp();

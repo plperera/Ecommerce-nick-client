@@ -8,7 +8,8 @@ import NotFound from "./pages/notFound/NotFound"
 import UniqueProduct from "./pages/uniqueProduct/UniqueProduct"
 import Auth from "./pages/auth/Auth"
 import AdminDashboard from "./pages/adminDashboard/AdminDashboard"
-
+import { UserProvider } from './context/UserContext';
+import UserAccount from "./pages/userAccount/UserAccount"
 
 export default function App (){
  
@@ -26,19 +27,22 @@ export default function App (){
             pauseOnHover
             theme="dark"
             />
-            <BrowserRouter>
-                <Menu/>
-                <Routes>
-                    <Route path="/" element={<Home/>} />
-                    <Route path="/catalogo/:categoryName" element={<AllProducts />} />
-                    <Route path="/catalogo" element={<AllProducts />} />
-                    <Route path="/produto/:productName" element={<UniqueProduct />} />
-                    <Route path="/auth" element={<Auth />} />
-                    <Route path="/admin/dashboard" element={<AdminDashboard />} />
-                    <Route path="*" element={<NotFound />} />
-                </Routes>
-                <Footer/>
-            </BrowserRouter>
+            <UserProvider>
+                <BrowserRouter>
+                    <Menu/>
+                    <Routes>
+                        <Route path="/" element={<Home/>} />
+                        <Route path="/catalogo/:categoryName" element={<AllProducts />} />
+                        <Route path="/catalogo" element={<AllProducts />} />
+                        <Route path="/produto/:productName" element={<UniqueProduct />} />
+                        <Route path="/auth" element={<Auth />} />
+                        <Route path="/minha-conta" element={<UserAccount />} />
+                        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+                        <Route path="*" element={<NotFound />} />
+                    </Routes>
+                    <Footer/>
+                </BrowserRouter>
+            </UserProvider>
 
         </>
     )

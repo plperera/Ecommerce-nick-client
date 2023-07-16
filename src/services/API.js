@@ -25,7 +25,12 @@ function CreateImage({formData, token}) {
 function CreateProduct({body, token}) {
     return axios.post(`${BASE_URL}/product/admin`, body, {headers: { Authorization: `Bearer ${token}`}});
 }
-
+function CreateAccount(body) {
+    return axios.post(`${BASE_URL}/auth/sign-up`, body);
+}
+function CreateSession(body) {
+    return axios.post(`${BASE_URL}/auth/sign-in`, body);
+}
 
 
 const api = {
@@ -36,6 +41,8 @@ const api = {
     CreateCategory,
     CreateImage,
     CreateProduct,
+    CreateAccount,
+    CreateSession,
     GetAllProducts
 };
 

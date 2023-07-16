@@ -1,41 +1,45 @@
 import styled from "styled-components"
 import logo from "../../assets/images/logoAuth/logo.png"
-import { useCustomForm } from "../../hooks/useCustomForms"
-import { toast } from "react-toastify"
-import api from "../../services/API"
-import UserContext from "../../context/UserContext"
-import { useContext } from "react"
-import useNavigateAndMoveUp from "../../hooks/useNavigateAndMoveUp"
+import { useState } from "react"
+import { AiFillCheckSquare, AiOutlineBorder } from 'react-icons/ai';
+import { useCustomForm } from "../../hooks/useCustomForms";
+import api from "../../services/API";
+import { toast } from "react-toastify";
 
-export default function Login ({ setHasLogin }) {
-
+export default function SignUp ({ setHasLogin }) {
+    const [checkBox, setCheckBox] = useState(false)
     const [form, handleForm] = useCustomForm()
-    const { setUserData } = useContext(UserContext);
-    const navigateAndMoveUp = useNavigateAndMoveUp();
 
     async function SubmitForms(){
 
-        if (!form.email|| !form.password){
+        if (!form.email || !form.name || !form.password || !form.passwordVerify){
             return toast.error("Preencha todos os Campos")
+        }
+        if (form.password !== form.passwordVerify){
+            return toast.error("As Senhas devem ser Iguais")
+        }
+        if (!checkBox){
+            return toast.error("Confirme os termos de Privacidade para Criar sua conta")
         }
 
         const body = {
             email: form.email,
-            password: form.password
+            name: form.name,
+            password: form.password,
+            passwordVerify: form.passwordVerify
         }
 
         console.log(body)
 
         try {           
-            const response = await api.CreateSession(body)
-
-            if( response.status === 200){
+            const response = await api.CreateAccount(body)
+            
+            if( response.status === 201){
                 //setIsLoading(false)
                 //SuccessRefresh()
-                setUserData(response.data)
-                toast.dark("Login realizado com sucesso!")
+                console.log(response)
+                toast.dark("Conta Criada com Sucesso")
                 setTimeout(() => setHasLogin(true), 1500)
-                navigateAndMoveUp({locate: "minha-conta"})
             }
 
         } catch (error) {
@@ -50,6 +54,16 @@ export default function Login ({ setHasLogin }) {
             <img src={logo} alt="Nick Te Ajuda"/>
 
             <UserActionsContainer>
+                <InputContainer>
+                    <label>{"Nome"}</label>
+                    <input 
+                        name="name"
+                        placeholder="Nome"
+                        value={form.name}
+                        onChange={handleForm}
+                    />
+                </InputContainer>
+
                 <InputContainer>
                     <label>{"Email"}</label>
                     <input
@@ -70,15 +84,28 @@ export default function Login ({ setHasLogin }) {
                     />
                 </InputContainer>
 
-                <OptionsContainer>
-                    <span>{"Esqueceu a senha?"}</span>
-                    <span>{"Termo de Privacidade"}</span>
-                </OptionsContainer>
+                <InputContainer>
+                    <label>{"Confirme sua Senha"}</label>
+                    <input
+                        name="passwordVerify"
+                        placeholder="Repita a mesma senha"
+                        value={form.passwordVerify}
+                        onChange={handleForm}
+                    />
+                </InputContainer>
+
+                <CheckBoxContainer>
+                    <CheckBoxInput onClick={() => setCheckBox(!checkBox)} background={checkBox?("#171717"):("#17171700")}>{checkBox?(<CheckBoxIcon/>):(<UnCheckBoxIcon/>)}</CheckBoxInput>
+                    <div>
+                        <span>{"Concordo com os "} <CheckBoxSpanButton>{"Termos de Privacidade"}</CheckBoxSpanButton></span>
+                    </div>
+                </CheckBoxContainer>
+
             </UserActionsContainer>
 
             <ButtonsContainer>
-                <ButtonStyle onClick={() => SubmitForms()}>{"Entrar"}</ButtonStyle>
-                <NewAccountButtonStyle onClick={() => setHasLogin(false)}>{"Criar uma Conta"}</NewAccountButtonStyle>
+                <ButtonStyle onClick={() => SubmitForms()}>{"Criar Conta"}</ButtonStyle>
+                <NewAccountButtonStyle onClick={() => setHasLogin(true)}>{"Ja tenho uma Conta"}</NewAccountButtonStyle>
             </ButtonsContainer>
            
         </Container>
@@ -93,8 +120,8 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 8vh;
-    row-gap: 5vh;
+    padding-top: 3vh;
+    row-gap: 2vh;
     img {
         max-height: 70px;
         max-width: 60%;
@@ -104,10 +131,10 @@ const InputContainer = styled.div`
     display: flex;
     flex-direction: column;
     input {
-        margin-top: 1vh;
-        margin-bottom: 1vh;
-        height: 42px;
-        width: 416px;
+        margin-top: 0.4vh;
+        margin-bottom: 0.8vh;
+        height: 37px;
+        width: 410px;
         text-decoration: none;
         opacity: 1;
         border: none;
@@ -123,7 +150,7 @@ const InputContainer = styled.div`
         font-weight: 600;
 
         ::placeholder{
-            color: #E6E4FF;
+            color: #1717172C;
             opacity: 1;
         }
         :focus {
@@ -135,16 +162,41 @@ const InputContainer = styled.div`
         font-size: 18px;
         color: #02131B;
         font-weight: 500;
-        margin-top: 16px;
+        margin-top: 1.4vh;
     }
 `
-const OptionsContainer = styled.div`
+const CheckBoxContainer = styled.div`
     display: flex;
-    justify-content: space-between;
-    span {
-        font-size: 14px;
-        font-weight: 600;
+    align-items: center;
+    justify-content: left;
+    margin-top: 1vh;
+    span { 
+        font-size: 16px;
+        color: #02131B;
+        font-weight: 500;
+        margin-top: 1.4vh;
     }
+`
+const CheckBoxIcon = styled(AiFillCheckSquare)`
+    font-size: 30px;
+`
+const UnCheckBoxIcon = styled(AiOutlineBorder)`
+    font-size: 30px;
+`
+const CheckBoxInput = styled.div`
+    width: 28px;
+    height: 28px;
+    border-radius: 5px;
+    margin-right: 0.4vw;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+`
+const CheckBoxSpanButton = styled.span`
+    text-decoration: underline;
+    cursor: pointer;
 `
 const ButtonsContainer = styled.div`
     display: flex;
