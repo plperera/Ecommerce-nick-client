@@ -12,7 +12,7 @@ export default function UserNavigationBar ({setContent, content, userData}) {
     const options = [
         {
             name:"Meus Dados",
-            ref: <UserData/>
+            ref: <UserData userData={userData}/>
         },
         {
             name:"Últimos Pedidos",

@@ -8,18 +8,27 @@ import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from '@date-io/date-fns'; // ou MomentUtils, dependendo de qual biblioteca você deseja usar
 import { CustomDatePicker } from "./CustomDatePicker";
 import { datePickerTheme } from "./datePickerTheme";
+import { useValidation } from "../../../../hooks/useValidation";
+import validations from "./FormValidations";
+import { ErrorMsg } from "./ErrorMsg";
+import { InputWrapper } from "./InputWrapper";
 
-export default function UserData () {
+export default function UserData ({userData}) {
 
     const [ form, handleForm, setForm ] = useCustomForm()
+    const { errors, validate } = useValidation(validations);
 
     function SubmitForms(){
         const body = {
             cpf: form.cpf,
             birthday: form.birthday,
-            phone: form.phoneNumber,
+            phoneNumber: form.phoneNumber,
         }
-        console.log(body)
+        const { isValid, errors } = validate(body)
+
+        if (!isValid){
+            return
+        }
     }
 
     function customHandleForm(date){
@@ -36,58 +45,67 @@ export default function UserData () {
                     label="Nome" 
                     type="text" 
                     name={"name"} 
-                    value={form.name} 
-                    disable={true}
-                    onChange={handleForm}
+                    value={userData?.name} 
                     width="58%"
+                    background={"#E9E9E948"}
+                    events={"none"}
                 />
+                <InputWrapper width={"40%"}>
+                    <Input 
+                        label="Telefone para Contato"     
+                        mask={form?.phoneNumber?.length < 15 ? '(99) 9999-99999' : '(99) 99999-9999'}
+                        type="text" 
+                        name={"phoneNumber"} 
+                        value={form.phoneNumber} 
+                        onChange={handleForm}
+                        width="100%"
+                    />
+                    {errors.phoneNumber && <ErrorMsg>{errors.phoneNumber}</ErrorMsg>}
+                </InputWrapper>
 
-                <Input 
-                    label="Telefone para Contato"     
-                    mask={form?.phoneNumber?.length < 15 ? '(99) 9999-99999' : '(99) 99999-9999'}
-                    type="text" 
-                    name={"phoneNumber"} 
-                    value={form.phoneNumber} 
-                    onChange={handleForm}
-                    width="40%"
-                />
+                <InputWrapper width={"30%"}>
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                        <ThemeProvider theme={datePickerTheme}>
+                            <CustomDatePicker
+                                value={form.birthday}
+                                onChange={customHandleForm}
+                                format="dd/MM/yyyy"
+                                disableFuture={true}
+                                name="birthday"
+                                error={false}
+                                helperText={null}
+                                label="Data de Nascimento"
+                                inputVariant="outlined"
+                                clearable
+                                width={"100%"}
+                            />
+                        </ThemeProvider>
+                        {errors.birthday && <ErrorMsg>{errors.birthday}</ErrorMsg>}
+                    </MuiPickersUtilsProvider>
+                </InputWrapper>
 
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <ThemeProvider theme={datePickerTheme}>
-                        <CustomDatePicker
-                            value={form.birthday}
-                            onChange={customHandleForm}
-                            format="dd/MM/yyyy"
-                            disableFuture={true}
-                            name="birthday"
-                            error={false}
-                            helperText={null}
-                            label="Data de Nascimento"
-                            inputVariant="outlined"
-                            clearable
-                            width={"30%"}
-                        />
-                    </ThemeProvider>
-                </MuiPickersUtilsProvider>
-                
-                <Input 
-                    label="CPF ou CNPJ" 
-                    //mask="999.999.999-99"
-                    mask={form?.cpf?.length < 15 ? '999.999.999-999' : '99.999.999/9999-99'}
-                    type="text" 
-                    name={"cpf"} 
-                    value={form.cpf} 
-                    onChange={handleForm}
-                    width="68%"
-                />
+                <InputWrapper width="68%">
+                    <Input 
+                        label="CPF ou CNPJ" 
+                        //mask="999.999.999-99"
+                        mask={form?.cpf?.length < 15 ? '999.999.999-999' : '99.999.999/9999-99'}
+                        type="text" 
+                        name={"cpf"} 
+                        value={form.cpf} 
+                        onChange={handleForm}
+                        width="100%"
+                    />
+                    {errors.cpf && <ErrorMsg>{errors.cpf}</ErrorMsg>}
+                </InputWrapper>
 
                 <Input 
                     label="E-mail" 
                     type="text" 
                     name={"email"} 
-                    value={form.email} 
-                    onChange={handleForm}
+                    value={userData?.email} 
                     width="100%"
+                    background={"#E9E9E948"}
+                    events={"none"}
                 />
             </InputContainer>
 
@@ -132,6 +150,6 @@ const InputContainer = styled.div`
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    row-gap: 2vh;
+    row-gap: 3.2vh;
     padding: 2vh 0 2vh 0;
 `
