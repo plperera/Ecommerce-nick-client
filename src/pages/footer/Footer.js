@@ -43,7 +43,7 @@ const Container = styled.div`
 `
 const TopContainer = styled.div`
     padding: 0 10vw;
-    height: 20vh;
+    height: 18vh;
     background-color: #02131B;
     display: flex;
     align-items: center;

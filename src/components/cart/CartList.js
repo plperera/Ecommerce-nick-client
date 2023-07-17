@@ -13,6 +13,13 @@ export default function CartList ({setContent, content, userData}) {
             
             <CartItem/>
             <CartItem/> 
+            <CartItem/> 
+            <CartItem/> 
+            <CartItem/> 
+            <CartItem/> 
+            <CartItem/> 
+            <CartItem/> 
+            <CartItem/> 
 
         </Container>
     )
@@ -23,6 +30,7 @@ const Container = styled.div`
     min-height: 78vh;
     background-color: #FFFFFF;
     border-radius: 5px;
+    padding-bottom: 0.5vh;
 `
 const UpperTable = styled.div`
     display: flex;

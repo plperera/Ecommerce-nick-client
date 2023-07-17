@@ -86,7 +86,9 @@ export default function CartResume () {
 
 const Container = styled.div`
     width: 25%;
-    height: auto;
+    position: sticky;
+    top: 14vh;
+    height: 600px;
     background-color: #FFFFFF;
     border-radius: 5px;
 `
@@ -154,5 +156,5 @@ const SocialProofItem = styled.div`
     }
 `
 const OtherDetails = styled.div`
-    
+
 `
