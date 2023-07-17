@@ -16,16 +16,16 @@ export default function UniqueProduct ({product}) {
                             product?.highPrice ? (
                                 <div>
                                     <HighPrice>
-                                        {"De:"} <PriceSign>{"R$ "}</PriceSign><span>{ (product.highPrice / 100).toLocaleString('pt-BR') + ",00" }</span>
+                                        {"De:"} <PriceSign>{"R$ "}</PriceSign><span>{ (product.highPrice / 100).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span>
                                     </HighPrice>
                                     <LowPrice>
-                                        Por: <PriceSign>{"R$ "}</PriceSign><span>{ (product.price / 100).toLocaleString('pt-BR') + ",00" }</span>
+                                        {"Por:"} <PriceSign>{"R$ "}</PriceSign><span>{ (product.price / 100).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span>
                                     </LowPrice>
                                 </div>
                             ):(
                                 <>
                                     <LowPrice>
-                                        <PriceSign>{"R$ "}</PriceSign><span>{ (product.price / 100).toLocaleString('pt-BR') + ",00" }</span>
+                                        <PriceSign>{"R$ "}</PriceSign><span>{ (product.price / 100).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span>
                                     </LowPrice>
                                 </>
                             )

@@ -10,6 +10,7 @@ import Auth from "./pages/auth/Auth"
 import AdminDashboard from "./pages/adminDashboard/AdminDashboard"
 import { UserProvider } from './context/UserContext';
 import UserAccount from "./pages/userAccount/UserAccount"
+import Cart from "./pages/cart/Cart"
 
 export default function App (){
  
@@ -38,6 +39,7 @@ export default function App (){
                         <Route path="/auth" element={<Auth />} />
                         <Route path="/minha-conta" element={<UserAccount />} />
                         <Route path="/admin/dashboard" element={<AdminDashboard />} />
+                        <Route path="/carrinho" element={<Cart />} />
                         <Route path="*" element={<NotFound />} />
                     </Routes>
                     <Footer/>

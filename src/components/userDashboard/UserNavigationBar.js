@@ -15,16 +15,16 @@ export default function UserNavigationBar ({setContent, content, userData}) {
             ref: <UserData userData={userData}/>
         },
         {
+            name:"Meus Endereços",
+            ref: <UserAddress/>
+        },
+        {
             name:"Últimos Pedidos",
             ref: <Orders/>
         },
         {
             name:"Favoritos",
             ref: <Favorites/>
-        },
-        {
-            name:"Meus Endereços",
-            ref: <UserAddress/>
         },
     ]
 

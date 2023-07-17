@@ -31,6 +31,9 @@ function CreateAccount(body) {
 function CreateSession(body) {
     return axios.post(`${BASE_URL}/auth/sign-in`, body);
 }
+function GetCepDetails(cep){
+    return axios.get(`https://viacep.com.br/ws/${cep}/json/`)
+}
 
 
 const api = {
@@ -38,6 +41,7 @@ const api = {
     GetAllImages,
     GetAllProductsByCategory,
     GetUniqueProductByName,
+    GetCepDetails,
     CreateCategory,
     CreateImage,
     CreateProduct,

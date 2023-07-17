@@ -1,10 +1,14 @@
 import styled from "styled-components"
 import { CiUser } from 'react-icons/ci';
+import useNavigateAndMoveUp from "../../hooks/useNavigateAndMoveUp";
 
 export default function AccountMenu () {
 
+    const navigateAndMoveUp = useNavigateAndMoveUp();
+
+
     return(
-        <Container>
+        <Container onClick={() => navigateAndMoveUp({locate:"minha-conta"})}>
             <AccountIcon/>
             <Title>Minha Conta</Title>
         </Container>

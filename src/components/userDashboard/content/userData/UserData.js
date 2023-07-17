@@ -122,7 +122,6 @@ export default function UserData ({userData}) {
 
 const Container = styled.div`
     height: 100%;
-    //border-right: 2px solid #D1D1D1;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;

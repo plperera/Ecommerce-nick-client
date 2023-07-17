@@ -1,9 +1,9 @@
 import MuiButton from '@material-ui/core/Button';
 import styled from 'styled-components';
 
-export default function Button({ variant='contained', width, children, ...props }) {
+export default function Button({ variant='contained', width, fontSize, children, background, backgroundHover, fontColor, ...props }) {
   return (
-    <StyledMuiButton variant={variant} width={width} {...props}>
+    <StyledMuiButton variant={variant} width={width} fontSize={fontSize} background={background} backgroundHover={backgroundHover} fontColor={fontColor} {...props}>
       {children}
     </StyledMuiButton>
   );
@@ -11,12 +11,13 @@ export default function Button({ variant='contained', width, children, ...props 
 
 const StyledMuiButton = styled(MuiButton)`
   font-weight: 700 !important;
-  font-size: 18px !important;
+  font-size: ${(props) => props.fontSize || '18px !important'};
   width: ${(props) => props.width || 'auto'};
-  background-color: #02131B !important;
-  color: white !important;
+  height: ${(props) => props.height || 'auto'};
+  background-color: ${(props) => props.background || '#02131B !important'};
+  color: ${(props) => props.fontColor || 'white !important'};
 
   &:hover {
-    background-color: #032230 !important;
+    background-color: ${(props) => props.backgroundHover || '#032230 !important'};
   }
 `;

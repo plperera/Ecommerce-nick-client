@@ -57,6 +57,7 @@ const Container = styled.div`
     margin-top: 12vh;
     width: 100%;
     height: 73vh;
+    background-color: #02131BD5;
 `
 const ImageContainer = styled.div`
     width: 100%;
