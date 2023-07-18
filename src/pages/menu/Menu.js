@@ -2,20 +2,27 @@ import styled from "styled-components"
 import MenuComponent from "../../components/menu/Menu"
 import SubMenuComponent from "../../components/menu/SubMenu/SubMenu"
 import { useLocation } from "react-router-dom";
+import CheckoutMenu from "../../components/menu/CheckoutMenu/CheckoutMenu";
 
 export default function Menu () {
 
     const location = useLocation();
     const isAdminRoute = location.pathname.includes("/admin");
+    const isCheckoutRoute = location.pathname.includes("/checkout");
 
     return(
         isAdminRoute?(
         <AdminMenuContainer></AdminMenuContainer>
         ):(
-            <UserMenuContainer>
-                <MenuComponent/>
-                <SubMenuComponent/>
-            </UserMenuContainer>
+            isCheckoutRoute?(
+                <CheckoutMenu/>
+            ):(
+                <UserMenuContainer>
+                    <MenuComponent/>
+                    <SubMenuComponent/>
+                </UserMenuContainer>
+            )
+            
         )
         
     )

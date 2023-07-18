@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import CartItem from "./CartItem"
 
-export default function CartList ({setContent, content, userData}) {
+export default function CartList () {
     return(
         <Container>    
             <UpperTable>
@@ -12,14 +12,6 @@ export default function CartList ({setContent, content, userData}) {
             </UpperTable>
             
             <CartItem/>
-            <CartItem/> 
-            <CartItem/> 
-            <CartItem/> 
-            <CartItem/> 
-            <CartItem/> 
-            <CartItem/> 
-            <CartItem/> 
-            <CartItem/> 
 
         </Container>
     )
@@ -27,7 +19,7 @@ export default function CartList ({setContent, content, userData}) {
 
 const Container = styled.div`
     width: 72%;
-    min-height: 78vh;
+    min-height: 600px;
     background-color: #FFFFFF;
     border-radius: 5px;
     padding-bottom: 0.5vh;

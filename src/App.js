@@ -11,6 +11,7 @@ import AdminDashboard from "./pages/adminDashboard/AdminDashboard"
 import { UserProvider } from './context/UserContext';
 import UserAccount from "./pages/userAccount/UserAccount"
 import Cart from "./pages/cart/Cart"
+import Checkout from "./pages/checkout/Checkout"
 
 export default function App (){
  
@@ -40,6 +41,7 @@ export default function App (){
                         <Route path="/minha-conta" element={<UserAccount />} />
                         <Route path="/admin/dashboard" element={<AdminDashboard />} />
                         <Route path="/carrinho" element={<Cart />} />
+                        <Route path="/checkout" element={<Checkout />} />
                         <Route path="*" element={<NotFound />} />
                     </Routes>
                     <Footer/>
