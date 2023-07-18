@@ -7,13 +7,15 @@ import DeliveryMethod from "./delivery/DeliveryMethod"
 export default function Identification () {
     return(
         <Container>  
+
             <Title>{"Identificação"}</Title>
+
             <SubContainer>
                 <UserData/>
                 <AddressSelector/>
                 <DeliveryMethod/>
-                
             </SubContainer>
+
         </Container>
     )
 }
@@ -36,7 +38,8 @@ const Title = styled.h1`
     align-items: center;
     justify-content: center;
     width: 100%;
-    background-color: #CCCCCC;
-    color: #616161;
+    background-color: #CCCCCCCB;
+    color: #02131bff;
     padding: 1vh 0;
+    font-weight: 600;
 `

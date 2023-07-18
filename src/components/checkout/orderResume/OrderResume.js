@@ -1,9 +1,9 @@
 import styled from "styled-components"
 
-export default function Payment () {
+export default function OrderResume () {
     return(
         <Container>  
-            <Title>{"Pagamento"}</Title>
+            <Title>{"Resumo do pedido"}</Title>
             <SubContainer>
 
             </SubContainer>
@@ -19,16 +19,18 @@ const Container = styled.div`
     flex-direction: column;
 `
 const SubContainer = styled.div`
-    height: 700px;
+    min-height: 700px;
     width: 100%;
-    background-color: #E4E4E4;
+    background-color: #FFFFFF;
+    padding: 1vh 0.7vw;
 `
 const Title = styled.h1`
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
-    background-color: #CCCCCC;
-    color: #616161;
+    background-color: #CCCCCCCB;
+    color: #02131bff;
     padding: 1vh 0;
+    font-weight: 600;
 `

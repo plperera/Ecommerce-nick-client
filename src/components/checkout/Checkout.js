@@ -1,7 +1,7 @@
 import styled from "styled-components"
 
-import Payment from "./Payment"
-import OrderResume from "./OrderResume"
+import Payment from "./payment/Payment"
+import OrderResume from "./orderResume/OrderResume"
 import Identification from "./identification/Identification"
 
 export default function Checkout ({setContent, content, userData}) {
