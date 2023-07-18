@@ -1,11 +1,15 @@
 import styled from "styled-components"
+import UserData from "./UserData"
+import AddressSelector from "./AddressSelector"
 
 export default function Identification () {
     return(
         <Container>  
             <Title>{"Identificação"}</Title>
             <SubContainer>
-
+                <UserData/>
+                <AddressSelector/>
+                
             </SubContainer>
         </Container>
     )
@@ -19,9 +23,10 @@ const Container = styled.div`
     flex-direction: column;
 `
 const SubContainer = styled.div`
-    height: 700px;
+    min-height: 700px;
     width: 100%;
-    background-color: #E4E4E4;
+    background-color: #FFFFFF;
+    padding: 1vh 0.7vw;
 `
 const Title = styled.h1`
     display: flex;

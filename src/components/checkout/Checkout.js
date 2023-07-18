@@ -1,7 +1,8 @@
 import styled from "styled-components"
-import Identification from "./Identification"
+
 import Payment from "./Payment"
 import OrderResume from "./OrderResume"
+import Identification from "./identification/Identification"
 
 export default function Checkout ({setContent, content, userData}) {
     return(
