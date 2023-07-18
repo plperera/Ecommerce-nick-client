@@ -1,13 +1,13 @@
 import styled from "styled-components"
-import Input from "../../../common/form/Input"
-import { InputWrapper } from "../../userDashboard/content/userData/InputWrapper";
-import { useCustomForm } from "../../../hooks/useCustomForms";
-import { useValidation } from "../../../hooks/useValidation";
-import addressValidations from "../../userDashboard/content/userAddress/AddressFormValidations";
-import api from "../../../services/API";
+import Input from "../../../../common/form/Input"
+import { InputWrapper } from "../../../userDashboard/content/userData/InputWrapper";
+import { useCustomForm } from "../../../../hooks/useCustomForms";
+import { useValidation } from "../../../../hooks/useValidation";
+import addressValidations from "../../../userDashboard/content/userAddress/AddressFormValidations";
+import api from "../../../../services/API";
 import { useState } from "react";
 import { PiMapPinFill } from 'react-icons/pi';
-import Button from "../../../common/form/Button";
+import Button from "../../../../common/form/Button";
 import { ErrorMsgCheckout } from "./ErrorMsgCheckout";
 
 export default function AddNewAddress ({setAddNewAddres}) {
@@ -57,6 +57,7 @@ export default function AddNewAddress ({setAddNewAddres}) {
             addressDetail: form?.addressDetail
         }
         
+        // eslint-disable-next-line no-unused-vars
         const { isValid, errors } = validate(body)
 
         if (!isValid){
@@ -187,11 +188,11 @@ export default function AddNewAddress ({setAddNewAddres}) {
 
             <Button 
                 width={"23%"} 
-                height={"35px"} 
-                fontSize={"12px !important"} 
+                height={"30px"} 
+                fontSize={"11px !important"} 
                 fontColor={"#283338ff"} 
-                background={"#CACACA !important"} 
-                backgroundHover={"#CACACA !important"}
+                background={"#CACACAA2 !important"} 
+                backgroundHover={"#CACACA60 !important"}
                 onClick={() => setAddNewAddres(false)}
             >
                 {" Voltar"}
@@ -199,8 +200,8 @@ export default function AddNewAddress ({setAddNewAddres}) {
             
             <Button 
                 width={"75%"} 
-                height={"35px"} 
-                fontSize={"12px !important"} 
+                height={"30px"} 
+                fontSize={"11px !important"} 
                 background={"#008183 !important"} 
                 backgroundHover={"#009395ff !important"}
                 onClick={() => SubmitForms()}

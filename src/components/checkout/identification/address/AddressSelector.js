@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import AddressCard from "./AddressCard"
 import { useState } from "react"
-import Button from "../../../common/form/Button"
+import Button from "../../../../common/form/Button"
 import AddNewAddress from "./AddNewAddress"
 import { useEffect } from "react"
 
@@ -31,6 +31,7 @@ export default function AddressSelector () {
         console.log(allAddress)
         
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
     useEffect(() => {
@@ -54,12 +55,12 @@ export default function AddressSelector () {
                         {allAddress.map(e => <AddressCard addressData={e} key={e.addressId} setAddressSelector={setAddressSelector} addressSelector={addressSelector}/>)}
 
                         <Button 
-                        width={"50%"} 
-                        height={"35px"} 
-                        fontSize={"12px !important"} 
-                        background={"#008183 !important"} 
-                        backgroundHover={"#009395ff !important"}
-                        onClick={() => setAddNewAddres(!addNewAddres)}
+                            width={"47.5%"} 
+                            height={"30px"} 
+                            fontSize={"11px !important"} 
+                            background={"#008183 !important"} 
+                            backgroundHover={"#009395ff !important"}
+                            onClick={() => setAddNewAddres(!addNewAddres)}
                         >
                             {"Adicionar novo endereço"}
                         </Button>

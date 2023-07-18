@@ -1,6 +1,8 @@
 import styled from "styled-components"
-import UserData from "./UserData"
-import AddressSelector from "./AddressSelector"
+import UserData from "./userData/UserData"
+import AddressSelector from "./address/AddressSelector"
+import DeliveryMethod from "./delivery/DeliveryMethod"
+
 
 export default function Identification () {
     return(
@@ -9,6 +11,7 @@ export default function Identification () {
             <SubContainer>
                 <UserData/>
                 <AddressSelector/>
+                <DeliveryMethod/>
                 
             </SubContainer>
         </Container>
