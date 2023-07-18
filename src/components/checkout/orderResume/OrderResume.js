@@ -1,11 +1,93 @@
+import { useEffect } from "react"
+import { useState } from "react"
 import styled from "styled-components"
+import ResumeProductCard from "./ResumeProductCard"
 
 export default function OrderResume () {
+
+    const [products, setProducts] = useState(undefined)
+
+    useEffect(() => {
+
+        const fake = [ 
+            {
+                productId: 1,
+                name: "Esquadrejadeira 2900mm com Eixo Inclinavel 45° Sem Motor - FortG by Maksiwa- 106[1464]",
+                price: 808867,
+                quantity: 1,
+                mainImage: "https://storage.googleapis.com/imageuploads-7b8bc.appspot.com/1689369151489.png",
+            },
+            {
+                productId: 2,
+                name: "Esquadrejadeira 2900mm com Eixo Inclinavel 45° Sem Motor - FortG by Maksiwa- 106[1464]",
+                price: 808867,
+                quantity: 1,
+                mainImage: "https://storage.googleapis.com/imageuploads-7b8bc.appspot.com/1689369151489.png",
+            },
+            {
+                productId: 3,
+                name: "Esquadrejadeira 2900mm com Eixo Inclinavel 45° Sem Motor - FortG by Maksiwa- 106[1464]",
+                price: 808867,
+                quantity: 1,
+                mainImage: "https://storage.googleapis.com/imageuploads-7b8bc.appspot.com/1689369151489.png",
+            },
+            {
+                productId: 4,
+                name: "Esquadrejadeira 2900mm com Eixo Inclinavel 45° Sem Motor - FortG by Maksiwa- 106[1464]",
+                price: 808867,
+                quantity: 1,
+                mainImage: "https://storage.googleapis.com/imageuploads-7b8bc.appspot.com/1689369151489.png",
+            },
+        ]
+
+        setProducts(fake)        
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
+
+    function sumQuantity(array) {
+        let totalQuantity = 0;
+        array.forEach(item => {
+            totalQuantity += item.quantity;
+        });
+        return totalQuantity;
+    }
+
+    function sumTotalValue(array) {
+        let totalValue = 0;
+        array.forEach(item => {
+            totalValue += item.price * item.quantity;
+        });
+        return totalValue;
+    }
+
     return(
         <Container>  
             <Title>{"Resumo do pedido"}</Title>
             <SubContainer>
+                {products ? (
+                    <>
+                        {products.map(e => <ResumeProductCard key={e.id} productData={e}/>)}
 
+                        <ResumeLine>
+                            <h4>{`Subtotal (${sumQuantity(products)} itens):`}</h4>
+                            <h5>{(sumTotalValue(products) / 100).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</h5>
+                        </ResumeLine>
+
+                        <ResumeLine>
+                            <h4>{`Frete:`}</h4>
+                            <h5>{(100).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</h5>
+                        </ResumeLine>
+
+                        <ResumeLine>
+                            <h4>{`Total: `}</h4>
+                            <h5>{(sumTotalValue(products) / 100 + 100).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</h5>
+                        </ResumeLine>
+
+                    </>
+                ):(<></>)}
+
+               
             </SubContainer>
         </Container>
     )
@@ -21,8 +103,12 @@ const Container = styled.div`
 const SubContainer = styled.div`
     min-height: 700px;
     width: 100%;
-    background-color: #FFFFFF;
+    background-color: #ececec;
     padding: 1vh 0.7vw;
+    display: flex;
+    justify-content: start;
+    flex-direction: column;
+    row-gap: 1vh;
 `
 const Title = styled.h1`
     display: flex;
@@ -33,4 +119,14 @@ const Title = styled.h1`
     color: #02131bff;
     padding: 1vh 0;
     font-weight: 600;
+`
+const ResumeLine = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;    
+    padding: 1vh 1vw;
+    font-size: 18px;
+    font-weight: 600;
+    background-color: #FFFFFF;
+
 `
