@@ -23,7 +23,6 @@ export default function AllProducts () {
     async function GetAllProducts(){
         const response = await api.GetAllProducts()
         setProducts(response.data)
-        setFilterContent(response.data)
     }
     async function GetAllCategories(){
         const response = await api.GetAllCategories()

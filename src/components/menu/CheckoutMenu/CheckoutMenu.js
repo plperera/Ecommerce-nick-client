@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import logo from "../../../assets/images/logoMenu/logo-menu.png"
+import logo from "../../../assets/images/logoSVG/LogoWhite (2).svg"
 
 export default function CheckoutMenu () {
     return(
@@ -23,7 +23,7 @@ const Container = styled.div`
     position: fixed;
     top: 0;
     img {
-        height: 100%;
+        height: 70%;
         max-height: 8vh;
     }
 `
