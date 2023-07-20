@@ -189,10 +189,10 @@ export default function AddNewAddress ({setAddNewAddres}) {
             <Button 
                 width={"23%"} 
                 height={"30px"} 
-                fontSize={"11px !important"} 
+                fontsize={"11px !important"} 
                 fontColor={"#283338ff"} 
                 background={"#CACACAA2 !important"} 
-                backgroundHover={"#CACACA60 !important"}
+                backgroundhover={"#CACACA60 !important"}
                 onClick={() => setAddNewAddres(false)}
             >
                 {" Voltar"}
@@ -201,9 +201,9 @@ export default function AddNewAddress ({setAddNewAddres}) {
             <Button 
                 width={"75%"} 
                 height={"30px"} 
-                fontSize={"11px !important"} 
+                fontsize={"11px !important"} 
                 background={"#008183 !important"} 
-                backgroundHover={"#009395ff !important"}
+                backgroundhover={"#009395ff !important"}
                 onClick={() => SubmitForms()}
             >
                 {"Adicionar"}

@@ -1,5 +1,6 @@
 import styled from "styled-components"
 import { AiFillCreditCard } from 'react-icons/ai';
+import CreditCardForm from "./CreditCardForm";
 
 export default function CreditCard ({ paymentSelected, SelectPayment }) {
     return(
@@ -16,14 +17,11 @@ export default function CreditCard ({ paymentSelected, SelectPayment }) {
                 </Container>
             )}
             {paymentSelected === "Cartão de Crédito"?(
-                <>  
-                    
-                </>
+                <CreditCardForm/>
             ):(<></>)}
         </>
     )
 }
-
 const Container = styled.div`
     width: 100%;
     height: 20px;

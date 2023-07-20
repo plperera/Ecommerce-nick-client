@@ -37,9 +37,9 @@ export default function CartResume () {
                     type="submit" 
                     width="100%" 
                     height={"45px !important"} 
-                    fontSize={"13px !important"} 
+                    fontsize={"13px !important"} 
                     background={"#354349 !important"}
-                    backgroundHover={"#3F5058 !important"}
+                    backgroundhover={"#3F5058 !important"}
                     color="primary" 
                     onClick={() => console.log("1")}
                 >
@@ -50,9 +50,9 @@ export default function CartResume () {
                     type="submit" 
                     width="100%" 
                     height={"45px !important"} 
-                    fontSize={"14px !important"}
+                    fontsize={"14px !important"}
                     background={"#009395ff !important"}
-                    backgroundHover={"#00BFC2 !important"} 
+                    backgroundhover={"#00BFC2 !important"} 
                     color="primary" 
                     onClick={() => console.log("1")}
                 >

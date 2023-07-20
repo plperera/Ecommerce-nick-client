@@ -67,7 +67,7 @@ export default function OrderResume () {
             <SubContainer>
                 {products ? (
                     <>
-                        {products.map(e => <ResumeProductCard key={e.id} productData={e}/>)}
+                        {products.map(e => <ResumeProductCard key={e.productId} productData={e}/>)}
 
                         <ResumeLine>
                             <h4>{`Subtotal (${sumQuantity(products)} itens):`}</h4>

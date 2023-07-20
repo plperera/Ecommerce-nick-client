@@ -57,9 +57,9 @@ export default function AddressSelector () {
                         <Button 
                             width={"47.5%"} 
                             height={"30px"} 
-                            fontSize={"11px !important"} 
+                            fontsize={"11px !important"} 
                             background={"#008183 !important"} 
-                            backgroundHover={"#009395ff !important"}
+                            backgroundhover={"#009395ff !important"}
                             onClick={() => setAddNewAddres(!addNewAddres)}
                         >
                             {"Adicionar novo endereço"}

@@ -48,9 +48,9 @@ export default function DeliveryMethod () {
             <Button 
                 width={"80%"} 
                 height={"45px"} 
-                fontSize={"18px !important"} 
+                fontsize={"18px !important"} 
                 background={"#008183 !important"} 
-                backgroundHover={"#009395ff !important"}
+                backgroundhover={"#009395ff !important"}
             >
                 {"Ir para o Pagamento"}
             </Button>
