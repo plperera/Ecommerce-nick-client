@@ -1,19 +1,23 @@
 import styled from "styled-components"
 import CartItem from "./CartItem"
+import { LoadingContainer } from "./LoadingContainer"
 
-export default function CartList () {
+export default function CartList ({cartProducts, isLoading, handleProductQuantity}) {
     return(
-        <Container>    
-            <UpperTable>
+        isLoading ? (
+            <LoadingContainer width={"72%"} height={"56.8461vh"} borderradius={"5px"}/>
+        ):(
+            <Container>
+                <UpperTable>
                 <TitleUpperTable width={"45%"} justifyContent={"left"}>{"Produto"}</TitleUpperTable>
                 <TitleUpperTable width={"15%"}>{"Preço"}</TitleUpperTable>
                 <TitleUpperTable width={"25%"}>{"Quantidade"}</TitleUpperTable>
                 <TitleUpperTable width={"15%"}>{"Total"}</TitleUpperTable>
-            </UpperTable>
-            
-            <CartItem/>
-
-        </Container>
+                </UpperTable>
+                
+                {cartProducts.map(e => <CartItem cartProduct={e} handleProductQuantity={handleProductQuantity}/>)}
+            </Container>
+        )   
     )
 }
 

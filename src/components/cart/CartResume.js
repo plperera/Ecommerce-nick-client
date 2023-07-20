@@ -1,9 +1,13 @@
 import styled from "styled-components"
 import { PriceSign } from "./PriceSign"
 import Button from "../../common/form/Button"
+import { LoadingContainer } from "./LoadingContainer"
 
-export default function CartResume () {
+export default function CartResume ({cartProducts, isLoading}) {
     return(
+        isLoading ? (
+            <LoadingContainer width={"25%"} height={"56.8461vh"} borderradius={"5px"} position={"sticky"} top={"14vh"}/>
+        ):(
         <Container> 
             
             <Title>{"Resumo"}</Title>
@@ -78,9 +82,8 @@ export default function CartResume () {
 
             </SocialProofContainer>
            
-           
-
         </Container>
+        )
     )
 }
 

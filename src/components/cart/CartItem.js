@@ -1,34 +1,33 @@
 import styled from "styled-components"
 import { PriceSign } from "./PriceSign"
 
-export default function CartItem () {
-    const imageUrl = "https://firebasestorage.googleapis.com/v0/b/imageuploads-7b8bc.appspot.com/o/1689369296686.png?alt=media&token=96edba69-e629-4545-b15e-c30e53a0546f"
+export default function CartItem ({cartProduct, handleProductQuantity}) {
     return(
         <Container>    
             <TableItem width={"45%"} justifyContent={"space-evenly"}>
                 <ImageContainer>
-                    <img src={imageUrl} alt=""/>
+                    <img src={cartProduct?.images[0]?.imageUrl} alt=""/>
                 </ImageContainer> 
-                <LineProductName>{"ESQUADREJADEIRA 2900MM COM EIXO INCLINAVEL 45° SEM MOTOR - FORTG BY MAKSIWA- 106[1464]"}</LineProductName>
+                <LineProductName>{cartProduct.name}</LineProductName>
             </TableItem>
 
             <TableItem width={"15%"}>
                 <LinePrice>
-                    <PriceSign>{"R$ "}</PriceSign><span>{ (20000 / 100).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span>
+                    <PriceSign>{"R$ "}</PriceSign><span>{ (cartProduct.price / 100).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span>
                 </LinePrice>
             </TableItem>
 
             <TableItem width={"25%"} columnGap={"6px"}>
-                <AmountButtons>{"-"}</AmountButtons>
+                <AmountButtons onClick={() => handleProductQuantity(cartProduct, -1)}>{"-"}</AmountButtons>
                 <LineAmount>
-                    <h3>{20}</h3>
+                    <h3>{cartProduct?.quantity}</h3>
                 </LineAmount>
-                <AmountButtons>{"+"}</AmountButtons>
+                <AmountButtons onClick={() => handleProductQuantity(cartProduct, 1)}>{"+"}</AmountButtons>
             </TableItem>
 
             <TableItem width={"15%"}>
                 <LineTotal>
-                    <PriceSign fontSize={"17px"} >{"R$ "}</PriceSign><span>{ ((20011 / 100) * 20).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span>
+                    <PriceSign fontSize={"17px"} >{"R$ "}</PriceSign><span>{ ((cartProduct.price / 100) * cartProduct?.quantity).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span>
                 </LineTotal>
             </TableItem>          
         </Container>

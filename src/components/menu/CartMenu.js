@@ -1,10 +1,10 @@
 import styled from "styled-components"
 import { BsCart3 } from 'react-icons/bs';
 
-export default function CartMenu () {
+export default function CartMenu ({ navigateAndMoveUp }) {
 
     return(
-        <Container>
+        <Container onClick={() => navigateAndMoveUp({locate: "carrinho"})}>
             <CartIcon/>
         </Container>
     )

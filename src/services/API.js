@@ -10,6 +10,9 @@ function GetAllImages({token}) {
 function GetAllProducts() {
     return axios.get(`${BASE_URL}/product`)
 }
+function GetAllProductsByProductId(productArray) {
+    return axios.get(`${BASE_URL}/product/findmany/${productArray}`)
+}
 function GetAllProductsByCategory(categoryId) {
     return axios.get(`${BASE_URL}/product/category/${categoryId}`)
 }
@@ -40,6 +43,7 @@ const api = {
     GetAllCategories,
     GetAllImages,
     GetAllProductsByCategory,
+    GetAllProductsByProductId,
     GetUniqueProductByName,
     GetCepDetails,
     CreateCategory,

@@ -1,7 +1,38 @@
 import styled from "styled-components"
 import ProductImageSlide from "./ProductImageSlide"
+import { useEffect } from "react"
+import { useContext } from "react"
+import UserContext from "../../context/UserContext";
 
 export default function UniqueProduct ({product}) {
+
+    const { setUserData, userData } = useContext(UserContext);
+
+    useEffect(() => {
+        console.log("userData", userData)
+    }, [userData])
+
+    function handleProduct(){
+        const productId = product.productId;
+        let productExistsInCart = false;
+    
+        let updatedCart = [...(userData?.cart || [])];
+    
+        for (let product of updatedCart) {
+            if (product.productId === productId) {
+                product.quantity += 1;
+                productExistsInCart = true;
+                break;
+            }
+        }
+    
+        if (!productExistsInCart) {
+            updatedCart.push({ productId: productId, quantity: 1 });
+        }
+    
+        setUserData({ ...userData, cart: updatedCart });
+    }
+    
     return(
         <Container>
             <ProductContainer>
@@ -31,7 +62,7 @@ export default function UniqueProduct ({product}) {
                             )
                         }
                         <ButtonContainer>
-                            <ButtonStyle>
+                            <ButtonStyle onClick={() => handleProduct()}>
                                 {"Comprar"}
                             </ButtonStyle>
                         </ButtonContainer>

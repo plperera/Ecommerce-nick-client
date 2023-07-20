@@ -20,7 +20,7 @@ export default function Menu () {
             <SubContainer>
                 <SearchBar/>
                 <HearthIcon/>
-                <CartMenu/>
+                <CartMenu navigateAndMoveUp={navigateAndMoveUp}/>
                 <AccountMenu/>
             </SubContainer>
 
