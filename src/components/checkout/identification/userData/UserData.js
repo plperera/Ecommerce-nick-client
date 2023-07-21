@@ -1,15 +1,15 @@
 import styled from "styled-components"
 
-export default function UserData () {
+export default function UserData ({userData}) {
     return(
         <Container>  
             <Title>{"Dados pessoais"}</Title>
 
             <h3>{"Nome Completo"}</h3>
-            <h4>{"Pedro Leoncio Pereira"}</h4>
+            <h4>{userData?.name}</h4>
 
             <h3>{"E-mail"}</h3>
-            <h4>{"plp.leoncio@gmail.com"}</h4>
+            <h4>{userData?.email}</h4>
         </Container>
     )
 }
@@ -20,7 +20,7 @@ const Container = styled.div`
     align-items: start;
     justify-content: center;
     flex-direction: column;
-    padding-bottom: 1.5vh;
+    padding-bottom: 0.4vh;
     border-bottom: 3px solid #e6e6e6ff;
     
     h3 {
@@ -43,6 +43,7 @@ const Container = styled.div`
         font-size: 13px;
         //border: 1px solid red;
         padding: 0.4vh 0;
+        margin-bottom: 0.6vh;
     }
 `
 const Title = styled.h1`

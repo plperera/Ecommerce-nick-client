@@ -90,7 +90,6 @@ const spinAnimation = keyframes`
 
 const Spinner = styled.div`
   border-radius: 50px;
-
   border-bottom: 2px dotted #00929544;
   border-right: 2px dotted #00929544;
   border-top: 4px ridge #009395;
@@ -98,5 +97,4 @@ const Spinner = styled.div`
   width: 50px;
   height: 50px;
   animation: ${spinAnimation} 2s linear infinite;
-  //background-color: red;
 `;

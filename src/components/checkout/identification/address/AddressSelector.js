@@ -5,50 +5,39 @@ import Button from "../../../../common/form/Button"
 import AddNewAddress from "./AddNewAddress"
 import { useEffect } from "react"
 
-export default function AddressSelector () {
+export default function AddressSelector ({allAddress, token, refreshAddress, setRefreshAddress}) {
 
     const [addressSelector , setAddressSelector] = useState(undefined)
     const [addNewAddres , setAddNewAddres] = useState(false)
-    const [allAddress , setAllAddress] = useState(undefined)
-
+    const [isloading , setIsLoading] = useState(false)
     
     useEffect(() => {
-
-        const fake = [
-            {   
-                addressId: 1,
-                addressName:"Apartamento", //isMain é sempre o primeiro retornado
-                fullAddress:"Rua Governador Milton Campos, 105, CEP 37200-064, Apt 501, Centro, Lavras - MG", 
-            },
-            {   
-                addressId: 2,
-                addressName:"Casa", //isMain é sempre o primeiro retornado
-                fullAddress:"Rua Torino, 92, CEP 37205-022, Em frente lava-jato, Parque Belvedere, Lavras - MG", 
-            },
-        ]
-
-        setAllAddress(fake)
-        console.log(allAddress)
-        
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[])
+        setAddNewAddres(false)
+    }, [refreshAddress])
 
     useEffect(() => {
 
         if(!allAddress){
             return
         }
+
+        if(allAddress.length === 0){
+            setAddNewAddres(true)
+        }
         
         setAddressSelector(allAddress[0]?.addressId)
 
     }, [allAddress])
 
+    useEffect(() => {
+        console.log(addressSelector)
+    }, [addressSelector])
+
     return(
-        <Container>  
+        <Container events={isloading ? ("none !important"):("initial")} opacity={isloading ? ("0.5"):("1")}>  
             <Title>{"Endereço para entrega"}</Title>
             { addNewAddres ? (
-                <AddNewAddress setAddNewAddres={setAddNewAddres}/>
+                <AddNewAddress setAddNewAddres={setAddNewAddres} setIsLoading={setIsLoading} isLoading={isloading} token={token} refreshAddress={refreshAddress} setRefreshAddress={setRefreshAddress}/>
             ):(
                 allAddress?( 
                     <>
@@ -67,7 +56,6 @@ export default function AddressSelector () {
                     </>
                 ):(<></>)
             )} 
-           
         </Container>
     )
 }
@@ -81,6 +69,8 @@ const Container = styled.div`
     padding-bottom: 1.5vh;
     border-bottom: 3px solid #e6e6e6ff;
     row-gap: 1.4vh;
+    pointer-events: ${props => props.events};
+    opacity: ${props => props.opacity};
 `
 const Title = styled.h1`
     display: flex;

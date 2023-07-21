@@ -4,10 +4,10 @@ import Payment from "./payment/Payment"
 import OrderResume from "./orderResume/OrderResume"
 import Identification from "./identification/Identification"
 
-export default function Checkout ({setContent, content, userData}) {
+export default function Checkout ({userData, allAddress, refreshAddress, setRefreshAddress}) {
     return(
         <Container>  
-            <Identification/>
+            <Identification userData={userData} allAddress={allAddress} refreshAddress={refreshAddress} setRefreshAddress={setRefreshAddress}/>
             <Payment/>
             <OrderResume/>
         </Container>

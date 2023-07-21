@@ -2,8 +2,12 @@ import styled from "styled-components"
 import { PriceSign } from "./PriceSign"
 import Button from "../../common/form/Button"
 import { LoadingContainer } from "./LoadingContainer"
+import useNavigateAndMoveUp from "../../hooks/useNavigateAndMoveUp";
 
 export default function CartResume ({cartProducts, isLoading}) {
+
+    const navigateAndMoveUp = useNavigateAndMoveUp();
+
     return(
         isLoading ? (
             <LoadingContainer width={"25%"} height={"56.8461vh"} borderradius={"5px"} position={"sticky"} top={"14vh"}/>
@@ -45,7 +49,7 @@ export default function CartResume ({cartProducts, isLoading}) {
                     background={"#354349 !important"}
                     backgroundhover={"#3F5058 !important"}
                     color="primary" 
-                    onClick={() => console.log("1")}
+                    onClick={() => navigateAndMoveUp({locate:"catalogo"})}
                 >
                     {"Adicionar mais produtos"}
                 </Button>
@@ -58,7 +62,7 @@ export default function CartResume ({cartProducts, isLoading}) {
                     background={"#009395ff !important"}
                     backgroundhover={"#00BFC2 !important"} 
                     color="primary" 
-                    onClick={() => console.log("1")}
+                    onClick={() => navigateAndMoveUp({locate:"checkout"})}
                 >
                     {"Fechar Pedido"}
                 </Button>

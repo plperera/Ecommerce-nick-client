@@ -9,8 +9,9 @@ import { useState } from "react";
 import { PiMapPinFill } from 'react-icons/pi';
 import Button from "../../../../common/form/Button";
 import { ErrorMsgCheckout } from "./ErrorMsgCheckout";
+import { toast } from "react-toastify";
 
-export default function AddNewAddress ({setAddNewAddres}) {
+export default function AddNewAddress ({setAddNewAddres, setIsLoading, isLoading, token, refreshAddress, setRefreshAddress}) {
     const [ form, handleForm, setForm ] = useCustomForm()
     const { errors, validate } = useValidation(addressValidations);
     const [ showAnotherInputs, setShowAnotherInputs ] = useState(false);
@@ -21,31 +22,63 @@ export default function AddNewAddress ({setAddNewAddres}) {
             return
         }
         try {
+
+            setIsLoading(true)
             const result = await api.GetCepDetails(value)
 
-            if (result.status === 200){
+            if (result.status === 200 && !result?.data?.erro){
+                setTimeout(() => {
+                    setShowMoreInputs(false)
+                    setShowAnotherInputs(true)
+                    setIsLoading(false)
 
-                setShowMoreInputs(false)
-                setShowAnotherInputs(true)
+                    const bodyByCep = {
+                        street: result?.data?.logradouro,
+                        city: result?.data?.localidade,
+                        state: result?.data?.uf,
+                        neighborhood: result?.data?.bairro,
+                        addressDetail: result?.data?.complemento,
+                        cep: value
+                    }
 
-                const bodyByCep = {
-                    street: result?.data?.logradouro,
-                    city: result?.data?.localidade,
-                    state: result?.data?.uf,
-                    neighborhood: result?.data?.bairro,
-                    addressDetail: result?.data?.complemento,
-                    cep: value
-                }
-                console.log(bodyByCep)
-                setForm({...form, ...bodyByCep})
+                    if(!bodyByCep?.street || !bodyByCep?.city || !bodyByCep?.state || !bodyByCep?.neighborhood){
+                        console.log(bodyByCep)
+                        setShowMoreInputs(true)
+                    }
+
+                    setForm({...form, ...bodyByCep})
+
+                }, [500])  
+                return
             }
 
+            setTimeout(() => {
+                const bodyByCep = {
+                    street: undefined,
+                    city: undefined,
+                    state: undefined,
+                    neighborhood: undefined,
+                    addressDetail: undefined,
+                    cep: value
+                }
+                setForm({...form, ...bodyByCep})
+                setShowMoreInputs(true)
+                setShowAnotherInputs(true)
+                setIsLoading(false)
+            }, [500])
+
         } catch (error) {
+
+            setTimeout(() => {
+                setShowMoreInputs(true)
+                setShowAnotherInputs(true)
+                setIsLoading(false)
+            }, [500])
             console.log(error)
         }   
     }
 
-    function SubmitForms(){
+    async function SubmitForms(){
         const body = {
             addressName: form?.addressName,
             cep: form?.cep,
@@ -63,6 +96,34 @@ export default function AddNewAddress ({setAddNewAddres}) {
         if (!isValid){
             return
         }
+
+        try {
+
+            const response = await api.CreateAddress({token, body})
+
+            if (response?.status === 201){
+                setRefreshAddress(!refreshAddress)
+                toast.dark("Endereço cadastrado com Sucesso")
+                return
+            }
+
+            console.log("response", response)
+            
+
+        } catch (error) {
+
+
+            if (error?.response?.status === 403){
+                setRefreshAddress(!refreshAddress)
+                toast.error("Você estorou o limite de endereços cadastrados")
+                return 
+            }
+            
+            toast.error("Ocorreu algum erro, revise os dados inseridos ou entre em contato com o suporte")
+            console.log(JSON.stringify(error))
+            
+        }
+        
     }
 
     return(
@@ -79,6 +140,8 @@ export default function AddNewAddress ({setAddNewAddres}) {
                         handleCepChanges(e)
                     }}
                     width="100%"
+                    events={ isLoading ?("none"):("initial")}
+                    background={ isLoading ?("#E9E9E948"):("initial")}
                 />
                 {errors.cep && <ErrorMsgCheckout>{errors.cep}</ErrorMsgCheckout>}
             </InputWrapper>
@@ -96,6 +159,8 @@ export default function AddNewAddress ({setAddNewAddres}) {
                                     value={form.street} 
                                     onChange={handleForm}
                                     width="100%"
+                                    events={ isLoading ?("none"):("initial")}
+                                    background={ isLoading ?("#E9E9E948"):("initial")}
                                 />
                                 {errors.street && <ErrorMsgCheckout>{errors.street}</ErrorMsgCheckout>}
                             </InputWrapper>
@@ -108,6 +173,8 @@ export default function AddNewAddress ({setAddNewAddres}) {
                                     value={form.city} 
                                     onChange={handleForm}
                                     width="100%"
+                                    events={ isLoading ?("none"):("initial")}
+                                    background={ isLoading ?("#E9E9E948"):("initial")}
                                 />
                                 {errors.city && <ErrorMsgCheckout>{errors.city}</ErrorMsgCheckout>}
                             </InputWrapper>
@@ -120,6 +187,8 @@ export default function AddNewAddress ({setAddNewAddres}) {
                                     value={form.state} 
                                     onChange={handleForm}
                                     width="100%"
+                                    events={ isLoading ?("none"):("initial")}
+                                    background={ isLoading ?("#E9E9E948"):("initial")}
                                 />
                                 {errors.state && <ErrorMsgCheckout>{errors.state}</ErrorMsgCheckout>}
                             </InputWrapper>
@@ -132,6 +201,8 @@ export default function AddNewAddress ({setAddNewAddres}) {
                                     value={form.neighborhood} 
                                     onChange={handleForm}
                                     width="100%"
+                                    events={ isLoading ?("none"):("initial")}
+                                    background={ isLoading ?("#E9E9E948"):("initial")}
                                 />
                                 {errors.neighborhood && <ErrorMsgCheckout>{errors.neighborhood}</ErrorMsgCheckout>}
                             </InputWrapper>
@@ -209,8 +280,6 @@ export default function AddNewAddress ({setAddNewAddres}) {
                 {"Adicionar"}
             </Button>
             
-            
-
         </Container>
     )
 }
@@ -227,6 +296,7 @@ const Container = styled.div`
     background-color: ${props => props.background};
     border-radius: 5px;
     cursor: pointer;
+    filter: ${props => props.blur}
 `
 const GetCepResultContainer = styled.div`
     width: 100%;

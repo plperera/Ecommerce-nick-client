@@ -19,6 +19,12 @@ function GetAllProductsByCategory(categoryId) {
 function GetUniqueProductByName(name) {
     return axios.get(`${BASE_URL}/product/unique/name/${name}`)
 }
+function GetAllAddress(token) {
+    return axios.get(`${BASE_URL}/address`, {headers: { Authorization: `Bearer ${token}`}})
+}
+function CreateAddress({body, token}) {
+    return axios.post(`${BASE_URL}/address`, body, {headers: { Authorization: `Bearer ${token}`}})
+}
 function CreateCategory({body, token}) {
     return axios.post(`${BASE_URL}/category/admin`, body, {headers: { Authorization: `Bearer ${token}`}})
 }
@@ -47,11 +53,13 @@ const api = {
     GetUniqueProductByName,
     GetCepDetails,
     CreateCategory,
+    CreateAddress,
     CreateImage,
     CreateProduct,
     CreateAccount,
     CreateSession,
-    GetAllProducts
+    GetAllProducts,
+    GetAllAddress
 };
 
 export default api;

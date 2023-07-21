@@ -3,16 +3,18 @@ import UserData from "./userData/UserData"
 import AddressSelector from "./address/AddressSelector"
 import DeliveryMethod from "./delivery/DeliveryMethod"
 
+export default function Identification ({userData, allAddress, refreshAddress, setRefreshAddress}) {
+    
 
-export default function Identification () {
+
     return(
         <Container>  
 
             <Title>{"Identificação"}</Title>
 
             <SubContainer>
-                <UserData/>
-                <AddressSelector/>
+                <UserData userData={userData}/>
+                <AddressSelector allAddress={allAddress} token={userData.token} refreshAddress={refreshAddress} setRefreshAddress={setRefreshAddress}/>
                 <DeliveryMethod/>
             </SubContainer>
 
