@@ -1,10 +1,10 @@
 import styled from "styled-components"
-import { Title } from "./Title"
 import { useEffect, useState } from "react"
 import ProductSelector from "../../selector/ProductSelector"
 import api from "../../../../../services/API"
 import ProductForms from "./ProductForms"
 import { useCustomForm } from "../../../../../hooks/useCustomForms"
+import Title from "./TitlePutProduct"
 
 export default function PutProduct () {
 
@@ -29,7 +29,7 @@ export default function PutProduct () {
 
     return(
         <Container>
-            <Title>{"Editar Produto"}</Title>
+            <Title setSelectedProduct={setSelectedProduct} selectedProduct={selectedProduct}/>
 
             <SubContainer>
                 {!selectedProduct ? (
@@ -40,7 +40,7 @@ export default function PutProduct () {
 
                     <ProductForms selectedProduct={selectedProduct} form={form} handleForm={handleForm} setForm={setForm}/>
 
-                )}
+                )} 
                 
             </SubContainer>
 
@@ -57,8 +57,8 @@ const Container = styled.div`
     font-weight: 500;
 `
 const SubContainer = styled.div`
-    border: 1px solid red;
-
+    //border: 1px solid red;
+    margin-top: 7vh;
     padding: 25px 1.4vw;
 `
 

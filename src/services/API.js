@@ -40,6 +40,9 @@ function CreateAccount(body) {
 function CreateSession(body) {
     return axios.post(`${BASE_URL}/auth/sign-in`, body);
 }
+function CreateAdminSession(body) {
+    return axios.post(`${BASE_URL}/admin/auth/sign-in`, body);
+}
 function GetCepDetails(cep){
     return axios.get(`https://viacep.com.br/ws/${cep}/json/`)
 }
@@ -58,6 +61,7 @@ const api = {
     CreateProduct,
     CreateAccount,
     CreateSession,
+    CreateAdminSession,
     GetAllProducts,
     GetAllAddress
 };
