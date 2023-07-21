@@ -4,6 +4,7 @@ import NavigationItem from "./NavigationItem";
 import NewCategory from "./content/category/NewCategory";
 import NewImage from "./content/image/NewCategory";
 import NewProduct from "./content/products/NewProduct/NewProduct";
+import PutProduct from "./content/products/PutProduct/PutProduct";
 
 export default function NavigationBar ({expandNavigationBar, setContent}) {
     const options = [
@@ -13,6 +14,10 @@ export default function NavigationBar ({expandNavigationBar, setContent}) {
                 {
                     name:"Inserir Novo Produto",
                     content: <NewProduct/>
+                },
+                {
+                    name:"Editar um Produto",
+                    content: <PutProduct/>
                 }
             ]
         },
