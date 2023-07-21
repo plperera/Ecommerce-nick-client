@@ -1,35 +1,64 @@
 import styled from "styled-components"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import useNavigateAndMoveUp from "../../hooks/useNavigateAndMoveUp"
 import CategoryCard from "./CategoryCard"
 
 export default function CategoriesHome () {
 
     const Category01 = "https://firebasestorage.googleapis.com/v0/b/imageuploads-7b8bc.appspot.com/o/1689353981757.png?alt=media&token=94990cb7-6043-41ef-b64b-9af87099ac06"
+    const Category02 = "https://firebasestorage.googleapis.com/v0/b/imageuploads-7b8bc.appspot.com/o/1689354512144.png?alt=media&token=e0c465de-79a5-4e2d-ab1f-6f719f645aa6"
     const ExampleArray = [
         {categoryName:"Seccionadoras", description:"Seccionadoras projetadas e produzidas para oferecer ótima relação custo-benefício ao fabricante.", image: Category01}, 
-        {categoryName:"Seccionadoras", description:"Seccionadoras projetadas e produzidas para oferecer ótima relação custo-benefício ao fabricante.", image: Category01}, 
-        {categoryName:"Seccionadoras", description:"Seccionadoras projetadas e produzidas para oferecer ótima relação custo-benefício ao fabricante.", image: Category01}, 
-        {categoryName:"Seccionadoras", description:"Seccionadoras projetadas e produzidas para oferecer ótima relação custo-benefício ao fabricante.", image: Category01}, 
-        {categoryName:"Seccionadoras", description:"Seccionadoras projetadas e produzidas para oferecer ótima relação custo-benefício ao fabricante.", image: Category01},   
+        {categoryName:"Seccionadoras2", description:"Seccionadoras projetadas e produzidas para oferecer ótima relação custo-benefício ao fabricante.", image: Category02}, 
+        {categoryName:"Seccionadoras3", description:"Seccionadoras projetadas e produzidas para oferecer ótima relação custo-benefício ao fabricante.", image: Category01}, 
+        {categoryName:"Seccionadoras4", description:"Seccionadoras projetadas e produzidas para oferecer ótima relação custo-benefício ao fabricante.", image: Category02}, 
+        {categoryName:"Seccionadoras5", description:"Seccionadoras projetadas e produzidas para oferecer ótima relação custo-benefício ao fabricante.", image: Category01},   
+        {categoryName:"Seccionadoras6", description:"Seccionadoras projetadas e produzidas para oferecer ótima relação custo-benefício ao fabricante.", image: Category02},   
     ]
 
     const [slide, setSlide] = useState(0)
+    const [applyAnimation, setApplyAnimation] = useState(false)
 
-    function ChangeSlide(){
-        (slide === (ExampleArray.length - 1)) ? (setSlide(0)):(setSlide(slide + 1))
+    useEffect(() => {
+
+        setApplyAnimation(true)
+
+        setTimeout(() => {
+            setApplyAnimation(false)
+        }, 200); 
+      
+    }, [slide]);
+
+    function ChangeSlide(changeAmount){
+        let newSlide = slide + changeAmount;
+    
+        // Se o novo slide for além do final, volta para o início.
+        if (newSlide > ExampleArray.length - 1) {
+            newSlide = 0;
+        }
+    
+        // Se o novo slide for antes do início, vai para o final.
+        if (newSlide < 0) {
+            newSlide = ExampleArray.length - 1;
+        }
+    
+        setSlide(newSlide);
     }
+    
 
     const navigateAndMoveUp = useNavigateAndMoveUp();
 
     return(
         <Container>
             <Title>Categorias</Title>
-            <LeftArrowContainer>{"<"}</LeftArrowContainer>
+            <LeftArrowContainer onClick={() =>  applyAnimation ? (""):(ChangeSlide(-1))}>{"<"}</LeftArrowContainer>
             <CategoryContainer>
-                {ExampleArray.map((e, i) => i <= 3 && i >= 0 ? <CategoryCard image={Category01} indice={i} key={i}/>:(<></>))}
+                {Array(4).fill(0).map((_, i) => {
+                    const index = (slide + i) % ExampleArray.length;
+                    return <CategoryCard category={ExampleArray[index]} key={index} applyAnimation={applyAnimation}/>
+                })}
             </CategoryContainer>
-            <RightArrowContainer>{">"}</RightArrowContainer>
+            <RightArrowContainer onClick={() =>  applyAnimation ? (""):(ChangeSlide(1))}>{">"}</RightArrowContainer>
         </Container>
     )
 }
@@ -67,18 +96,26 @@ const CategoryContainer = styled.div`
 `
 const ArrowContainer = styled.div`
     position: absolute;
-    width: 120px;
-    height: 120px;
-    border: 1px solid red; 
-    top: 114vh;
+    width: 100px;
+    height: 100px;
+    top: 115vh;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 70px;
+    font-weight: 600;
+    user-select: none;
+    cursor: pointer;
+    color: #009395ff;
+    &:hover {
+        color: #00BFC2;
+    }
 `
 const LeftArrowContainer = styled(ArrowContainer)`
     left: 2vw;
+    display: ${props => props.display};
 `
 const RightArrowContainer = styled(ArrowContainer)`
     right: 2vw;
+    display: ${props => props.display};
 `
