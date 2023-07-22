@@ -1,16 +1,18 @@
 import styled from "styled-components"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import ProductSelector from "../../selector/ProductSelector"
 import api from "../../../../../services/API"
 import ProductForms from "./ProductForms"
 import { useCustomForm } from "../../../../../hooks/useCustomForms"
 import Title from "./TitlePutProduct"
+import AdminContext from "../../../../../context/AdminContext"
 
 export default function PutProduct () {
 
     const [ selectedProduct, setSelectedProduct ] = useState(undefined)
     const [ products, setProducts ] = useState(undefined)
     const [ form, handleForm, setForm ] = useCustomForm();
+    const { adminData } = useContext(AdminContext);
 
     useEffect(() => {
         getAllProducts()
@@ -18,7 +20,7 @@ export default function PutProduct () {
 
     async function getAllProducts(){
         try {
-            const response = await api.GetAllProducts()
+            const response = await api.GetAllProductsWithAllData(adminData.token)
             //const fake = [...response.data, ...response.data, ...response.data, ...response.data, ...response.data, ...response.data, ...response.data, ...response.data, ...response.data, ...response.data]
             setProducts(response.data)
             console.log(response.data)
@@ -34,14 +36,13 @@ export default function PutProduct () {
             <SubContainer>
                 {!selectedProduct ? (
 
-                    <ProductSelector setSelectedProduct={setSelectedProduct} products={products}/>
+                    products?(<ProductSelector setSelectedProduct={setSelectedProduct} products={products}/>):(<></>)
 
                 ):(
 
                     <ProductForms selectedProduct={selectedProduct} form={form} handleForm={handleForm} setForm={setForm}/>
 
                 )} 
-                
             </SubContainer>
 
         </Container>

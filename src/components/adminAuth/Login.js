@@ -7,7 +7,7 @@ import { useContext } from "react"
 import useNavigateAndMoveUp from "../../hooks/useNavigateAndMoveUp"
 import AdminContext from "../../context/AdminContext"
 
-export default function Login ({ setHasLogin }) {
+export default function Login () {
 
     const [form, handleForm] = useCustomForm()
     const { setAdminData } = useContext(AdminContext);
@@ -25,7 +25,7 @@ export default function Login ({ setHasLogin }) {
         }
 
         try {           
-            const response = await api.CreateSession(body)
+            const response = await api.CreateAdminSession(body)
 
             if( response.status === 200){
 
@@ -66,15 +66,10 @@ export default function Login ({ setHasLogin }) {
                     />
                 </InputContainer>
 
-                <OptionsContainer>
-                    <span>{"Esqueceu a senha?"}</span>
-                    <span>{"Termo de Privacidade"}</span>
-                </OptionsContainer>
             </UserActionsContainer>
 
             <ButtonsContainer>
                 <ButtonStyle onClick={() => SubmitForms()}>{"Entrar"}</ButtonStyle>
-                <NewAccountButtonStyle onClick={() => setHasLogin(false)}>{"Criar uma Conta"}</NewAccountButtonStyle>
             </ButtonsContainer>
            
         </Container>
@@ -134,14 +129,6 @@ const InputContainer = styled.div`
         margin-top: 16px;
     }
 `
-const OptionsContainer = styled.div`
-    display: flex;
-    justify-content: space-between;
-    span {
-        font-size: 14px;
-        font-weight: 600;
-    }
-`
 const ButtonsContainer = styled.div`
     display: flex;
     flex-direction: column;
@@ -161,14 +148,6 @@ const ButtonStyle = styled.div`
     &:hover{
         background-color: #084663;
     }
-`
-const NewAccountButtonStyle = styled.div`
-    display: flex;
-    justify-content: center;    
-    align-items: center;
-    font-size: 17px;
-    font-weight: 500;
-    cursor: pointer;
 `
 const UserActionsContainer = styled.div`
     display: flex;
