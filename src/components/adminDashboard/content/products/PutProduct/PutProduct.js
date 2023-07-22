@@ -39,7 +39,7 @@ export default function PutProduct () {
 
                 ):(
 
-                    <ProductForms selectedProduct={selectedProduct} form={form} handleForm={handleForm} setForm={setForm}/>
+                    <ProductForms selectedProduct={selectedProduct} form={form} handleForm={handleForm} setForm={setForm} token={adminData.token}/>
 
                 )} 
             </SubContainer>

@@ -7,8 +7,9 @@ import { ErrorMsg } from "../../../../userDashboard/content/userData/ErrorMsg";
 import { useEffect, useState } from "react";
 import TecnicDetails from "./TecnicDetailsForms";
 import CategoriesForm from "./CategoriesForm";
+import ImagesForm from "./ImagesForm";
 
-export default function ProductForms ({form, handleForm, setForm, selectedProduct}) {
+export default function ProductForms ({form, handleForm, setForm, selectedProduct, token}) {
 
     const { errors, validate } = useValidation(validations);
     const [filterCategories, setFilterCategories] = useState(undefined)
@@ -97,6 +98,8 @@ export default function ProductForms ({form, handleForm, setForm, selectedProduc
                     <TecnicDetails tecnicDetails={selectedProduct?.tecnicDetails} setForm={setForm} form={form}/>
 
                     <CategoriesForm categories={selectedProduct?.categories} setForm={setForm} form={form} filter={filterCategories}/>
+
+                    <ImagesForm images={selectedProduct?.images?.map( e => {return {id: e.id}})} setForm={setForm} form={form} filter={filterCategories} token={token}/>
                 </>
             ):(<></>)}
         </Container>
