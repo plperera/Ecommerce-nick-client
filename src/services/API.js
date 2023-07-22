@@ -49,6 +49,16 @@ function CreateAdminSession(body) {
 function GetCepDetails(cep){
     return axios.get(`https://viacep.com.br/ws/${cep}/json/`)
 }
+function AddNewFavorite({token, body}){
+    return axios.post(`${BASE_URL}/favorite`, body, {headers: { Authorization: `Bearer ${token}`}});
+}
+function DeleteFavorite({token, body}){
+    return axios.delete(`${BASE_URL}/favorite`, {data: body, headers: { Authorization: `Bearer ${token}`}});
+}
+function GetAllFavorites(token){
+    return axios.get(`${BASE_URL}/favorite`, {headers: { Authorization: `Bearer ${token}`}});
+}
+
 
 
 const api = {
@@ -67,7 +77,10 @@ const api = {
     CreateSession,
     CreateAdminSession,
     GetAllProducts,
-    GetAllAddress
+    GetAllAddress,
+    AddNewFavorite,
+    GetAllFavorites,
+    DeleteFavorite
 };
 
 export default api;

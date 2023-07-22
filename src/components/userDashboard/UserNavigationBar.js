@@ -1,7 +1,6 @@
 import styled from "styled-components"
 import UserNavigationItem from "./UserNavigationItem";
 import Orders from "./content/orders/Orders";
-import Favorites from "./content/favorites/Favorites";
 import UserData from "./content/userData/UserData";
 import UserAddress from "./content/userAddress/UserAddress";
 
@@ -21,10 +20,6 @@ export default function UserNavigationBar ({setContent, content, userData}) {
         {
             name:"Últimos Pedidos",
             ref: <Orders/>
-        },
-        {
-            name:"Favoritos",
-            ref: <Favorites/>
         },
     ]
 

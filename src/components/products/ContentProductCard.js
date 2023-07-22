@@ -1,14 +1,77 @@
 import styled, { keyframes } from "styled-components"
 import { FaStar } from 'react-icons/fa';
-import { HiOutlineHeart } from 'react-icons/hi';
+import { HiOutlineHeart, HiHeart } from 'react-icons/hi';
 import useNavigateAndMoveUp from "../../hooks/useNavigateAndMoveUp";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import api from "../../services/API";
+import useToken from "../../hooks/useToken";
+import UserContext from "../../context/UserContext";
 
 export default function ContentProductCard ({ productData }) {
 
     const navigateAndMoveUp = useNavigateAndMoveUp();
 
     const [isLoading, setIsLoading] = useState(true);
+    const { userData, setUserData } = useContext(UserContext);
+    const [ hasFavorite, setHasFavorite ] = useState(false)
+    const token = useToken()
+
+    useEffect(() => {
+
+        if(!userData?.token){
+            return
+        }
+
+        setHasFavorite(userData?.favorites?.some(e => e.productId === productData.productId))
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[userData])
+
+    function handleFavorite(){
+
+        if (!userData?.token) {
+            return
+        }
+
+        if(userData?.favorites?.some(e => e.productId === productData.productId)){
+            removeFavorite()
+            return
+        }
+
+        createFavorite()
+
+    }
+
+    async function createFavorite(){
+        try {
+            const result = await api.AddNewFavorite({token, body: {productId: productData.productId}})
+            
+            if( result.status === 201){
+                toast.dark("Produto adicionado aos favoritos")
+                const newFavorites = [...userData?.favorites, {productId: productData.productId}]
+                setUserData({...userData, favorites: newFavorites})
+            }
+
+        } catch (error) {
+            toast.error("Ocorreu um erro, tente novamente")
+            console.log(error)
+        }
+    }
+    async function removeFavorite(){
+        try {
+            const result = await api.DeleteFavorite({token, body: {productId: productData.productId}})
+
+            if( result.status === 200){
+                const newFavorites = userData?.favorites?.filter(e => e.productId !== productData.productId)
+                setUserData({...userData, favorites: newFavorites})
+            }
+
+        } catch (error) {
+            toast.error("Ocorreu um erro, tente novamente")
+            console.log(error)
+        }
+    }
 
     return(
         <Container>
@@ -19,9 +82,9 @@ export default function ContentProductCard ({ productData }) {
                     <div>{ 9.9 }</div>
                 </RateSession>
 
-                <FavoriteSession>
-                    <div>{"Favoritar"}</div>
-                    <FavoriteStyledIcon/>
+                <FavoriteSession onClick={() => handleFavorite()}>
+                    <div>{hasFavorite ? ("Favorito"):("Favoritar")}</div>
+                    {hasFavorite ? (<FavoriteFilledStyledIcon/>):(<FavoriteStyledIcon/>)}
                 </FavoriteSession>
 
             </UpContainer>
@@ -125,6 +188,8 @@ const RateSession = styled(DetailsSession)`
 `
 const FavoriteSession = styled(DetailsSession)`
     justify-content: right;
+    cursor: pointer;
+    user-select: none;
 `
 const RateStyledIcon = styled(FaStar)`
     margin-top: -2.5px;
@@ -141,7 +206,14 @@ const FavoriteStyledIcon = styled(HiOutlineHeart)`
         font-size: 19px;
     }
 `
-
+const FavoriteFilledStyledIcon = styled(HiHeart)`
+    margin-top: -2.5px;
+    font-size: 27px;
+    font-weight: 700;
+    @media (max-width: 1366px) {
+        font-size: 19px;
+    }
+`
 //MIDDLECONTAINER -----------------------
 const MiddleContainer = styled.div`
     height: 35vh;

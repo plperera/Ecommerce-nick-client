@@ -14,6 +14,7 @@ import Cart from "./pages/cart/Cart"
 import Checkout from "./pages/checkout/Checkout"
 import { AdminProvider } from "./context/AdminContext"
 import AdminAuth from "./pages/adminAuth/AdminAuth"
+import Favorites from "./pages/favorites/Favorites"
 
 export default function App (){
  
@@ -41,6 +42,7 @@ export default function App (){
                         <Route path="/produto/:productName" element={<UniqueProduct />} />
                         <Route path="/auth" element={<Auth />} />
                         <Route path="/minha-conta" element={<UserAccount />} />
+                        <Route path="/favoritos" element={<Favorites />} />
                            
                         <Route path="/admin/dashboard" element={<AdminProvider><AdminDashboard/></AdminProvider>}/>
                         <Route path="/admin/auth" element={<AdminProvider><AdminAuth/></AdminProvider>}/>

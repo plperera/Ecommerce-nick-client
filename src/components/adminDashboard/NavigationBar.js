@@ -5,6 +5,8 @@ import NewCategory from "./content/category/NewCategory";
 import NewImage from "./content/image/NewCategory";
 import NewProduct from "./content/products/NewProduct/NewProduct";
 import PutProduct from "./content/products/PutProduct/PutProduct";
+import BannerHome from "./content/homePage/bannerHome/BannerHome";
+import CategoryHome from "./content/homePage/categoryHome/CategoryHome";
 
 export default function NavigationBar ({expandNavigationBar, setContent}) {
     const options = [
@@ -18,6 +20,19 @@ export default function NavigationBar ({expandNavigationBar, setContent}) {
                 {
                     name:"Editar um Produto",
                     content: <PutProduct/>
+                }
+            ]
+        },
+        {
+            name:"Pagina Inicial",
+            options: [
+                {
+                    name:"Banners",
+                    content: <BannerHome/>
+                },
+                {
+                    name:"Principais Categorias",
+                    content: <CategoryHome/>
                 }
             ]
         },

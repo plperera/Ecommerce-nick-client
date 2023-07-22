@@ -1,11 +1,12 @@
 import styled, { keyframes } from "styled-components"
 import useNavigateAndMoveUp from "../../hooks/useNavigateAndMoveUp";
 import { useState } from "react";
+import useToken from "../../hooks/useToken";
 
 export default function ProductCard ({product}) {
 
     const [isLoading, setIsLoading] = useState(true);
-
+    const token = useToken()
     const navigateAndMoveUp = useNavigateAndMoveUp();
 
     return(
