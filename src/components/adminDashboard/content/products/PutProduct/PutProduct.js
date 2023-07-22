@@ -21,8 +21,7 @@ export default function PutProduct () {
     async function getAllProducts(){
         try {
             const response = await api.GetAllProductsWithAllData(adminData.token)
-            //const fake = [...response.data, ...response.data, ...response.data, ...response.data, ...response.data, ...response.data, ...response.data, ...response.data, ...response.data, ...response.data]
-            setProducts(response.data)
+           setProducts(response.data)
             console.log(response.data)
         } catch (error) {
             console.log(error)

@@ -4,12 +4,14 @@ import Input from "../../../../../common/form/Input"
 import { useValidation } from "../../../../../hooks/useValidation";
 import validations from "./FormValidations";
 import { ErrorMsg } from "../../../../userDashboard/content/userData/ErrorMsg";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import TecnicDetails from "./TecnicDetailsForms";
+import CategoriesForm from "./CategoriesForm";
 
 export default function ProductForms ({form, handleForm, setForm, selectedProduct}) {
 
     const { errors, validate } = useValidation(validations);
+    const [filterCategories, setFilterCategories] = useState(undefined)
 
     useEffect(() => {
 
@@ -93,6 +95,8 @@ export default function ProductForms ({form, handleForm, setForm, selectedProduc
                     </UpperInputsContainer>
 
                     <TecnicDetails tecnicDetails={selectedProduct?.tecnicDetails} setForm={setForm} form={form}/>
+
+                    <CategoriesForm categories={selectedProduct?.categories} setForm={setForm} form={form} filter={filterCategories}/>
                 </>
             ):(<></>)}
         </Container>
