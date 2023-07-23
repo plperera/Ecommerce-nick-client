@@ -58,6 +58,9 @@ function DeleteFavorite({token, body}){
 function GetAllFavorites(token){
     return axios.get(`${BASE_URL}/favorite`, {headers: { Authorization: `Bearer ${token}`}});
 }
+function CreateNewOrder({token, body}){
+    return axios.post(`${BASE_URL}/order`, body, {headers: { Authorization: `Bearer ${token}`}});
+}
 
 
 
@@ -80,7 +83,8 @@ const api = {
     GetAllAddress,
     AddNewFavorite,
     GetAllFavorites,
-    DeleteFavorite
+    DeleteFavorite,
+    CreateNewOrder
 };
 
 export default api;

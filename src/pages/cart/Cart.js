@@ -15,7 +15,6 @@ export default function Cart () {
 
     async function getAllCartProduts(){
         if (userData?.cart?.length === 0 || !userData?.cart){
-            
             setCartProducts([])
             setIsLoading(false)
             return
@@ -23,16 +22,21 @@ export default function Cart () {
         const productIds = userData.cart
             .filter(e => typeof e?.productId === 'number')
             .map(e => ( e.productId ));
-
+    
         const result = await api.GetAllProductsByProductId(JSON.stringify(productIds))
-
+    
+        let totalPrice = 0;
         const updatedCartProducts = userData.cart.map(cartItem => {
-
             const productData = result.data.find(product => product.productId === cartItem.productId);
-            return productData ? { ...productData, quantity: cartItem.quantity } : cartItem;
-
+            if(productData) {
+                totalPrice += productData.price * cartItem.quantity;
+                return { ...productData, quantity: cartItem.quantity };
+            }
+            return cartItem;
         });
-
+    
+        setUserData({...userData, totalPrice: totalPrice});
+    
         const finalCartProducts = updatedCartProducts.filter(product => product.quantity);
         
         setCartProducts(finalCartProducts)
@@ -73,9 +77,8 @@ export default function Cart () {
             getAllCartProduts()
         }, [1000])
         
-        
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [userData])
+    }, [userData?.cart])
 
     useEffect(() => {
 
@@ -90,7 +93,7 @@ export default function Cart () {
             ):(
             <>
                 <CartListComponent cartProducts={cartProducts} isLoading={isLoading} handleProductQuantity={handleProductQuantity}/>
-                <CartResumeComponent cartProducts={cartProducts} isLoading={isLoading}/>    
+                <CartResumeComponent cartProducts={cartProducts} isLoading={isLoading} userData={userData}/>    
             </>
             )}     
         </Container>

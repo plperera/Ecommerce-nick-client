@@ -4,7 +4,7 @@ import Pix from "./Pix"
 import Boleto from "./Boleto"
 import { useState } from "react"
 
-export default function Payment () {
+export default function Payment ({userData, checkoutDetails}) {
     const [paymentSelected, setPaymentSelected] = useState(undefined)
 
     function SelectPayment(method) {
@@ -20,7 +20,7 @@ export default function Payment () {
 
             <SubContainer>
 
-                <CreditCard paymentSelected={paymentSelected} setPaymentSelected={setPaymentSelected} SelectPayment={SelectPayment}/>
+                <CreditCard paymentSelected={paymentSelected} setPaymentSelected={setPaymentSelected} SelectPayment={SelectPayment} userData={userData} checkoutDetails={checkoutDetails}/>
                 <Pix paymentSelected={paymentSelected} setPaymentSelected={setPaymentSelected} SelectPayment={SelectPayment}/>
                 <Boleto paymentSelected={paymentSelected} setPaymentSelected={setPaymentSelected} SelectPayment={SelectPayment}/>
 

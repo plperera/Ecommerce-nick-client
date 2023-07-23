@@ -4,7 +4,7 @@ import styled from "styled-components"
 import MethodCard from "./MethodCard"
 import Button from "../../../../common/form/Button"
 
-export default function DeliveryMethod () {
+export default function DeliveryMethod ({checkoutDetails, setCheckoutDetails}) {
 
     const [deliveryMethodSelector, setDeliveryMethodSelector] = useState(undefined)
     const [deliveryMethods, setDeliveryMethods] = useState(undefined)
@@ -42,7 +42,16 @@ export default function DeliveryMethod () {
             <Title>{"Método de Entrega"}</Title>
 
             {deliveryMethods ? (
-                deliveryMethods.map(e => <MethodCard key={e?.id} methodData={e} deliveryMethodSelector={deliveryMethodSelector} setDeliveryMethodSelector={setDeliveryMethodSelector}/>)
+                deliveryMethods.map(e => 
+                    <MethodCard 
+                        key={e?.id} 
+                        methodData={e} 
+                        deliveryMethodSelector={deliveryMethodSelector} 
+                        setDeliveryMethodSelector={setDeliveryMethodSelector}
+                        checkoutDetails={checkoutDetails} 
+                        setCheckoutDetails={setCheckoutDetails}
+                    />
+                )
             ):(<></>)}
 
             <Button 

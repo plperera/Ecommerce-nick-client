@@ -2,7 +2,7 @@ import styled from "styled-components"
 import { AiFillCreditCard } from 'react-icons/ai';
 import CreditCardForm from "./CreditCardForm";
 
-export default function CreditCard ({ paymentSelected, SelectPayment }) {
+export default function CreditCard ({ paymentSelected, SelectPayment, userData, checkoutDetails }) {
     return(
         <>
             {paymentSelected !== undefined && paymentSelected !== "Cartão de Crédito" ? (<></>):(
@@ -17,7 +17,7 @@ export default function CreditCard ({ paymentSelected, SelectPayment }) {
                 </Container>
             )}
             {paymentSelected === "Cartão de Crédito"?(
-                <CreditCardForm/>
+                <CreditCardForm userData={userData} checkoutDetails={checkoutDetails}/>
             ):(<></>)}
         </>
     )

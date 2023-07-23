@@ -1,15 +1,15 @@
 import styled from "styled-components"
 
-export default function MethodCard ({methodData, setDeliveryMethodSelector, deliveryMethodSelector}) {
+export default function MethodCard ({methodData, checkoutDetails, setCheckoutDetails}) {
     return(
         <Container 
-            onClick={() => setDeliveryMethodSelector(methodData.id)} 
-            background={deliveryMethodSelector === methodData.id?("#B9CECF69"):("#F1F1F1A2")}
+            onClick={() => setCheckoutDetails({...checkoutDetails, shippingId: methodData?.id, shippingPrice: methodData?.price})} 
+            background={checkoutDetails.shippingId === methodData.id?("#B9CECF69"):("#F1F1F1A2")}
         > 
 
             <SelectorContainer>
-                <SelectorCheckbox borderColor={deliveryMethodSelector === methodData.id?("#009395ff"):("#02131bff")}>
-                    <SelectorPointCheckbox background={deliveryMethodSelector === methodData.id?("#009395ff"):("#FFFFFF00")}/>
+                <SelectorCheckbox borderColor={checkoutDetails.shippingId === methodData.id?("#009395ff"):("#02131bff")}>
+                    <SelectorPointCheckbox background={checkoutDetails.shippingId === methodData.id?("#009395ff"):("#FFFFFF00")}/>
                 </SelectorCheckbox>
             </SelectorContainer>
 

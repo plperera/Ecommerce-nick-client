@@ -3,7 +3,7 @@ import { useState } from "react"
 import styled from "styled-components"
 import ResumeProductCard from "./ResumeProductCard"
 
-export default function OrderResume () {
+export default function OrderResume ({ userData, checkoutDetails }) {
 
     const [products, setProducts] = useState(undefined)
 
@@ -53,14 +53,6 @@ export default function OrderResume () {
         return totalQuantity;
     }
 
-    function sumTotalValue(array) {
-        let totalValue = 0;
-        array.forEach(item => {
-            totalValue += item.price * item.quantity;
-        });
-        return totalValue;
-    }
-
     return(
         <Container>  
             <Title>{"Resumo do pedido"}</Title>
@@ -71,17 +63,17 @@ export default function OrderResume () {
 
                         <ResumeLine>
                             <h4>{`Subtotal (${sumQuantity(products)} itens):`}</h4>
-                            <h5>{(sumTotalValue(products) / 100).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</h5>
+                            <h5>{(userData.totalPrice / 100).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</h5>
                         </ResumeLine>
 
                         <ResumeLine>
                             <h4>{`Frete:`}</h4>
-                            <h5>{(100).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</h5>
+                            <h5>{(checkoutDetails?.shippingPrice / 100 || 0).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</h5>
                         </ResumeLine>
 
                         <ResumeLine>
                             <h4>{`Total: `}</h4>
-                            <h5>{(sumTotalValue(products) / 100 + 100).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</h5>
+                            <h5>{((userData.totalPrice + (checkoutDetails.shippingPrice || 0)) / 100).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</h5>
                         </ResumeLine>
 
                     </>

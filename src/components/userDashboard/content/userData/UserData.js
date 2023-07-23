@@ -87,7 +87,6 @@ export default function UserData ({userData}) {
                 <InputWrapper width="68%">
                     <Input 
                         label="CPF ou CNPJ" 
-                        //mask="999.999.999-99"
                         mask={form?.cpf?.length < 15 ? '999.999.999-999' : '99.999.999/9999-99'}
                         type="text" 
                         name={"cpf"} 

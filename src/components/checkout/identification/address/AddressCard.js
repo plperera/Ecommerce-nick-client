@@ -1,15 +1,15 @@
 import styled from "styled-components"
 
-export default function AddressCard ({addressData, setAddressSelector, addressSelector}) {
+export default function AddressCard ({addressData, checkoutDetails, setCheckoutDetails}) {
     return(
         <Container 
-            onClick={() => setAddressSelector(addressData.id)} 
-            background={addressSelector === addressData.id?("#B9CECF69"):("#F1F1F1A2")}
+            onClick={() => setCheckoutDetails({...checkoutDetails, addressId: addressData.id})} 
+            background={checkoutDetails.addressId === addressData.id?("#B9CECF69"):("#F1F1F1A2")}
         > 
 
             <SelectorContainer>
-                <SelectorCheckbox borderColor={addressSelector === addressData.id?("#009395ff"):("#02131bff")}>
-                    <SelectorPointCheckbox background={addressSelector === addressData.id?("#009395ff"):("#FFFFFF00")}/>
+                <SelectorCheckbox borderColor={checkoutDetails.addressId === addressData.id?("#009395ff"):("#02131bff")}>
+                    <SelectorPointCheckbox background={checkoutDetails.addressId === addressData.id?("#009395ff"):("#FFFFFF00")}/>
                 </SelectorCheckbox>
             </SelectorContainer>
 

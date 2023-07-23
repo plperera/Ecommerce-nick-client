@@ -4,7 +4,7 @@ import Button from "../../common/form/Button"
 import { LoadingContainer } from "./LoadingContainer"
 import useNavigateAndMoveUp from "../../hooks/useNavigateAndMoveUp";
 
-export default function CartResume ({cartProducts, isLoading}) {
+export default function CartResume ({cartProducts, isLoading, userData}) {
 
     const navigateAndMoveUp = useNavigateAndMoveUp();
 
@@ -16,7 +16,7 @@ export default function CartResume ({cartProducts, isLoading}) {
             
             <Title>{"Resumo"}</Title>
 
-            <PriceDetails>
+            {/* <PriceDetails>
                 <h2>{"Subtotal"}</h2>
 
                 <LinePrice>
@@ -30,13 +30,13 @@ export default function CartResume ({cartProducts, isLoading}) {
                 <LinePrice>
                     <PriceSign>{"R$ "}</PriceSign><span>{ (20000 / 100).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span>
                 </LinePrice>
-            </PriceDetails>
+            </PriceDetails> */}
 
             <PriceDetails>
                 <h2>{"Total"}</h2>
 
                 <LinePrice>
-                    <PriceSign>{"R$ "}</PriceSign><span>{ (40000 / 100).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span>
+                    <PriceSign>{"R$ "}</PriceSign><span>{ (userData?.totalPrice / 100).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span>
                 </LinePrice>
             </PriceDetails >
 

@@ -5,9 +5,8 @@ import Button from "../../../../common/form/Button"
 import AddNewAddress from "./AddNewAddress"
 import { useEffect } from "react"
 
-export default function AddressSelector ({allAddress, token, refreshAddress, setRefreshAddress}) {
+export default function AddressSelector ({allAddress, token, refreshAddress, setRefreshAddress, checkoutDetails, setCheckoutDetails}) {
 
-    const [addressSelector , setAddressSelector] = useState(undefined)
     const [addNewAddres , setAddNewAddres] = useState(false)
     const [isloading , setIsLoading] = useState(false)
     
@@ -25,23 +24,30 @@ export default function AddressSelector ({allAddress, token, refreshAddress, set
             setAddNewAddres(true)
         }
         
-        setAddressSelector(allAddress[0]?.addressId)
+        setAddNewAddres(allAddress[0]?.addressId)
 
     }, [allAddress])
 
     useEffect(() => {
-        console.log(addressSelector)
-    }, [addressSelector])
+        console.log(checkoutDetails)
+    }, [checkoutDetails])
 
     return(
         <Container events={isloading ? ("none !important"):("initial")} opacity={isloading ? ("0.5"):("1")}>  
             <Title>{"Endereço para entrega"}</Title>
             { addNewAddres ? (
-                <AddNewAddress setAddNewAddres={setAddNewAddres} setIsLoading={setIsLoading} isLoading={isloading} token={token} refreshAddress={refreshAddress} setRefreshAddress={setRefreshAddress}/>
+                <AddNewAddress 
+                    setAddNewAddres={setAddNewAddres} 
+                    setIsLoading={setIsLoading} 
+                    isLoading={isloading} 
+                    token={token} 
+                    refreshAddress={refreshAddress} 
+                    setRefreshAddress={setRefreshAddress}
+                />
             ):(
                 allAddress?( 
                     <>
-                        {allAddress.map(e => <AddressCard addressData={e} key={e.addressId} setAddressSelector={setAddressSelector} addressSelector={addressSelector}/>)}
+                        {allAddress.map(e => <AddressCard addressData={e} key={e.addressId} setCheckoutDetails={setCheckoutDetails} checkoutDetails={checkoutDetails}/>)}
 
                         <Button 
                             width={"47.5%"} 
