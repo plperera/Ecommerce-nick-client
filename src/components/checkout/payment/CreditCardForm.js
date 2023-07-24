@@ -10,13 +10,16 @@ import { useValidation } from "../../../hooks/useValidation";
 import validations from "./ValidationsPayment";
 import { ErrorMsg } from "../../userDashboard/content/userData/ErrorMsg";
 import api from "../../../services/API";
+import useNavigateAndMoveUp from "../../../hooks/useNavigateAndMoveUp";
 
 export default function CreditCardForm ({userData, checkoutDetails}) {
 
     const [ cardForm, setCardForm ] = useState(null);
     const [ cardDataResponse, setCardDataResponse] = useState({});
     const { errors, validate } = useValidation(validations);
+    // eslint-disable-next-line no-unused-vars
     const [ form, handleForm, setForm ] = useCustomForm({})
+    const navigateAndMoveUp = useNavigateAndMoveUp();
 
     useEffect(() => {
         const script = document.createElement('script');
@@ -155,6 +158,7 @@ export default function CreditCardForm ({userData, checkoutDetails}) {
             return;
         }
 
+        // eslint-disable-next-line no-unused-vars
         const { isValid, errors } = validate(form)
         
         if (!isValid) {
@@ -175,6 +179,7 @@ export default function CreditCardForm ({userData, checkoutDetails}) {
 
         savePayment()
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[cardDataResponse])
 
     async function savePayment(){
@@ -199,18 +204,17 @@ export default function CreditCardForm ({userData, checkoutDetails}) {
                 cart: userData.cart
             }
 
-            console.log("body", body)
-
             const response = await api.CreateNewOrder({token: userData.token, body})
 
             if (response.status === 201){
+                navigateAndMoveUp({locate:"checkout/obrigado"})
                 toast.dark("Pedido Realizado com Sucesso")
             }
             
 
         } catch (error) {
             console.log(error)
-            toast.error("Acontenceu um erro, vishhhh")
+            toast.error("Ocorreu um erro, tente novamente ou entre em contato com o suporte")
         }
     }
 

@@ -15,6 +15,7 @@ import Checkout from "./pages/checkout/Checkout"
 import { AdminProvider } from "./context/AdminContext"
 import AdminAuth from "./pages/adminAuth/AdminAuth"
 import Favorites from "./pages/favorites/Favorites"
+import ThankYou from "./pages/thankyou/ThankYou"
 
 export default function App (){
  
@@ -49,6 +50,7 @@ export default function App (){
 
                         <Route path="/carrinho" element={<Cart />} />
                         <Route path="/checkout" element={<Checkout />} />
+                        <Route path="/checkout/obrigado" element={<ThankYou />} />
                         <Route path="*" element={<NotFound />} />
                     </Routes>
                     <Footer/>
