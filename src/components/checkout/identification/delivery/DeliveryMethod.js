@@ -14,8 +14,8 @@ export default function DeliveryMethod ({checkoutDetails, setCheckoutDetails}) {
         const fake = [
             {   
                 id: 1,
-                name:"Braspress",
-                price:2 * 200 * 100, 
+                name:"Atlas Transportes & Logística",
+                price:5 * 200 * 100,  
             },
             {   
                 id: 2,
@@ -29,9 +29,10 @@ export default function DeliveryMethod ({checkoutDetails, setCheckoutDetails}) {
             },
             {   
                 id: 4,
-                name:"Atlas Transportes & Logística",
-                price:5 * 200 * 100,  
+                name:"Braspress",
+                price: 400 * 100, 
             },
+            
         ]
 
         setDeliveryMethods(fake)

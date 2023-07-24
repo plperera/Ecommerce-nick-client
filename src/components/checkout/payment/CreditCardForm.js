@@ -178,9 +178,6 @@ export default function CreditCardForm ({userData, checkoutDetails}) {
     },[cardDataResponse])
 
     async function savePayment(){
-
-        toast.dark("Enviando para o BACKEND")
-
         try {
             const body = {
                 description: cardDataResponse.description,
@@ -206,9 +203,10 @@ export default function CreditCardForm ({userData, checkoutDetails}) {
 
             const response = await api.CreateNewOrder({token: userData.token, body})
 
-            console.log("paymentResponse", response.data)
-
-            toast.success("Pagamento recebido")
+            if (response.status === 201){
+                toast.dark("Pedido Realizado com Sucesso")
+            }
+            
 
         } catch (error) {
             console.log(error)
