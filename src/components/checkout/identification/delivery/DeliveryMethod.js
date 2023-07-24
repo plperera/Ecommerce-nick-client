@@ -3,40 +3,36 @@ import { useState } from "react"
 import styled from "styled-components"
 import MethodCard from "./MethodCard"
 import Button from "../../../../common/form/Button"
+import api from "../../../../services/API"
 
 export default function DeliveryMethod ({checkoutDetails, setCheckoutDetails}) {
 
     const [deliveryMethodSelector, setDeliveryMethodSelector] = useState(undefined)
     const [deliveryMethods, setDeliveryMethods] = useState(undefined)
 
+    function ScrollToTop() { 
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });    
+    }
+
     useEffect(() => {
 
-        const fake = [
-            {   
-                id: 1,
-                name:"Atlas Transportes & Logística",
-                price:5 * 200 * 100,  
-            },
-            {   
-                id: 2,
-                name:"Patrus Transportes",
-                price:3 * 200 * 100, 
-            },
-            {   
-                id: 3,
-                name:"TNT Mercurio",
-                price:4 * 200 * 100,  
-            },
-            {   
-                id: 4,
-                name:"Braspress",
-                price: 400 * 100, 
-            },
-            
-        ]
+        getAllDeliveryMethods()
 
-        setDeliveryMethods(fake)
     },[])
+
+    async function getAllDeliveryMethods(){
+        try {
+
+            const response = await api.GetAllShippingMethods()
+            setDeliveryMethods(response.data)
+            
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return(
         <Container>  
@@ -61,6 +57,7 @@ export default function DeliveryMethod ({checkoutDetails, setCheckoutDetails}) {
                 fontsize={"18px !important"} 
                 background={"#008183 !important"} 
                 backgroundhover={"#009395ff !important"}
+                onClick={() => ScrollToTop()}
             >
                 {"Ir para o Pagamento"}
             </Button>

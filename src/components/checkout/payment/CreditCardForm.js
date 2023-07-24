@@ -11,10 +11,12 @@ import validations from "./ValidationsPayment";
 import { ErrorMsg } from "../../userDashboard/content/userData/ErrorMsg";
 import api from "../../../services/API";
 import useNavigateAndMoveUp from "../../../hooks/useNavigateAndMoveUp";
+import LoadingContainer from "./LoadingContainer";
 
 export default function CreditCardForm ({userData, checkoutDetails}) {
 
     const [ cardForm, setCardForm ] = useState(null);
+    const [ isLoading, setIsLoading ] = useState(false);
     const [ cardDataResponse, setCardDataResponse] = useState({});
     const { errors, validate } = useValidation(validations);
     // eslint-disable-next-line no-unused-vars
@@ -146,14 +148,17 @@ export default function CreditCardForm ({userData, checkoutDetails}) {
     }
     
     function handleSubmit(){
-        // eslint-disable-next-line no-unused-vars
+
+        setIsLoading(true)
 
         if(!checkoutDetails.addressId){
+            setIsLoading(false)
             toast.error("Selecione um endereço para entrega");
             return;
         }
 
-        if(!checkoutDetails.shippingPrice || !checkoutDetails.shippingId){
+        if(checkoutDetails.shippingPrice === undefined  || !checkoutDetails.shippingId){
+            setIsLoading(false)
             toast.error("Selecione um método de entrega");
             return;
         }
@@ -162,11 +167,13 @@ export default function CreditCardForm ({userData, checkoutDetails}) {
         const { isValid, errors } = validate(form)
         
         if (!isValid) {
+            setIsLoading(false)
             toast.error("Todos os campos devem ser preenchidos!");
             return;
         }
-
-       cardForm.submit();
+        
+        toast.info("Carregando...")
+        cardForm.submit();
     }
 
     useEffect(() => {
@@ -207,188 +214,194 @@ export default function CreditCardForm ({userData, checkoutDetails}) {
             const response = await api.CreateNewOrder({token: userData.token, body})
 
             if (response.status === 201){
+                setIsLoading(false)
                 navigateAndMoveUp({locate:"checkout/obrigado"})
                 toast.dark("Pedido Realizado com Sucesso")
             }
             
 
         } catch (error) {
+            setIsLoading(false)
             console.log(error)
             toast.error("Ocorreu um erro, tente novamente ou entre em contato com o suporte")
         }
     }
 
     return(
-        <FormsContainer id="form-checkout">
+        <>
+            {isLoading ? (<LoadingContainer/>):(<></>)}
+        
+            <FormsContainer id="form-checkout">
 
-            <InputWrapper width={"100%"}>
-                <Input 
-                    label="Titular do Cartão"  
-                    placeholder="Titular do Cartão"   
-                    id="form-checkout__cardholderName"  
-                    type="text" 
-                    name={"cardholderName"} 
-                    value={form?.cardholderName} 
-                    onChange={customHandleForm}
-                    width="100%"
-                />
-                {errors.cardholderName && <ErrorMsg>{errors.cardholderName}</ErrorMsg>}
-            </InputWrapper>
+                <InputWrapper width={"100%"}>
+                    <Input 
+                        label="Titular do Cartão"  
+                        placeholder="Titular do Cartão"   
+                        id="form-checkout__cardholderName"  
+                        type="text" 
+                        name={"cardholderName"} 
+                        value={form?.cardholderName} 
+                        onChange={customHandleForm}
+                        width="100%"
+                    />
+                    {errors.cardholderName && <ErrorMsg>{errors.cardholderName}</ErrorMsg>}
+                </InputWrapper>
 
-            <InputWrapper width={"100%"}>
-                <Input 
-                    label="Numero do Documento"     
-                    placeholder="Numero do Documento"   
-                    id="form-checkout__identificationNumberUnformated"
-                    mask={form?.identificationNumberUnformated?.length < 15 ? '999.999.999-999' : '99.999.999/9999-99'}
-                    type="text" 
-                    name={"identificationNumberUnformated"} 
-                    value={form?.identificationNumberUnformated} 
-                    onChange={customHandleForm}
-                    width="100%"
-                />
-                {errors.identificationNumberUnformated && <ErrorMsg>{errors.identificationNumberUnformated}</ErrorMsg>}
-            </InputWrapper>
+                <InputWrapper width={"100%"}>
+                    <Input 
+                        label="Numero do Documento"     
+                        placeholder="Numero do Documento"   
+                        id="form-checkout__identificationNumberUnformated"
+                        mask={form?.identificationNumberUnformated?.length < 15 ? '999.999.999-999' : '99.999.999/9999-99'}
+                        type="text" 
+                        name={"identificationNumberUnformated"} 
+                        value={form?.identificationNumberUnformated} 
+                        onChange={customHandleForm}
+                        width="100%"
+                    />
+                    {errors.identificationNumberUnformated && <ErrorMsg>{errors.identificationNumberUnformated}</ErrorMsg>}
+                </InputWrapper>
 
-            <InputWrapper display={"none"}>
-                <Input 
-                    label="Numero do Documento"     
-                    placeholder="Numero do Documento"   
-                    id="form-checkout__identificationNumber"
-                    type="text" 
-                    name="identificationNumber"
-                    value={form.identificationNumberUnformated?.replace(".", "")?.replace("-", "")?.replace("/", "")?.replace(".", "")} 
-                    onChange={customHandleForm}
-                    width="100%"
-                />
-                {errors.identificationNumber && <ErrorMsg>{errors.identificationNumber}</ErrorMsg>}
-            </InputWrapper>
+                <InputWrapper display={"none"}>
+                    <Input 
+                        label="Numero do Documento"     
+                        placeholder="Numero do Documento"   
+                        id="form-checkout__identificationNumber"
+                        type="text" 
+                        name="identificationNumber"
+                        value={form.identificationNumberUnformated?.replace(".", "")?.replace("-", "")?.replace("/", "")?.replace(".", "")} 
+                        onChange={customHandleForm}
+                        width="100%"
+                    />
+                    {errors.identificationNumber && <ErrorMsg>{errors.identificationNumber}</ErrorMsg>}
+                </InputWrapper>
 
-            <InputWrapper width={"100%"}>
-                <Input 
-                    label="E-mail"     
-                    placeholder="E-mail"   
-                    id="form-checkout__cardholderEmail"
-                    type="text" 
-                    name={"cardholderEmail"} 
-                    value={form?.cardholderEmail} 
-                    onChange={customHandleForm}
-                    width="100%"
-                />
-                {errors.cardholderEmail && <ErrorMsg>{errors.cardholderEmail}</ErrorMsg>}
-            </InputWrapper>
+                <InputWrapper width={"100%"}>
+                    <Input 
+                        label="E-mail"     
+                        placeholder="E-mail"   
+                        id="form-checkout__cardholderEmail"
+                        type="text" 
+                        name={"cardholderEmail"} 
+                        value={form?.cardholderEmail} 
+                        onChange={customHandleForm}
+                        width="100%"
+                    />
+                    {errors.cardholderEmail && <ErrorMsg>{errors.cardholderEmail}</ErrorMsg>}
+                </InputWrapper>
 
-            <InputWrapper width={"20%"}>
-                <Input 
-                    label="Mês"     
-                    mask="99"
-                    placeholder="Mês"   
-                    id="form-checkout__expirationMonth"  
-                    type="text" 
-                    name={"expirationMonth"} 
-                    value={form?.expirationMonth} 
-                    onChange={customHandleForm}
-                    width="100%"
-                />
-                {errors.expirationMonth && <ErrorMsg>{errors.expirationMonth}</ErrorMsg>}                
-            </InputWrapper>
+                <InputWrapper width={"20%"}>
+                    <Input 
+                        label="Mês"     
+                        mask="99"
+                        placeholder="Mês"   
+                        id="form-checkout__expirationMonth"  
+                        type="text" 
+                        name={"expirationMonth"} 
+                        value={form?.expirationMonth} 
+                        onChange={customHandleForm}
+                        width="100%"
+                    />
+                    {errors.expirationMonth && <ErrorMsg>{errors.expirationMonth}</ErrorMsg>}                
+                </InputWrapper>
 
-            <InputWrapper width={"20%"}>
-                <Input 
-                    label="Ano"  
-                    mask="99"   
-                    placeholder="Ano"   
-                    id="form-checkout__expirationYear"  
-                    type="text" 
-                    name={"expirationYear"} 
-                    value={form?.expirationYear} 
-                    onChange={customHandleForm}
-                    width="100%"
-                />
-                {errors.expirationYear && <ErrorMsg>{errors.expirationYear}</ErrorMsg>}  
-            </InputWrapper>
+                <InputWrapper width={"20%"}>
+                    <Input 
+                        label="Ano"  
+                        mask="99"   
+                        placeholder="Ano"   
+                        id="form-checkout__expirationYear"  
+                        type="text" 
+                        name={"expirationYear"} 
+                        value={form?.expirationYear} 
+                        onChange={customHandleForm}
+                        width="100%"
+                    />
+                    {errors.expirationYear && <ErrorMsg>{errors.expirationYear}</ErrorMsg>}  
+                </InputWrapper>
 
-            <InputWrapper width={"54%"}>
-                <Input 
-                    label="CVV"  
-                    mask="999"   
-                    placeholder="CVV"   
-                    id="form-checkout__securityCode"  
-                    type="text" 
-                    name={"securityCode"} 
-                    value={form?.securityCode} 
-                    onChange={customHandleForm}
-                    width="100%"
-                />
-                {errors.securityCode && <ErrorMsg>{errors.securityCode}</ErrorMsg>}  
-            </InputWrapper>
+                <InputWrapper width={"54%"}>
+                    <Input 
+                        label="CVV"  
+                        mask="999"   
+                        placeholder="CVV"   
+                        id="form-checkout__securityCode"  
+                        type="text" 
+                        name={"securityCode"} 
+                        value={form?.securityCode} 
+                        onChange={customHandleForm}
+                        width="100%"
+                    />
+                    {errors.securityCode && <ErrorMsg>{errors.securityCode}</ErrorMsg>}  
+                </InputWrapper>
 
-            <InputWrapper width={"100%"}>
-                <Input 
-                    label="Número do Cartão"     
-                    placeholder="Número do Cartão"   
-                    id="form-checkout__cardNumber"  
-                    type="text" 
-                    name={"cardNumber"} 
-                    mask="9999 9999 9999 9999" 
-                    value={form?.cardNumber} 
-                    onChange={customHandleForm}
-                    width="100%"
-                />
-                {errors.cardNumber && <ErrorMsg>{errors.cardNumber}</ErrorMsg>}  
-            </InputWrapper>
+                <InputWrapper width={"100%"}>
+                    <Input 
+                        label="Número do Cartão"     
+                        placeholder="Número do Cartão"   
+                        id="form-checkout__cardNumber"  
+                        type="text" 
+                        name={"cardNumber"} 
+                        mask="9999 9999 9999 9999" 
+                        value={form?.cardNumber} 
+                        onChange={customHandleForm}
+                        width="100%"
+                    />
+                    {errors.cardNumber && <ErrorMsg>{errors.cardNumber}</ErrorMsg>}  
+                </InputWrapper>
 
-            <InputWrapper width={"100%"}>
-                <Select 
-                    placeholder="Parcelas"   
-                    id="form-checkout__installments"  
-                    type="text" 
-                    name={"installments"} 
-                    value={form?.installments} 
-                    onChange={customHandleForm}
+                <InputWrapper width={"100%"}>
+                    <Select 
+                        placeholder="Parcelas"   
+                        id="form-checkout__installments"  
+                        type="text" 
+                        name={"installments"} 
+                        value={form?.installments} 
+                        onChange={customHandleForm}
+                    >
+                    </Select>
+                </InputWrapper>
+
+                <InputWrapper display={"none"}>
+                    <select 
+                        label="Bandeira"     
+                        placeholder="Bandeira"   
+                        id="form-checkout__issuer"  
+                        type="text" 
+                        name={"issuer"} 
+                        value={form?.issuer} 
+                        onChange={customHandleForm}
+                        width="100%"
+                    >
+                    </select>
+                </InputWrapper>
+
+                <InputWrapper display={"none"}>
+                    <select 
+                        label="Bandeira"     
+                        placeholder="Bandeira"   
+                        id="form-checkout__issuer"  
+                        type="text" 
+                        name={"issuer"} 
+                        value={form?.issuer} 
+                        onChange={customHandleForm}
+                        width="100%"
+                    >
+                    </select>
+                </InputWrapper>
+                
+                <Button 
+                    width={"100%"} 
+                    background={"#009395ff !important"} 
+                    backgroundhover={"#00B6B9 !important"} 
+                    type="button"
+                    id="form-checkout__submit"
+                    onClick={() => handleSubmit()}
                 >
-                </Select>
-            </InputWrapper>
-
-            <InputWrapper display={"none"}>
-                <select 
-                    label="Bandeira"     
-                    placeholder="Bandeira"   
-                    id="form-checkout__issuer"  
-                    type="text" 
-                    name={"issuer"} 
-                    value={form?.issuer} 
-                    onChange={customHandleForm}
-                    width="100%"
-                >
-                </select>
-            </InputWrapper>
-
-            <InputWrapper display={"none"}>
-                <select 
-                    label="Bandeira"     
-                    placeholder="Bandeira"   
-                    id="form-checkout__issuer"  
-                    type="text" 
-                    name={"issuer"} 
-                    value={form?.issuer} 
-                    onChange={customHandleForm}
-                    width="100%"
-                >
-                </select>
-            </InputWrapper>
-            
-            <Button 
-                width={"100%"} 
-                background={"#009395ff !important"} 
-                backgroundhover={"#00B6B9 !important"} 
-                type="button"
-                id="form-checkout__submit"
-                onClick={() => handleSubmit()}
-            >
-                {"Finalizar"}
-            </Button>
-        </FormsContainer>  
+                    {"Finalizar"}
+                </Button>
+            </FormsContainer>  
+        </>
     )
 }
 const FormsContainer = styled.form`

@@ -17,7 +17,18 @@ export default function MethodCard ({methodData, checkoutDetails, setCheckoutDet
                 <h3>{methodData?.name}</h3>
 
                 <PriceContainer>
-                    <PriceSign>{"R$ "}</PriceSign><PriceNumber>{ (methodData?.price / 100).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</PriceNumber>
+
+                    {methodData?.price === 0 ? (
+                        <>
+                            <PriceNumber>{"Grátis"}</PriceNumber>
+                        </>
+                    ):(
+                        <>
+                            <PriceSign>{"R$ "}</PriceSign><PriceNumber>{ (methodData?.price / 100).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</PriceNumber>
+                        </>
+                    )}
+
+                    
                 </PriceContainer>
 
             </AddressDataContainer>

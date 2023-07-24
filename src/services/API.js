@@ -61,6 +61,9 @@ function GetAllFavorites(token){
 function CreateNewOrder({token, body}){
     return axios.post(`${BASE_URL}/order`, body, {headers: { Authorization: `Bearer ${token}`}});
 }
+function GetAllShippingMethods(){
+    return axios.get(`${BASE_URL}/shipping`);
+}
 
 
 
@@ -84,7 +87,8 @@ const api = {
     AddNewFavorite,
     GetAllFavorites,
     DeleteFavorite,
-    CreateNewOrder
+    CreateNewOrder,
+    GetAllShippingMethods
 };
 
 export default api;
