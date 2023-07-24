@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import logo from "../../assets/images/logoMenu/logo-menu.png"
+import logo from "../../assets/images/logoSVG/LogoWhite (2).svg"
 import SearchBar from "./SearchBar"
 import { AiOutlineHeart } from 'react-icons/ai';
 import CartMenu from "./CartMenu";
@@ -47,8 +47,8 @@ const LogoContainer = styled.div`
     align-items: center;
     justify-content: left;
     img {
-        max-width: 14vw;
-        max-height: 95%;
+        max-width: 12vw;
+        max-height: 85%;
         cursor: pointer;
     }
 `
