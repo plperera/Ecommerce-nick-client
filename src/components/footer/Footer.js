@@ -1,8 +1,10 @@
 import styled from "styled-components"
 import { BsInstagram, BsWhatsapp } from 'react-icons/bs';
-import logo from "../../assets/images/logo-footer.svg"
+import logo from "../../assets/images/logoSVG/LogoWhite (2).svg"
 
 export default function Footer ({setContent, content, userData}) {
+    const msg = ""
+    const whatsAppNumber = "+5511985546210"
     return(
         <Container>
             <TopContainer>
@@ -11,8 +13,13 @@ export default function Footer ({setContent, content, userData}) {
                 </ImageContainer>
                 <InfoContainer> 
                     <SocialContainer>
-                        <InstagramIcon/>
-                        <WhatsappIcon/>
+                        <a href="https://www.instagram.com/nickteajuda/" target="_blank" rel="noopener noreferrer"> 
+                            <InstagramIcon/>
+                        </a>
+
+                        <a href={`https://wa.me/${whatsAppNumber}?text=${encodeURIComponent(msg)}`} target="_blank" rel="noopener noreferrer"> 
+                            <WhatsappIcon/>
+                        </a>                  
                     </SocialContainer>
                     <p>contato@contato.com.br</p>
                     <p>Atendimento de segunda à sexta das 8 às 17:00hrs</p>
@@ -66,8 +73,10 @@ const ImageContainer = styled.div`
     align-items: center;
     justify-content: left;
     img {
-        height: 16vh;
-    }  
+        max-width: 12vw;
+        max-height: 85%;
+        cursor: pointer;
+    } 
 `
 const InfoContainer = styled.div`
     display: flex;

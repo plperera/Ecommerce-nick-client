@@ -18,7 +18,7 @@ export default function Menu () {
             </LogoContainer>
 
             <SubContainer>
-                <SearchBar/>
+                <SearchBar navigateAndMoveUp={navigateAndMoveUp}/>
                 <HearthIcon onClick={() => navigateAndMoveUp({locate: "favoritos"})}/>
                 <CartMenu navigateAndMoveUp={navigateAndMoveUp}/>
                 <AccountMenu/>
