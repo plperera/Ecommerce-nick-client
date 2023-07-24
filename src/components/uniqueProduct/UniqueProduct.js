@@ -3,10 +3,13 @@ import ProductImageSlide from "./ProductImageSlide"
 import { useEffect } from "react"
 import { useContext } from "react"
 import UserContext from "../../context/UserContext";
+import Button from "../../common/form/Button";
 
 export default function UniqueProduct ({product}) {
 
     const { setUserData, userData } = useContext(UserContext);
+
+    
 
     useEffect(() => {
         console.log("userData", userData)
@@ -32,6 +35,18 @@ export default function UniqueProduct ({product}) {
     
         setUserData({ ...userData, cart: updatedCart });
     }
+
+    function handleBudget(){
+        //const msg = `Olá Nick, achei o seguinte produto no site: "${product.name.substring(0, 50) + ( product.name.length > 40?("..."):("") )}" e gostaria de solicitar um orçamento sem compromisso`
+        
+        const msg = `Olá, Nick!\n\nFiquei bastante interessado(a) pelo produto "${product.name}" que encontrei em seu site.\n\nSeria possível me enviar um orçamento sem compromisso? Gostaria de avaliar mais detalhadamente.\n\nAguardo o seu retorno. Obrigado(a)!`
+
+        //const whatsAppNumber = "+5511985546210" oficial
+        const whatsAppNumber = "+5535999351124"
+
+        const url = `https://wa.me/${whatsAppNumber}?text=${encodeURIComponent(msg)}`;
+        window.open(url, '_blank', 'noopener,noreferrer');
+    }
     
     return(
         <Container>
@@ -54,18 +69,45 @@ export default function UniqueProduct ({product}) {
                                     </LowPrice>
                                 </div>
                             ):(
-                                <>
-                                    <LowPrice>
-                                        <PriceSign>{"R$ "}</PriceSign><span>{ (product.price / 100).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span>
-                                    </LowPrice>
-                                </>
+                                    
+                                product.price !== 0 ? (
+                                    <>
+                                        <>
+                                            <Button 
+                                                onClick={() => handleBudget()}
+                                                width={"80%"}
+                                                height={"45px !important"} 
+                                                background={"#0074C2 !important"}
+                                                backgroundhover={"#088DDA !important"} 
+                                                margintop={"3vh !important"}
+                                            >
+                                                {"Solicitar um Orçamento"}
+                                            </Button>
+                                        </>    
+                                    </>
+                                ):(
+                                    <>
+                                        <LowPrice>
+                                            <PriceSign>{"R$ "}</PriceSign><span>{ (product.price / 100).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span>
+                                        </LowPrice>
+
+                                        <>
+                                            <Button 
+                                                onClick={() => handleProduct()}
+                                                width={"80%"}
+                                                height={"45px !important"} 
+                                                background={"#00BFC2 !important"}
+                                                backgroundhover={"#02B9DA !important"} 
+                                                margintop={"2vh !important"}
+                                            >
+                                                {"Comprar"}
+                                            </Button>
+                                        </>
+                                    </>
+                                )   
                             )
                         }
-                        <ButtonContainer>
-                            <ButtonStyle onClick={() => handleProduct()}>
-                                {"Comprar"}
-                            </ButtonStyle>
-                        </ButtonContainer>
+                        
 
                     </LeftSideContainer>
 
@@ -154,12 +196,6 @@ const LowPrice = styled(CommumConfig)`
             margin-bottom: -0.1vh;
         }
     }
-`
-const ButtonContainer = styled(CommumConfig)`
-    font-size: 36px;
-    align-items: end;
-    width: 100%;
-    height: 6vh;
 `
 const ButtonStyle = styled.div`
     width: 60%;
