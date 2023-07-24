@@ -12,6 +12,7 @@ export default function Cart () {
     const { userData, setUserData } = useContext(UserContext);
     const [ cartProducts, setCartProducts ] = useState(undefined)
     const [ isLoading, setIsLoading ] = useState(true)
+    const [ isLoadingQuantity, setIsLoadingQuantity ] = useState(false)
 
     async function getAllCartProduts(){
         if (userData?.cart?.length === 0 || !userData?.cart){
@@ -44,7 +45,7 @@ export default function Cart () {
     }
 
     function handleProductQuantity(product, change) {
-        setIsLoading(true)
+        //setIsLoading(true)
         const productId = product.productId;
         let productExistsInCart = false;
     
@@ -73,12 +74,26 @@ export default function Cart () {
     }
 
     useEffect(() => {
-        setTimeout(()=>{
-            getAllCartProduts()
-        }, [1000])
-        
+        if (isLoading){
+            return
+        }
+
+        setIsLoadingQuantity(true)
+
+        setTimeout(() => {
+            getAllCartProduts() 
+            setIsLoadingQuantity(false)
+        },[0]) 
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [userData?.cart])
+
+    useEffect(() => {
+        setTimeout(() => {
+            getAllCartProduts() 
+        },[1000]) 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     useEffect(() => {
 
@@ -88,12 +103,12 @@ export default function Cart () {
 
     return(
         <Container>    
-            {!isLoading && cartProducts.length === 0 ? (
+            {!isLoading && cartProducts?.length === 0 ? (
                 <EmptyCartComponent>{"Carrinho Vazio"}</EmptyCartComponent>
             ):(
             <>
-                <CartListComponent cartProducts={cartProducts} isLoading={isLoading} handleProductQuantity={handleProductQuantity}/>
-                <CartResumeComponent cartProducts={cartProducts} isLoading={isLoading} userData={userData}/>    
+                <CartListComponent cartProducts={cartProducts} isLoading={isLoading} handleProductQuantity={handleProductQuantity} isLoadingQuantity={isLoadingQuantity}/>
+                <CartResumeComponent cartProducts={cartProducts} isLoading={isLoading} userData={userData} isLoadingQuantity={isLoadingQuantity}/>    
             </>
             )}     
         </Container>

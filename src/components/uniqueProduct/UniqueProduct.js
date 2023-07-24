@@ -70,7 +70,7 @@ export default function UniqueProduct ({product}) {
                                 </div>
                             ):(
                                     
-                                product.price !== 0 ? (
+                                product.price === 0 ? (
                                     <>
                                         <>
                                             <Button 

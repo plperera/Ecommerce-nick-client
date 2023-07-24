@@ -1,8 +1,10 @@
 import styled from "styled-components"
 import CartItem from "./CartItem"
 import { LoadingContainer } from "./LoadingContainer"
+import { useState } from "react"
 
-export default function CartList ({cartProducts, isLoading, handleProductQuantity}) {
+export default function CartList ({cartProducts, isLoading, handleProductQuantity, isLoadingQuantity}) {
+    console.log(isLoading)
     return(
         isLoading ? (
             <LoadingContainer width={"72%"} height={"56.8461vh"} borderradius={"5px"}/>
@@ -15,7 +17,7 @@ export default function CartList ({cartProducts, isLoading, handleProductQuantit
                 <TitleUpperTable width={"15%"}>{"Total"}</TitleUpperTable>
                 </UpperTable>
                 
-                {cartProducts.map(e => <CartItem cartProduct={e} handleProductQuantity={handleProductQuantity}/>)}
+                {cartProducts.map(e => <CartItem cartProduct={e} handleProductQuantity={handleProductQuantity} isLoadingQuantity={isLoadingQuantity}/>)}
             </Container>
         )   
     )

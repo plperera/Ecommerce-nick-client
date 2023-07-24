@@ -1,7 +1,7 @@
-import styled from "styled-components"
+import styled, { keyframes } from "styled-components"
 import { PriceSign } from "./PriceSign"
 
-export default function CartItem ({cartProduct, handleProductQuantity}) {
+export default function CartItem ({cartProduct, handleProductQuantity, isLoadingQuantity}) {
     return(
         <Container>    
             <TableItem width={"45%"} justifyContent={"space-evenly"}>
@@ -18,11 +18,23 @@ export default function CartItem ({cartProduct, handleProductQuantity}) {
             </TableItem>
 
             <TableItem width={"25%"} columnGap={"6px"}>
-                <AmountButtons onClick={() => handleProductQuantity(cartProduct, -1)}>{"-"}</AmountButtons>
-                <LineAmount>
-                    <h3>{cartProduct?.quantity}</h3>
-                </LineAmount>
-                <AmountButtons onClick={() => handleProductQuantity(cartProduct, 1)}>{"+"}</AmountButtons>
+                {isLoadingQuantity ? (
+                    <LoadingContainer/>
+                ):(
+                    <>
+                        <AmountButtons 
+                        onClick={() => handleProductQuantity(cartProduct, -1)}
+                        >{"-"}</AmountButtons>
+
+                        <LineAmount>
+                            <h3>{cartProduct?.quantity}</h3>
+                        </LineAmount>
+
+                        <AmountButtons 
+                            onClick={() => handleProductQuantity(cartProduct, 1)}
+                        >{"+"}</AmountButtons>
+                    </>
+                )}
             </TableItem>
 
             <TableItem width={"15%"}>
@@ -91,6 +103,7 @@ const LineAmount = styled(LineDefault)`
         padding: 1.3vh 1.4vw;
         background-color: #EBEBEB;
         border-radius: 50px;
+        position: relative;
     }   
 `
 const LineTotal = styled(LineDefault)`
@@ -109,4 +122,23 @@ const AmountButtons = styled.div`
     color: #FFFFFF;
     border-radius: 50px;
     cursor: pointer;
+`
+const backgroundSkeletonAnimation = keyframes`
+  0%, 100% { 
+    background-position: 0% 0%;
+  }
+  50% { 
+    background-position: 100% 0%;
+  }
+`;
+export const LoadingContainer = styled.div`
+  width: 135px;
+  height: 40px;
+  border-radius: 50px;
+  background: linear-gradient(45deg, #E9E9E9, #BDBDBD, #E9E9E9);
+  background-size: 300% 300%;
+  animation: ${backgroundSkeletonAnimation} 3s ease-in-out infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
