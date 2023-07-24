@@ -1,17 +1,15 @@
 import styled from "styled-components"
 import TopicsMenu from "./TopicsMenu";
 import ExpandSubMenuComponent from "./ExpandSubMenu";
-import { useState } from "react";
 
-export default function SubMenu () {
+export default function SubMenu ({ expandMenu, setExpandMenu }) {
 
     const topics = [
         {title: "Equipamentos", subTitle: ["Máquinas Novas", "Máquinas Usadas", "Exaustão e Cabines de Pintura", "Coleiro PUR"]},
         {title: "Produtos", subTitle: ["Colas", "Ferramentas", "Graxas Especiais", "Líquidos", "Peças"]},
         {title: "Assistência Técnica", subTitle: ["Suporte Técnico", "Reforma de Coleiro"]},
     ]
-    const [ expandMenu, setExpandMenu ] = useState(false)
-
+    
     return(
         <Container>
             {

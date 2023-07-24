@@ -6,12 +6,12 @@ import CartMenu from "./CartMenu";
 import AccountMenu from "./AccountMenu";
 import useNavigateAndMoveUp from "../../hooks/useNavigateAndMoveUp";
 
-export default function Menu () {
+export default function Menu ({ setExpandMenu }) {
 
     const navigateAndMoveUp = useNavigateAndMoveUp();
 
     return(
-        <Container>
+        <Container onMouseEnter={() => setExpandMenu(false)}>
 
             <LogoContainer onClick={() => navigateAndMoveUp({locate: ""})}>
                 <img src={logo} alt="Nick te ajuda"/>

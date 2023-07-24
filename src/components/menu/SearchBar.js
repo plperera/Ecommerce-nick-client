@@ -40,7 +40,7 @@ export default function SearchBar ({navigateAndMoveUp}) {
 
     return(
         <Container>
-            <SearchInput onChange={handleResult} value={search} onFocus={() => setShowProducts(true)} onBlur={() => setTimeout(()=>{setShowProducts(false)},[1000])}/>
+            <SearchInput onChange={handleResult} value={search} onFocus={() => setShowProducts(true)} onBlur={() => setTimeout(()=>{setShowProducts(false)},[150])}/>
             <SearchIcon onClick={() => console.log(search)}/>
             <ResultContainer display={showProducts ? ("flex"):("none")}>
                 {filteredProducts.map( (e, i) => 
@@ -92,7 +92,7 @@ const SearchInput = styled.input`
     font-size: 18px;
     color: #FFFFFF;
     &:focus {
-        background-color: #FFFFFF15;
+        background-color: #28373F;
         border: none;
         border-radius: 15px 15px 0 0;
     }
@@ -116,7 +116,7 @@ const ResultContainer = styled.div`
     padding: 1.2vh 1vw;
     position: absolute;
     z-index: 1;
-    background-color: #17262e;
+    background-color: #28373F;
     border-radius: 0 0 15px 15px;
     top: 7.7vh;
     display: ${props => props.display};
@@ -126,7 +126,7 @@ const ResultContainer = styled.div`
 const FilteredProduct = styled.div`
     width: 100%;
     height: 60px;
-    background-color: #263E4B;
+    background-color: #1F2B31;
     border-radius: 5px;
     padding: 0.8vh 0.5vw;
     display: flex;
