@@ -9,6 +9,7 @@ export default function Title ({haveAllData, setSelectedProduct, selectedProduct
                 {selectedProduct ? (
 
                     <ButtonContainer>
+                        <Button onClick={() => console.log("undefined")} backgroundhover={"#C71313 !important"} background={"#A70B0B !important"}>{"Desabilitar"}</Button>
                         <Button onClick={() => setSelectedProduct(undefined)} background={"#949494 !important"}>{"Voltar"}</Button>
                         <Button background={"#949494 !important"}>{haveAllData?("Criar Produto"):("Preecha todos os Campos")}</Button>
                     </ButtonContainer>

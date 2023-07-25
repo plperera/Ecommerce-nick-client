@@ -64,6 +64,9 @@ function CreateNewOrder({token, body}){
 function GetAllShippingMethods(){
     return axios.get(`${BASE_URL}/shipping`);
 }
+function GetAllBanners(){
+    return axios.get(`${BASE_URL}/homepage/banners`);
+}
 
 
 
@@ -88,7 +91,8 @@ const api = {
     GetAllFavorites,
     DeleteFavorite,
     CreateNewOrder,
-    GetAllShippingMethods
+    GetAllShippingMethods,
+    GetAllBanners
 };
 
 export default api;

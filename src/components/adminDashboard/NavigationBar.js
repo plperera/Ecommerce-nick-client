@@ -27,8 +27,12 @@ export default function NavigationBar ({expandNavigationBar, setContent}) {
             name:"Pagina Inicial",
             options: [
                 {
-                    name:"Banners",
-                    content: <BannerHome/>
+                    name:"Banners - Novo",
+                    content: <BannerHome action={"Novo"}/>
+                },
+                {
+                    name:"Banners - Editar",
+                    content: <BannerHome action={"Editar"}/>
                 },
                 {
                     name:"Principais Categorias",

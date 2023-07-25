@@ -122,6 +122,7 @@ const AmountButtons = styled.div`
     color: #FFFFFF;
     border-radius: 50px;
     cursor: pointer;
+    user-select: none;
 `
 const backgroundSkeletonAnimation = keyframes`
   0%, 100% { 
