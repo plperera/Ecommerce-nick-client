@@ -19,4 +19,5 @@ const Container = styled.div`
     background-color: #39525E3A;
     padding: 30px;
     border-radius: 5px;
+    margin-top: calc(2vh + 7vh);
 `

@@ -67,6 +67,9 @@ function GetAllShippingMethods(){
 function GetAllBanners(){
     return axios.get(`${BASE_URL}/homepage/banners`);
 }
+function CreateBanner({body, token}){
+    return axios.post(`${BASE_URL}/homepage/banner/admin`, body, {headers: { Authorization: `Bearer ${token}`}});
+}
 
 
 
@@ -92,7 +95,8 @@ const api = {
     DeleteFavorite,
     CreateNewOrder,
     GetAllShippingMethods,
-    GetAllBanners
+    GetAllBanners,
+    CreateBanner
 };
 
 export default api;

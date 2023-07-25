@@ -1,13 +1,23 @@
 import { useEffect, useState } from "react"
 import styled, { keyframes } from "styled-components"
 
-export default function ImageSelector ({filter, refresh, images, setForm, form}) {
+export default function ImageSelector ({filter, refresh, images, setForm, form, limitSelect}) {
 
     const [imageSelected, setImageSelected] = useState([])
     const [filteredImage, setFilteredImage] = useState(undefined);
     const [isLoad, setIsLoad] = useState(true);
 
     function selectImage({id}){
+
+        if (limitSelect) {
+
+            const totalSelected = Object.values(imageSelected).filter(Boolean).length;
+            if(totalSelected >= limitSelect && !imageSelected[`image${id}`]) {
+                setImageSelected({[`image${id}`]: id})
+                return;
+            }
+
+        }
         if( !imageSelected[`image${id}`] ){
             setImageSelected({...imageSelected, [`image${id}`]: id})
         } else {

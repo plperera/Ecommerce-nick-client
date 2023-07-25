@@ -1,12 +1,10 @@
 import styled from "styled-components"
-import HomeBannerCard from "./HomeBannerCard"
+import Input from "../../../../../../common/form/Input"
 
-export default function BannerSelector ({setBannerSelect, bannersData}) {
+export default function EditBannerHome ({bannerData}) {
     return(
         <Container>
-            {bannersData ? (
-                bannersData.map((e,i) =><HomeBannerCard setBannerSelect={setBannerSelect} bannerData={e}/> )
-            ):(<></>)}
+            <Input/>
         </Container>
     )
 }
@@ -19,4 +17,5 @@ const Container = styled.div`
     background-color: #39525E3A;
     padding: 30px;
     border-radius: 5px;
+    margin-top: calc(2vh + 7vh);
 `
