@@ -1,12 +1,23 @@
 import { useEffect, useState } from "react"
 import styled from "styled-components"
 
-export default function CategorySelector ({filter, refresh, categories, setForm, form}) {
+export default function CategorySelector ({filter, refresh, categories, setForm, form, limitSelect, initSelect}) {
 
-    const [categoriesSelected, setCategoriesSelected] = useState([])
+    const [categoriesSelected, setCategoriesSelected] = useState(initSelect || [])
     const [filteredCategories, setFilteredCategories] = useState([])
 
     function selectCategory({id}){
+
+        if (limitSelect) {
+
+            const totalSelected = Object.values(categoriesSelected).filter(Boolean).length;
+            console.log(!categoriesSelected[`category${id}`])
+            if(totalSelected >= limitSelect && !categoriesSelected[`category${id}`]) {
+                setCategoriesSelected({ [`category${id}`]: id })
+                return;
+            }
+
+        }
         if( !categoriesSelected[`category${id}`] ){
             setCategoriesSelected({...categoriesSelected, [`category${id}`]: id})
         } else {
@@ -49,6 +60,7 @@ export default function CategorySelector ({filter, refresh, categories, setForm,
         
         setForm({...form, "categories": bodyFormat})
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [categoriesSelected])
 
     return(

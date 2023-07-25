@@ -5,9 +5,9 @@ import NewCategory from "./content/category/NewCategory";
 import NewImage from "./content/image/NewCategory";
 import NewProduct from "./content/products/NewProduct/NewProduct";
 import PutProduct from "./content/products/PutProduct/PutProduct";
-import CategoryHome from "./content/homePage/categoryHome/CategoryHome";
 import CreateBannerHome from "./content/homePage/bannerHome/create/CreateBannerHome";
 import UpdateBannerHome from "./content/homePage/bannerHome/edit/UpdateBannerHome";
+import CreateCategoryHome from "./content/homePage/categoryHome/create/CreateCategoryHome";
 
 export default function NavigationBar ({expandNavigationBar, setContent}) {
     const options = [
@@ -25,7 +25,7 @@ export default function NavigationBar ({expandNavigationBar, setContent}) {
             ]
         },
         {
-            name:"Pagina Inicial",
+            name:"Home",
             options: [
                 {
                     name:"Banners - Novo",
@@ -36,8 +36,8 @@ export default function NavigationBar ({expandNavigationBar, setContent}) {
                     content: <UpdateBannerHome/>
                 },
                 {
-                    name:"Principais Categorias",
-                    content: <CategoryHome/>
+                    name:"Categorias - Nova",
+                    content: <CreateCategoryHome/>
                 }
             ]
         },

@@ -7,13 +7,16 @@ import ImageSelector from "../../../selector/ImageSelector";
 import { IoMdCloseCircle } from 'react-icons/io';
 import Input from "../../../../../../common/form/Input";
 import Button from "../../../../../../common/form/Button";
+import CategoryCreator from "../../../creator/CategoryCreator";
+import CategorySelector from "../../../selector/CategorySelector";
 
 export default function FormsCreateBannerHome ({form, handleForm, setForm, adminData}) {
 
     const [ refreshImage, setRefreshImage ] = useState(false)
+    const [ refreshCategory, setRefreshCategory ] = useState(false)
     const [ getRefresh, setGetRefresh ] = useState(false)
     const [ images, setImages ] = useState(false)
-
+    const [ categories, setCategories ] = useState(false)
     const [ showCreate, setShowCreate ] = useState({showCategoryCreate: false, showImageCreate: false})
     
     async function GetAllImages({token}){
@@ -21,16 +24,25 @@ export default function FormsCreateBannerHome ({form, handleForm, setForm, admin
         setImages(response.data)
     }
 
-    function ClearFilter() {
+    async function GetAllCategories(){
+        const response = await api.GetAllCategories()
+        setCategories(response.data)
+    }
 
-        setForm({...form, imageFilter: ''}); 
-        return setRefreshImage(!refreshImage)
+    function ClearFilter(filterName) {
+        setForm({...form, [filterName]: ''}); 
 
+        if(filterName === "imageFilter"){
+            return setRefreshImage(!refreshImage)
+        }
+        
+        return setRefreshCategory(!refreshCategory)
     }
 
     useEffect(() => {
 
         GetAllImages({token: adminData?.token})
+        GetAllCategories()
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [getRefresh])
@@ -51,7 +63,7 @@ export default function FormsCreateBannerHome ({form, handleForm, setForm, admin
 
             <div>
                 <h2>
-                    {"Insira o texto que ira aparcerer junto do Banner"}
+                    {"Insira o texto que ira aparcerer junto da Categoria"}
                 </h2>
 
                 <Input 
@@ -62,8 +74,34 @@ export default function FormsCreateBannerHome ({form, handleForm, setForm, admin
                     width="100%"
                     onChange={handleForm}
                 />
-            </div>   
-            
+            </div>  
+
+            <div>  
+                <h2>
+                    {"Selecione uma Categoria"}
+                    <CreateButton onClick={() => setShowCreate({...showCreate, [`showCategoryCreate`]: !showCreate.showCategoryCreate})}>
+                        {showCreate.showCategoryCreate ?("Minimizar"):("Criar nova")}
+                    </CreateButton>
+                </h2>
+
+                {showCreate.showCategoryCreate ?(<CategoryCreator refresh={getRefresh} setRefresh={setGetRefresh}/>):(<></>)}
+
+                <FilterContainer>
+                    <Input 
+                        label="Filtrar" 
+                        type="text" 
+                        name={"categoryFilter"}
+                        value={form?.categoryFilter} 
+                        width="30%"
+                        onChange={handleForm}
+                    />
+                    <Button onClick={() => setRefreshCategory(!refreshCategory)} fontsize={"10px"} background={"#0A1F2A69 !important"}>{"Filtrar Images"}</Button>
+                    {form?.categoryFilter?(<ClearFilterContainer onClick={() => ClearFilter("categoryFilter")}>{"X"}</ClearFilterContainer>):(<></>)}
+                </FilterContainer>
+                
+                {categories?(<CategorySelector filter={form.categoryFilter} refresh={refreshCategory} categories={categories} setForm={setForm} form={form} limitSelect={1}/>):(<></>)}
+            </div>
+
             <div>  
                 <h2>
                     {"Selecione uma imagem"}

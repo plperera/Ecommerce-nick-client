@@ -1,20 +1,20 @@
 import styled from "styled-components"
+import Input from "../../../../../../common/form/Input"
+import { IoMdCloseCircle } from 'react-icons/io';
 import { useState } from "react";
 import api from "../../../../../../services/API";
 import { useEffect } from "react";
 import ImageCreator from "../../../creator/ImageCreator";
-import ImageSelector from "../../../selector/ImageSelector";
-import { IoMdCloseCircle } from 'react-icons/io';
-import Input from "../../../../../../common/form/Input";
 import Button from "../../../../../../common/form/Button";
+import ImageSelector from "../../../selector/ImageSelector";
 
-export default function FormsCreateBannerHome ({form, handleForm, setForm, adminData}) {
+export default function EditBannerHome ({bannerData, form, handleForm, setForm, adminData}) {
 
     const [ refreshImage, setRefreshImage ] = useState(false)
     const [ getRefresh, setGetRefresh ] = useState(false)
     const [ images, setImages ] = useState(false)
 
-    const [ showCreate, setShowCreate ] = useState({showCategoryCreate: false, showImageCreate: false})
+    const [ showCreate, setShowCreate ] = useState({showImageCreate: false})
     
     async function GetAllImages({token}){
         const response = await api.GetAllImages({token})
@@ -22,15 +22,33 @@ export default function FormsCreateBannerHome ({form, handleForm, setForm, admin
     }
 
     function ClearFilter() {
-
         setForm({...form, imageFilter: ''}); 
         return setRefreshImage(!refreshImage)
+    }
 
+    function getImageId() {
+        const image = images.find(e => e.imageUrl === bannerData?.imageUrl);
+
+        if(image) {
+            return {[`image${image.id}`]: image.id};
+        }
+
+        return undefined
     }
 
     useEffect(() => {
 
         GetAllImages({token: adminData?.token})
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [getRefresh])
+
+    useEffect(() => {
+        console.log(bannerData)
+        setForm({
+            text: bannerData?.text,
+            imageUrl: bannerData?.imageUrl
+        })
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [getRefresh])
@@ -51,7 +69,7 @@ export default function FormsCreateBannerHome ({form, handleForm, setForm, admin
 
             <div>
                 <h2>
-                    {"Insira o texto que ira aparcerer junto do Banner"}
+                    {"Insira o texto que ira aparcerer jundo do Banner"}
                 </h2>
 
                 <Input 
@@ -87,7 +105,7 @@ export default function FormsCreateBannerHome ({form, handleForm, setForm, admin
                     {form?.imageFilter?(<ClearFilterContainer onClick={() => ClearFilter("imageFilter")}>{"X"}</ClearFilterContainer>):(<></>)}
                 </FilterContainer>
                 
-                {images?(<ImageSelector filter={form.imageFilter} refresh={refreshImage} images={images} setForm={setForm} form={form} limitSelect={1}/>):(<></>)}
+                {images?(<ImageSelector filter={form.imageFilter} refresh={refreshImage} images={images} setForm={setForm} form={form} limitSelect={1} initSelect={getImageId()}/>):(<></>)}
             </div>
                 
         </Container>

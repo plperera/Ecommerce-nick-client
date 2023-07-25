@@ -76,7 +76,9 @@ function UpdateBanner({body, token}){
 function DeleteBanner({body, token}){
     return axios.delete(`${BASE_URL}/homepage/banner/admin`, {data: body, headers: { Authorization: `Bearer ${token}`}});
 }
-
+function CreateHomeCategory({body, token}){
+    return axios.post(`${BASE_URL}/homepage/category/admin`, body, {headers: { Authorization: `Bearer ${token}`}});
+}
 
 
 const api = {
@@ -104,7 +106,8 @@ const api = {
     GetAllBanners,
     CreateBanner,
     UpdateBanner,
-    DeleteBanner
+    DeleteBanner,
+    CreateHomeCategory
 };
 
 export default api;

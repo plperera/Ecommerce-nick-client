@@ -41,16 +41,16 @@ export default function ImageSelector ({filter, refresh, images, setForm, form, 
 
     useEffect(() => {
         
-        setFilteredImage(images)
-
-    }, [images])
-
-    useEffect(() => {
-        
         filterImages()
 
     // eslint-disable-next-line react-hooks/exhaustive-deps   
     }, [refresh])
+    
+    useEffect(() => {
+        
+        setFilteredImage(images)
+
+    }, [images])
 
     useEffect(() => {
 
