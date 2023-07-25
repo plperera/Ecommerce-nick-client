@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react"
 import styled, { keyframes } from "styled-components"
 
-export default function ImageSelector ({filter, refresh, images, setForm, form, limitSelect}) {
+export default function ImageSelector ({filter, refresh, images, setForm, form, limitSelect, initSelect}) {
 
-    const [imageSelected, setImageSelected] = useState([])
+    const [imageSelected, setImageSelected] = useState(initSelect || [])
     const [filteredImage, setFilteredImage] = useState(undefined);
     const [isLoad, setIsLoad] = useState(true);
+
+    useEffect(() => {
+        console.log(imageSelected)
+    },[imageSelected])
 
     function selectImage({id}){
 
@@ -59,6 +63,7 @@ export default function ImageSelector ({filter, refresh, images, setForm, form, 
 
         setForm({...form, "images": bodyFormat})
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [imageSelected])
 
     

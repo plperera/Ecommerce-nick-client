@@ -1,54 +1,69 @@
 import styled from "styled-components"
 import Button from "../../../../../../common/form/Button"
-import { useState } from "react"
 import { useEffect } from "react"
 import { toast } from "react-toastify"
 import api from "../../../../../../services/API"
 
-export default function Title ({text, form, adminData, setForm}) {
-
-    const [hasAllData, setHasAllData] = useState()
+export default function Title ({text, form, adminData, setForm, bannerData, setBannerSelect}) {
 
     async function SubmitForm(){
         try {
-            if(!form?.text && !form?.images[0]?.imageId){
-                return
-            }
             const body = {
+                bannerId: bannerData?.bannerId,
                 text: form?.text,
                 imageId: form?.images[0]?.imageId
             }
             console.log({token: adminData?.token, body})
-            const result = await api.CreateBanner({token: adminData?.token, body})
+            const result = await api.UpdateBanner({token: adminData?.token, body})
 
-            if( result.status === 201){
-                toast.dark("Banner Criado com Sucesso")
+            if( result.status === 200){
+                toast.dark("Banner Atualizado com Sucesso")
                 setForm({text:'', images:''})
+                setBannerSelect(undefined)
                 return
             }
-
         } catch (error) {
             console.log(error)
-            toast.error("Verifique os Valores Inseridos")
+            toast.error("Verifique os Valores Inseridoss")
+        }
+    }
+    async function deleteBanner(){
+        try {
+            const body = {
+                bannerId: bannerData?.bannerId,
+            }
+
+            const result = await api.DeleteBanner({token: adminData?.token, body})
+
+            if( result.status === 200){
+                toast.dark("Banner deletado com Sucesso")
+                setForm({text:'', images:''})
+                setBannerSelect(undefined)
+                return
+            }
+        } catch (error) {
+            console.log(error)
+            toast.error("Verifique os Valores Inseridoss")
         }
     }
 
     useEffect(() => {
-        if(form?.text && form?.images[0]?.imageId){
-            setHasAllData(true)
-            return
-        }
-        setHasAllData(false)
-    }, [form])
+        console.log({
+            bannerId: bannerData?.bannerId,
+            form
+        })
+    }, [form, bannerData])
 
     return(
         <Container>
             <h1>{text}</h1>
-            {hasAllData ?(
-                <Button background={"#006FAA !important"} backgroundhover={"#0085CC !important"} onClick={() => SubmitForm()}>{"Criar Banner"}</Button>
-            ):(
-                <Button background={"#CACACA !important"} backgroundhover={"#A8A8A8 !important"}>{"Entre com todos os Campos"}</Button>
-            )} 
+            {bannerData ? (
+                <ButtonContainer>
+                    <Button onClick={() => deleteBanner()} backgroundhover={"#C71313 !important"} background={"#A70B0B !important"}>{"Desabilitar"}</Button>                    
+                    <Button background={"#006FAA !important"} backgroundhover={"#0085CC !important"} onClick={() => SubmitForm()}>{"Atualizar Banner"}</Button>
+                    <Button onClick={() => setBannerSelect(undefined)} background={"#949494 !important"}>{"Voltar"}</Button>
+                </ButtonContainer>
+            ):(<></>)}
         </Container>
     )
 }
@@ -69,4 +84,10 @@ const Container = styled.div`
         font-weight: 600;
         padding-top: 1.4vh;
     }
+`
+const ButtonContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 1.2vw;
 `

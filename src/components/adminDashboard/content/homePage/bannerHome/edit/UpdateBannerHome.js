@@ -2,24 +2,19 @@ import styled from "styled-components"
 import BannerSelector from "../../../selector/HomeBannerSelector"
 import { useEffect, useState } from "react"
 import api from "../../../../../../services/API"
-import HomeBannerCreator from "../create/FormsCreateBannerHome"
-import Title from "../create/TitleBanner"
 import { useCustomForm } from "../../../../../../hooks/useCustomForms"
 import AdminContext from "../../../../../../context/AdminContext"
 import { useContext } from "react"
 import EditBannerHome from "./EditBannerHome"
+import Title from "./TitleBanner"
 
-export default function UpdateBannerHome ({action}) {
+export default function UpdateBannerHome () {
 
     const [bannerSelect, setBannerSelect] = useState(undefined)
     const [bannersData, setBannersData] = useState(undefined)
-    const [create, setCreate] = useState(undefined)
     const [ form, handleForm, setForm ] = useCustomForm();
     const { adminData } = useContext(AdminContext);
 
-    useEffect(() => {
-        setCreate(action)
-    },[action])
 
     async function getAllBanners(){
         try {
@@ -33,25 +28,21 @@ export default function UpdateBannerHome ({action}) {
 
     useEffect(() => {
         getAllBanners()
-    }, [])
+    }, [bannerSelect])
 
     return(
         <Container>
 
-            <Title text={`Banner para Pagina Inicial - ${create}`} form={form} setForm={setForm} adminData={adminData}/>
+            <Title text={`Editar um banner para Pagina Inicial`} form={form} setForm={setForm} adminData={adminData} bannerData={bannerSelect} setBannerSelect={setBannerSelect}/>
 
-            {create === "Novo" ? (
-                <HomeBannerCreator form={form} handleForm={handleForm} setForm={setForm} adminData={adminData}/>
+            {bannerSelect ? (
+                <EditBannerHome bannerData={bannerSelect} form={form} handleForm={handleForm} setForm={setForm} adminData={adminData}/>
             ):(
-                bannerSelect ? (
-                    <EditBannerHome bannerData={bannerSelect}/>
+                bannersData?.length === 0 ?(
+                    <></>                    
                 ):(
-                    bannersData?.length === 0 ?(
-                        <></>                    
-                    ):(
-                        <BannerSelector setBannerSelect={setBannerSelect} bannersData={bannersData}/>
-                    )                
-                )
+                    <BannerSelector setBannerSelect={setBannerSelect} bannersData={bannersData}/>
+                )                
             )}
         
         </Container>

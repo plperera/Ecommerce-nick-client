@@ -70,6 +70,12 @@ function GetAllBanners(){
 function CreateBanner({body, token}){
     return axios.post(`${BASE_URL}/homepage/banner/admin`, body, {headers: { Authorization: `Bearer ${token}`}});
 }
+function UpdateBanner({body, token}){
+    return axios.put(`${BASE_URL}/homepage/banner/admin`, body, {headers: { Authorization: `Bearer ${token}`}});
+}
+function DeleteBanner({body, token}){
+    return axios.delete(`${BASE_URL}/homepage/banner/admin`, {data: body, headers: { Authorization: `Bearer ${token}`}});
+}
 
 
 
@@ -96,7 +102,9 @@ const api = {
     CreateNewOrder,
     GetAllShippingMethods,
     GetAllBanners,
-    CreateBanner
+    CreateBanner,
+    UpdateBanner,
+    DeleteBanner
 };
 
 export default api;
