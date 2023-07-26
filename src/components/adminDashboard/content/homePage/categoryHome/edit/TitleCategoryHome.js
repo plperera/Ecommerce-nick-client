@@ -1,44 +1,43 @@
 import styled from "styled-components"
 import Button from "../../../../../../common/form/Button"
-import { useEffect } from "react"
 import { toast } from "react-toastify"
 import api from "../../../../../../services/API"
 
-export default function Title ({text, form, adminData, setForm, bannerData, setBannerSelect}) {
+export default function Title ({text, form, adminData, setForm, categoryData, setCategoriesCardSelect}) {
 
     async function SubmitForm(){
         try {
             const body = {
-                bannerId: bannerData?.bannerId,
-                text: form?.text,
-                imageId: form?.images[0]?.imageId
+                homeCategoryId: categoryData?.categoryCardId,
+                categoryId: form?.categories[0]?.categoryId, 
+                imageId: form.images[0]?.imageId, 
+                subTitle: form?.text,
             }
-            console.log({token: adminData?.token, body})
-            const result = await api.UpdateBanner({token: adminData?.token, body})
+            const response = await api.UpdateHomeCategory({body, token: adminData?.token})
 
-            if( result.status === 200){
-                toast.dark("Banner Atualizado com Sucesso")
-                setForm({text:'', images:''})
-                setBannerSelect(undefined)
+            if (response.status === 200){
+                toast.dark("Card de Categoria Atualizado com Sucesso")
+                setForm({})
+                setCategoriesCardSelect(undefined)
                 return
             }
         } catch (error) {
             console.log(error)
-            toast.error("Verifique os Valores Inseridoss")
+            toast.error("Verifique os Valores Inseridos")
         }
     }
-    async function deleteBanner(){
+    async function deleteHomeCategory(){
         try {
             const body = {
-                bannerId: bannerData?.bannerId,
+                homeCategoryId: categoryData?.categoryCardId,
             }
 
-            const result = await api.DeleteBanner({token: adminData?.token, body})
+            const result = await api.DeleteHomeCategory({token: adminData?.token, body})
 
             if( result.status === 200){
-                toast.dark("Banner deletado com Sucesso")
-                setForm({text:'', images:''})
-                setBannerSelect(undefined)
+                toast.dark("Card de Categoria deletado com Sucesso")
+                setForm({})
+                setCategoriesCardSelect(undefined)
                 return
             }
         } catch (error) {
@@ -46,22 +45,16 @@ export default function Title ({text, form, adminData, setForm, bannerData, setB
             toast.error("Verifique os Valores Inseridoss")
         }
     }
-
-    useEffect(() => {
-        console.log({
-            bannerId: bannerData?.bannerId,
-            form
-        })
-    }, [form, bannerData])
 
     return(
         <Container>
             <h1>{text}</h1>
-            {bannerData ? (
+
+            {categoryData ? (
                 <ButtonContainer>
-                    <Button onClick={() => deleteBanner()} backgroundhover={"#C71313 !important"} background={"#A70B0B !important"}>{"Desabilitar"}</Button>                    
+                    <Button onClick={() => deleteHomeCategory()} backgroundhover={"#C71313 !important"} background={"#A70B0B !important"}>{"Desabilitar"}</Button>                    
                     <Button background={"#006FAA !important"} backgroundhover={"#0085CC !important"} onClick={() => SubmitForm()}>{"Atualizar Banner"}</Button>
-                    <Button onClick={() => setBannerSelect(undefined)} background={"#949494 !important"}>{"Voltar"}</Button>
+                    <Button onClick={() => setCategoriesCardSelect(undefined)} background={"#949494 !important"}>{"Voltar"}</Button>
                 </ButtonContainer>
             ):(<></>)}
         </Container>

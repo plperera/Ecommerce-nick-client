@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import styled from "styled-components"
 
 export default function CategorySelector ({filter, refresh, categories, setForm, form, limitSelect, initSelect}) {
-
+    console.log(initSelect)
     const [categoriesSelected, setCategoriesSelected] = useState(initSelect || [])
     const [filteredCategories, setFilteredCategories] = useState([])
 

@@ -8,6 +8,7 @@ import PutProduct from "./content/products/PutProduct/PutProduct";
 import CreateBannerHome from "./content/homePage/bannerHome/create/CreateBannerHome";
 import UpdateBannerHome from "./content/homePage/bannerHome/edit/UpdateBannerHome";
 import CreateCategoryHome from "./content/homePage/categoryHome/create/CreateCategoryHome";
+import UpdateCategoryHome from "./content/homePage/categoryHome/edit/UpdateCategoryHome";
 
 export default function NavigationBar ({expandNavigationBar, setContent}) {
     const options = [
@@ -38,6 +39,10 @@ export default function NavigationBar ({expandNavigationBar, setContent}) {
                 {
                     name:"Categorias - Nova",
                     content: <CreateCategoryHome/>
+                },
+                {
+                    name:"Categorias - Editar",
+                    content: <UpdateCategoryHome/>
                 }
             ]
         },

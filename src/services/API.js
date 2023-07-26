@@ -67,6 +67,9 @@ function GetAllShippingMethods(){
 function GetAllBanners(){
     return axios.get(`${BASE_URL}/homepage/banners`);
 }
+function GetAllCategoriesCard(){
+    return axios.get(`${BASE_URL}/homepage/category`);
+}
 function CreateBanner({body, token}){
     return axios.post(`${BASE_URL}/homepage/banner/admin`, body, {headers: { Authorization: `Bearer ${token}`}});
 }
@@ -78,6 +81,12 @@ function DeleteBanner({body, token}){
 }
 function CreateHomeCategory({body, token}){
     return axios.post(`${BASE_URL}/homepage/category/admin`, body, {headers: { Authorization: `Bearer ${token}`}});
+}
+function UpdateHomeCategory({body, token}){
+    return axios.put(`${BASE_URL}/homepage/category/admin`, body, {headers: { Authorization: `Bearer ${token}`}});
+}
+function DeleteHomeCategory({body, token}){
+    return axios.delete(`${BASE_URL}/homepage/category/admin`, {data: body, headers: { Authorization: `Bearer ${token}`}});
 }
 
 
@@ -107,7 +116,10 @@ const api = {
     CreateBanner,
     UpdateBanner,
     DeleteBanner,
-    CreateHomeCategory
+    CreateHomeCategory,
+    GetAllCategoriesCard,
+    UpdateHomeCategory,
+    DeleteHomeCategory
 };
 
 export default api;

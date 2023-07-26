@@ -1,7 +1,5 @@
 import styled, { keyframes } from "styled-components"
-import Category01 from "../../assets/images/Category01.png"
-import { useEffect, useState } from "react"
-import useNavigateAndMoveUp from "../../hooks/useNavigateAndMoveUp"
+import {  useState } from "react"
 import Button from "../../common/form/Button"
 
 export default function CategoryCard ({indice, category, applyAnimation}) {
