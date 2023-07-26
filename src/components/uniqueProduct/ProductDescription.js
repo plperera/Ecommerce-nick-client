@@ -106,4 +106,6 @@ const TopicContainer = styled.div`
     font-size: 18px;
     width: 100%; 
     padding: 2vh 0;
+    display: flex;
+    column-gap: 2vw;
 `

@@ -69,8 +69,9 @@ const CommonArrowIconStyle = css`
     background-color: white;
     border-radius: 50px;
     padding: 6px;
-    z-index: 100;
+    z-index: 1;
     cursor: pointer;
+    user-select: none;
 `
 const LeftArrowIcon = styled(HiOutlineChevronLeft)`
     ${CommonArrowIconStyle}

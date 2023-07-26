@@ -5,12 +5,13 @@ import styled from "styled-components"
 export default function TecnicDetails ({ tecnicDetails, setTecnicDetails }) {
 
     const [lines, setLines] = useState([1])
-    
 
     function AddMoreImages(){
         if (lines.length < 5){
             setLines([...lines, lines.length + 1])
-            setTecnicDetails([...tecnicDetails, {topic: "", topicDetails:""}])
+            const newArray = [...tecnicDetails]
+            newArray.push({topic: "", topicDetail:""})
+            setTecnicDetails(newArray)
         } else {
             toast.dark("Limite de tópicos atingido!!")
         }
@@ -26,7 +27,7 @@ export default function TecnicDetails ({ tecnicDetails, setTecnicDetails }) {
 
         } else {
 
-            values[index].topicDetails = event.target.value;
+            values[index].topicDetail = event.target.value;
 
         }
 
@@ -54,8 +55,8 @@ export default function TecnicDetails ({ tecnicDetails, setTecnicDetails }) {
                         <label>{`Detalhes do tópico (${e})`}</label>
                         <input 
                             placeholder="Detalhes do tópico"
-                            name={"topicDetails"}
-                            value={tecnicDetails[index].topicDetails}
+                            name={"topicDetail"}
+                            value={tecnicDetails[index].topicDetail}
                             onChange={event => handleTecnincDetailsForm(index, event)}
                         />
                     </TopicDetailsInputContainer>

@@ -11,6 +11,8 @@ import TitleComponent from "./TitleNewProduct";
 import InputsComponent from "./InputsNewProduct";
 import TecnicDetailsComponent from "./TecnicDetailsForms";
 import { toast } from "react-toastify";
+import AdminContext from "../../../../../context/AdminContext";
+import { useContext } from "react";
 
 export default function NewProduct () {
 
@@ -21,8 +23,9 @@ export default function NewProduct () {
     const [ categories, setCategories ] = useState(false)
     const [ images, setImages ] = useState(false)
     const [ haveAllData, setHaveAllData ] = useState(false)
-    const [tecnicDetails, setTecnicDetails] = useState([{topic: "", topicDetails:""}])
+    const [tecnicDetails, setTecnicDetails] = useState([{topic: "", topicDetail:""}])
     const [ showCreate, setShowCreate ] = useState({showCategoryCreate: false, showImageCreate: false})
+    const { adminData } = useContext(AdminContext);
     
 
     async function GetAllCategories(){
@@ -69,10 +72,8 @@ export default function NewProduct () {
 
         console.log(body)
 
-        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyQWRtaW5JZCI6MSwiaWF0IjoxNjg3ODA2MTk0fQ.ygwuAdiC40MOZXAjsNEr-CGDH8FZaS0Sp9Gthtmb8Cg"
-        
         try {           
-            const response = await api.CreateProduct({body, token})
+            const response = await api.CreateProduct({body, token: adminData.token})
 
             if( response.status === 201){
                 //setIsLoading(false)
@@ -88,12 +89,9 @@ export default function NewProduct () {
     }
 
     useEffect(() => {
-
-        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyQWRtaW5JZCI6MSwiaWF0IjoxNjg3ODA2MTk0fQ.ygwuAdiC40MOZXAjsNEr-CGDH8FZaS0Sp9Gthtmb8Cg"
-
         GetAllCategories()
-        GetAllImages({token})
-
+        GetAllImages({token: adminData.token})
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [getRefresh])
 
     useEffect(() => {
