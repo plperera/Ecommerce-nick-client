@@ -36,20 +36,19 @@ export default function Title ({setSelectedShipping, shippingData, form, setForm
     }
     async function deleteProduct(){
         try {
-            /*
             const body = {
-                id: productData?.productId,  
+                id: shippingData?.id,  
             }
 
-            const result = await api.DisableProduct({token: adminData?.token, body})
+            const result = await api.DisableShipping({token: adminData?.token, body})
 
             if( result.status === 200){
-                toast.dark("Produto desabilitado com Sucesso")
+                toast.dark("Método de Entrega desabilitado com Sucesso")
                 setForm({})
-                setSelectedProduct(undefined)
+                setSelectedShipping(undefined)
                 return
             }
-            */
+            
         } catch (error) {
             console.log(error)
             toast.error("Verifique os Valores Inseridoss")
@@ -57,20 +56,18 @@ export default function Title ({setSelectedShipping, shippingData, form, setForm
     }
     async function enableProduct(){
         try {
-            /*
             const body = {
-                id: productData?.productId,  
+                id: shippingData?.id,  
             }
 
-            const result = await api.EnableProduct({token: adminData?.token, body})
+            const result = await api.EnableShipping({token: adminData?.token, body})
 
             if( result.status === 200){
-                toast.dark("Produto habilitado novamente com Sucesso")
+                toast.dark("Método de Entrega habilitado novamente com Sucesso")
                 setForm({})
-                setSelectedProduct(undefined)
+                setSelectedShipping(undefined)
                 return
             }
-            */
         } catch (error) {
             console.log(error)
             toast.error("Verifique os Valores Inseridoss")

@@ -4,9 +4,6 @@ import { toast } from "react-toastify"
 import api from "../../../../../services/API"
 import Button from "../../../../../common/form/Button"
 
-
-
-
 export default function Title ({text, form, adminData, setForm}) {
 
     async function SubmitForm(){

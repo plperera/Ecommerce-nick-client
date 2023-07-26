@@ -106,7 +106,12 @@ function UpdateShipping({body, token}){
 function GetAllShippingMethodsData(token){
     return axios.get(`${BASE_URL}/shipping/admin`, {headers: { Authorization: `Bearer ${token}`}});
 }
-
+function DisableShipping({body, token}){
+    return axios.put(`${BASE_URL}/shipping/admin/disable`, body, {headers: { Authorization: `Bearer ${token}`}});
+}
+function EnableShipping({body, token}){
+    return axios.put(`${BASE_URL}/shipping/admin/enable`, body, {headers: { Authorization: `Bearer ${token}`}});
+}
 
 const api = {
     GetAllCategories,
@@ -143,7 +148,9 @@ const api = {
     EnableProduct,
     CreateShipping,
     UpdateShipping,
-    GetAllShippingMethodsData
+    GetAllShippingMethodsData,
+    DisableShipping,
+    EnableShipping
 };
 
 export default api;
