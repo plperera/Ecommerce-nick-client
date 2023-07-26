@@ -15,7 +15,7 @@ export default function UserNavigationBar ({setContent, content, userData}) {
         },
         {
             name:"Meus Endereços",
-            ref: <UserAddress/>
+            ref: <UserAddress userData={userData}/>
         },
         {
             name:"Últimos Pedidos",

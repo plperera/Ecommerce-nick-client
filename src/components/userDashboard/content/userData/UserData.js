@@ -27,10 +27,12 @@ export default function UserData ({userData}) {
     useEffect(() => {
         console.log("userData", userData)
         getUserData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[refresh])
 
     useEffect(() => {
         SetInitFormsValue()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[userEnrollment])
 
     async function getUserData(){
@@ -58,6 +60,8 @@ export default function UserData ({userData}) {
             birthday: form.birthday,
             phone: form.phone,
         }
+
+        // eslint-disable-next-line no-unused-vars
         const { isValid, errors } = validate(body)
 
         if (!isValid){

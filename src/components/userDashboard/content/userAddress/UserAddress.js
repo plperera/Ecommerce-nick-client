@@ -3,12 +3,33 @@ import styled from "styled-components"
 import AddressCard from "./AddressCard"
 import NewAddress from "./NewAddress"
 import { FiMapPin } from 'react-icons/fi';
+import { useEffect } from "react";
+import api from "../../../../services/API";
 
 
-export default function UserAddress () {
+export default function UserAddress ({userData}) {
     
-    const [address, setAddress] = useState([1, 2, 3])
+    const [address, setAddress] = useState(undefined)
     const [isCreating, setIsCreating] = useState(false)
+    const [refresh, setRefresh] = useState(false)
+
+    useEffect(() => {
+        getAllAddress()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [refresh])
+
+    async function getAllAddress(){
+        try {
+            const result = await api.GetAllAddress(userData.token)
+            setAddress(result.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    function handleRefresh(){
+        setRefresh(!refresh)
+    }
 
     return(
         <Container>
@@ -27,7 +48,7 @@ export default function UserAddress () {
                     </>
                     
                 ):(
-                    <NewAddress setIsCreating={setIsCreating}/>
+                    <NewAddress setIsCreating={setIsCreating} userData={userData} handleRefresh={handleRefresh}/>
                 )}
                 
 

@@ -8,15 +8,16 @@ import addressValidations from "./AddressFormValidations"
 import { useValidation } from "../../../../hooks/useValidation"
 import { useCustomForm } from "../../../../hooks/useCustomForms"
 import api from "../../../../services/API"
+import { toast } from "react-toastify"
 
 
-export default function NewAddress ({setIsCreating}) {
+export default function NewAddress ({setIsCreating, userData, handleRefresh}) {
 
     const [ form, handleForm, setForm ] = useCustomForm()
     const { errors, validate } = useValidation(addressValidations);
 
 
-    function SubmitForms(){
+    async function SubmitForms(){
         const body = {
             addressName: form?.addressName,
             cep: form?.cep,
@@ -30,6 +31,24 @@ export default function NewAddress ({setIsCreating}) {
         const { isValid, errors } = validate(body)
 
         if (!isValid){
+            return
+        }
+
+        try {
+            const response = await api.CreateAddress({body, token: userData.token})
+            if(response.status === 201){
+                toast.dark("Endereço Cadastrado com Sucesso")
+                setIsCreating(false)
+                handleRefresh()
+                return
+            }
+        } catch (error) {
+            
+            if(error.response.status === 403){
+                toast.warning("Limite de Endereços Atingido")
+                return
+            } 
+            toast.error("Verifique os valores inseridos")
             return
         }
     }

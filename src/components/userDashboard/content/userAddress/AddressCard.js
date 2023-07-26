@@ -19,7 +19,7 @@ export default function AddressCard ({addressData}) {
             <AddressName>{`${addressData?.street}`}</AddressName>
             <AddressDetails>{`${addressData?.street}, ${addressData?.number}, ${addressData?.addressDetail}`}</AddressDetails>
             <AddressDetails>{`${addressData?.neighborhood} - ${addressData?.city} - ${addressData?.state}`}</AddressDetails>
-            <AddressDetails>{`CEP ${addressData?.string}`}</AddressDetails>
+            <AddressDetails>{`CEP ${addressData?.cep}`}</AddressDetails>
         </Container>
     )
 }
