@@ -4,7 +4,7 @@ export default function ResumeProductCard ({productData}) {
     return(
         <Container>  
             <ImageContainer>
-                <img alt="" src={productData?.mainImage}/>
+                <img alt="" src={productData?.images[0].imageUrl}/>
             </ImageContainer>
 
             <RightContainer>

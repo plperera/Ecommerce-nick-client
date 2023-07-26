@@ -2,6 +2,8 @@ import { useEffect } from "react"
 import { useState } from "react"
 import styled from "styled-components"
 import ResumeProductCard from "./ResumeProductCard"
+import api from "../../../services/API"
+import { toast } from "react-toastify"
 
 export default function OrderResume ({ userData, checkoutDetails }) {
 
@@ -9,41 +11,36 @@ export default function OrderResume ({ userData, checkoutDetails }) {
 
     useEffect(() => {
 
-        const fake = [ 
-            {
-                productId: 1,
-                name: "Esquadrejadeira 2900mm com Eixo Inclinavel 45° Sem Motor - FortG by Maksiwa- 106[1464]",
-                price: 808867,
-                quantity: 1,
-                mainImage: "https://storage.googleapis.com/imageuploads-7b8bc.appspot.com/1689369151489.png",
-            },
-            {
-                productId: 2,
-                name: "Esquadrejadeira 2900mm com Eixo Inclinavel 45° Sem Motor - FortG by Maksiwa- 106[1464]",
-                price: 808867,
-                quantity: 1,
-                mainImage: "https://storage.googleapis.com/imageuploads-7b8bc.appspot.com/1689369151489.png",
-            },
-            {
-                productId: 3,
-                name: "Esquadrejadeira 2900mm com Eixo Inclinavel 45° Sem Motor - FortG by Maksiwa- 106[1464]",
-                price: 808867,
-                quantity: 1,
-                mainImage: "https://storage.googleapis.com/imageuploads-7b8bc.appspot.com/1689369151489.png",
-            },
-            {
-                productId: 4,
-                name: "Esquadrejadeira 2900mm com Eixo Inclinavel 45° Sem Motor - FortG by Maksiwa- 106[1464]",
-                price: 808867,
-                quantity: 1,
-                mainImage: "https://storage.googleapis.com/imageuploads-7b8bc.appspot.com/1689369151489.png",
-            },
-        ]
-
-        setProducts(fake)        
-
+        console.log("userdata", userData)
+        getAllProducts()
+      
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
+
+    async function getAllProducts(){
+        if (userData?.cart?.length === 0 || !userData?.cart){
+            toast.error("Ocorreu um erro inesperado")
+            return
+        }
+        const productIds = userData.cart
+            .filter(e => typeof e?.productId === 'number')
+            .map(e => ( e.productId ));
+    
+        const result = await api.GetAllProductsByProductId(JSON.stringify(productIds))
+    
+        const updatedCartProducts = userData.cart.map(cartItem => {
+            const productData = result.data.find(product => product.productId === cartItem.productId);
+            if(productData) {
+                return { ...productData, quantity: cartItem.quantity };
+            }
+            return undefined;
+        });        
+        setProducts(updatedCartProducts)
+    }
+
+    useEffect(() => {
+        console.log(products)
+    }, [products])
 
     function sumQuantity(array) {
         let totalQuantity = 0;
