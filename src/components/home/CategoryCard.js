@@ -2,18 +2,18 @@ import styled, { keyframes } from "styled-components"
 import {  useState } from "react"
 import Button from "../../common/form/Button"
 
-export default function CategoryCard ({indice, category, applyAnimation}) {
+export default function CategoryCard ({indice, category, applyAnimation, navigateAndMoveUp}) {
 
     const [showAll, setShowAll] = useState(false)
 
     return(
-        <Container onMouseEnter={() => setShowAll(true)} onMouseLeave={() => setShowAll(false)} height={showAll?("425px"):("280px")} applyAnimation={applyAnimation}>
-            <ImageContainer><img src={category.image} alt=""/></ImageContainer>
-            <Title>{category.categoryName}</Title>
+        <Container onMouseEnter={() => setShowAll(true)} onMouseLeave={() => setShowAll(false)} height={showAll?("425px"):("280px")} applyAnimation={applyAnimation} onClick={() => navigateAndMoveUp({locate:`catalogo/${category.title}`})}>
+            <ImageContainer><img src={category.imageUrl} alt=""/></ImageContainer>
+            <Title>{category.title}</Title>
             {showAll ? (
                 // eslint-disable-next-line no-template-curly-in-string
                 <SubContainer isLoading={showAll}> 
-                    <SubTitle>{"Seccionadoras projetadas e produzidas para oferecer ótima relação custo-benefício ao fabricante"}</SubTitle>
+                    <SubTitle>{category.subTitle}</SubTitle>
                     <ButtonContainer>
                         <Button
                             width={"calc(92% - 1.4vw)"} 
@@ -29,9 +29,6 @@ export default function CategoryCard ({indice, category, applyAnimation}) {
             ):(
                 <></>
             )}
-
-            
-
         </Container>
     )
 }
@@ -115,4 +112,5 @@ const SubContainer = styled.div`
     animation-duration: 0.5s;
     animation-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
     animation-iteration-count: 1;
+    width: 100%;
 `

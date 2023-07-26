@@ -23,7 +23,7 @@ export default function UniqueProduct () {
     useEffect(() => {
         GetData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[])
+    },[productName])
 
     useEffect(() => {
         console.log(product)

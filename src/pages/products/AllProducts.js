@@ -11,32 +11,42 @@ export default function AllProducts () {
     const [products, setProducts] = useState(undefined)
     const [categories, setCategories] = useState(undefined)
     const [selected , setSelected] = useState(undefined)
-
-    useEffect(() => {
-
-        if (categoryName){
-            setSelected(categoryName.toLowerCase())
-        }
-
-    }, [categoryName])
-
-    async function GetAllProducts(){
-        const response = await api.GetAllProducts()
-        setProducts(response.data)
-        setFilterContent(response.data)
-    }
-    async function GetAllCategories(){
-        const response = await api.GetAllCategories()
-        setCategories(response.data)
-    }
-
+    
     useEffect(() => {
         GetAllProducts()
         GetAllCategories()
     },[])
 
-    function selectOption(categoryName){
-        if(categoryName === selected){
+    useEffect(() => {
+        if(!products || !categoryName || !categories){
+            return 
+        }
+        selectOption(categoryName)
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[products, categories, categoryName])
+
+    async function GetAllProducts(){
+        try {
+            const response = await api.GetAllProducts()
+            setProducts(response.data)
+            setFilterContent(response.data)
+        } catch (error) {
+            console.log(error)
+        }     
+    }
+
+    async function GetAllCategories(){
+        try {
+            const response = await api.GetAllCategories()
+            setCategories(response.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    function selectOption(categoryNameData){
+        if(categoryNameData === selected){
 
             setFilterContent(products)
             setSelected(undefined)
@@ -45,11 +55,11 @@ export default function AllProducts () {
 
             const filterResult = products.filter(item => {
                 return item.categories.some(categoria => {
-                    return categoria.name === categoryName;
+                    return categoria.name.toLowerCase() === categoryNameData.toLowerCase();
                 });
             });
             setFilterContent(filterResult)
-            setSelected(categoryName)
+            setSelected(categoryNameData)
         }  
     }
 

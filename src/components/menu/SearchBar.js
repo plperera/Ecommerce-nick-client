@@ -5,8 +5,6 @@ import api from "../../services/API";
 
 export default function SearchBar ({navigateAndMoveUp}) {
     
-    
-    
     const [ products, setProducts ] = useState([])
     const [ filteredProducts, setFilteredProducts ] = useState([])
     const [ showProducts, setShowProducts ] = useState(false)

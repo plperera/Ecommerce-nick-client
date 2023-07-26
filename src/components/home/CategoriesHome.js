@@ -2,22 +2,28 @@ import styled from "styled-components"
 import { useEffect, useState } from "react"
 import useNavigateAndMoveUp from "../../hooks/useNavigateAndMoveUp"
 import CategoryCard from "./CategoryCard"
+import api from "../../services/API"
 
 export default function CategoriesHome () {
 
-    const Category01 = "https://firebasestorage.googleapis.com/v0/b/imageuploads-7b8bc.appspot.com/o/1689353981757.png?alt=media&token=94990cb7-6043-41ef-b64b-9af87099ac06"
-    const Category02 = "https://firebasestorage.googleapis.com/v0/b/imageuploads-7b8bc.appspot.com/o/1689354512144.png?alt=media&token=e0c465de-79a5-4e2d-ab1f-6f719f645aa6"
-    const ExampleArray = [
-        {categoryName:"Seccionadoras", description:"Seccionadoras projetadas e produzidas para oferecer ótima relação custo-benefício ao fabricante.", image: Category01}, 
-        {categoryName:"Seccionadoras2", description:"Seccionadoras projetadas e produzidas para oferecer ótima relação custo-benefício ao fabricante.", image: Category02}, 
-        {categoryName:"Seccionadoras3", description:"Seccionadoras projetadas e produzidas para oferecer ótima relação custo-benefício ao fabricante.", image: Category01}, 
-        {categoryName:"Seccionadoras4", description:"Seccionadoras projetadas e produzidas para oferecer ótima relação custo-benefício ao fabricante.", image: Category02}, 
-        {categoryName:"Seccionadoras5", description:"Seccionadoras projetadas e produzidas para oferecer ótima relação custo-benefício ao fabricante.", image: Category01},   
-        {categoryName:"Seccionadoras6", description:"Seccionadoras projetadas e produzidas para oferecer ótima relação custo-benefício ao fabricante.", image: Category02},   
-    ]
+    // const Category01 = "https://firebasestorage.googleapis.com/v0/b/imageuploads-7b8bc.appspot.com/o/1689353981757.png?alt=media&token=94990cb7-6043-41ef-b64b-9af87099ac06"
+    // const Category02 = "https://firebasestorage.googleapis.com/v0/b/imageuploads-7b8bc.appspot.com/o/1689354512144.png?alt=media&token=e0c465de-79a5-4e2d-ab1f-6f719f645aa6"
+    // const ExampleArray = [
+    //     {categoryName:"Seccionadoras", description:"Seccionadoras projetadas e produzidas para oferecer ótima relação custo-benefício ao fabricante.", image: Category01}, 
+    //     {categoryName:"Seccionadoras2", description:"Seccionadoras projetadas e produzidas para oferecer ótima relação custo-benefício ao fabricante.", image: Category02}, 
+    //     {categoryName:"Seccionadoras3", description:"Seccionadoras projetadas e produzidas para oferecer ótima relação custo-benefício ao fabricante.", image: Category01}, 
+    //     {categoryName:"Seccionadoras4", description:"Seccionadoras projetadas e produzidas para oferecer ótima relação custo-benefício ao fabricante.", image: Category02}, 
+    //     {categoryName:"Seccionadoras5", description:"Seccionadoras projetadas e produzidas para oferecer ótima relação custo-benefício ao fabricante.", image: Category01},   
+    //     {categoryName:"Seccionadoras6", description:"Seccionadoras projetadas e produzidas para oferecer ótima relação custo-benefício ao fabricante.", image: Category02},   
+    // ]
 
-    const [slide, setSlide] = useState(0)
-    const [applyAnimation, setApplyAnimation] = useState(false)
+    const [ slide, setSlide ] = useState(0)
+    const [ applyAnimation, setApplyAnimation ] = useState(false)
+    const [ categoryCardData, setCategoryCardData ] = useState(undefined)
+
+    useEffect(() => {
+        getAllBanners()
+    },[])
 
     useEffect(() => {
 
@@ -29,23 +35,28 @@ export default function CategoriesHome () {
       
     }, [slide]);
 
+    async function getAllBanners() {
+        try {
+            const response = await api.GetAllCategoriesCard()
+            setCategoryCardData(response.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     function ChangeSlide(changeAmount){
         let newSlide = slide + changeAmount;
-    
-        // Se o novo slide for além do final, volta para o início.
-        if (newSlide > ExampleArray.length - 1) {
+
+        if (newSlide > categoryCardData.length - 1) {
             newSlide = 0;
         }
     
-        // Se o novo slide for antes do início, vai para o final.
         if (newSlide < 0) {
-            newSlide = ExampleArray.length - 1;
+            newSlide = categoryCardData.length - 1;
         }
-    
         setSlide(newSlide);
     }
     
-
     const navigateAndMoveUp = useNavigateAndMoveUp();
 
     return(
@@ -53,10 +64,12 @@ export default function CategoriesHome () {
             <Title>Categorias</Title>
             <LeftArrowContainer onClick={() =>  applyAnimation ? (""):(ChangeSlide(-1))}>{"<"}</LeftArrowContainer>
             <CategoryContainer>
-                {Array(4).fill(0).map((_, i) => {
-                    const index = (slide + i) % ExampleArray.length;
-                    return <CategoryCard category={ExampleArray[index]} key={index} applyAnimation={applyAnimation}/>
-                })}
+                {categoryCardData ? (
+                    Array(categoryCardData.length > 4 ?(4):(categoryCardData.length)).fill(0).map((_, i) => {
+                        const index = (slide + i) % categoryCardData.length;
+                        return <CategoryCard category={categoryCardData[index]} key={index} applyAnimation={applyAnimation} navigateAndMoveUp={navigateAndMoveUp}/>
+                    })
+                ):(<></>)}
             </CategoryContainer>
             <RightArrowContainer onClick={() =>  applyAnimation ? (""):(ChangeSlide(1))}>{">"}</RightArrowContainer>
         </Container>

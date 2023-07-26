@@ -2,7 +2,6 @@ import styled from "styled-components"
 import ContentProductCard from "./ContentProductCard"
 
 export default function Content ({products}) {
-
     return(
         <Container>
             {

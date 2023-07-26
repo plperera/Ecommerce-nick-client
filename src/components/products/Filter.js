@@ -79,35 +79,6 @@ const OptionsContainer = styled.div`
     row-gap: 1vh;
     flex-wrap: wrap;
 `
-const ButtonStyle = styled.div`
-    width: 16vw;
-    height: 4vh;
-    background-color: #79838b;
-    border-left: 8px solid #009395;
-    color: #FFFFFF;
-    text-shadow: 4px 2px 6px #0000006C;
-    box-shadow: 2px 2px 5px #0000001A;
-    font-weight: 700;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: left;
-    padding-left: 0.65vw;
-    border-radius: 5px;
-    font-size: 18px;
-    margin-top: 1vh;
-    cursor: pointer;
-    user-select: none;
-    transition: all ease .1s !important;
-    &:hover{
-        border-left: 10px solid #00BABD;
-    }
-    @media (max-width: 1366px) {
-        font-size: 13px;  
-        margin-top: 2.5vh;
-        //width: 19vw;  
-    }
-`
 const spinAnimation = keyframes`
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }

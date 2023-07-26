@@ -1,53 +1,74 @@
 import styled from "styled-components"
-import Banner01 from "../../assets/images/banner01.jpg"
-import Banner02 from "../../assets/images/banner02.png"
 import { useState } from "react"
 import { useEffect } from "react"
 import useNavigateAndMoveUp from "../../hooks/useNavigateAndMoveUp"
+import api from "../../services/API"
 
 export default function BannerHome () {
 
+    const [ banners, setBanners ] = useState(undefined)
+
+    useEffect(() => {
+        getAllBanners()
+    },[])
+
+    async function getAllBanners() {
+        try {
+            const response = await api.GetAllBanners()
+            setBanners(response.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+/*
     const ExampleArray = [
         {title: "Aumente a vida útil de suas máquinas", image: Banner01}, 
         {title: "Excelência com quem realmente conhece", image: Banner02}
     ]
-
+*/
     const [slide, setSlide] = useState(0)
 
     function ChangeSlide(){
-        (slide === (ExampleArray.length - 1)) ? (setSlide(0)):(setSlide(slide + 1))
+        (slide === (banners.length - 1)) ? (setSlide(0)):(setSlide(slide + 1))
     }
 
     useEffect(() => {
 
         const slideInterval = setInterval(() => {
-            (slide === (ExampleArray.length - 1)) ? (setSlide(0)):(setSlide(slide + 1))
+            (slide === (banners.length - 1)) ? (setSlide(0)):(setSlide(slide + 1))
         }, (5 * 1000));
 
         return () => clearInterval(slideInterval);
 
-    }, [ExampleArray.length, slide]);
+    }, [banners?.length, slide]);
 
     const navigateAndMoveUp = useNavigateAndMoveUp();
 
     return(
         <Container>
-            <ImageContainer backgroundImage={ExampleArray[slide].image}>
+            {banners ? (
+                <>
+                    <ImageContainer backgroundImage={banners[slide].imageUrl}>
 
-                <Title>{ExampleArray[slide].title}</Title>
-                <Button onClick={() => navigateAndMoveUp({locate: "catalogo"})}>Conheça nosso catálogo</Button>
+                        <Title>{banners[slide].text}</Title>
+                        <Button onClick={() => navigateAndMoveUp({locate: "catalogo"})}>Conheça nosso catálogo</Button>
 
-            </ImageContainer>
+                    </ImageContainer>
 
-            <Slide>
-                {ExampleArray.map( (e,i) => 
-                    <SlideIcon 
-                        onClick={() => ChangeSlide()} 
-                        backgroundColor={slide === i?("#009395"):("")}
-                        key={i}
-                    />
-                )}
-            </Slide>
+                    <Slide>
+                        {banners.map( (e,i) => 
+                            <SlideIcon 
+                                onClick={() => ChangeSlide()} 
+                                backgroundColor={slide === i?("#009395"):("")}
+                                key={i}
+                            />
+                        )}
+                    </Slide>
+                </>
+            ):(
+                <></>
+            )}
+            
             
         </Container>
     )
