@@ -15,7 +15,6 @@ export default function UpdateCategoryHome () {
     const [ form, handleForm, setForm ] = useCustomForm();
     const { adminData } = useContext(AdminContext);
 
-
     async function getAllCategoriesCard(){
         try {
             const result = await api.GetAllCategoriesCard()

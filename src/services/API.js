@@ -88,6 +88,12 @@ function UpdateHomeCategory({body, token}){
 function DeleteHomeCategory({body, token}){
     return axios.delete(`${BASE_URL}/homepage/category/admin`, {data: body, headers: { Authorization: `Bearer ${token}`}});
 }
+function UpdateProduct({body, token}){
+    return axios.put(`${BASE_URL}/product/admin`, body, {headers: { Authorization: `Bearer ${token}`}});
+}
+function DisableProduct({body, token}){
+    return axios.put(`${BASE_URL}/product/admin/disable`, body, {headers: { Authorization: `Bearer ${token}`}});
+}
 
 
 const api = {
@@ -119,7 +125,9 @@ const api = {
     CreateHomeCategory,
     GetAllCategoriesCard,
     UpdateHomeCategory,
-    DeleteHomeCategory
+    DeleteHomeCategory,
+    UpdateProduct,
+    DisableProduct
 };
 
 export default api;

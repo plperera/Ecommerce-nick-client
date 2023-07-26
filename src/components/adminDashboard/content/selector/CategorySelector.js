@@ -2,7 +2,6 @@ import { useEffect, useState } from "react"
 import styled from "styled-components"
 
 export default function CategorySelector ({filter, refresh, categories, setForm, form, limitSelect, initSelect}) {
-    console.log(initSelect)
     const [categoriesSelected, setCategoriesSelected] = useState(initSelect || [])
     const [filteredCategories, setFilteredCategories] = useState([])
 
@@ -50,7 +49,7 @@ export default function CategorySelector ({filter, refresh, categories, setForm,
     }, [categories])
 
     useEffect(() => {
-
+        console.log(categoriesSelected)
         const bodyFormat = Object.entries(categoriesSelected).reduce((acc, [key, value]) => {
             if(value !== undefined) {
               acc.push({categoryId: value});

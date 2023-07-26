@@ -9,13 +9,13 @@ export default function ProductCard ({ productData, setSelectedProduct }) {
     const [isLoading, setIsLoading] = useState(true);
 
     return(
-        <Container onClick={() => setSelectedProduct(productData)}>
+        <Container onClick={() => setSelectedProduct(productData)} opacity={productData.isActive ? ("1"):("0.5")}>
             <UpContainer>
 
                 <RateSession>
                     <RateStyledIcon/>
                     <div>{ 9.9 }</div>
-                </RateSession>
+                </RateSession>               
 
                 <FavoriteSession>
                     <div>{"Favoritar"}</div>
@@ -71,6 +71,7 @@ const Container = styled.div`
     height: 28vh;
     color: #000000;
     background-color: #FFFFFF;
+    opacity: ${props => props.opacity};
     box-shadow: 0px 4px 8px #00000068;
     display: flex;
     flex-direction: column;

@@ -1,20 +1,94 @@
 import styled from "styled-components"
 import Button from "../../../../../common/form/Button"
+import api from "../../../../../services/API"
+import { toast } from "react-toastify"
 
-export default function Title ({haveAllData, setSelectedProduct, selectedProduct}) {
+export default function Title ({setSelectedProduct, productData, form, setForm, adminData}) {
+
+    async function SubmitForm(){
+        try {
+            const body = {
+                id: productData?.productId,  
+                description: form?.description,     
+                categories: form?.categories,
+                images: form?.images,
+                name: form?.name,       
+                price: form?.price,    
+                stock: form?.stock,   
+                tecnicDetails: form?.tecnicDetails.filter(e => (!!e.topic && e.topic !== '')),       
+            }
+            console.log(body)
+
+            const response = await api.UpdateProduct({body, token: adminData?.token})
+
+            if (response.status === 200){
+                toast.dark("Produto Atualizado com Sucesso")
+                setForm({})
+                setSelectedProduct(undefined)
+                return
+            }
+
+        } catch (error) {
+            console.log(error)
+            toast.error("Verifique os Valores Inseridos")
+        }
+    }
+    async function deleteProduct(){
+        try {
+            const body = {
+                id: productData?.productId,  
+            }
+
+            const result = await api.DisableProduct({token: adminData?.token, body})
+
+            if( result.status === 200){
+                toast.dark("Produto desabilitado com Sucesso")
+                setForm({})
+                setSelectedProduct(undefined)
+                return
+            }
+        } catch (error) {
+            console.log(error)
+            toast.error("Verifique os Valores Inseridoss")
+        }
+    }
+    async function enableProduct(){
+        try {
+            const body = {
+                id: productData?.productId,  
+            }
+
+            const result = await api.DisableProduct({token: adminData?.token, body})
+
+            if( result.status === 200){
+                toast.dark("Produto habilitado novamente com Sucesso")
+                setForm({})
+                setSelectedProduct(undefined)
+                return
+            }
+        } catch (error) {
+            console.log(error)
+            toast.error("Verifique os Valores Inseridoss")
+        }
+    }
+
+
     return(
         <Container>
             <h1>{"Editar Produto"}</h1>
            
-                {selectedProduct ? (
-
-                    <ButtonContainer>
-                        <Button onClick={() => console.log("undefined")} backgroundhover={"#C71313 !important"} background={"#A70B0B !important"}>{"Desabilitar"}</Button>                        
-                        <Button background={"#949494 !important"}>{haveAllData?("Criar Produto"):("Preecha todos os Campos")}</Button>
-                        <Button onClick={() => setSelectedProduct(undefined)} background={"#949494 !important"}>{"Voltar"}</Button>
-                    </ButtonContainer>
-                    
-                ):(<></>)}
+            {productData ? (
+                <ButtonContainer>
+                    {productData.isActive ? (
+                        <Button onClick={() => deleteProduct()} backgroundhover={"#C71313 !important"} background={"#A70B0B !important"}>{"Desativar"}</Button> 
+                    ):(
+                        <Button onClick={() => enableProduct()} backgroundhover={"#28C713 !important"} background={"#18A705 !important"}>{"Habilitar"}</Button> 
+                    )}
+                                      
+                    <Button background={"#006FAA !important"} backgroundhover={"#0085CC !important"} onClick={() => SubmitForm()}>{"Atualizar Produto"}</Button>
+                    <Button onClick={() => setSelectedProduct(undefined)} background={"#949494 !important"}>{"Voltar"}</Button>
+                </ButtonContainer>
+            ):(<></>)}
             
         </Container>
     )

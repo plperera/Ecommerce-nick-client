@@ -16,7 +16,8 @@ export default function PutProduct () {
 
     useEffect(() => {
         getAllProducts()
-    }, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectedProduct])
 
     async function getAllProducts(){
         try {
@@ -30,7 +31,7 @@ export default function PutProduct () {
 
     return(
         <Container>
-            <Title setSelectedProduct={setSelectedProduct} selectedProduct={selectedProduct}/>
+            <Title setSelectedProduct={setSelectedProduct} productData={selectedProduct} form={form} setForm={setForm} adminData={adminData}/>
 
             <SubContainer>
                 {!selectedProduct ? (
@@ -39,7 +40,7 @@ export default function PutProduct () {
 
                 ):(
 
-                    <ProductForms selectedProduct={selectedProduct} form={form} handleForm={handleForm} setForm={setForm} token={adminData.token}/>
+                    <ProductForms productData={selectedProduct} form={form} handleForm={handleForm} setForm={setForm} token={adminData.token}/>
 
                 )} 
             </SubContainer>

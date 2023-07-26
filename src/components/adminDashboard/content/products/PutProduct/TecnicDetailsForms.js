@@ -3,32 +3,43 @@ import { toast } from "react-toastify"
 import styled from "styled-components"
 import { InputWrapper } from "../../../../userDashboard/content/userData/InputWrapper"
 import Input from "../../../../../common/form/Input"
+import { useEffect } from "react"
 
-export default function TecnicDetails ({ tecnicDetails, setForm, form }) {
+export default function TecnicDetails ({ setForm, form }) {
 
-    const [lines, setLines] = useState(Array.from({length: tecnicDetails?.length}));
+    const [lines, setLines] = useState(Array.from({length: form?.tecnicDetails?.length}));
+    console.log(Array.from({length: form?.tecnicDetails?.length}))
+    useEffect(() => {
+        setLines(Array.from({length: form?.tecnicDetails?.length}))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
 
     function AddMoreImages(){
         if (lines.length < 5){
             setLines([...lines, lines.length + 1])
+            const newTecnicDetails = [...form.tecnicDetails]
+            newTecnicDetails.push({topic:'', topicDetail: ''})
+            console.log(newTecnicDetails)
+            setForm({...form, tecnicDetails: newTecnicDetails})
         } else {
             toast.dark("Limite de tópicos atingido!!")
         }
     }
 
-    function handleTecnincDetailsForm(index, event){
+    function handleTecnincDetailsForm(event, index){
+        
+        if (event.target.name?.split("_")[0] === "topic") {
 
-        const values = [...tecnicDetails];
-
-        if (event.target.name === "topic") {
-
-            values[index].topic = event.target.value;
+            const newTecnicDetails = [...form.tecnicDetails]
+            console.log("newTecnicDetails", newTecnicDetails)
+            newTecnicDetails[index].topic = event.target.value
+            setForm({...form, tecnicDetails: newTecnicDetails})
 
         } else {
-
-            values[index].topicDetails = event.target.value;
-
+            const newTecnicDetails = [...form.tecnicDetails]
+            newTecnicDetails[index].topicDetail = event.target.value
+            setForm({...form, tecnicDetails: newTecnicDetails})
         }
     }
 
@@ -46,9 +57,9 @@ export default function TecnicDetails ({ tecnicDetails, setForm, form }) {
                             <Input 
                                 label={`Topico ${index + 1}`}    
                                 type="text" 
-                                name={`topic${index}`} 
+                                name={`topic_${index}`} 
                                 value={form?.tecnicDetails[index]?.topic} 
-                                onChange={handleTecnincDetailsForm}
+                                onChange={(e) => handleTecnincDetailsForm(e, index)}
                                 width="100%"
                             />
                         </InputWrapper>
@@ -57,9 +68,9 @@ export default function TecnicDetails ({ tecnicDetails, setForm, form }) {
                             <Input 
                                 label={`Detalhamento do topico ${index + 1}`}    
                                 type="text" 
-                                name={`topic${index}`}  
+                                name={`topicDetail_${index}`}  
                                 value={form?.tecnicDetails[index]?.topicDetail} 
-                                onChange={handleTecnincDetailsForm}
+                                onChange={(e) => handleTecnincDetailsForm(e, index)}
                                 width="100%"
                             />
                         </InputWrapper>
