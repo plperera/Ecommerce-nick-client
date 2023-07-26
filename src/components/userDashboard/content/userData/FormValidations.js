@@ -16,7 +16,7 @@ const validations = {
     },
   },
 
-  phoneNumber: {
+  phone: {
     custom: {
       isValid: (value) => parseInt(value?.length, 10) >= 14,
       message: 'Digite um telefone válido',

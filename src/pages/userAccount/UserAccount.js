@@ -1,18 +1,18 @@
 import { useState } from "react"
 import styled from "styled-components"
 import UserNavigationBar from "../../components/userDashboard/UserNavigationBar"
-import useUserInfo from "../../hooks/useUserInfo"
+import UserContext from "../../context/UserContext";
+import { useContext } from "react";
 
 export default function UserAccount () {
     const [ content, setContent ] = useState(false)
-
-    const { email, name } = useUserInfo()
+    const { userData } = useContext(UserContext);
     
     return(
         <Container>
             <DashboardLayout>
 
-                <UserNavigationBar setContent={setContent} content={content} userData={{email, name}}/>
+                <UserNavigationBar setContent={setContent} content={content} userData={userData}/>
 
                 <ContentContainer>
                     {content?(content?.ref):(<IncialMenuContainer>Menu Inicial</IncialMenuContainer>)}

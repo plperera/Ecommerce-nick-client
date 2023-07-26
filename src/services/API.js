@@ -112,6 +112,15 @@ function DisableShipping({body, token}){
 function EnableShipping({body, token}){
     return axios.put(`${BASE_URL}/shipping/admin/enable`, body, {headers: { Authorization: `Bearer ${token}`}});
 }
+function GetUserEnrollment(token) {
+    return axios.get(`${BASE_URL}/enrollment`, {headers: { Authorization: `Bearer ${token}`}})
+}
+function CreateUserEnrollment({body, token}) {
+    return axios.post(`${BASE_URL}/enrollment`, body, {headers: { Authorization: `Bearer ${token}`}})
+}
+function UpdateUserEnrollment({body, token}) {
+    return axios.put(`${BASE_URL}/enrollment`, body, {headers: { Authorization: `Bearer ${token}`}})
+}
 
 const api = {
     GetAllCategories,
@@ -150,7 +159,10 @@ const api = {
     UpdateShipping,
     GetAllShippingMethodsData,
     DisableShipping,
-    EnableShipping
+    EnableShipping,
+    GetUserEnrollment,
+    CreateUserEnrollment,
+    UpdateUserEnrollment
 };
 
 export default api;

@@ -12,21 +12,92 @@ import { useValidation } from "../../../../hooks/useValidation";
 import validations from "./FormValidations";
 import { ErrorMsg } from "./ErrorMsg";
 import { InputWrapper } from "./InputWrapper";
+import api from "../../../../services/API";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
+import { useState } from "react";
 
 export default function UserData ({userData}) {
 
     const [ form, handleForm, setForm ] = useCustomForm()
     const { errors, validate } = useValidation(validations);
+    const [ userEnrollment, setUserEnrollment ] = useState(undefined);
+    const [ refresh, setRefresh ] = useState(true);
 
-    function SubmitForms(){
+    useEffect(() => {
+        console.log("userData", userData)
+        getUserData()
+    },[refresh])
+
+    useEffect(() => {
+        SetInitFormsValue()
+    },[userEnrollment])
+
+    async function getUserData(){
+        try {
+            const result = await api.GetUserEnrollment(userData.token)
+            setUserEnrollment(result.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    function SetInitFormsValue(){
+        console.log(userEnrollment)
+        if(!userEnrollment || !userEnrollment?.id){
+            return
+        }
+        setForm({
+            phone: userEnrollment.phone,
+            cpf: userEnrollment.cpf,
+            birthday: userEnrollment.birthday
+        })
+    }
+    async function SubmitForms(){
         const body = {
-            cpf: form.cpf,
+            cpf: form?.cpf?.replaceAll('.', '')?.replace('-', '')?.replaceAll('/', ''),
             birthday: form.birthday,
-            phoneNumber: form.phoneNumber,
+            phone: form.phone,
         }
         const { isValid, errors } = validate(body)
 
         if (!isValid){
+            return
+        }
+        try {
+            const result = await api.CreateUserEnrollment({body, token: userData.token})
+            if (result.status === 201){
+                toast.dark("Dados Pessoais criados com sucesso")
+                setRefresh(!refresh)
+                return
+            }
+        } catch (error) {
+            console.log(error)
+            toast.error("Verifique os valores inseridos")
+            return
+        }
+    }
+    async function PutSubmitForms(){
+        const body = {
+            cpf: form?.cpf?.replaceAll('.', '')?.replace('-', '')?.replaceAll('/', ''),
+            birthday: form.birthday,
+            phone: form.phone,
+        }
+        // eslint-disable-next-line no-unused-vars
+        const { isValid, errors } = validate(body)
+
+        if (!isValid){
+            return
+        }
+        try {
+            const result = await api.UpdateUserEnrollment({body, token: userData.token})
+            if (result.status === 200){
+                toast.dark("Dados Pessoais Atualizados com sucesso")
+                setRefresh(!refresh)
+                return
+            }
+        } catch (error) {
+            console.log(error)
+            toast.error("Verifique os valores inseridos")
             return
         }
     }
@@ -53,14 +124,14 @@ export default function UserData ({userData}) {
                 <InputWrapper width={"40%"}>
                     <Input 
                         label="Telefone para Contato"     
-                        mask={form?.phoneNumber?.length < 15 ? '(99) 9999-99999' : '(99) 99999-9999'}
+                        mask={form?.phone?.length < 15 ? '(99) 9999-99999' : '(99) 99999-9999'}
                         type="text" 
-                        name={"phoneNumber"} 
-                        value={form.phoneNumber} 
+                        name={"phone"} 
+                        value={form.phone} 
                         onChange={handleForm}
                         width="100%"
                     />
-                    {errors.phoneNumber && <ErrorMsg>{errors.phoneNumber}</ErrorMsg>}
+                    {errors.phone && <ErrorMsg>{errors.phone}</ErrorMsg>}
                 </InputWrapper>
 
                 <InputWrapper width={"30%"}>
@@ -110,7 +181,11 @@ export default function UserData ({userData}) {
 
             <ButtonContainer>
 
-                <Button type="submit" width="60%" color="primary" onClick={() => SubmitForms()}>{"Salvar"}</Button>
+                {(!userEnrollment || !userEnrollment?.id) ? (
+                    <Button type="submit" width="60%" color="primary" onClick={() => SubmitForms()}>{"Salvar"}</Button>
+                ):(
+                    <Button type="submit" width="60%" color="primary" onClick={() => PutSubmitForms()}>{"Atualizar"}</Button>
+                )}
 
             </ButtonContainer>
             
