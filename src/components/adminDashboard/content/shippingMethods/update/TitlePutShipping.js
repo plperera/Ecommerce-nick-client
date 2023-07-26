@@ -3,28 +3,29 @@ import Button from "../../../../../common/form/Button"
 import api from "../../../../../services/API"
 import { toast } from "react-toastify"
 
-export default function Title ({setSelectedProduct, productData, form, setForm, adminData}) {
+export default function Title ({setSelectedShipping, shippingData, form, setForm, adminData}) {
+
+    function convertToNumber(formattedString) {
+        const value = formattedString.replace("R$ ", "").replace(/\./g, "").replace(",", ".");
+        return parseFloat(value);
+    }
 
     async function SubmitForm(){
         try {
             const body = {
-                id: productData?.productId,  
-                description: form?.description,     
-                categories: form?.categories,
-                images: form?.images,
-                name: form?.name,       
-                price: form?.price,    
-                stock: form?.stock,   
-                tecnicDetails: form?.tecnicDetails.filter(e => (!!e.topic && e.topic !== '')),       
+                id: shippingData?.id,  
+                name: form?.name,     
+                price: Number((convertToNumber(form?.price) * 100).toFixed(0))
             }
+
             console.log(body)
 
-            const response = await api.UpdateProduct({body, token: adminData?.token})
+            const response = await api.UpdateShipping({body, token: adminData?.token})
 
             if (response.status === 200){
-                toast.dark("Produto Atualizado com Sucesso")
+                toast.dark("Método de Entrega Atualizado com Sucesso")
                 setForm({})
-                setSelectedProduct(undefined)
+                setSelectedShipping(undefined)
                 return
             }
 
@@ -35,6 +36,7 @@ export default function Title ({setSelectedProduct, productData, form, setForm, 
     }
     async function deleteProduct(){
         try {
+            /*
             const body = {
                 id: productData?.productId,  
             }
@@ -47,6 +49,7 @@ export default function Title ({setSelectedProduct, productData, form, setForm, 
                 setSelectedProduct(undefined)
                 return
             }
+            */
         } catch (error) {
             console.log(error)
             toast.error("Verifique os Valores Inseridoss")
@@ -54,6 +57,7 @@ export default function Title ({setSelectedProduct, productData, form, setForm, 
     }
     async function enableProduct(){
         try {
+            /*
             const body = {
                 id: productData?.productId,  
             }
@@ -66,6 +70,7 @@ export default function Title ({setSelectedProduct, productData, form, setForm, 
                 setSelectedProduct(undefined)
                 return
             }
+            */
         } catch (error) {
             console.log(error)
             toast.error("Verifique os Valores Inseridoss")
@@ -75,18 +80,18 @@ export default function Title ({setSelectedProduct, productData, form, setForm, 
 
     return(
         <Container>
-            <h1>{"Editar Produto"}</h1>
+            <h1>{"Editar Método de Entrega"}</h1>
            
-            {productData ? (
+            {shippingData ? (
                 <ButtonContainer>
-                    {productData.isActive ? (
+                    {shippingData.isActive ? (
                         <Button onClick={() => deleteProduct()} backgroundhover={"#C71313 !important"} background={"#A70B0B !important"}>{"Desativar"}</Button> 
                     ):(
                         <Button onClick={() => enableProduct()} backgroundhover={"#28C713 !important"} background={"#18A705 !important"}>{"Habilitar"}</Button> 
                     )}
                                       
-                    <Button background={"#006FAA !important"} backgroundhover={"#0085CC !important"} onClick={() => SubmitForm()}>{"Atualizar Produto"}</Button>
-                    <Button onClick={() => setSelectedProduct(undefined)} background={"#949494 !important"}>{"Voltar"}</Button>
+                    <Button background={"#006FAA !important"} backgroundhover={"#0085CC !important"} onClick={() => SubmitForm()}>{"Atualizar Método"}</Button>
+                    <Button onClick={() => setSelectedShipping(undefined)} background={"#949494 !important"}>{"Voltar"}</Button>
                 </ButtonContainer>
             ):(<></>)}
             

@@ -10,6 +10,7 @@ import UpdateBannerHome from "./content/homePage/bannerHome/edit/UpdateBannerHom
 import CreateCategoryHome from "./content/homePage/categoryHome/create/CreateCategoryHome";
 import UpdateCategoryHome from "./content/homePage/categoryHome/edit/UpdateCategoryHome";
 import CreateShippingMethods from "./content/shippingMethods/create/CreateShippingMethods";
+import PutShipping from "./content/shippingMethods/update/PutShipping";
 
 export default function NavigationBar ({expandNavigationBar, setContent}) {
     const options = [
@@ -35,7 +36,7 @@ export default function NavigationBar ({expandNavigationBar, setContent}) {
                 },
                 {
                     name:"Editar um Método",
-                    content: <PutProduct/>
+                    content: <PutShipping/>
                 }
             ]
         },

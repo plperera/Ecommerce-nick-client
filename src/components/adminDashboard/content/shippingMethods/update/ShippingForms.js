@@ -1,7 +1,35 @@
 import styled from "styled-components"
-import Input from "../../../../../common/form/Input";
+import Input from "../../../../../common/form/Input"
+import { useEffect } from "react";
 
-export default function FormCreateShipping ({ form, handleForm, setForm }) {
+export default function ShippingForms ({form, handleForm, setForm, shippingData}) {
+
+    function convertToNumber(number) {
+        // Divide o número por 100 para considerar os últimos dois dígitos como decimais
+        let value = number / 100;
+
+        // Converte para string com separadores de milhar e decimais
+        value = value.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+
+        // Adiciona prefixo
+        value = `R$ ${value}`;
+
+        // Remove zeros desnecessários após a vírgula
+        value = value.replace(/,00$/, '').replace(/(\d),0$/, '$1');
+
+        return value;
+    }
+
+    useEffect(() => {
+
+        setForm({
+            shippingId: shippingData?.id,       
+            name: shippingData?.name,       
+            price: convertToNumber(shippingData?.price)
+        })
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[shippingData])
 
     function customHandleChange(event) {
         let value = event.target.value;
@@ -37,42 +65,41 @@ export default function FormCreateShipping ({ form, handleForm, setForm }) {
     }
 
     return(
-
         <Container>
-            <div>
-                <h2>
+            {form?.shippingId ? (        
+                <div>
+                    <h2>
                     {"Insira o texto que ira aparcerer junto da Categoria"}
-                </h2>
+                    </h2>
 
-                <InputContainer>
-                    <Input 
-                        label="Nome" 
-                        type="text" 
-                        name={"name"} 
-                        value={form?.name} 
-                        width="49%"
-                        onChange={handleForm}
-                    />
+                    <InputContainer>
+                        <Input 
+                            label="Nome" 
+                            type="text" 
+                            name={"name"} 
+                            value={form?.name} 
+                            width="49%"
+                            onChange={handleForm}
+                        />
 
-                    <Input 
-                        label="Preço" 
-                        type="text" 
-                        name={"price"} 
-                        value={form?.price} 
-                        width="49%"
-                        onChange={customHandleChange}
-                    /> 
-                </InputContainer>   
-            </div>            
+                        <Input 
+                            label="Preço" 
+                            type="text" 
+                            name={"price"} 
+                            value={form?.price} 
+                            width="49%"
+                            onChange={customHandleChange}
+                        /> 
+                    </InputContainer>   
+                </div> 
+            ):(<></>)}
         </Container>
     )
 }
-
 const Container = styled.div`
     display: flex;
     flex-direction: column;
     row-gap: 3vh;
-    margin-top: calc(2vh + 7vh);
     color: #171717;
     width: 100%;
     font-size: 21px;

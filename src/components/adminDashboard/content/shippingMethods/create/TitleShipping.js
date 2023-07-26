@@ -5,13 +5,15 @@ import api from "../../../../../services/API"
 import Button from "../../../../../common/form/Button"
 
 
+
+
 export default function Title ({text, form, adminData, setForm}) {
 
     async function SubmitForm(){
         try {
             const body = {
                 name: form?.name,
-                price: (((form?.price.replace("R$ ", "").replace(/\./g, "").replace(",", ""))* 100).toFixed(0))
+                price: (Number(form?.price?.replace("R$ ", "")?.replace(/\./g, "")) * 100).toFixed(0)
             }
 
             const response = await api.CreateShipping({body, token: adminData?.token})

@@ -25,7 +25,7 @@ export default function NavigationItem ({name, options, setContent}) {
 const Container = styled.div`
     color: #171717;
     width: 100%;
-    font-size: 21px;
+    font-size: 19px;
     font-weight: 500;
 `
 const Title = styled.div`

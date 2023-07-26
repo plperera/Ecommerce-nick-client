@@ -94,11 +94,17 @@ function UpdateProduct({body, token}){
 function DisableProduct({body, token}){
     return axios.put(`${BASE_URL}/product/admin/disable`, body, {headers: { Authorization: `Bearer ${token}`}});
 }
+function EnableProduct({body, token}){
+    return axios.put(`${BASE_URL}/product/admin/enable`, body, {headers: { Authorization: `Bearer ${token}`}});
+}
 function CreateShipping({body, token}){
     return axios.post(`${BASE_URL}/shipping/admin`, body, {headers: { Authorization: `Bearer ${token}`}});
 }
 function UpdateShipping({body, token}){
     return axios.put(`${BASE_URL}/shipping/admin`, body, {headers: { Authorization: `Bearer ${token}`}});
+}
+function GetAllShippingMethodsData(token){
+    return axios.get(`${BASE_URL}/shipping/admin`, {headers: { Authorization: `Bearer ${token}`}});
 }
 
 
@@ -134,8 +140,10 @@ const api = {
     DeleteHomeCategory,
     UpdateProduct,
     DisableProduct,
+    EnableProduct,
     CreateShipping,
-    UpdateShipping
+    UpdateShipping,
+    GetAllShippingMethodsData
 };
 
 export default api;
