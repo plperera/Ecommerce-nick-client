@@ -12,7 +12,7 @@ import UpdateCategoryHome from "./content/homePage/categoryHome/edit/UpdateCateg
 import CreateShippingMethods from "./content/shippingMethods/create/CreateShippingMethods";
 import PutShipping from "./content/shippingMethods/update/PutShipping";
 
-export default function NavigationBar ({expandNavigationBar, setContent}) {
+export default function NavigationBar ({setContent}) {
     const options = [
         {
             name:"Produtos",
@@ -91,7 +91,7 @@ export default function NavigationBar ({expandNavigationBar, setContent}) {
     ]
 
     return(
-        <Container style={{ width: expandNavigationBar ? "7%" : "20%" }}>
+        <Container>
             {
                 options.map(e => <NavigationItem name={e.name} options={e.options} setContent={setContent}/>)
             }           
@@ -101,6 +101,7 @@ export default function NavigationBar ({expandNavigationBar, setContent}) {
 
 const Container = styled.div`
     height: 100%;
+    width: 20%;
     //border-right: 2px solid #D1D1D1;
     display: grid;
     grid-template-columns: 1fr;

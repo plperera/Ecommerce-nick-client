@@ -5,6 +5,11 @@ import { toast } from "react-toastify"
 
 export default function Title ({setSelectedProduct, productData, form, setForm, adminData}) {
 
+    function convertToNumber(formattedString) {
+        const value = formattedString.replace("R$ ", "").replace(/\./g, "").replace(",", ".");
+        return parseFloat(value);
+    }
+
     async function SubmitForm(){
         try {
             const body = {
@@ -13,8 +18,8 @@ export default function Title ({setSelectedProduct, productData, form, setForm, 
                 categories: form?.categories,
                 images: form?.images,
                 name: form?.name,       
-                price: form?.price,    
-                stock: form?.stock,   
+                price: Number((convertToNumber(form?.price) * 100).toFixed(0)),    
+                stock: Number(form?.stock),   
                 tecnicDetails: form?.tecnicDetails.filter(e => (!!e.topic && e.topic !== '')),       
             }
             console.log(body)
@@ -71,7 +76,6 @@ export default function Title ({setSelectedProduct, productData, form, setForm, 
             toast.error("Verifique os Valores Inseridoss")
         }
     }
-
 
     return(
         <Container>

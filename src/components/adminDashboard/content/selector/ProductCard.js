@@ -4,8 +4,6 @@ import { HiOutlineHeart } from 'react-icons/hi';
 import { useState } from "react";
 
 export default function ProductCard ({ productData, setSelectedProduct }) {
-
-
     const [isLoading, setIsLoading] = useState(true);
 
     return(
@@ -53,7 +51,8 @@ export default function ProductCard ({ productData, setSelectedProduct }) {
                         ):(
                             <>
                                 <LowPrice>
-                                    <PriceSign>{"R$ "}</PriceSign><span>{ (productData.price / 100).toLocaleString('pt-BR')}</span>
+                                    
+                                    {productData.price === 0 ? (<span>{"ORÇAMENTO"}</span>):(<><PriceSign>{"R$ "}</PriceSign><span>{ (productData.price / 100).toLocaleString('pt-BR')}</span></>)}
                                 </LowPrice>
                             </>
                         )

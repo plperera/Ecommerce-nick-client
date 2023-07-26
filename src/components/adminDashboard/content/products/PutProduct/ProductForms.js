@@ -27,6 +27,22 @@ export default function ProductForms ({form, handleForm, setForm, productData, t
     // eslint-disable-next-line no-unused-vars
     const { errors, validate } = useValidation(validations);
 
+    function convertToNumber(number) {
+        // Divide o número por 100 para considerar os últimos dois dígitos como decimais
+        let value = number / 100;
+
+        // Converte para string com separadores de milhar e decimais
+        value = value.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+
+        // Adiciona prefixo
+        value = `R$ ${value}`;
+
+        // Remove zeros desnecessários após a vírgula
+        value = value.replace(/,00$/, '').replace(/(\d),0$/, '$1');
+
+        return value;
+    }
+
     async function GetAllImages({token}){
         const response = await api.GetAllImages({token})
         setImages(response.data)
@@ -63,6 +79,39 @@ export default function ProductForms ({form, handleForm, setForm, productData, t
         return selectValue
     } 
 
+    function customHandleChange(event) {
+        let value = event.target.value;
+
+        // Remove all non-number and non-comma characters
+        let newValue = value.replace(/[^\d,]/g, "");
+
+        // Remove extra commas if there are any
+        const splitValue = newValue.split(",");
+        if (splitValue.length > 2) {
+            newValue = splitValue[0] + ',' + splitValue.slice(1).join("");
+        }
+
+        // Add thousands separators to integer part
+        const parts = newValue.split(",");
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+
+        // Join parts together
+        newValue = parts.join(",");
+        
+        // Add prefix
+        if (newValue.length > 0) {
+            newValue = `R$ ${newValue}`;
+        }
+
+        // Limit decimal places to 2 if there's a decimal value
+        if(parts[1] && parts[1].length > 2) {
+            const integerPart = parts[0];
+            const decimalPart = parts[1].substring(0, 2); // take only the first 2 digits of the decimal part
+            newValue = `R$ ${integerPart},${decimalPart}`; 
+        }
+        setForm({...form, price: newValue})
+    }
+
     useEffect(() => {
 
         GetAllImages({token: token})
@@ -77,7 +126,7 @@ export default function ProductForms ({form, handleForm, setForm, productData, t
             productId: productData?.productId,       
             name: productData?.name,       
             description: productData?.description,       
-            price: productData?.price,    
+            price: convertToNumber(productData?.price),    
             stock: productData?.stock,   
             tecnicDetails: productData?.tecnicDetails,       
             categories: productData?.categories,       
@@ -122,7 +171,7 @@ export default function ProductForms ({form, handleForm, setForm, productData, t
                                 type="text" 
                                 name={"price"} 
                                 value={form.price} 
-                                onChange={handleForm}
+                                onChange={customHandleChange}
                                 width="100%"
                             />
                             {errors.price && <ErrorMsg>{errors.price}</ErrorMsg>}
@@ -145,6 +194,7 @@ export default function ProductForms ({form, handleForm, setForm, productData, t
                                 label="Estoque"     
                                 type="text" 
                                 name={"stock"} 
+                                mask={"999999"}
                                 value={form.stock} 
                                 onChange={handleForm}
                                 width="100%"
