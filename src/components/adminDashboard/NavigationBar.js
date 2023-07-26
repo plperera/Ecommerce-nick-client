@@ -9,6 +9,7 @@ import CreateBannerHome from "./content/homePage/bannerHome/create/CreateBannerH
 import UpdateBannerHome from "./content/homePage/bannerHome/edit/UpdateBannerHome";
 import CreateCategoryHome from "./content/homePage/categoryHome/create/CreateCategoryHome";
 import UpdateCategoryHome from "./content/homePage/categoryHome/edit/UpdateCategoryHome";
+import CreateShippingMethods from "./content/shippingMethods/create/CreateShippingMethods";
 
 export default function NavigationBar ({expandNavigationBar, setContent}) {
     const options = [
@@ -21,6 +22,19 @@ export default function NavigationBar ({expandNavigationBar, setContent}) {
                 },
                 {
                     name:"Editar um Produto",
+                    content: <PutProduct/>
+                }
+            ]
+        },
+        {
+            name:"Métodos de Entrega",
+            options: [
+                {
+                    name:"Novo Método",
+                    content: <CreateShippingMethods/>
+                },
+                {
+                    name:"Editar um Método",
                     content: <PutProduct/>
                 }
             ]
