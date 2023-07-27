@@ -33,4 +33,9 @@ const Container = styled.div`
     font-weight: ${props => props.fontWeight};
     cursor: pointer;
     user-select: none;
+
+    @media (max-width: 850px) {
+        width: 118px;
+        font-size: 10px;
+    }
 `
