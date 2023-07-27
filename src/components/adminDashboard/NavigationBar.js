@@ -11,9 +11,20 @@ import CreateCategoryHome from "./content/homePage/categoryHome/create/CreateCat
 import UpdateCategoryHome from "./content/homePage/categoryHome/edit/UpdateCategoryHome";
 import CreateShippingMethods from "./content/shippingMethods/create/CreateShippingMethods";
 import PutShipping from "./content/shippingMethods/update/PutShipping";
+import UpdateOrders from "./content/order/update/UpdateOrders";
 
 export default function NavigationBar ({setContent}) {
     const options = [
+        {
+            name:"Pedidos",
+            options: [
+                {
+                    name:"Gerenciar",
+                    content: <UpdateOrders/>
+                },
+
+            ]
+        },
         {
             name:"Produtos",
             options: [

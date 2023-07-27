@@ -10,6 +10,7 @@ export default function Orders ({userData}) {
 
     useEffect(() => {
         getAllOrdersData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {

@@ -124,6 +124,12 @@ function UpdateUserEnrollment({body, token}) {
 function GetAllUserOrders(token) {
     return axios.get(`${BASE_URL}/order`, {headers: { Authorization: `Bearer ${token}`}})
 }
+function GetAllOrders(token) {
+    return axios.get(`${BASE_URL}/order/admin`, {headers: { Authorization: `Bearer ${token}`}})
+}
+function UpdateOrder({body, token}) {
+    return axios.put(`${BASE_URL}/order/admin`, body, {headers: { Authorization: `Bearer ${token}`}})
+}
 
 const api = {
     GetAllCategories,
@@ -166,7 +172,9 @@ const api = {
     GetUserEnrollment,
     CreateUserEnrollment,
     UpdateUserEnrollment,
-    GetAllUserOrders
+    GetAllUserOrders,
+    GetAllOrders,
+    UpdateOrder
 };
 
 export default api;

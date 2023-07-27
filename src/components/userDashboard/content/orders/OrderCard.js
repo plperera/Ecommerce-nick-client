@@ -10,7 +10,12 @@ export default function OrderCard ({orderData}) {
     const obj = {
         approved: { text: "Pagamento Aprovado", color:"#0F9B22"},
         waiting: { text: "Processando", color:"#1B3D64"},
-        credit_card: { text: "Cartão de Crédito", color:"#FFFFFF00"}
+        credit_card: { text: "Cartão de Crédito", color:"#FFFFFF00"},
+        Payd: {text: "Pagamento Recebido", color:"#FFFFFF00"},
+        Sorting: {text: "Em Separação", color:"#FFFFFF00"},
+        ReceivedByCarrier: {text: "Recebido pela transportadora", color:"#FFFFFF00"},
+        InTransit: {text: "Em Transito", color:"#FFFFFF00"},    
+        Delivered: {text: "Entregue", color:"#FFFFFF00"}               
     }
 
     return(
