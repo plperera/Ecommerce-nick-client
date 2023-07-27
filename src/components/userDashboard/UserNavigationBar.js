@@ -19,7 +19,7 @@ export default function UserNavigationBar ({setContent, content, userData}) {
         },
         {
             name:"Últimos Pedidos",
-            ref: <Orders/>
+            ref: <Orders userData={userData}/>
         },
     ]
 

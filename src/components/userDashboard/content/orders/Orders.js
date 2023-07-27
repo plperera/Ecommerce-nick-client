@@ -1,37 +1,65 @@
+import { useEffect } from "react"
+import { useState } from "react"
 import styled from "styled-components"
+import api from "../../../../services/API"
+import OrderCard from "./OrderCard"
 
-export default function Orders () {
+export default function Orders ({userData}) {
+
+    const [ ordersData, setOrdersData] = useState(undefined)
+
+    useEffect(() => {
+        getAllOrdersData()
+    }, [])
+
+    useEffect(() => {
+        console.log(ordersData)
+    }, [ordersData])
+
+    async function getAllOrdersData(){
+        try {
+            const response = await api.GetAllUserOrders(userData.token)
+            const fake = [...response.data, ...response.data, ...response.data, ...response.data, ...response.data, ...response.data]
+            setOrdersData(fake)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    
     return(
         <Container>
+            <Title>{"Meus Pedidos"}</Title>
+            {ordersData ? (
+                <OrdersContainer>
+                    {ordersData.map(e => <OrderCard orderData={e}/>)}
+                </OrdersContainer>
+            ):(<></>)}
         </Container>
     )
 }
 
 const Container = styled.div`
-    height: 100%;
+    //height: 100%;
     //border-right: 2px solid #D1D1D1;
-    display: grid;
-    grid-template-columns: 1fr;
-    align-items: start;
-    align-content: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
     row-gap: 2vh;
     padding: 25px 1.4vw;
-    overflow-y: scroll;
-
-    &::-webkit-scrollbar {
-        width: 7px;
-        background-color: #1D1D1D2F;
-        border-radius: 50px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-        background-color: #00575A;
-        border-radius: 50px;
-    }
-
-    &::-webkit-scrollbar-thumb:hover {
-        background-color: #01989D;
-        cursor: pointer;
-    }
     
+`
+const Title = styled.h1`
+    color: #02131B;
+    font-size: 21px;
+    font-weight: 500;
+    width: 100%;
+    margin-bottom: 4vh;
+    
+`
+const OrdersContainer = styled.div`
+    width: 100%;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1.8vh;
 `

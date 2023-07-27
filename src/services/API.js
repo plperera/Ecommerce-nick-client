@@ -121,6 +121,9 @@ function CreateUserEnrollment({body, token}) {
 function UpdateUserEnrollment({body, token}) {
     return axios.put(`${BASE_URL}/enrollment`, body, {headers: { Authorization: `Bearer ${token}`}})
 }
+function GetAllUserOrders(token) {
+    return axios.get(`${BASE_URL}/order`, {headers: { Authorization: `Bearer ${token}`}})
+}
 
 const api = {
     GetAllCategories,
@@ -162,7 +165,8 @@ const api = {
     EnableShipping,
     GetUserEnrollment,
     CreateUserEnrollment,
-    UpdateUserEnrollment
+    UpdateUserEnrollment,
+    GetAllUserOrders
 };
 
 export default api;
