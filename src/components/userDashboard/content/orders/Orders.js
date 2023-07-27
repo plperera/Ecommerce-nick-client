@@ -19,8 +19,7 @@ export default function Orders ({userData}) {
     async function getAllOrdersData(){
         try {
             const response = await api.GetAllUserOrders(userData.token)
-            const fake = [...response.data, ...response.data, ...response.data, ...response.data, ...response.data, ...response.data]
-            setOrdersData(fake)
+            setOrdersData(response.data)
         } catch (error) {
             console.log(error)
         }

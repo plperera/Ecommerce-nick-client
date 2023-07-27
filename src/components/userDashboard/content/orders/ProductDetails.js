@@ -17,7 +17,10 @@ export default function ProductDetails ({orderData}) {
                     </ValuesContainer>
                 </ProductCard>
             )}
-           
+            <TotalPrice>
+                <div>{"Total do Produto"}</div>
+                <div>{`R$  ${(orderData.transactionAmount / 100).toLocaleString('pt-BR', {minimumFractionDigits: 2})}`}</div>           
+            </TotalPrice>
         </Container>
     )
 }
@@ -31,6 +34,7 @@ const Container = styled.div`
     align-items: center;
     row-gap: 2vh;
     padding-top: 4vh;
+    padding-bottom: 3vh;
     
 `
 const ProductCard = styled.div`
@@ -89,4 +93,33 @@ const SpanStyled = styled.span`
     font-size: 13px;
     font-weight: 400;
     margin-bottom: 1px;
+`
+const TotalPrice = styled.div`
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 80px;
+    //background-color: #F5F5F5;
+    border-top: 2px solid #e6e6e6ff;
+    border-bottom: 2px solid #e6e6e6ff;
+    padding: 18px 1vw;
+
+    & > :first-child {
+        display: flex;
+        align-items: center;
+        justify-content: left;
+        width: 50%;
+        height: 100%;
+        font-weight: 600;
+        font-size: 18px;
+    }
+    & > :last-child {
+        display: flex;
+        align-items: center;
+        justify-content: right;
+        width: 50%;
+        height: 100%;
+        font-weight: 600;
+        font-size: 22px;
+    }
 `

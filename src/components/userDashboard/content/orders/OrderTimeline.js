@@ -18,7 +18,6 @@ export default function OrderTimeline ({orderData}) {
     
     const [count, setCount] = useState(0);
     const [hasFound, setHasFound] = useState(false);
-    const fakeStatus = "Delivered"
     
     useEffect(() => {
         GenerateAnimation();
@@ -26,7 +25,7 @@ export default function OrderTimeline ({orderData}) {
     
     function GenerateAnimation() {
 
-        if(orderData.status === "1waiting" || hasFound){
+        if(orderData.status === "waiting" || hasFound){
             return
         }
     
@@ -35,7 +34,7 @@ export default function OrderTimeline ({orderData}) {
             return;
         }
         //orderData.status
-        if (obj[count].status !== fakeStatus) {
+        if (obj[count].status !== orderData.status) {
             console.log("repete");
 
             setTimeout(() => {

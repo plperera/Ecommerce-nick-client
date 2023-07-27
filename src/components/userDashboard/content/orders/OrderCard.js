@@ -8,7 +8,9 @@ export default function OrderCard ({orderData}) {
     const [ expandOrder, setExpandOrder] = useState(false)
 
     const obj = {
-        approved: { text: "Pagamento Aprovado", color:"#0F9B22"}
+        approved: { text: "Pagamento Aprovado", color:"#0F9B22"},
+        waiting: { text: "Processando", color:"#1B3D64"},
+        credit_card: { text: "Cartão de Crédito", color:"#FFFFFF00"}
     }
 
     return(
@@ -21,7 +23,7 @@ export default function OrderCard ({orderData}) {
 
             <ColumnContainer width={"24%"}>
                 <Title>{"STATUS"}</Title>
-                <SubTitle color={obj[orderData.paymentStatus].color} fontweight={"600"}>{obj[orderData.paymentStatus].text}</SubTitle>
+                <SubTitle color={obj[orderData.status].color} fontweight={"600"}>{obj[orderData.status].text}</SubTitle>
             </ColumnContainer>
 
             <ColumnContainer width={"18%"}>
@@ -31,7 +33,7 @@ export default function OrderCard ({orderData}) {
 
             <ColumnContainer>
                 <Title>{"PAGAMENTO"}</Title>
-                <SubTitle>{orderData.paymentType}</SubTitle>
+                <SubTitle>{obj[orderData.paymentType].text}</SubTitle>
             </ColumnContainer>
 
             <ColumnContainer>
