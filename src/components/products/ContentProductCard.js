@@ -196,7 +196,7 @@ const DetailsSession = styled.div`
     @media (max-width: 850px) {
         gap: 0;
         column-gap: 3px;
-        font-size: 11px;
+        font-size: 9px;
         padding: 0 1.5vw;
     } 
 `

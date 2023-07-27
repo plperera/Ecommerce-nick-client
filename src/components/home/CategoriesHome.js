@@ -142,7 +142,7 @@ const MobileCategoryContainer = styled(CategoryContainer)`
 
 const ArrowContainer = styled.div`
     position: absolute;
-    width: 100px;
+    width: 40px;
     height: 100px;
     top: 115vh;
     display: flex;
@@ -165,13 +165,15 @@ const LeftArrowContainer = styled(ArrowContainer)`
     left: 2vw;
     display: ${props => props.display};
     @media (max-width: 850px) {
-        left: -7vw;
+        left: 0vw;
+        justify-content: left;
     }
 `
 const RightArrowContainer = styled(ArrowContainer)`
     right: 2vw;
     display: ${props => props.display};
     @media (max-width: 850px) {
-        right: -7vw;
+        right: 0vw;
+        justify-content: right;
     }
 `

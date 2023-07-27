@@ -7,7 +7,11 @@ export default function CategoriesHome ({products}) {
         <Container backgroundImage={Background}>
             <Title>Produtos em destaque</Title>
             <ProductOptions>
-                {products ? (products?.map((e, i) => <ContentProductCard productData={e} key={i}/>)):(<Spinner/>)}
+                {products ? (products?.map((e, i) => <ContentProductCard productData={e} key={i}/>)):(
+                    <SpinnerContainer>
+                        <Spinner/>
+                    </SpinnerContainer>
+                )}
                 {/* {products ? (<><ContentProductCard productData={products[0]} /></>):(<Spinner/>)} */}
             </ProductOptions>
         </Container>
@@ -79,3 +83,10 @@ const Spinner = styled.div`
   animation: ${spinAnimation} 2s linear infinite;
   //background-color: red;
 `;
+const SpinnerContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+`
