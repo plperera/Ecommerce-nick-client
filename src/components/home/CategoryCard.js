@@ -10,9 +10,9 @@ export default function CategoryCard ({indice, category, applyAnimation, navigat
         <Container onMouseEnter={() => setShowAll(true)} onMouseLeave={() => setShowAll(false)} height={showAll?("425px"):("280px")} applyAnimation={applyAnimation} onClick={() => navigateAndMoveUp({locate:`catalogo/${category.title}`})}>
             <ImageContainer><img src={category.imageUrl} alt=""/></ImageContainer>
             <Title>{category.title}</Title>
-            {showAll ? (
-                // eslint-disable-next-line no-template-curly-in-string
-                <SubContainer isLoading={showAll}> 
+            
+
+                <SubContainer isLoading={showAll} display={showAll ? ("initial"):("none")}> 
                     <SubTitle>{category.subTitle}</SubTitle>
                     <ButtonContainer>
                         <Button
@@ -26,9 +26,7 @@ export default function CategoryCard ({indice, category, applyAnimation, navigat
                         </Button>
                     </ButtonContainer>
                 </SubContainer>
-            ):(
-                <></>
-            )}
+            
         </Container>
     )
 }
@@ -65,6 +63,11 @@ const Container = styled.div`
     animation-duration: .2s;
     animation-timing-function: linear;
     animation-iteration-count: 1;
+
+    @media (max-width: 850px) {
+        width: 140px;
+        height: 100%;
+    }
 `
 const ImageContainer = styled.div`
     display: flex;
@@ -78,6 +81,9 @@ const ImageContainer = styled.div`
         max-width: 100%;
         max-height: 100%;
     }
+    @media (max-width: 850px) {
+        height: 150px;
+    }
 `
 const Title = styled.div`
     display: flex;
@@ -89,14 +95,26 @@ const Title = styled.div`
     font-weight: 700;
     max-height: 40px;
     height: auto;
+
+    @media (max-width: 850px) {
+        font-size: 14px;
+        padding: 0 1.4vw;
+    }
 `
 const SubTitle = styled(Title)`
     font-weight: 500;
     max-height: 100px;
+    @media (max-width: 850px) {
+        font-size: 12px;
+        padding: 0 1.4vw;
+    }
 `
 const ButtonContainer = styled(Title)`
     height: 55px;
     max-height: 100px;
+    @media (max-width: 850px) {
+        display: none;
+    }
 `
 const loadAnimation = keyframes`
     0% { 
@@ -108,9 +126,14 @@ const loadAnimation = keyframes`
 `;
 
 const SubContainer = styled.div`
+    display: ${props => props.display};
     animation: ${props => (!props.isLoading ? "none" : loadAnimation)};
     animation-duration: 0.5s;
     animation-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
     animation-iteration-count: 1;
     width: 100%;
+
+    @media (max-width: 850px) {
+        display: initial;
+    }
 `

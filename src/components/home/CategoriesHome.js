@@ -63,6 +63,7 @@ export default function CategoriesHome () {
         <Container>
             <Title>Categorias</Title>
             <LeftArrowContainer onClick={() =>  applyAnimation ? (""):(ChangeSlide(-1))}>{"<"}</LeftArrowContainer>
+
             <CategoryContainer>
                 {categoryCardData ? (
                     Array(categoryCardData.length > 4 ?(4):(categoryCardData.length)).fill(0).map((_, i) => {
@@ -71,6 +72,16 @@ export default function CategoriesHome () {
                     })
                 ):(<></>)}
             </CategoryContainer>
+
+            <MobileCategoryContainer>
+                {categoryCardData ? (
+                    Array(categoryCardData.length > 2 ?(2):(categoryCardData.length)).fill(0).map((_, i) => {
+                        const index = (slide + i) % categoryCardData.length;
+                        return <CategoryCard category={categoryCardData[index]} key={index} applyAnimation={applyAnimation} navigateAndMoveUp={navigateAndMoveUp}/>
+                    })
+                ):(<></>)}
+            </MobileCategoryContainer>
+
             <RightArrowContainer onClick={() =>  applyAnimation ? (""):(ChangeSlide(1))}>{">"}</RightArrowContainer>
         </Container>
     )
@@ -88,7 +99,10 @@ const Container = styled.div`
         padding: 0 4vw;  
         padding-top: 5vh;  
     }
-    
+    @media (max-width: 850px) {
+        padding-top: 3vh;
+        min-height: 50vh;
+    } 
 `
 const Title = styled.h1`
     border-left: 8px solid #009395;
@@ -98,6 +112,9 @@ const Title = styled.h1`
     @media (max-width: 1366px) {
         font-size: 36px;    
     }
+    @media (max-width: 850px) {
+        font-size: 28px;
+    }
 `
 const CategoryContainer = styled.div`    
     width: 100%;
@@ -106,7 +123,23 @@ const CategoryContainer = styled.div`
     align-items: center;
     justify-content: space-between;
     user-select: none;
+    @media (max-width: 850px) {
+        display: none;
+    }   
 `
+const MobileCategoryContainer = styled(CategoryContainer)`
+
+    display: none;
+
+    @media (max-width: 850px) {
+        display: flex;
+        font-size: 28px;
+        height: 300px;
+        justify-content: space-evenly;
+        margin-top: 2vh;    
+    }
+` 
+
 const ArrowContainer = styled.div`
     position: absolute;
     width: 100px;
@@ -123,12 +156,22 @@ const ArrowContainer = styled.div`
     &:hover {
         color: #00BFC2;
     }
+    @media (max-width: 850px) {
+        top: 88vh;
+        font-size: 60px;
+    }
 `
 const LeftArrowContainer = styled(ArrowContainer)`
     left: 2vw;
     display: ${props => props.display};
+    @media (max-width: 850px) {
+        left: -7vw;
+    }
 `
 const RightArrowContainer = styled(ArrowContainer)`
     right: 2vw;
     display: ${props => props.display};
+    @media (max-width: 850px) {
+        right: -7vw;
+    }
 `

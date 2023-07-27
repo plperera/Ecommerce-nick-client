@@ -37,6 +37,9 @@ const UserMenuContainer = styled.div`
     z-index: 9;
     position: fixed;
     top: 0;
+    @media (max-width: 850px) {
+        height: auto;
+    }
 `
 const AdminMenuContainer = styled.div`
 `

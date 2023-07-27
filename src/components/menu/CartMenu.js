@@ -54,8 +54,10 @@ const Container = styled.div`
     align-items: center;
     justify-content: center;  
     cursor: pointer;
-    /* z-index:2;
-    border: 1px solid green;   */
+
+    @media (max-width: 850px) {
+        width: auto;
+    }
 `
 const CartIcon = styled(BsCart3)`
     font-size: 25px;
@@ -63,6 +65,9 @@ const CartIcon = styled(BsCart3)`
     margin-left: -2.4vw;   
     @media (max-width: 1366px) {
         font-size: 23px;
+    }
+    @media (max-width: 850px) {
+        font-size: 30px;
     }
 `
 const spinAnimation = keyframes`
@@ -93,4 +98,9 @@ const CartAmountContainer = styled.div`
     right: 23.1vw;
     top: 3.2vh;
     user-select: none;
+
+    @media (max-width: 850px) {
+        right: 44vw;
+        top: 11vh;
+    }
 `

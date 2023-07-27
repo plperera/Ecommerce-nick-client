@@ -79,12 +79,17 @@ const Container = styled.div`
     width: 100%;
     height: 73vh;
     background-color: #02131BD5;
+
+    @media (max-width: 850px) {
+        height: 53vh;
+    }
 `
 const ImageContainer = styled.div`
     width: 100%;
     height: 100%;
     background-image: url(${props => props.backgroundImage});
     background-repeat: no-repeat;
+    background-position: center;
     background-size: cover;
     display: flex;
     align-items: left;
@@ -122,6 +127,13 @@ const Button = styled.div`
         font-size: 16px;  
         width: 19vw;  
     }
+    @media (max-width: 850px) {
+        width: 65%;
+        height: 4vh;
+        font-size: 15px; 
+        padding-left: 2vw; 
+        text-align: left;
+    }
 `
 const Title = styled.div`
     user-select: none;
@@ -133,6 +145,11 @@ const Title = styled.div`
     @media (max-width: 1366px) {
         font-size: 32px;    
     }
+    @media (max-width: 850px) {
+        width: 100%;
+        text-align: left;
+        font-size: 25px;
+    }
 `
 const Slide = styled.div`
     height: 24px;
@@ -143,6 +160,10 @@ const Slide = styled.div`
     gap: 2vw;
     margin-top: -8vh;
     position: absolute;
+
+    @media (max-width: 850px) {
+        gap: 4vw;
+    }
 `
 const SlideIcon = styled.div`
     width: 80px;
@@ -150,4 +171,9 @@ const SlideIcon = styled.div`
     background-color: ${props => props.backgroundColor || "#00929528"};
     border-radius: 5px;
     cursor: pointer;
+
+    @media (max-width: 850px) {
+        width: 40px;
+        height: 9px;
+    }
 `

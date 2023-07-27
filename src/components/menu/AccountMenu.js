@@ -25,6 +25,10 @@ const Container = styled.div`
     @media (max-width: 1366px) {
         width: 6vw;
     }
+    @media (max-width: 850px) {
+        width: auto;
+        height: auto;
+    }
 `
 const AccountIcon = styled(CiUser)`
     font-size: 25px;
@@ -36,11 +40,19 @@ const AccountIcon = styled(CiUser)`
         font-size: 23px;
         margin-left: -2.4vw;  
     }
+
+    @media (max-width: 850px) {
+        font-size: 30px;
+        margin: 0;
+    }
 `
 const Title = styled.div`
     color: white;
     margin-left: 0.3vw;
     @media (max-width: 1366px) {
         font-size: 12px;
+    }
+    @media (max-width: 850px) {
+        display: none;
     }
 `

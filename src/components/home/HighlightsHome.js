@@ -8,6 +8,7 @@ export default function CategoriesHome ({products}) {
             <Title>Produtos em destaque</Title>
             <ProductOptions>
                 {products ? (products?.map((e, i) => <ContentProductCard productData={e} key={i}/>)):(<Spinner/>)}
+                {/* {products ? (<><ContentProductCard productData={products[0]} /></>):(<Spinner/>)} */}
             </ProductOptions>
         </Container>
     )
@@ -26,6 +27,9 @@ const Container = styled.div`
         padding: 5vh 4vw;  
         height: 77vh; 
     }
+    @media (max-width: 850px) {
+        height: 58vh;
+    }
 `
 const Title = styled.h1`
     width: 100%;
@@ -34,11 +38,14 @@ const Title = styled.h1`
     font-weight: 600;
     padding-left: 1vw;
     text-shadow: 4px 4px 6px #FFFFFF81;
-
     @media (max-width: 1366px) {
         font-size: 30px;  
         font-weight: 700;
     }
+    @media (max-width: 850px) {
+        font-size: 28px;  
+        font-weight: 600;
+    } 
 `
 const ProductOptions = styled.div`
     width: 100%;
@@ -48,6 +55,12 @@ const ProductOptions = styled.div`
     align-items: center;
     justify-content: center;
     gap: 3vw;
+
+    @media (max-width: 850px) {
+        padding-top: 0vh;
+        justify-content: left;
+        overflow-x: scroll;
+    }
 `
 const spinAnimation = keyframes`
   0% { transform: rotate(0deg); }

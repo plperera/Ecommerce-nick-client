@@ -34,4 +34,7 @@ const Container = styled.div`
     align-items: center;
     justify-content: center;
     column-gap: 2vw;
+    @media (max-width: 850px) {
+        display: none;
+    }
 `

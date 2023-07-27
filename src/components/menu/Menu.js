@@ -39,6 +39,10 @@ const Container = styled.div`
     @media (max-width: 1366px) {
         padding: 0 4vw;
     }
+    @media (max-width: 850px) {
+        flex-wrap: wrap;
+        height: 100%;
+    }
 `
 const LogoContainer = styled.div`
     height: 100%;
@@ -51,6 +55,16 @@ const LogoContainer = styled.div`
         max-height: 85%;
         cursor: pointer;
     }
+
+    @media (max-width: 850px) {
+        width: 100%;
+        height: 9vh;
+        justify-content: center;
+        img {
+            max-width: 100%;
+            max-height: 70%;
+        }
+    }
 `
 const SubContainer = styled.div`
     width: 50vw;
@@ -58,6 +72,15 @@ const SubContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    @media (max-width: 850px) {
+        width: 100%;
+        //border: 2px solid red;
+        padding: 2vh 3vw;
+        & > :first-child {
+            display: none;
+        }
+    }
 `
 const HearthIcon = styled(AiOutlineHeart)`
     font-size: 25px;
@@ -67,5 +90,11 @@ const HearthIcon = styled(AiOutlineHeart)`
 
     @media (max-width: 1366px) {
         font-size: 23px;
+    }
+    @media (max-width: 850px) {
+
+        margin-left: 0;
+        font-size: 30px;
+
     }
 `

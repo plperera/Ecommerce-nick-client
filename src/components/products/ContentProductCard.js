@@ -58,6 +58,7 @@ export default function ContentProductCard ({ productData }) {
             console.log(error)
         }
     }
+
     async function removeFavorite(){
         try {
             const result = await api.DeleteFavorite({token, body: {productId: productData.productId}})
@@ -151,13 +152,20 @@ const Container = styled.div`
     justify-content: center;
     border-radius: 5px;
     padding: 0.5vh 1vw;
+    &:hover{ 
+        transform: translateY(-1vh);
+    }
+
     @media (max-width: 1366px) {
         padding: 1vh 1vw;
         height: 46vh;
     }
-    &:hover{ 
-        transform: translateY(-1vh);
-    }
+    
+    @media (max-width: 850px) {
+        min-width: 150px;
+        width: 150px;
+        height: 35vh;
+    } 
 `
 
 //UPCONTAINER -----------------------
@@ -168,6 +176,10 @@ const UpContainer = styled.div`
     align-items: center;
     justify-content: space-between;
     flex-direction: row;
+
+    @media (max-width: 850px) {
+        height: 2vh;
+    } 
 `
 const DetailsSession = styled.div`
     height: 2vh;
@@ -181,6 +193,12 @@ const DetailsSession = styled.div`
         font-size: 14.5px;
         gap: 3px; 
     }
+    @media (max-width: 850px) {
+        gap: 0;
+        column-gap: 3px;
+        font-size: 11px;
+        padding: 0 1.5vw;
+    } 
 `
 const RateSession = styled(DetailsSession)`
     justify-content: left; 
@@ -197,6 +215,9 @@ const RateStyledIcon = styled(FaStar)`
     @media (max-width: 1366px) {
         font-size: 19px;
     }
+    @media (max-width: 850px) {
+        font-size: 14.5px;
+    }
 `
 const FavoriteStyledIcon = styled(HiOutlineHeart)`
     margin-top: -2.5px;
@@ -205,6 +226,9 @@ const FavoriteStyledIcon = styled(HiOutlineHeart)`
     @media (max-width: 1366px) {
         font-size: 19px;
     }
+    @media (max-width: 850px) {
+        font-size: 14.5px;
+    }
 `
 const FavoriteFilledStyledIcon = styled(HiHeart)`
     margin-top: -2.5px;
@@ -212,6 +236,9 @@ const FavoriteFilledStyledIcon = styled(HiHeart)`
     font-weight: 700;
     @media (max-width: 1366px) {
         font-size: 19px;
+    }
+    @media (max-width: 850px) {
+        font-size: 14.5px;
     }
 `
 //MIDDLECONTAINER -----------------------
@@ -223,6 +250,10 @@ const MiddleContainer = styled.div`
     align-items: center;
     justify-content: start;
     cursor: pointer;
+
+    @media (max-width: 850px) {
+        height: auto;
+    }
 `
 const ImageContainer = styled.div`
 
@@ -231,10 +262,13 @@ const ImageContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-
     img {
         max-width: 100%;
         max-height: 100%;
+    }
+
+    @media (max-width: 850px) {
+        height: 120px;
     }
 `
 const Title = styled.div`
@@ -250,6 +284,10 @@ const Title = styled.div`
     @media (max-width: 1366px) {
         font-size: 14px; 
         height: 6vh;
+    }
+    @media (max-width: 850px) {
+        height: 50px;
+        font-size: 11.5px;
     }
 `
 const SubTitle = styled.div`
@@ -276,6 +314,9 @@ const PriceContainer = styled.div`
         font-size: 15px; 
         font-weight: 600;
         height: 7vh;
+    }
+    @media (max-width: 850px) {
+        height: 40px;
     }
 `
 const PriceCommonStyle = styled.div`
@@ -312,6 +353,10 @@ const LowPrice = styled(PriceCommonStyle)`
             font-size: 21px;
             margin-bottom: -0.1vh;
         }
+
+        @media (max-width: 850px) {
+            font-size: 16px;
+        }
     }
 `
 
@@ -345,6 +390,11 @@ const ButtonStyle = styled.div`
 
     @media (max-width: 1366px) {
         font-size: 19px;
+    }
+    @media (max-width: 850px) {
+        font-size: 14px;
+        width: 80%;
+        height: 45%;
     }
 `
 const spinAnimation = keyframes`
