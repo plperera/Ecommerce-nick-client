@@ -123,6 +123,11 @@ const Container = styled.div`
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap; 
+    @media (max-width: 850px) {
+        padding-top: 10vh;
+        row-gap: 3vh;
+        padding-bottom: 5vh;
+    }
 `
 const EmptyCartComponent = styled.div`
     display: flex;

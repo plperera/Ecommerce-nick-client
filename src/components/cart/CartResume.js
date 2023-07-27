@@ -16,22 +16,6 @@ export default function CartResume ({cartProducts, isLoading, userData}) {
             
             <Title>{"Resumo"}</Title>
 
-            {/* <PriceDetails>
-                <h2>{"Subtotal"}</h2>
-
-                <LinePrice>
-                    <PriceSign>{"R$ "}</PriceSign><span>{ (20000 / 100).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span>
-                </LinePrice>
-            </PriceDetails>
-
-            <PriceDetails>
-                <h2>{"Entrega"}</h2>
-
-                <LinePrice>
-                    <PriceSign>{"R$ "}</PriceSign><span>{ (20000 / 100).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span>
-                </LinePrice>
-            </PriceDetails> */}
-
             <PriceDetails>
                 <h2>{"Total"}</h2>
 
@@ -98,6 +82,15 @@ const Container = styled.div`
     height: 600px;
     background-color: #FFFFFF;
     border-radius: 5px;
+    @media (max-width: 850px) {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        flex-direction: column;
+        height: auto;
+        padding-bottom: 2vh;
+    }
 `
 const Title = styled.div`
     width: 100%;
@@ -108,6 +101,10 @@ const Title = styled.div`
     font-weight: 600;
     border-bottom: 4px solid #ebebebff;
     padding: 1.6vh 1vw;
+    @media (max-width: 850px) {
+        padding: 2.2vh 1vw;
+        font-size: 20px;
+    }
 `
 const PriceDetails = styled.div`
     width: 100%;
@@ -117,6 +114,9 @@ const PriceDetails = styled.div`
     padding: 14px 1vw;
     font-size: 16px;
     border-bottom: 3px solid #ebebebff;
+    @media (max-width: 850px) {
+        padding: 14px 3vw;
+    }
 `
 const LinePrice = styled.div`
     padding: 3px;
@@ -131,6 +131,12 @@ const ButtonContainer = styled.div`
     row-gap: 1.5vh;
     justify-content: space-between;
     padding: 3vh 1vw;
+
+    @media (max-width: 850px) {
+        justify-content: center;
+        width: 80%;
+        row-gap: 2vh;
+    }
 `
 const SocialProofContainer = styled.div`
     display: flex;
@@ -139,6 +145,9 @@ const SocialProofContainer = styled.div`
     flex-wrap: wrap;
     row-gap: 1.3vh;
     padding: 0 1vw;
+    @media (max-width: 850px) {
+        width: 95%;
+    }
 `
 const SocialProofItem = styled.div`
     display: flex;
@@ -160,6 +169,10 @@ const SocialProofItem = styled.div`
         font-size: 12px;
         font-weight: 700;
         color: #171717;
+    }
+    @media (max-width: 850px) {
+        padding: 2vh 3vw;
+        row-gap: 1.5vh;
     }
 `
 const OtherDetails = styled.div`
