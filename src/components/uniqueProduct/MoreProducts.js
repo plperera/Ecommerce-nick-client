@@ -38,6 +38,9 @@ const Container = styled.div`
     color: #171717;
     padding: 4vh 10vw;
     box-shadow: inset 0 0 400px #00606309;
+    @media (max-width: 850px) {
+        padding: 4vh 10vw;
+    }
 `
 const Title = styled.div`
     font-weight: 600;
@@ -51,6 +54,13 @@ const Title = styled.div`
         border-left: 8px solid #01989D;
         font-size: 36px;
         padding-left: 0.4vw;
+    }
+    @media (max-width: 850px) {
+        padding: 3vh 0;
+        h1 {
+            font-size: 30px;
+            padding-left: 1.6vw;
+        }
     }
 `
 const ProductOptions = styled.div`
@@ -86,5 +96,10 @@ const ProductOptions = styled.div`
         background-color: #01989D;
         height: 5vh;
         cursor: pointer;
+    }
+
+    @media (max-width: 850px) {
+        height: 100%;
+        padding: 2vh 2vw 2vh 2vw;
     }
 `

@@ -9,8 +9,6 @@ export default function UniqueProduct ({product}) {
 
     const { setUserData, userData } = useContext(UserContext);
 
-    
-
     useEffect(() => {
         console.log("userData", userData)
     }, [userData])
@@ -51,7 +49,6 @@ export default function UniqueProduct ({product}) {
     return(
         <Container>
             <ProductContainer>
-
                 {product ? (
                 <>
                     <LeftSideContainer>
@@ -72,10 +69,10 @@ export default function UniqueProduct ({product}) {
                                     
                                 product.price === 0 ? (
                                     <>
-                                        <>
+                                        <ButtonContainer>
                                             <Button 
                                                 onClick={() => handleBudget()}
-                                                width={"80%"}
+                                                width={"100%"}
                                                 height={"45px !important"} 
                                                 background={"#0074C2 !important"}
                                                 backgroundhover={"#088DDA !important"} 
@@ -83,7 +80,7 @@ export default function UniqueProduct ({product}) {
                                             >
                                                 {"Solicitar um Orçamento"}
                                             </Button>
-                                        </>    
+                                        </ButtonContainer>    
                                     </>
                                 ):(
                                     <>
@@ -91,10 +88,10 @@ export default function UniqueProduct ({product}) {
                                             <PriceSign>{"R$ "}</PriceSign><span>{ (product.price / 100).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span>
                                         </LowPrice>
 
-                                        <>
+                                        <ButtonContainer>
                                             <Button 
                                                 onClick={() => handleProduct()}
-                                                width={"80%"}
+                                                width={"100%"}
                                                 height={"45px !important"} 
                                                 background={"#00BFC2 !important"}
                                                 backgroundhover={"#02B9DA !important"} 
@@ -102,7 +99,7 @@ export default function UniqueProduct ({product}) {
                                             >
                                                 {"Comprar"}
                                             </Button>
-                                        </>
+                                        </ButtonContainer>
                                     </>
                                 )   
                             )
@@ -116,9 +113,6 @@ export default function UniqueProduct ({product}) {
                     </RightSideContainer> 
                 </>
                 ):(<>Carregando...</>)}
-                
-                
-
             </ProductContainer>
         </Container>
     )
@@ -130,6 +124,9 @@ const Container = styled.div`
     color: #ffffff;
     padding: 0 10vw;
     padding-bottom: 5vh;
+    @media (max-width: 850px) {
+        padding-top: 4vh;
+    }
 `
 const ProductContainer = styled.div`
     width: 100%;
@@ -137,6 +134,9 @@ const ProductContainer = styled.div`
     align-items: start;
     justify-content: center;
     flex-direction: row;
+    @media (max-width: 850px) {
+        flex-wrap: wrap-reverse;
+    }
 `
 const LeftSideContainer = styled.div`
     width: 40%;
@@ -147,10 +147,20 @@ const LeftSideContainer = styled.div`
     justify-content: start;
     padding-top: 5vh;
     row-gap: 2vh;
+    @media (max-width: 850px) {
+        width: 100%;
+        height: auto;
+        padding-top: 2vh;
+        row-gap: 4vh;
+    }
 `
 const RightSideContainer = styled.div`
     width: 60%;
     height: 50vh;
+    @media (max-width: 850px) {
+        width: 100%;
+        max-height: 340px;
+    }
 `
 const CommumConfig = styled.div`
     height: 5vh;
@@ -197,24 +207,9 @@ const LowPrice = styled(CommumConfig)`
         }
     }
 `
-const ButtonStyle = styled.div`
-    width: 60%;
-    height: 75%;
-    background-color: #009395;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #FFFFFF;
-    border-radius: 5px;
-    font-size: 20px;
-    font-weight: 600;
-    cursor: pointer;
-    &:hover{
-        width: 65%;
-        background-color: #01B0B3;
-    }
-    @media (max-width: 1366px) {
-        font-size: 19px;
+const ButtonContainer = styled.div`
+    width: 80%;
+    @media (max-width: 850px) {
+        width: 100%;
     }
 `

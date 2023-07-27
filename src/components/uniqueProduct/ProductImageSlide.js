@@ -48,6 +48,10 @@ const Container = styled.div`
         max-height: 90%;
         user-select: none;
     }
+    @media (max-width: 850px) {
+        max-height: 340px;
+        justify-content: center;
+    }
 `
 const CommonArrowStyle = styled.div`
     position: relative;

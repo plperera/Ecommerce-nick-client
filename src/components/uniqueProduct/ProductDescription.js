@@ -61,6 +61,13 @@ const Title = styled.div`
         font-size: 36px;
         padding-left: 0.4vw;
     }
+
+    @media (max-width: 850px) {
+        h1 {
+            font-size: 30px;
+            padding-left: 1.6vw;
+        }
+    }
 `
 const DescriptionContainer = styled.div`
     padding-bottom: 2vh;
@@ -71,6 +78,12 @@ const DescriptionContainer = styled.div`
         line-height: 3.2vh;
         user-select: none;
         font-size: 20px;
+    }
+    @media (max-width: 850px) {
+        p {
+            line-height: 3.8vh;
+            font-size: 15px;
+        }
     }
 `
 const TecnicDetailsContainer = styled.div`
@@ -90,6 +103,11 @@ const TecnicDetailsContainer = styled.div`
         user-select: none;
         cursor: pointer;
     }
+    @media (max-width: 850px) {
+        h1 {
+            font-size: 18px;
+        }
+    }
 `
 const ShowIconContainer = styled.div`
     width: 50%;
@@ -100,6 +118,9 @@ const ShowIconContainer = styled.div`
     width: 50%;
     user-select: none;
     cursor: pointer;
+    @media (max-width: 850px) {
+        font-size: 21px;
+    }
 `
 const TopicContainer = styled.div`
     padding: 0vh 0;
@@ -108,4 +129,7 @@ const TopicContainer = styled.div`
     padding: 2vh 0;
     display: flex;
     column-gap: 2vw;
+    @media (max-width: 850px) {
+        font-size: 15px;
+    }
 `

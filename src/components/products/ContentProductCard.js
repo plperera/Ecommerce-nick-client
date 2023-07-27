@@ -118,11 +118,13 @@ export default function ContentProductCard ({ productData }) {
                                 </LowPrice>
                             </>
                         ):(
-                            <>
+                            productData.price === 0 ? (
+                                <></>
+                            ):(
                                 <LowPrice>
                                     <PriceSign>{"R$ "}</PriceSign><span>{ (productData.price / 100).toLocaleString('pt-BR')}</span>
                                 </LowPrice>
-                            </>
+                            ) 
                         )
                     }
                     
@@ -131,7 +133,11 @@ export default function ContentProductCard ({ productData }) {
             </MiddleContainer>
 
             <ButtonContainer>
-                <ButtonStyle onClick={() => navigateAndMoveUp({locate: `produto/${productData.name}`})}>{"Comprar"}</ButtonStyle>
+                {productData.price === 0 ? (
+                    <BudgetButtonStyle onClick={() => navigateAndMoveUp({locate: `produto/${productData.name}`})}>{"Orçamento"}</BudgetButtonStyle>
+                ):(
+                    <ButtonStyle onClick={() => navigateAndMoveUp({locate: `produto/${productData.name}`})}>{"Comprar"}</ButtonStyle>
+                )} 
             </ButtonContainer>
         </Container>
     )
@@ -393,8 +399,22 @@ const ButtonStyle = styled.div`
     }
     @media (max-width: 850px) {
         font-size: 14px;
+        padding: 1.5vh 0;
         width: 80%;
         height: 45%;
+    }
+`
+const BudgetButtonStyle = styled(ButtonStyle)`
+    @media (max-width: 850px) {
+        font-size: 15px;
+        padding: 2.2vh 0;
+        width: 80%;
+        height: 45%;
+        margin: -1vh;
+        background-color: #0074C2;
+        &:hover {
+            background-color: #088DDA;
+        }
     }
 `
 const spinAnimation = keyframes`
