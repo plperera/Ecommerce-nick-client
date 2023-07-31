@@ -16,6 +16,12 @@ export default function DeliveryMethod ({checkoutDetails, setCheckoutDetails}) {
             behavior: "smooth"
         });    
     }
+    function ScrollToDown() { 
+        window.scrollTo({
+            top: 900,
+            behavior: "smooth"
+        });    
+    }
 
     useEffect(() => {
 
@@ -51,16 +57,31 @@ export default function DeliveryMethod ({checkoutDetails, setCheckoutDetails}) {
                 )
             ):(<></>)}
 
-            <Button 
-                width={"80%"} 
-                height={"45px"} 
-                fontsize={"18px !important"} 
-                background={"#008183 !important"} 
-                backgroundhover={"#009395ff !important"}
-                onClick={() => ScrollToTop()}
-            >
-                {"Ir para o Pagamento"}
-            </Button>
+            <MobileButtonContainer>
+                <Button 
+                    width={"80%"} 
+                    height={"45px"} 
+                    fontsize={"18px !important"} 
+                    background={"#008183 !important"} 
+                    backgroundhover={"#009395ff !important"}
+                    onClick={() => ScrollToDown()}
+                >
+                    {"▼"}
+                </Button>
+            </MobileButtonContainer>
+
+            <ButtonContainer>
+                <Button 
+                    width={"80%"} 
+                    height={"45px"} 
+                    fontsize={"18px !important"} 
+                    background={"#008183 !important"} 
+                    backgroundhover={"#009395ff !important"}
+                    onClick={() => ScrollToTop()}
+                >
+                    {"Ir para o Pagamento"}
+                </Button>
+            </ButtonContainer>
         </Container>
     )
 }
@@ -74,6 +95,9 @@ const Container = styled.div`
     padding-bottom: 1.5vh;
     border-bottom: 3px solid #e6e6e6ff;
     row-gap: 1.4vh;
+    @media (max-width: 850px) {
+        padding: 2vh 0;
+    }
 `
 const Title = styled.h1`
     display: flex;
@@ -83,4 +107,23 @@ const Title = styled.h1`
     color: #009395ff;
     font-weight: 600;
     padding: 1vh 0;
+`
+const MobileButtonContainer = styled.div`
+    width: 100%;
+    display: none;
+    @media (max-width: 850px) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1vh 0;
+    }
+`
+const ButtonContainer = styled.div`
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @media (max-width: 850px) {
+        display: none;
+    }
 `

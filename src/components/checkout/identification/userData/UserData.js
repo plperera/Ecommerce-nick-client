@@ -45,6 +45,10 @@ const Container = styled.div`
         padding: 0.4vh 0;
         margin-bottom: 0.6vh;
     }
+
+    @media (max-width: 850px) {
+        padding: 1vh 0;
+    }
 `
 const Title = styled.h1`
     display: flex;

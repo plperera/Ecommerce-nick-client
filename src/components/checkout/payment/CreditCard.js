@@ -38,12 +38,15 @@ const Container = styled.div`
     user-select: none;
     h4 {
         position: absolute;
-        right: 39%;
+        right: 11.5%;
         padding: .5vh 1vw;
         background-color: #02131B12;
         border-radius: 5px;
         &:hover { 
             background-color: #02131B20;
+        }
+        @media (max-width: 850px) {
+            right: 5%;
         }
     }
 `

@@ -235,4 +235,7 @@ const QrCodeContainer = styled.div`
         max-width: 200px;
         max-height: 200px;
     }
+    @media (max-width: 850px) {
+        height: auto;
+    }
 `

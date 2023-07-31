@@ -41,12 +41,18 @@ const Container = styled.div`
     align-items: start;
     justify-content: center;
     flex-direction: column;
+    @media (max-width: 850px) {
+        width: 100%;
+    }
 `
 const SubContainer = styled.div`
     min-height: 700px;
     width: 100%;
     background-color: #FFFFFF;
     padding: 1vh 0.7vw;
+    @media (max-width: 850px) {
+        padding: 1vh 3vw;
+    }
 `
 const Title = styled.h1`
     display: flex;

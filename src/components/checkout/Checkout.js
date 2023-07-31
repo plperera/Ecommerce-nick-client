@@ -21,12 +21,12 @@ export default function Checkout ({userData, allAddress, refreshAddress, setRefr
                 checkoutDetails={checkoutDetails}
             />
 
-            <Payment 
+            <OrderResume
                 userData={userData}
                 checkoutDetails={checkoutDetails}
             />
 
-            <OrderResume
+            <Payment 
                 userData={userData}
                 checkoutDetails={checkoutDetails}
             />
@@ -39,4 +39,7 @@ const Container = styled.div`
     display: flex;
     align-items: start;
     justify-content: space-between;
+    @media (max-width: 850px) {
+        flex-direction: column;
+    }
 `

@@ -103,6 +103,7 @@ export default function AddNewAddress ({setAddNewAddres, setIsLoading, isLoading
 
             if (response?.status === 201){
                 setRefreshAddress(!refreshAddress)
+                window.scrollTo({top: 0, behavior: 'smooth'});
                 toast.dark("Endereço cadastrado com Sucesso")
                 return
             }
@@ -296,7 +297,7 @@ const Container = styled.div`
     background-color: ${props => props.background};
     border-radius: 5px;
     cursor: pointer;
-    filter: ${props => props.blur}
+    filter: ${props => props.blur};
 `
 const GetCepResultContainer = styled.div`
     width: 100%;
@@ -317,10 +318,23 @@ const GetCepResultContainer = styled.div`
         font-weight: 600;
         color: #2B2F33;
     }
+    @media (max-width: 850px) {
+        padding: 2vh 3vw;
+        span {
+            column-gap: 2vw;
+        }
+        div {
+            padding-top: 2vh;
+            font-size: 13px;
+        }
+    }
 `
 const LocationIcon = styled(PiMapPinFill)`
     color: #009395ff;
     font-size: 20px;
+    @media (max-width: 850px) {
+        font-size: 25px;
+    }
 `
 const AnotherInputsContainer = styled.div`
     display: flex;

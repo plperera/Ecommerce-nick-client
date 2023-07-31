@@ -88,6 +88,10 @@ const Container = styled.div`
     align-items: start;
     justify-content: center;
     flex-direction: column;
+    @media (max-width: 850px) {
+        width: 100%;
+        margin-top: 3vh;
+    }  
 `
 const SubContainer = styled.div`
     min-height: 700px;
@@ -98,6 +102,10 @@ const SubContainer = styled.div`
     justify-content: start;
     flex-direction: column;
     row-gap: 1vh;
+    @media (max-width: 850px) {
+        min-height: 1px;
+        padding-bottom: 1vh;
+    } 
 `
 const Title = styled.h1`
     display: flex;
@@ -118,4 +126,8 @@ const ResumeLine = styled.div`
     font-weight: 600;
     background-color: #FFFFFF;
 
+    @media (max-width: 850px) {
+        padding: 2vh 3vw;
+        font-size: 16px;
+    } 
 `

@@ -41,4 +41,7 @@ const Container = styled.div`
     min-height: 84vh;
     background-color: #0A1F2A;  
     padding: 25px 10vw;
+    @media (max-width: 850px) {
+        padding: 30px 0vw;
+    }
 `

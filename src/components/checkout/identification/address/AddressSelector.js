@@ -35,7 +35,7 @@ export default function AddressSelector ({allAddress, token, refreshAddress, set
     return(
         <Container events={isloading ? ("none !important"):("initial")} opacity={isloading ? ("0.5"):("1")}>  
             <Title>{"Endereço para entrega"}</Title>
-            { addNewAddres ? (
+            { addNewAddres ||  allAddress?.length === 0 ? (
                 <AddNewAddress 
                     setAddNewAddres={setAddNewAddres} 
                     setIsLoading={setIsLoading} 
@@ -49,16 +49,31 @@ export default function AddressSelector ({allAddress, token, refreshAddress, set
                     <>
                         {allAddress.map(e => <AddressCard addressData={e} key={e.addressId} setCheckoutDetails={setCheckoutDetails} checkoutDetails={checkoutDetails}/>)}
 
-                        <Button 
-                            width={"47.5%"} 
-                            height={"30px"} 
-                            fontsize={"11px !important"} 
-                            background={"#008183 !important"} 
-                            backgroundhover={"#009395ff !important"}
-                            onClick={() => setAddNewAddres(!addNewAddres)}
-                        >
-                            {"Adicionar novo endereço"}
-                        </Button>
+                        <ButtonContainer>
+                            <Button 
+                                width={"47.5%"} 
+                                height={"30px"} 
+                                fontsize={"11px !important"} 
+                                background={"#008183 !important"} 
+                                backgroundhover={"#009395ff !important"}
+                                onClick={() => setAddNewAddres(!addNewAddres)}
+                            >
+                                {"Adicionar novo endereço"}
+                            </Button>
+                        </ButtonContainer>
+
+                        <MobileButtonContainer>
+                            <Button 
+                                width={"100%"} 
+                                fontsize={"11px !important"} 
+                                background={"#008183 !important"} 
+                                backgroundhover={"#009395ff !important"}
+                                onClick={() => setAddNewAddres(!addNewAddres)}
+                            >
+                                {"Adicionar novo endereço"}
+                            </Button>
+                        </MobileButtonContainer>
+                        
                     </>
                 ):(<></>)
             )} 
@@ -77,6 +92,9 @@ const Container = styled.div`
     row-gap: 1.4vh;
     pointer-events: ${props => props.events};
     opacity: ${props => props.opacity};
+    @media (max-width: 850px) {
+        padding: 1vh 0;
+    }
 `
 const Title = styled.h1`
     display: flex;
@@ -86,4 +104,21 @@ const Title = styled.h1`
     color: #009395ff;
     font-weight: 600;
     padding-top: 1vh;
+    @media (max-width: 850px) {
+        margin-bottom: 1vh;
+    }
+`
+const ButtonContainer = styled.div`
+    width: 100%;
+    @media (max-width: 850px) {
+        display: none;
+    }
+`
+const MobileButtonContainer = styled.div`
+    display: none;
+    width: 100%;
+    @media (max-width: 850px) {
+        display: inherit;
+        margin-bottom: 2vh;
+    }
 `

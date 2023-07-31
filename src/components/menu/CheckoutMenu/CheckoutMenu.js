@@ -26,6 +26,14 @@ const Container = styled.div`
         height: 70%;
         max-height: 8vh;
     }
+    @media (max-width: 850px) {
+        padding: 0;
+        height: 10vh;
+        justify-content: center;
+        img {
+            max-width: 100%;
+        }
+    } 
 `
 const Title = styled.h2`
     width: 25%;
@@ -33,4 +41,7 @@ const Title = styled.h2`
     font-weight: 700;
     font-size: 14px;
     text-align: ${props => props.textAlign}; 
+    @media (max-width: 850px) {
+        display: none;
+    } 
 `
