@@ -191,6 +191,7 @@ export default function CreditCardForm ({userData, checkoutDetails}) {
 
     async function savePayment(){
         try {
+            
             const body = {
                 description: cardDataResponse.description,
                 installments: cardDataResponse.installments,

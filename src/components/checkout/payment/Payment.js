@@ -21,8 +21,8 @@ export default function Payment ({userData, checkoutDetails}) {
             <SubContainer>
 
                 <CreditCard paymentSelected={paymentSelected} setPaymentSelected={setPaymentSelected} SelectPayment={SelectPayment} userData={userData} checkoutDetails={checkoutDetails}/>
-                <Pix paymentSelected={paymentSelected} setPaymentSelected={setPaymentSelected} SelectPayment={SelectPayment}/>
-                <Boleto paymentSelected={paymentSelected} setPaymentSelected={setPaymentSelected} SelectPayment={SelectPayment}/>
+                <Pix paymentSelected={paymentSelected} setPaymentSelected={setPaymentSelected} SelectPayment={SelectPayment} userData={userData} checkoutDetails={checkoutDetails}/>
+                {/* <Boleto paymentSelected={paymentSelected} setPaymentSelected={setPaymentSelected} SelectPayment={SelectPayment}/> */}
 
             </SubContainer>
 

@@ -1,19 +1,25 @@
 import styled from "styled-components"
 import { MdPix } from 'react-icons/md';
+import PixForm from "./PixForms";
 
-export default function Pix ({ paymentSelected, SelectPayment }) {
+export default function Pix ({ paymentSelected, SelectPayment, userData, checkoutDetails }) {
     return(
-        paymentSelected !== undefined && paymentSelected !== "Pix" ? (<></>):(
-            <Container onClick={() => SelectPayment("Pix")}>  
-                <StyledIcon/>
-                <h3>{"Pix"}</h3>
-                {paymentSelected === "Pix"?(
-                <>  
-                    <h4>{"Voltar"}</h4>
-                </>
-                ):(<></>)}
-            </Container>
-        )
+        <>
+            {paymentSelected !== undefined && paymentSelected !== "Pix" ? (<></>):(
+                <Container onClick={() => SelectPayment("Pix")}>  
+                    <StyledIcon/>
+                    <h3>{"Pix (EM DESENVOLVIMENTO)"}</h3>
+                    {paymentSelected === "Pix"?(
+                    <>  
+                        <h4>{"Voltar"}</h4>
+                    </>
+                    ):(<></>)}
+                </Container>
+            )}
+            {paymentSelected === "Pix"?(
+                <PixForm userData={userData} checkoutDetails={checkoutDetails}/>
+            ):(<></>)} 
+        </>
     )
 }
 

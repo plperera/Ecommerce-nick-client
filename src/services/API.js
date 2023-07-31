@@ -130,6 +130,9 @@ function GetAllOrders(token) {
 function UpdateOrder({body, token}) {
     return axios.put(`${BASE_URL}/order/admin`, body, {headers: { Authorization: `Bearer ${token}`}})
 }
+function CreateNewOrderByPix({token, body}){
+    return axios.post(`${BASE_URL}/order/pix`, body, {headers: { Authorization: `Bearer ${token}`}});
+}
 
 const api = {
     GetAllCategories,
@@ -174,7 +177,8 @@ const api = {
     UpdateUserEnrollment,
     GetAllUserOrders,
     GetAllOrders,
-    UpdateOrder
+    UpdateOrder,
+    CreateNewOrderByPix
 };
 
 export default api;

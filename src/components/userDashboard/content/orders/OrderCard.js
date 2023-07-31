@@ -8,14 +8,14 @@ export default function OrderCard ({orderData}) {
     const [ expandOrder, setExpandOrder] = useState(false)
 
     const obj = {
+        waiting: {status: "waiting", label: "Processando", color:"#929292"},
+        Payd: {status: "Payd", label: "Pagamento Recebido", color:"#0F9B22"},
+        Sorting: {status: "Sorting", label: "Em Separação", color:"#1C6683"},
+        ReceivedByCarrier: {status: "ReceivedByCarrier", label: "Recebido pela transportadora", color:"#259DCC"},
+        InTransit: {status: "InTransit", label: "Em Transito", color:"#1CBFFF"},
+        Delivered: {status: "Delivered", label: "Entregue", color:"#3452FF"},
         approved: { text: "Pagamento Aprovado", color:"#0F9B22"},
-        waiting: { text: "Processando", color:"#1B3D64"},
         credit_card: { text: "Cartão de Crédito", color:"#FFFFFF00"},
-        Payd: {text: "Pagamento Recebido", color:"#FFFFFF00"},
-        Sorting: {text: "Em Separação", color:"#FFFFFF00"},
-        ReceivedByCarrier: {text: "Recebido pela transportadora", color:"#FFFFFF00"},
-        InTransit: {text: "Em Transito", color:"#FFFFFF00"},    
-        Delivered: {text: "Entregue", color:"#FFFFFF00"}               
     }
 
     return(
@@ -28,7 +28,7 @@ export default function OrderCard ({orderData}) {
 
             <ColumnContainer width={"24%"}>
                 <Title>{"STATUS"}</Title>
-                <SubTitle color={obj[orderData.status].color} fontweight={"600"}>{obj[orderData.status].text}</SubTitle>
+                <SubTitle color={obj[orderData.status].color} fontweight={"600"}>{obj[orderData.status].label}</SubTitle>
             </ColumnContainer>
 
             <ColumnContainer width={"18%"}>
@@ -42,7 +42,7 @@ export default function OrderCard ({orderData}) {
             </ColumnContainer>
 
             <ColumnContainer>
-                <StyledButton onClick={() => setExpandOrder(!expandOrder)}>{"Ver mais Detalhes"}</StyledButton>
+                <StyledButton onClick={() => setExpandOrder(!expandOrder)}>{expandOrder?("Minimizar"):("Ver mais Detalhes")}</StyledButton>
             </ColumnContainer>
 
             {expandOrder ? (
@@ -96,6 +96,7 @@ const StyledButton = styled.div`
     justify-content: left;
     font-weight: 600;
     color: #009395ff;
+    user-select: none;
 `
 const OtherDetailsContainer = styled.div`
     width: 100%;
