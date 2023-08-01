@@ -62,7 +62,10 @@ const Container = styled.div`
     grid-template-columns: 1fr;
     align-items: start;
     align-content: start;
-    padding: 25px 1.4vw;    
+    padding: 25px 1.4vw;   
+    @media (max-width: 850px) {
+        padding: 25px 4vw;
+    }  
 `
 const Title = styled.h1`
     color: #02131B;
@@ -83,12 +86,19 @@ const AddressListBotttom = styled.div`
     align-items: center;
     justify-content: space-between;
     padding: 2px 1vw;
+    @media (max-width: 850px) {
+        padding: 2px 4vw;
+        font-size: 13px;
+    } 
 `
 const ListTitle = styled.div`
     color: #FFFFFF;
 `
 const ListIcon = styled(FiMapPin)`
     margin-right: 0.5vw;
+    @media (max-width: 850px) {
+        margin-right: 1.4vw;
+    } 
 `
 const ListButton = styled.div`
     background-color: #EEEEEE;
@@ -99,4 +109,8 @@ const ListButton = styled.div`
     font-weight: 600;
     cursor: pointer;
     user-select: none;
+    @media (max-width: 850px) {
+        font-size: 11px;
+        padding: 8px 2vw;
+    } 
 `

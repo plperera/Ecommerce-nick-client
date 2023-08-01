@@ -3,11 +3,16 @@ import styled from "styled-components"
 import UserNavigationBar from "../../components/userDashboard/UserNavigationBar"
 import UserContext from "../../context/UserContext";
 import { useContext } from "react";
+import UserData from "../../components/userDashboard/content/userData/UserData";
 
 export default function UserAccount () {
-    const [ content, setContent ] = useState(false)
+
     const { userData } = useContext(UserContext);
-    
+    const [ content, setContent ] = useState({
+        name:"Meus Dados",
+        ref: <UserData userData={userData}/>
+    })
+
     return(
         <Container>
             <DashboardLayout>
@@ -31,12 +36,19 @@ const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    @media (max-width: 850px) {
+        padding: 20vh 0vw 3vh 0vw;;
+    }
 `
 const DashboardLayout = styled.div`
     width: 100%;
     height: 70vh;
     display: flex;
     column-gap: 1.8vw;
+    @media (max-width: 850px) {
+        flex-wrap: wrap;
+        height: auto;
+    }
 `
 const ContentContainer = styled.div`
     height: 100%;
@@ -58,6 +70,9 @@ const ContentContainer = styled.div`
     &::-webkit-scrollbar-thumb:hover {
         background-color: #01989D;
         cursor: pointer;
+    }
+    @media (max-width: 850px) {
+        width: 100%;
     }
 `
 const IncialMenuContainer = styled.div`

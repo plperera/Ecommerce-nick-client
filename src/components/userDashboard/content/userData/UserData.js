@@ -183,6 +183,74 @@ export default function UserData ({userData}) {
                 />
             </InputContainer>
 
+            <MobileInputContainer>
+                <Input 
+                    label="Nome" 
+                    type="text" 
+                    name={"name"} 
+                    value={userData?.name} 
+                    width="100%"
+                    background={"#E9E9E948"}
+                    events={"none"}
+                />
+                <InputWrapper width={"100%"}>
+                    <Input 
+                        label="Telefone para Contato"     
+                        mask={form?.phone?.length < 15 ? '(99) 9999-99999' : '(99) 99999-9999'}
+                        type="text" 
+                        name={"phone"} 
+                        value={form.phone} 
+                        onChange={handleForm}
+                        width="100%"
+                    />
+                    {errors.phone && <ErrorMsg>{errors.phone}</ErrorMsg>}
+                </InputWrapper>
+
+                <InputWrapper width={"100%"}>
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                        <ThemeProvider theme={datePickerTheme}>
+                            <CustomDatePicker
+                                value={form.birthday}
+                                onChange={customHandleForm}
+                                format="dd/MM/yyyy"
+                                disableFuture={true}
+                                name="birthday"
+                                error={false}
+                                helperText={null}
+                                label="Data de Nascimento"
+                                inputVariant="outlined"
+                                clearable
+                                width={"100%"}
+                            />
+                        </ThemeProvider>
+                        {errors.birthday && <ErrorMsg>{errors.birthday}</ErrorMsg>}
+                    </MuiPickersUtilsProvider>
+                </InputWrapper>
+
+                <InputWrapper width="100%">
+                    <Input 
+                        label="CPF ou CNPJ" 
+                        mask={form?.cpf?.length < 15 ? '999.999.999-999' : '99.999.999/9999-99'}
+                        type="text" 
+                        name={"cpf"} 
+                        value={form.cpf} 
+                        onChange={handleForm}
+                        width="100%"
+                    />
+                    {errors.cpf && <ErrorMsg>{errors.cpf}</ErrorMsg>}
+                </InputWrapper>
+
+                <Input 
+                    label="E-mail" 
+                    type="text" 
+                    name={"email"} 
+                    value={userData?.email} 
+                    width="100%"
+                    background={"#E9E9E948"}
+                    events={"none"}
+                />
+            </MobileInputContainer>
+
             <ButtonContainer>
 
                 {(!userEnrollment || !userEnrollment?.id) ? (
@@ -214,6 +282,9 @@ const Title = styled.h1`
     font-size: 21px;
     font-weight: 500;
     width: 100%;
+    @media (max-width: 850px) {
+        padding: 0vh 4vw;
+    } 
 `
 const ButtonContainer = styled.div`
     width: 100%;
@@ -229,4 +300,19 @@ const InputContainer = styled.div`
     flex-wrap: wrap;
     row-gap: 3.2vh;
     padding: 2vh 0 2vh 0;
+    @media (max-width: 850px) {
+        display: none;
+    }
+`
+const MobileInputContainer = styled.div`
+    display: none;
+    @media (max-width: 850px) {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        row-gap: 3.2vh;
+        padding: 2vh 4vw;
+    } 
 `

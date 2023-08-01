@@ -43,6 +43,14 @@ const Container = styled.div`
     padding: 25px 0vw 25px 0.4vw;
     background-color: #FFFFFF;    
     border-radius: 15px;
+    @media (max-width: 850px) {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px 2vw 15px 2vw;
+        margin-bottom: 3.5vh;
+    }
 `
 const Title = styled.h1`
     display: flex;
@@ -56,4 +64,7 @@ const Title = styled.h1`
     color: #02131B;
     font-size: 18px;
     font-weight: 500;
+    @media (max-width: 850px) {
+        display: none;
+    }
 `

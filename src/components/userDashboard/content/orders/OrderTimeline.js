@@ -112,6 +112,9 @@ const Container = styled.div`
     justify-content: space-between;
     align-items: center;
     padding-top: 2vh;
+    @media (max-width: 850px) {
+        height: 80px;
+    } 
 `
 const IconContainer = styled.div`
     width: 100px;
@@ -126,15 +129,24 @@ const IconContainer = styled.div`
     flex-direction: column;
     row-gap: 7px;
     color: ${props => props.color};;
+    @media (max-width: 850px) {
+        width: 55px;
+    } 
 
     & > :first-child {
         font-size: 50px;
+        @media (max-width: 850px) {
+            font-size: 25px;
+        } 
     }
     h3 {
         font-size: 11px;
         text-align: center;
         font-weight: 500;
         width: 95%;
+        @media (max-width: 850px) {
+            font-size: 6px;
+        } 
     }
 `
 
@@ -143,6 +155,10 @@ const ProgressBarContainer = styled.div`
     height: 5px;
     background-color: #4E4E4EA4;
     position: relative;
+    @media (max-width: 850px) {
+        width: calc((100% - (55px * 5)) / 4);
+        height: 2px;
+    } 
 `
 const loadingBar = keyframes`
     0% { 

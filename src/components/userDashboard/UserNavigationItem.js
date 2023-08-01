@@ -20,6 +20,15 @@ const Container = styled.div`
     font-weight: 600;
     color: ${props => props.color};
     background-color: ${props => props.background};
+    @media (max-width: 850px) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        border-radius: 10px;
+        width: auto;
+        padding: 0 1vw;
+    }
 `
 const Title = styled.div`
     display: flex;
@@ -31,5 +40,13 @@ const Title = styled.div`
     border-radius: 5px;
     user-select: none;
     cursor: pointer;
+    @media (max-width: 850px) {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 0 1.3vw;
+    }
 `
 

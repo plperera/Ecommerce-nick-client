@@ -46,15 +46,20 @@ const Container = styled.div`
     justify-content: start;
     row-gap: 2vh;
     padding: 25px 1.4vw;
-    
+
+    @media (max-width: 850px) {
+        padding: 25px 4vw;
+    }  
 `
 const Title = styled.h1`
     color: #02131B;
     font-size: 21px;
     font-weight: 500;
     width: 100%;
-    margin-bottom: 4vh;
-    
+    margin-bottom: 4vh; 
+    @media (max-width: 850px) {
+        margin-bottom: 1vh;  
+    } 
 `
 const OrdersContainer = styled.div`
     width: 100%;

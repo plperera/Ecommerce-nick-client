@@ -16,7 +16,12 @@ const Container = styled.div`
     justify-content: center;
     flex-direction: column;
     background-color: #19323d;
+    text-align: center;
     color: #FFFFFF;
     row-gap: 1vh;
     font-size: 12px;
+    @media (max-width: 850px) {
+        width: 100%;
+        height: 10vh;
+    }
 `

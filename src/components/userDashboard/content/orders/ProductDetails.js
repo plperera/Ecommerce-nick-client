@@ -11,12 +11,16 @@ export default function ProductDetails ({orderData}) {
                     </ImageContainer>
                     <ValuesContainer>
                         <TitleContainer>{e.productName}</TitleContainer>
-                        <QuantityContainer><SpanStyled>{"Quantidade: "}</SpanStyled>{`${e.productQuantity}`}</QuantityContainer>
-                        <PriceContainer><SpanStyled>{"Valor Unitário: "}</SpanStyled>{`R$ ${(e.productPrice / 100).toLocaleString('pt-BR', {minimumFractionDigits: 2})}`}</PriceContainer>         
+                        <QuantityContainer><SpanStyled>{"Qtd: "}</SpanStyled>{`${e.productQuantity}`}</QuantityContainer>
+                        <PriceContainer><SpanStyled>{"Unidade: "}</SpanStyled>{`R$ ${(e.productPrice / 100).toLocaleString('pt-BR', {minimumFractionDigits: 2})}`}</PriceContainer>         
                         <SubTotalPriceContainer><SpanStyled>{"SubTotal: "}</SpanStyled>{`R$ ${(e.productPrice * e.productQuantity / 100).toLocaleString('pt-BR', {minimumFractionDigits: 2})}`}</SubTotalPriceContainer>         
                     </ValuesContainer>
                 </ProductCard>
             )}
+            <TotalPrice>
+                <div>{"Frete"}</div>
+                <div>{`R$  ${(orderData.shippingPrice / 100).toLocaleString('pt-BR', {minimumFractionDigits: 2})}`}</div>           
+            </TotalPrice>
             <TotalPrice>
                 <div>{"Total do Produto"}</div>
                 <div>{`R$  ${(orderData.transactionAmount / 100).toLocaleString('pt-BR', {minimumFractionDigits: 2})}`}</div>           
@@ -42,6 +46,9 @@ const ProductCard = styled.div`
     width: 100%;
     box-shadow: 0 0 5px #0000001F;
     padding: 18px 0;
+    @media (max-width: 850px) {
+        padding: 12px 10px;
+    } 
 `
 const ImageContainer = styled.div`
     width: 15%;
@@ -53,6 +60,9 @@ const ImageContainer = styled.div`
         max-width: 100%;
         max-height: 90%;
     }
+    @media (max-width: 850px) {
+        width: 30%;
+    } 
 `
 const ValuesContainer = styled.div`
     width: 85%;
@@ -60,6 +70,9 @@ const ValuesContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    @media (max-width: 850px) {
+        width: 70%;
+    } 
 `
 const TitleContainer = styled.div`
     height: 50px;
@@ -67,6 +80,9 @@ const TitleContainer = styled.div`
     text-align: left;
     font-weight: 500;
     padding: 8px;
+    @media (max-width: 850px) {
+        font-size: 10px;
+    } 
 `
 const CommunStyle = styled.div`
     display: flex;
@@ -79,20 +95,32 @@ const CommunStyle = styled.div`
 `
 const QuantityContainer = styled(CommunStyle)`
     font-size: 18px;
+    @media (max-width: 850px) {
+        font-size: 8px;
+    } 
 `
 const PriceContainer = styled(CommunStyle)`
     font-size: 15px;
     width: 40%;
+    @media (max-width: 850px) {
+        font-size: 7px;
+    } 
 `
 const SubTotalPriceContainer = styled(CommunStyle)`
     font-size: 20px;
     width: 40%;
+    @media (max-width: 850px) {
+        font-size: 7px;
+    } 
 `
 const SpanStyled = styled.span`
     margin-right: 0.5vw;
     font-size: 13px;
     font-weight: 400;
     margin-bottom: 1px;
+    @media (max-width: 850px) {
+        font-size: 6px;
+    } 
 `
 const TotalPrice = styled.div`
     display: flex;
@@ -103,6 +131,9 @@ const TotalPrice = styled.div`
     border-top: 2px solid #e6e6e6ff;
     border-bottom: 2px solid #e6e6e6ff;
     padding: 18px 1vw;
+    @media (max-width: 850px) {
+        height: 40px;
+    } 
 
     & > :first-child {
         display: flex;
@@ -112,6 +143,9 @@ const TotalPrice = styled.div`
         height: 100%;
         font-weight: 600;
         font-size: 18px;
+        @media (max-width: 850px) {
+            font-size: 10px;
+        } 
     }
     & > :last-child {
         display: flex;
@@ -121,5 +155,8 @@ const TotalPrice = styled.div`
         height: 100%;
         font-weight: 600;
         font-size: 22px;
+        @media (max-width: 850px) {
+            font-size: 15px;
+        } 
     }
 `

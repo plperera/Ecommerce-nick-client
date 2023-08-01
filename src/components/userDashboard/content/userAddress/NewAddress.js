@@ -91,7 +91,7 @@ export default function NewAddress ({setIsCreating, userData, handleRefresh}) {
 
             <InputWrapper width="65%">
                 <Input 
-                    label="Apelido / Identificação para o Endereço" 
+                    label="Identificação para o Endereço" 
                     type="text" 
                     name={"addressName"} 
                     value={form.addressName} 

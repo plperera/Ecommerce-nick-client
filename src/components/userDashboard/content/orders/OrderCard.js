@@ -21,12 +21,12 @@ export default function OrderCard ({orderData}) {
     return(
         <Container>
 
-            <ColumnContainer width={"18%"}>
+            <ColumnContainer width={"20%"}>
                 <Title>{"NÚMERO DO PEDIDO"}</Title>
                 <SubTitle>{`# ${orderData.orderId + 10657}`}</SubTitle>
             </ColumnContainer>
 
-            <ColumnContainer width={"24%"}>
+            <ColumnContainer width={"22%"}>
                 <Title>{"STATUS"}</Title>
                 <SubTitle color={obj[orderData.status].color} fontweight={"600"}>{obj[orderData.status].label}</SubTitle>
             </ColumnContainer>
@@ -76,13 +76,17 @@ const ColumnContainer = styled.div`
     justify-content: center;
 `
 const Title = styled.div`
-   height: 49.5px;
-   width: 100%;
-   font-weight: 600;
-   display: flex;
-   align-items: center;
-   justify-content: left;
-   font-size: 14px;
+    height: 49.5px;
+    width: 100%;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    font-size: 14px;
+    @media (max-width: 850px) {
+        font-size: 8px;
+        text-align: left;
+    } 
 `
 const SubTitle = styled(Title)`
     font-weight: ${props => props.fontweight || "400"};
@@ -97,6 +101,12 @@ const StyledButton = styled.div`
     font-weight: 600;
     color: #009395ff;
     user-select: none;
+    @media (max-width: 850px) {
+        font-size: 8px;
+        text-align: left;
+        justify-content: center;
+        text-align: center;
+    } 
 `
 const OtherDetailsContainer = styled.div`
     width: 100%;
