@@ -39,8 +39,8 @@ export default function UniqueProduct ({product}) {
         
         const msg = `Olá, Nick!\n\nFiquei bastante interessado(a) pelo produto "${product.name}" que encontrei em seu site.\n\nSeria possível me enviar um orçamento sem compromisso? Gostaria de avaliar mais detalhadamente.\n\nAguardo o seu retorno. Obrigado(a)!`
 
-        //const whatsAppNumber = "+5511985546210" oficial
-        const whatsAppNumber = "+5535999351124"
+        const whatsAppNumber = "+5511985546210"
+        //const whatsAppNumber = "+5535999351124"
 
         const url = `https://wa.me/${whatsAppNumber}?text=${encodeURIComponent(msg)}`;
         window.open(url, '_blank', 'noopener,noreferrer');
