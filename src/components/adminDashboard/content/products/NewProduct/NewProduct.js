@@ -55,6 +55,7 @@ export default function NewProduct () {
             name: form?.name,
             description: form?.description,
             price: Number(form?.price?.replace(/[^0-9,-]+/g,"")?.replace(',', '.')) * 100,
+            highPrice: Number(form?.highPrice?.replace(/[^0-9,-]+/g,"")?.replace(',', '.')) * 100,
             stock: Number(form?.stock?.replace(/[^0-9,-]+/g,"")?.replace(',', '.')),
 
             tecnicDetails: tecnicDetails.filter( e => (e?.topic.length > 0)),

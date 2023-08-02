@@ -79,7 +79,7 @@ export default function ProductForms ({form, handleForm, setForm, productData, t
         return selectValue
     } 
 
-    function customHandleChange(event) {
+    function customHandleChange(event, type) {
         let value = event.target.value;
 
         // Remove all non-number and non-comma characters
@@ -109,6 +109,10 @@ export default function ProductForms ({form, handleForm, setForm, productData, t
             const decimalPart = parts[1].substring(0, 2); // take only the first 2 digits of the decimal part
             newValue = `R$ ${integerPart},${decimalPart}`; 
         }
+        if ( type === 'highPrice'){
+            setForm({...form, highPrice: newValue})
+            return
+        }
         setForm({...form, price: newValue})
     }
 
@@ -127,6 +131,7 @@ export default function ProductForms ({form, handleForm, setForm, productData, t
             name: productData?.name,       
             description: productData?.description,       
             price: convertToNumber(productData?.price),    
+            highPrice: convertToNumber(productData?.highPrice),    
             stock: productData?.stock,   
             tecnicDetails: productData?.tecnicDetails,       
             categories: productData?.categories,       
@@ -171,7 +176,7 @@ export default function ProductForms ({form, handleForm, setForm, productData, t
                                 type="text" 
                                 name={"price"} 
                                 value={form.price} 
-                                onChange={customHandleChange}
+                                onChange={(e) => customHandleChange(e, 'price')}
                                 width="100%"
                             />
                             {errors.price && <ErrorMsg>{errors.price}</ErrorMsg>}
@@ -179,14 +184,14 @@ export default function ProductForms ({form, handleForm, setForm, productData, t
 
                         <InputWrapper width={"44%"}>
                             <Input 
-                                label="Preço"     
+                                label="Preço antes do Desconto"     
                                 type="text" 
-                                name={"price"} 
-                                value={form.price} 
-                                onChange={handleForm}
+                                name={"highPrice"} 
+                                value={form.highPrice} 
+                                onChange={(e) => customHandleChange(e, 'highPrice')}
                                 width="100%"
                             />
-                            {errors.price && <ErrorMsg>{errors.price}</ErrorMsg>}
+                            {errors.highPrice && <ErrorMsg>{errors.highPrice}</ErrorMsg>}
                         </InputWrapper>
 
                         <InputWrapper width={"10%"}>
@@ -290,6 +295,7 @@ const UpperInputsContainer = styled.div`
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    row-gap: 1vh;
     width: 100%;
 `
 const FilterContainer = styled.div`

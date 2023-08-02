@@ -38,6 +38,16 @@ export default function Inputs ({handleForm, form}) {
                 />
             </NameInputContainer>
 
+            <DescriptionInputContainer>
+                <label>{"Descrição"}</label>
+                <input 
+                    placeholder="Descrição" 
+                    onChange={handleForm}
+                    value={form.description}
+                    name={"description"}
+                />
+            </DescriptionInputContainer>
+
             <StockInputContainer>
                 <label>{"Estoque"}</label>
                 <Input 
@@ -62,15 +72,17 @@ export default function Inputs ({handleForm, form}) {
                 />
             </PriceInputContainer>  
 
-            <DescriptionInputContainer>
-                <label>{"Descrição"}</label>
-                <input 
-                    placeholder="Descrição" 
+            <PriceInputContainer>
+                <label>{"Preço antes do Desconto"}</label>
+                <Input 
+                    placeholder="Preço antes do Desconto"
+                    mask={priceMask}
+                    maskChar={null}
                     onChange={handleForm}
-                    value={form.description}
-                    name={"description"}
+                    value={form.highPrice}
+                    name={"highPrice"}
                 />
-            </DescriptionInputContainer>
+            </PriceInputContainer>
         </Container>
     )
 }
@@ -78,6 +90,7 @@ export default function Inputs ({handleForm, form}) {
 const Container = styled.div`
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
     column-gap: 1vw;
     padding: 2vh 0;
 `
@@ -126,13 +139,13 @@ const InputContainer = styled.div`
     }
 `
 const StockInputContainer = styled(InputContainer)`
-    width: 10%;
-`
-const NameInputContainer = styled(InputContainer)`
-    width: 67%;
+    width: 32%;
 `
 const PriceInputContainer = styled(InputContainer)`
-    width: 20%;
+    width: 32%;
+`
+const NameInputContainer = styled(InputContainer)`
+    width: calc( 99% + 1vw);
 `
 const DescriptionInputContainer = styled(InputContainer)`
     width: calc( 99% + 1vw);

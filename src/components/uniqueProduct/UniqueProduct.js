@@ -40,7 +40,17 @@ export default function UniqueProduct ({product}) {
         const msg = `Olá, Nick!\n\nFiquei bastante interessado(a) pelo produto "${product.name}" que encontrei em seu site.\n\nSeria possível me enviar um orçamento sem compromisso? Gostaria de avaliar mais detalhadamente.\n\nAguardo o seu retorno. Obrigado(a)!`
 
         const whatsAppNumber = "+5511985546210"
-        //const whatsAppNumber = "+5535999351124"
+
+        const url = `https://wa.me/${whatsAppNumber}?text=${encodeURIComponent(msg)}`;
+        window.open(url, '_blank', 'noopener,noreferrer');
+    }
+
+    function handleRequest(){
+        //const msg = `Olá Nick, achei o seguinte produto no site: "${product.name.substring(0, 50) + ( product.name.length > 40?("..."):("") )}" e gostaria de solicitar um orçamento sem compromisso`
+        
+        const msg = `Olá, Nick!\n\nFiquei bastante interessado(a) pelo produto "${product.name}" que encontrei em seu site.\n\nPorem vi que estava sem estoque, seria possível me enviar um orçamento sem compromisso? Gostaria de avaliar mais detalhadamente.\n\nAguardo o seu retorno. Obrigado(a)!`
+
+        const whatsAppNumber = "+5511985546210"
 
         const url = `https://wa.me/${whatsAppNumber}?text=${encodeURIComponent(msg)}`;
         window.open(url, '_blank', 'noopener,noreferrer');
@@ -55,16 +65,55 @@ export default function UniqueProduct ({product}) {
 
                         <MainCategory>{product?.categories[0]?.name}</MainCategory>
                         <ProductName>{product.name.toUpperCase()}</ProductName>
-                        {
+                        { !product?.stock ? (
+                            <>
+                                <LowPrice>
+                                    <PriceSign>{"R$ "}</PriceSign><span>{ (product.price / 100).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span>
+                                </LowPrice>
+
+                                <UnavailableContainer>
+                                    {"Atualmente, o produto está indisponível em nosso estoque. No entanto, você tem a possibilidade de solicitar uma cotação diretamente. Para isso, basta clicar no botão abaixo"}
+                                </UnavailableContainer>
+
+                                <ButtonContainer>
+                                    <Button 
+                                        onClick={() => handleRequest()}
+                                        width={"100%"}
+                                        height={"45px !important"} 
+                                        background={"#59778F !important"}
+                                        backgroundhover={"#234968 !important"} 
+                                        margintop={"2vh !important"}
+                                    >
+                                        {"Solicitar Contato"}
+                                    </Button>
+                                </ButtonContainer>
+                            </>   
+                        ):(
+
                             product?.highPrice ? (
-                                <div>
-                                    <HighPrice>
-                                        {"De:"} <PriceSign>{"R$ "}</PriceSign><span>{ (product.highPrice / 100).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span>
-                                    </HighPrice>
-                                    <LowPrice>
-                                        {"Por:"} <PriceSign>{"R$ "}</PriceSign><span>{ (product.price / 100).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span>
-                                    </LowPrice>
-                                </div>
+                                <>
+                                    <div>
+                                        <HighPrice>
+                                            {"De:"} <PriceSign>{"R$ "}</PriceSign><span>{ (product.highPrice / 100).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span>
+                                        </HighPrice>
+                                        <LowPrice>
+                                            {"Por:"} <PriceSign>{"R$ "}</PriceSign><span>{ (product.price / 100).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span>
+                                        </LowPrice>
+                                    </div>
+
+                                    <ButtonContainer>
+                                        <Button 
+                                            onClick={() => handleProduct()}
+                                            width={"100%"}
+                                            height={"45px !important"} 
+                                            background={"#00BFC2 !important"}
+                                            backgroundhover={"#02B9DA !important"} 
+                                            margintop={"2vh !important"}
+                                        >
+                                            {"Comprar"}
+                                        </Button>
+                                    </ButtonContainer>
+                                </>
                             ):(
                                     
                                 product.price === 0 ? (
@@ -103,7 +152,9 @@ export default function UniqueProduct ({product}) {
                                     </>
                                 )   
                             )
-                        }
+
+                        )}
+
                         
 
                     </LeftSideContainer>
@@ -212,4 +263,13 @@ const ButtonContainer = styled.div`
     @media (max-width: 850px) {
         width: 100%;
     }
+`
+const UnavailableContainer = styled.div`
+    width: 80%;
+    font-size: 13px;
+    padding: 1.5vh;
+    padding-left: 1vw;
+    border-left: 4px solid #009395ff;
+    background-color: #FFFFFF15;
+    line-height: 15px;
 `

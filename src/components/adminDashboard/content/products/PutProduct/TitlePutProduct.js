@@ -19,6 +19,7 @@ export default function Title ({setSelectedProduct, productData, form, setForm, 
                 images: form?.images,
                 name: form?.name,       
                 price: Number((convertToNumber(form?.price) * 100).toFixed(0)),    
+                highPrice: Number((convertToNumber(form?.highPrice) * 100).toFixed(0)),    
                 stock: Number(form?.stock),   
                 tecnicDetails: form?.tecnicDetails.filter(e => (!!e.topic && e.topic !== '')),       
             }
