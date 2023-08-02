@@ -1,7 +1,6 @@
 import styled from "styled-components"
 import CreditCard from "./CreditCard"
 import Pix from "./Pix"
-import Boleto from "./Boleto"
 import { useState } from "react"
 
 export default function Payment ({userData, checkoutDetails}) {

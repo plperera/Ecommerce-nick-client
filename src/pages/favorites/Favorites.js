@@ -11,6 +11,7 @@ import useNavigateAndMoveUp from "../../hooks/useNavigateAndMoveUp";
 export default function Favorites () {
 
     const { userData, setUserData } = useContext(UserContext);
+    // eslint-disable-next-line no-unused-vars
     const [ isLoading, setIsLoading ] = useState(true)
     const [ allProducts, setAllProducts ] = useState(undefined)
     const navigateAndMoveUp = useNavigateAndMoveUp();
@@ -21,6 +22,7 @@ export default function Favorites () {
             return
         }
         GetAllFavorites()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
     async function GetAllFavorites(){

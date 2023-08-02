@@ -13,8 +13,10 @@ import LoadingContainer from "./LoadingContainer";
 
 export default function PixForm ({userData, checkoutDetails}) {
 
+    // eslint-disable-next-line no-unused-vars
     const [ isLoading, setIsLoading ] = useState(false);
     const [ pixDataResponse, setPixDataResponse] = useState({});
+    // eslint-disable-next-line no-unused-vars
     const { errors, validate } = useValidation(validations);
     // eslint-disable-next-line no-unused-vars
     const [ form, handleForm, setForm ] = useCustomForm({})

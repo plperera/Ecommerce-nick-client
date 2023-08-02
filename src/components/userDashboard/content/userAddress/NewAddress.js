@@ -1,4 +1,3 @@
-import { useState } from "react"
 import styled from "styled-components"
 import Input from "../../../../common/form/Input"
 import { InputWrapper } from "../userData/InputWrapper"
@@ -28,6 +27,7 @@ export default function NewAddress ({setIsCreating, userData, handleRefresh}) {
             neighborhood: form?.neighborhood,
             addressDetail: form?.addressDetail
         }
+        // eslint-disable-next-line no-unused-vars
         const { isValid, errors } = validate(body)
 
         if (!isValid){
