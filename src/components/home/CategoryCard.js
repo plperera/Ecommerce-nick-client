@@ -1,18 +1,15 @@
 import styled, { keyframes } from "styled-components"
-import {  useState } from "react"
 import Button from "../../common/form/Button"
 
 export default function CategoryCard ({indice, category, applyAnimation, navigateAndMoveUp}) {
 
-    const [showAll, setShowAll] = useState(false)
-
     return(
-        <Container onMouseEnter={() => setShowAll(true)} onMouseLeave={() => setShowAll(false)} height={showAll?("425px"):("280px")} applyAnimation={applyAnimation} onClick={() => navigateAndMoveUp({locate:`catalogo/${category.title}`})}>
+        <Container height={"425px"} applyAnimation={applyAnimation} onClick={() => navigateAndMoveUp({locate:`catalogo/${category.title}`})}>
             <ImageContainer><img src={category.imageUrl} alt=""/></ImageContainer>
             <Title>{category.title}</Title>
             
 
-                <SubContainer isLoading={showAll} display={showAll ? ("initial"):("none")}> 
+                <SubContainer  display={"initial"}> 
                     <SubTitle>{category.subTitle}</SubTitle>
                     <ButtonContainer>
                         <Button
