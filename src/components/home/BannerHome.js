@@ -48,7 +48,7 @@ export default function BannerHome () {
         <Container>
             {banners ? (
                 <>
-                    <ImageContainer backgroundImage={banners[slide].imageUrl}>
+                    <ImageContainer backgroundImage={banners[slide]?.imageUrl}>
 
                         <Title>{banners[slide].text}</Title>
                         <Button onClick={() => navigateAndMoveUp({locate: "catalogo"})}>Conheça nosso catálogo</Button>
