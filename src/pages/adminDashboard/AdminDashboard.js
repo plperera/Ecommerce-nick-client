@@ -42,7 +42,7 @@ const DashboardLayout = styled.div`
     height: 88vh;
     display: flex;
     border-radius: 25px 0 0 25px;
-
+    background-color: #FFFFFF;
     @media (max-width: 850px) {
         flex-wrap: wrap;
         width: 100%;
