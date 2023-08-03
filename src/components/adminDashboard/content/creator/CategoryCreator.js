@@ -113,6 +113,10 @@ const InputStyled = styled.input`
     font-size: 14px;
     font-weight: 600;
 
+    @media (max-width: 850px) {
+        width: 50%;
+    }
+
     ::placeholder{
         color: #171717;
         opacity: .2;
@@ -136,6 +140,9 @@ const ButtonStyled = styled.div`
     color: ${props => props.color};
     font-weight: 600;
     cursor: ${props => props.cursor};
+    @media (max-width: 850px) {
+        padding: 0 8vw;
+    }
 `
 const spinAnimation = keyframes`
   0% { transform: rotate(0deg); }

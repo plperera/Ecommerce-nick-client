@@ -201,6 +201,25 @@ const PaddingContainer = styled.div`
         display: flex;
         align-items: center;
     }
+    @media (max-width: 850px) {
+        padding-top: 0;
+        padding-left: 0;
+    }
+    @media (max-width: 850px) {
+        padding: 0 2vw;
+        padding-top: 8vh;
+        h2 {
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            border-left: 5px solid #009395ff; 
+            margin-bottom: 1.2vh;
+            padding: 0.5vh 0;
+            padding-left: 2vw;
+            font-size: 15px;
+            margin-top: 2vh;
+        }
+    }
 `
 const FilterContainer = styled.div`
     display: flex;
@@ -246,6 +265,10 @@ const FilterButtonContainer = styled.div`
     color: #FFFFFF;
     background-color: #0A1F2A;
     cursor: pointer; 
+    @media (max-width: 850px) {
+        padding: 0.4vh 3vw;
+        margin-left: 1vw;
+    }
 `
 const ClearFilterContainer = styled(IoMdCloseCircle)`
     display: flex;
@@ -265,4 +288,8 @@ const CreateButton = styled.span`
     margin-left: 0.5vw;
     cursor: pointer;
     user-select: none;
+    @media (max-width: 850px) {
+        padding: 0.4vh 3vw;
+        margin-left: 1vw;
+    }
 `

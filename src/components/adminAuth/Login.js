@@ -90,6 +90,9 @@ const Container = styled.div`
         max-height: 70px;
         max-width: 60%;
     }
+    @media (max-width: 850px) {
+        width: 100%;
+    }
 `
 const InputContainer = styled.div`
     display: flex;
@@ -121,7 +124,12 @@ const InputContainer = styled.div`
             border-radius: 10px;
             border: 2px solid #0B83BE ;
         }
+
+        @media (max-width: 850px) {
+            width: 100%;
+        }
     }
+    
     label {
         font-size: 18px;
         color: #02131B;
@@ -152,4 +160,8 @@ const ButtonStyle = styled.div`
 const UserActionsContainer = styled.div`
     display: flex;
     flex-direction: column;
+    @media (max-width: 850px) {
+        width: 100%;
+        padding: 0 5vw;
+    }
 `

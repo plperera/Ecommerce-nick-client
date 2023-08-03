@@ -137,5 +137,22 @@ const Container = styled.div`
         background-color: #01989D;
         cursor: pointer;
     }
-    
+
+    @media (max-width: 850px) {
+        width: 100%;
+        flex-direction: row;
+        height: auto;
+        display: flex;
+        align-items: center;
+        background-color: #FFFFFF;
+        padding: 10px 2vw;
+        column-gap: 5vw;
+        overflow-y: hidden;
+        overflow-x: scroll;
+        border-radius: 15px;
+
+        &::-webkit-scrollbar {
+            height: 0px;
+        }
+    } 
 `

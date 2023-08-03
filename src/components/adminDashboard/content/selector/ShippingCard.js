@@ -42,4 +42,14 @@ const Container = styled.div`
     }
     cursor: pointer;
     user-select: none;
+    @media (max-width: 850px) {
+        width: 22vw;
+        height: 9.5vh;
+        h1 {
+            font-size: 10px;
+        }
+        h2 {
+            font-size: 11px;
+        }
+    }
 `

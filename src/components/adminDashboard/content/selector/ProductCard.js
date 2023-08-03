@@ -85,6 +85,10 @@ const Container = styled.div`
     &:hover{ 
         transform: translateY(-1vh);
     }
+    @media (max-width: 850px) {
+        width: 39vw;
+        height: 35vh;
+    }
 `
 
 //UPCONTAINER -----------------------
@@ -107,6 +111,9 @@ const DetailsSession = styled.div`
         font-size: 14.5px;
         gap: 3px; 
     }
+    @media (max-width: 850px) {
+        font-size: 10px;
+    }
 `
 const RateSession = styled(DetailsSession)`
     justify-content: left; 
@@ -121,6 +128,9 @@ const RateStyledIcon = styled(FaStar)`
     @media (max-width: 1366px) {
         font-size: 19px;
     }
+    @media (max-width: 850px) {
+        font-size: 10px;
+    }
 `
 const FavoriteStyledIcon = styled(HiOutlineHeart)`
     margin-top: -2.5px;
@@ -128,6 +138,9 @@ const FavoriteStyledIcon = styled(HiOutlineHeart)`
     font-weight: 700;
     @media (max-width: 1366px) {
         font-size: 19px;
+    }
+    @media (max-width: 850px) {
+        font-size: 10px;
     }
 `
 
@@ -165,6 +178,9 @@ const Title = styled.div`
     @media (max-width: 1366px) {
         font-size: 14px; 
         height: 6vh;
+    }
+    @media (max-width: 850px) {
+        font-size: 10px;
     }
 `
 const PriceContainer = styled.div`

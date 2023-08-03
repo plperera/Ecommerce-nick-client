@@ -53,7 +53,7 @@ export default function TecnicDetails ({ setForm, form }) {
                 {lines.map( (e, index) => 
                     <>
 
-                        <InputWrapper width={"49.5%"}>
+                        <DesktopInputWrapper width={"49.5%"}>
                             <Input 
                                 label={`Topico ${index + 1}`}    
                                 type="text" 
@@ -62,9 +62,9 @@ export default function TecnicDetails ({ setForm, form }) {
                                 onChange={(e) => handleTecnincDetailsForm(e, index)}
                                 width="100%"
                             />
-                        </InputWrapper>
+                        </DesktopInputWrapper>
 
-                        <InputWrapper width={"49.5%"}>
+                        <DesktopInputWrapper width={"49.5%"}>
                             <Input 
                                 label={`Detalhamento do topico ${index + 1}`}    
                                 type="text" 
@@ -73,7 +73,29 @@ export default function TecnicDetails ({ setForm, form }) {
                                 onChange={(e) => handleTecnincDetailsForm(e, index)}
                                 width="100%"
                             />
-                        </InputWrapper>
+                        </DesktopInputWrapper>
+
+                        <MobileInputWrapper width={"49%"}>
+                            <Input 
+                                label={`Topico ${index + 1}`}    
+                                type="text" 
+                                name={`topic_${index}`} 
+                                value={form?.tecnicDetails[index]?.topic} 
+                                onChange={(e) => handleTecnincDetailsForm(e, index)}
+                                width="100%"
+                            />
+                        </MobileInputWrapper>
+
+                        <MobileInputWrapper width={"49%"}>
+                            <Input 
+                                label={`Detal. do topico ${index + 1}`}    
+                                type="text" 
+                                name={`topicDetail_${index}`}  
+                                value={form?.tecnicDetails[index]?.topicDetail} 
+                                onChange={(e) => handleTecnincDetailsForm(e, index)}
+                                width="100%"
+                            />
+                        </MobileInputWrapper>
 
                     </>
                 )}
@@ -88,6 +110,16 @@ const Container = styled.div`
 const Title = styled.div`
     font-size: 20px;
     margin-bottom: 2vh;
+    @media (max-width: 850px) {       
+        display: flex;
+        align-items: center;
+        font-weight: 600;
+        border-left: 5px solid #009395ff; 
+        margin-bottom: 1.2vh;
+        padding: 0.5vh 0;
+        padding-left: 2vw;
+        font-size: 15px;
+    }
 `
 const SpanStyle = styled.span`
     color: #17171733;
@@ -117,4 +149,16 @@ const AddLineContainer = styled.div`
     margin-top: 8px;
     cursor: pointer;
     user-select: none;
+`
+const DesktopInputWrapper = styled(InputWrapper)`
+    display: initial;
+    @media (max-width: 850px) {
+        display: none;
+    }
+`
+const MobileInputWrapper = styled(InputWrapper)`
+    display: none;
+    @media (max-width: 850px) {
+        display: initial;
+    }
 `

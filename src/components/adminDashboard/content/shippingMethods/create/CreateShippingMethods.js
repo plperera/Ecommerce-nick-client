@@ -34,4 +34,8 @@ const Container = styled.div`
         margin-bottom: 2vh;
         font-weight: 600;
     }
+    @media (max-width: 850px) {
+        padding-top: 0;
+        padding-left: 0;
+    }
 `

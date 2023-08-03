@@ -118,6 +118,15 @@ const Container = styled.div`
         font-weight: 600;
         padding-top: 1.4vh;
     }
+    @media (max-width: 850px) {
+        margin-top: 16vh;
+        height: auto;
+        h2 {
+            padding: 0.5vh 0;
+            padding-left: 2vw;
+            font-size: 15px;
+        }
+    }
 `
 const FilterContainer = styled.div`
     display: flex;
@@ -144,4 +153,8 @@ const CreateButton = styled.span`
     margin-left: 0.5vw;
     cursor: pointer;
     user-select: none;
+    @media (max-width: 850px) {
+        padding: 0.4vh 3vw;
+        margin-left: 1vw;
+    }
 `

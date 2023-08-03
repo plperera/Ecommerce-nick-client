@@ -61,5 +61,9 @@ const SubContainer = styled.div`
     //border: 1px solid red;
     margin-top: 7vh;
     padding: 25px 1.4vw;
+    @media (max-width: 850px) {
+        padding-top: 0;
+        padding-left: 0;
+    }
 `
 

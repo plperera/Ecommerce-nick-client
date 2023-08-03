@@ -27,6 +27,11 @@ const Container = styled.div`
     width: 100%;
     font-size: 19px;
     font-weight: 500;
+    @media (max-width: 850px) {
+        width: auto;
+        font-size: 13px;
+        text-align: center;
+    }
 `
 const Title = styled.div`
     display: flex;
@@ -39,6 +44,11 @@ const Title = styled.div`
     border-radius: 5px;
     user-select: none;
     cursor: pointer;
+    @media (max-width: 850px) {
+        padding: 0 3vw;
+        column-gap: 4vw;
+        width: auto;
+    }
 `
 const OptionsList = styled.div`
     display: flex;
@@ -64,6 +74,21 @@ const Option = styled.h2`
     &:hover{
         font-weight: 600;
         border-left: 3px solid #00C8CF;
+    }
+
+    @media (max-width: 850px) {
+        width: auto;
+        font-size: 11px;
+        font-weight: 700;
+        text-align: left;
+        padding-left: 2vw;
+        background-color: #3F3F3F0A;
+        border-left: 6px solid #01989D;
+        padding-right: 2vw;
+        &:hover{
+            font-weight: 700;
+            border-left: 6px solid #00C8CF;
+        }
     }
 `
 

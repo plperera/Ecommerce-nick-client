@@ -30,6 +30,11 @@ const Container = styled.div`
     height: 350px;
     cursor: pointer;
     font-size: 15px;
+    @media (max-width: 850px) {
+        width: 90px;
+        height: 200px;
+        font-size: 9px;
+    }
 `
 const ImageContainer = styled.div`
     display: flex;
@@ -42,6 +47,9 @@ const ImageContainer = styled.div`
     img {
         max-width: 100%;
         max-height: 100%;
+    }
+    @media (max-width: 850px) {
+        height: 80px;
     }
 `
 const Title = styled.div`

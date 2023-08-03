@@ -69,4 +69,16 @@ const Container = styled.div`
         font-weight: 600;
         padding-top: 1.4vh;
     }
+    @media (max-width: 850px) {
+        width: 100%;
+        height: auto;
+        flex-direction: column;
+        justify-content: center;
+        padding-bottom: 1vh;
+        border-radius: 15px;
+        h1 {
+            font-size: 17px !important;
+            text-align: center;
+        }
+    }
 `

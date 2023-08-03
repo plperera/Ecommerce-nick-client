@@ -43,6 +43,9 @@ const Container = styled.div`
         justify-content: center;
         font-size: 20px;
     }
+    @media (max-width: 850px) {
+        font-size: 10px;      
+    }
 `
 const TableTitle = styled.div`
     width: 100%;

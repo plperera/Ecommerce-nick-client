@@ -92,6 +92,15 @@ const Container = styled.div`
         font-weight: 600;
         padding-top: 1.4vh;
     }
+    @media (max-width: 850px) {
+        padding: 0 2vw;
+        padding-top: 8vh;
+        h2 {
+            padding: 0.5vh 0;
+            padding-left: 2vw;
+            font-size: 15px;
+        }
+    }
 `
 const InputContainer = styled.div`
     display: flex;

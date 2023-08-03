@@ -170,7 +170,7 @@ export default function ProductForms ({form, handleForm, setForm, productData, t
                             {errors.description && <ErrorMsg>{errors.description}</ErrorMsg>}
                         </InputWrapper>
 
-                        <InputWrapper width={"44%"}>
+                        <DesktopInputWrapper width={"44%"}>
                             <Input 
                                 label="Preço"     
                                 type="text" 
@@ -180,9 +180,21 @@ export default function ProductForms ({form, handleForm, setForm, productData, t
                                 width="100%"
                             />
                             {errors.price && <ErrorMsg>{errors.price}</ErrorMsg>}
-                        </InputWrapper>
+                        </DesktopInputWrapper>
 
-                        <InputWrapper width={"44%"}>
+                        <MobileInputWrapper width={"48%"}>
+                            <Input 
+                                label="Preço"     
+                                type="text" 
+                                name={"price"} 
+                                value={form.price} 
+                                onChange={(e) => customHandleChange(e, 'price')}
+                                width="100%"
+                            />
+                            {errors.price && <ErrorMsg>{errors.price}</ErrorMsg>}
+                        </MobileInputWrapper>
+
+                        <DesktopInputWrapper width={"44%"}>
                             <Input 
                                 label="Preço antes do Desconto"     
                                 type="text" 
@@ -192,9 +204,21 @@ export default function ProductForms ({form, handleForm, setForm, productData, t
                                 width="100%"
                             />
                             {errors.highPrice && <ErrorMsg>{errors.highPrice}</ErrorMsg>}
-                        </InputWrapper>
+                        </DesktopInputWrapper>
 
-                        <InputWrapper width={"10%"}>
+                        <MobileInputWrapper width={"48%"}>
+                            <Input 
+                                label="Preço antes do Desconto"     
+                                type="text" 
+                                name={"highPrice"} 
+                                value={form.highPrice} 
+                                onChange={(e) => customHandleChange(e, 'highPrice')}
+                                width="100%"
+                            />
+                            {errors.highPrice && <ErrorMsg>{errors.highPrice}</ErrorMsg>}
+                        </MobileInputWrapper>
+
+                        <DesktopInputWrapper width={"10%"}>
                             <Input 
                                 label="Estoque"     
                                 type="text" 
@@ -205,7 +229,20 @@ export default function ProductForms ({form, handleForm, setForm, productData, t
                                 width="100%"
                             />
                             {errors.stock && <ErrorMsg>{errors.stock}</ErrorMsg>}
-                        </InputWrapper>
+                        </DesktopInputWrapper>
+
+                        <MobileInputWrapper width={"100%"}>
+                            <Input 
+                                label="Estoque"     
+                                type="text" 
+                                name={"stock"} 
+                                mask={"999999"}
+                                value={form.stock} 
+                                onChange={handleForm}
+                                width="100%"
+                            />
+                            {errors.stock && <ErrorMsg>{errors.stock}</ErrorMsg>}
+                        </MobileInputWrapper>
                     </UpperInputsContainer>
 
                     <TecnicDetails setForm={setForm} form={form}/>
@@ -290,6 +327,15 @@ const Container = styled.div`
         font-weight: 600;
         padding-top: 1.4vh;
     }
+    @media (max-width: 850px) {
+        padding: 0 2vw;
+        padding-top: 8vh;
+        h2 {
+            padding: 0.5vh 0;
+            padding-left: 2vw;
+            font-size: 15px;
+        }
+    }
 `
 const UpperInputsContainer = styled.div`
     display: flex;
@@ -323,5 +369,21 @@ const CreateButton = styled.span`
     margin-left: 0.5vw;
     cursor: pointer;
     user-select: none;
+    @media (max-width: 850px) {
+        padding: 0.4vh 3vw;
+        margin-left: 1vw;
+    }
+`
+const DesktopInputWrapper = styled(InputWrapper)`
+    display: initial;
+    @media (max-width: 850px) {
+        display: none;
+    }
+`
+const MobileInputWrapper = styled(InputWrapper)`
+    display: none;
+    @media (max-width: 850px) {
+        display: initial;
+    }
 `
 

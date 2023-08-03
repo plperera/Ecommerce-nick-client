@@ -137,6 +137,15 @@ const InputContainer = styled.div`
         font-weight: 500;
         margin-top: 16px;
     }
+    @media (max-width: 850px) {
+        justify-content: end;
+        input {
+            font-size: 10px;
+        }
+        label {
+            font-size: 11px;
+        }
+    }
 `
 const StockInputContainer = styled(InputContainer)`
     width: 32%;

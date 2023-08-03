@@ -37,6 +37,10 @@ const Container = styled.div`
             background-color: #0000003F;
         }
     }
+    @media (max-width: 850px) {
+        width: 100%;
+        height: 15vh;
+    }
 `
 const Title = styled.div`
     display: flex;

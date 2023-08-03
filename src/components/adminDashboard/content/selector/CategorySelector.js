@@ -114,4 +114,7 @@ const CategoryCard = styled.div`
     color: ${props => props.isSelected ? ("#FFFFFF"):("#171717")};
     cursor: pointer;
     user-select: none;
+    @media (max-width: 850px) {
+        width: 140px
+    }
 `

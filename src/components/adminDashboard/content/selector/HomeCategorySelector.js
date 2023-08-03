@@ -23,4 +23,7 @@ const Container = styled.div`
     border-radius: 5px;
     margin-top: calc(2vh + 7vh);
     cursor: pointer;
+    @media (max-width: 850px) {
+        justify-content: space-between;
+    }
 `

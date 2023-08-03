@@ -83,16 +83,29 @@ export default function Title ({setSelectedProduct, productData, form, setForm, 
             <h1>{"Editar Produto"}</h1>
            
             {productData ? (
-                <ButtonContainer>
-                    {productData.isActive ? (
-                        <Button onClick={() => deleteProduct()} backgroundhover={"#C71313 !important"} background={"#A70B0B !important"}>{"Desativar"}</Button> 
-                    ):(
-                        <Button onClick={() => enableProduct()} backgroundhover={"#28C713 !important"} background={"#18A705 !important"}>{"Habilitar"}</Button> 
-                    )}
-                                      
-                    <Button background={"#006FAA !important"} backgroundhover={"#0085CC !important"} onClick={() => SubmitForm()}>{"Atualizar Produto"}</Button>
-                    <Button onClick={() => setSelectedProduct(undefined)} background={"#949494 !important"}>{"Voltar"}</Button>
-                </ButtonContainer>
+                <>
+                    <ButtonContainer>
+                        {productData.isActive ? (
+                            <Button onClick={() => deleteProduct()} backgroundhover={"#C71313 !important"} background={"#A70B0B !important"}>{"Desativar"}</Button> 
+                        ):(
+                            <Button onClick={() => enableProduct()} backgroundhover={"#28C713 !important"} background={"#18A705 !important"}>{"Habilitar"}</Button> 
+                        )}
+                                        
+                        <Button background={"#006FAA !important"} backgroundhover={"#0085CC !important"} onClick={() => SubmitForm()}>{"Atualizar Produto"}</Button>
+                        <Button onClick={() => setSelectedProduct(undefined)} background={"#949494 !important"}>{"Voltar"}</Button>
+                    </ButtonContainer>
+
+                    <MobileButtonContainer>
+                        {productData.isActive ? (
+                            <Button width={"30%"} fontsize={"12px !important"} onClick={() => deleteProduct()} backgroundhover={"#C71313 !important"} background={"#A70B0B !important"}>{"Desativar"}</Button> 
+                        ):(
+                            <Button width={"30%"} fontsize={"12px !important"} onClick={() => enableProduct()} backgroundhover={"#28C713 !important"} background={"#18A705 !important"}>{"Habilitar"}</Button> 
+                        )}
+                                        
+                        <Button width={"30%"} fontsize={"12px !important"} background={"#006FAA !important"} backgroundhover={"#0085CC !important"} onClick={() => SubmitForm()}>{"Atualizar Produto"}</Button>
+                        <Button width={"30%"} fontsize={"12px !important"} onClick={() => setSelectedProduct(undefined)} background={"#949494 !important"}>{"Voltar"}</Button>
+                    </MobileButtonContainer>
+                </>
             ):(<></>)}
             
         </Container>
@@ -116,10 +129,35 @@ const Container = styled.div`
         font-weight: 600;
         padding-top: 1.4vh;
     }
+    @media (max-width: 850px) {
+        width: 100%;
+        height: auto;
+        justify-content: center;
+        padding-bottom: 1vh;
+        border-radius: 15px;
+        flex-direction: column;
+        h1 {
+            font-size: 17px !important;
+            text-align: center;
+            width: 50%;
+        }
+    }
 `
 const ButtonContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
     column-gap: 1.2vw;
+    @media (max-width: 850px) {
+        display: none;
+    }
+`
+const MobileButtonContainer = styled.div`
+    display: none;
+    @media (max-width: 850px) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        column-gap: 1.2vw;
+    }
 `

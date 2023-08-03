@@ -35,6 +35,19 @@ const Container = styled.div`
         font-weight: 600;
         padding-top: 1.4vh;
     }
+    @media (max-width: 850px) {
+        width: 100%;
+        height: auto;
+        justify-content: center;
+        padding-bottom: 1vh;
+        border-radius: 15px;
+        flex-direction: column;
+        h1 {
+            font-size: 17px !important;
+            text-align: center;
+            width: 50%;
+        }
+    }
 `
 const ButtonStyle = styled.div`
     width: auto;
@@ -50,4 +63,8 @@ const ButtonStyle = styled.div`
     color: ${props => props.color};
     font-weight: 600;
     cursor: ${props => props.cursor};
+    @media (max-width: 850px) {   
+        font-size: 17px !important;
+        padding: 0 4vw;
+    }
 `

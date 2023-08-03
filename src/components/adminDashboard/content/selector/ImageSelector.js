@@ -136,6 +136,17 @@ const ImageCard = styled.div`
         font-size: 13px;
         text-align: center;
     }
+    @media (max-width: 850px) {
+        width: 100px;
+        height: 170px;
+        img {
+            max-width: 90px;
+            border-radius: 5px;
+        }
+        h3 {
+            font-size: 11px;
+        }
+    }
 `
 const spinAnimation = keyframes`
   0% { transform: rotate(0deg); }

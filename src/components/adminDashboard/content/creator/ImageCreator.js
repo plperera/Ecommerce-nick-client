@@ -142,6 +142,9 @@ const InputStyled = styled.input`
     border-radius: 0px;
     font-size: 14px;
     font-weight: 600;
+    @media (max-width: 850px) {
+        font-size: 12px;
+    }
 
     ::placeholder{
         color: #171717;
