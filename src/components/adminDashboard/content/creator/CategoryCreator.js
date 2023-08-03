@@ -3,12 +3,15 @@ import { useCustomForm } from "../../../../hooks/useCustomForms";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import api from "../../../../services/API";
+import AdminContext from "../../../../context/AdminContext";
+import { useContext } from "react";
 
 export default function CategoryCreator ({setRefresh, refresh}) {
 
     const [ form, handleForm ] = useCustomForm();
     const [haveAllData, setHaveAllData] = useState(false)
     const [isLoading, setIsLoading] = useState(false);
+    const { adminData } = useContext(AdminContext);
 
     async function sendForm(){
 
@@ -26,10 +29,8 @@ export default function CategoryCreator ({setRefresh, refresh}) {
             name: form?.newCategory
         }
 
-        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyQWRtaW5JZCI6MSwiaWF0IjoxNjg3ODA2MTk0fQ.ygwuAdiC40MOZXAjsNEr-CGDH8FZaS0Sp9Gthtmb8Cg"
-        
         try {           
-            const response = await api.CreateCategory({body, token})
+            const response = await api.CreateCategory({body, token: adminData.token})
 
             if( response.status === 201){
                 setIsLoading(false)

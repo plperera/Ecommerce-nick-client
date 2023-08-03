@@ -5,6 +5,8 @@ import { GrDocumentUpload } from 'react-icons/gr';
 import { toast } from "react-toastify";
 import api from "../../../../services/API";
 import FormData from 'form-data';
+import AdminContext from "../../../../context/AdminContext";
+import { useContext } from "react";
 
 export default function ImageCreator ({setRefresh, refresh}) {
 
@@ -12,6 +14,7 @@ export default function ImageCreator ({setRefresh, refresh}) {
     const [haveAllData, setHaveAllData] = useState(false)
     const [isLoading, setIsLoading] = useState(false);
     const [imageFile, setImageFile] = useState(undefined);
+    const { adminData } = useContext(AdminContext);
     
     function ClearInputs(){
         setImageFile(undefined)
@@ -48,10 +51,8 @@ export default function ImageCreator ({setRefresh, refresh}) {
         formData.append('name', form.imageName);
         formData.append('imageFile', imageFile);
 
-        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyQWRtaW5JZCI6MSwiaWF0IjoxNjg3ODA2MTk0fQ.ygwuAdiC40MOZXAjsNEr-CGDH8FZaS0Sp9Gthtmb8Cg"
-        
         try {           
-            const response = await api.CreateImage({token, formData})
+            const response = await api.CreateImage({token: adminData.token, formData})
 
             if( response.status === 201){
                 setIsLoading(false)
