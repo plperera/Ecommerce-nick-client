@@ -47,6 +47,7 @@ const DashboardLayout = styled.div`
         flex-wrap: wrap;
         width: 100%;
         border-radius: 0;
+        background-color: #FFFFFF00;
     }
 `
 const ContentContainer = styled.div`
