@@ -170,7 +170,8 @@ const Container = styled.div`
     @media (max-width: 850px) {
         min-width: 150px;
         width: 150px;
-        height: 35vh;
+        min-height: 35vh;
+        height: auto;
     } 
 `
 
@@ -342,7 +343,7 @@ const HighPrice = styled(PriceCommonStyle)`
     span {
         text-decoration: line-through;
         text-decoration-thickness: 2px;
-        text-decoration-color: #FFB685;
+        text-decoration-color: #009395ff;
     }
     
 `
@@ -411,7 +412,6 @@ const BudgetButtonStyle = styled(ButtonStyle)`
         width: 80%;
         height: 45%;
         margin: -1vh;
-        background-color: #0074C2;
         &:hover {
             background-color: #088DDA;
         }

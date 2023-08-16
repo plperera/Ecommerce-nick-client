@@ -5,18 +5,6 @@ import CategoryCard from "./CategoryCard"
 import api from "../../services/API"
 
 export default function CategoriesHome () {
-
-    // const Category01 = "https://firebasestorage.googleapis.com/v0/b/imageuploads-7b8bc.appspot.com/o/1689353981757.png?alt=media&token=94990cb7-6043-41ef-b64b-9af87099ac06"
-    // const Category02 = "https://firebasestorage.googleapis.com/v0/b/imageuploads-7b8bc.appspot.com/o/1689354512144.png?alt=media&token=e0c465de-79a5-4e2d-ab1f-6f719f645aa6"
-    // const ExampleArray = [
-    //     {categoryName:"Seccionadoras", description:"Seccionadoras projetadas e produzidas para oferecer ótima relação custo-benefício ao fabricante.", image: Category01}, 
-    //     {categoryName:"Seccionadoras2", description:"Seccionadoras projetadas e produzidas para oferecer ótima relação custo-benefício ao fabricante.", image: Category02}, 
-    //     {categoryName:"Seccionadoras3", description:"Seccionadoras projetadas e produzidas para oferecer ótima relação custo-benefício ao fabricante.", image: Category01}, 
-    //     {categoryName:"Seccionadoras4", description:"Seccionadoras projetadas e produzidas para oferecer ótima relação custo-benefício ao fabricante.", image: Category02}, 
-    //     {categoryName:"Seccionadoras5", description:"Seccionadoras projetadas e produzidas para oferecer ótima relação custo-benefício ao fabricante.", image: Category01},   
-    //     {categoryName:"Seccionadoras6", description:"Seccionadoras projetadas e produzidas para oferecer ótima relação custo-benefício ao fabricante.", image: Category02},   
-    // ]
-
     const [ slide, setSlide ] = useState(0)
     const [ applyAnimation, setApplyAnimation ] = useState(false)
     const [ categoryCardData, setCategoryCardData ] = useState(undefined)
@@ -163,6 +151,9 @@ const ArrowContainer = styled.div`
 const LeftArrowContainer = styled(ArrowContainer)`
     left: 2vw;
     display: ${props => props.display};
+    @media (max-width: 1366px) {
+        left: 0.6vw;
+    }
     @media (max-width: 850px) {
         left: 0vw;
         justify-content: left;
@@ -171,6 +162,9 @@ const LeftArrowContainer = styled(ArrowContainer)`
 const RightArrowContainer = styled(ArrowContainer)`
     right: 2vw;
     display: ${props => props.display};
+    @media (max-width: 1366px) {
+        right: 0.6vw;
+    }
     @media (max-width: 850px) {
         right: 0vw;
         justify-content: right;

@@ -16,7 +16,7 @@ export default function BannerHome () {
 
             <BannerSlide navigateAndMoveUp={navigateAndMoveUp}/>
 
-            <Card/>
+            <Card navigateAndMoveUp={navigateAndMoveUp}/>
             
             
         </Container>

@@ -53,9 +53,10 @@ const Container = styled.div`
     height: 100%;
     background-color: #e6e6e6ff;
     padding: 3vh 2vw;
-
+    
     @media (max-width: 850px) {
         height: 53vh;
+        display: none;
     }
 `
 const SubContainer = styled.div`
@@ -93,6 +94,9 @@ const SubContainer = styled.div`
         margin-left: 1vw;
         cursor: pointer;
     }
+    @media (max-width: 1366px) {  
+        font-size: 10px;     
+    }
 `
 const Title = styled.h1`
     display: flex;
@@ -104,4 +108,7 @@ const Title = styled.h1`
     font-size: 20px;
     text-align: center;
     padding-bottom: 1vh;
+    @media (max-width: 1366px) {  
+        font-size: 16px;     
+    }
 `

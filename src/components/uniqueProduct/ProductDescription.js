@@ -128,7 +128,11 @@ const TopicContainer = styled.div`
     width: 100%; 
     padding: 2vh 0;
     display: flex;
-    column-gap: 2vw;
+    column-gap: 12px;
+    & > :first-child {
+        font-weight: 600;
+    }
+    
     @media (max-width: 850px) {
         font-size: 15px;
     }

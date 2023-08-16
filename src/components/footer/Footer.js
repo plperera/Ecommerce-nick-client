@@ -21,8 +21,7 @@ export default function Footer ({setContent, content, userData}) {
                             <WhatsappIcon/>
                         </a>                  
                     </SocialContainer>
-                    <p>contato@contato.com.br</p>
-                    <p>Atendimento de segunda à sexta das 8 às 17:00hrs</p>
+                    <p>contato@nickteajuda.com.br</p>
                 </InfoContainer>
             </TopContainer>
             <BottomContainer>
@@ -41,7 +40,7 @@ const Container = styled.div`
 `
 const TopContainer = styled.div`
     padding: 0 10vw;
-    height: 18vh;
+    height: 15vh;
     background-color: #02131B;
     display: flex;
     align-items: center;
@@ -58,6 +57,7 @@ const BottomContainer = styled.div`
     height: 5vh;
     background-color: #010B0F;
     display: flex;
+    display: none;
     align-items: center;
     justify-content: space-between;
     p {
@@ -90,8 +90,8 @@ const ImageContainer = styled.div`
     align-items: center;
     justify-content: left;
     img {
-        max-width: 12vw;
-        max-height: 85%;
+        max-width: 14vw;
+        max-height: 90%;
         cursor: pointer;
     } 
     @media (max-width: 850px) {

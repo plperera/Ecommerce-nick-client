@@ -32,7 +32,7 @@ const Container = styled.div`
         height: 77vh; 
     }
     @media (max-width: 850px) {
-        height: 58vh;
+        height: 65vh;
     }
 `
 const Title = styled.h1`
@@ -41,6 +41,7 @@ const Title = styled.h1`
     font-size: 42px;
     font-weight: 600;
     padding-left: 1vw;
+    margin-bottom: 3vh;
     text-shadow: 4px 4px 6px #FFFFFF81;
     @media (max-width: 1366px) {
         font-size: 30px;  
@@ -53,18 +54,21 @@ const Title = styled.h1`
 `
 const ProductOptions = styled.div`
     width: 100%;
-    height: 100%;
+    height: 90%;
     padding-top: 5vh;
     display: flex;
     align-items: center;
     justify-content: left;
     gap: 3vw;
     overflow-x: scroll;
+    padding: 0 1vw;
+    background-color: #00000009;
 
     @media (max-width: 850px) {
         padding-top: 0vh;
         justify-content: left;
         overflow-x: scroll;
+        overflow-y: hidden;
     }
 
     &::-webkit-scrollbar {

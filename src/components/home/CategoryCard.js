@@ -48,9 +48,14 @@ const Container = styled.div`
     animation-iteration-count: 1;
     position: relative;
 
+    @media (max-width: 1366px) {
+        width: 230px;
+        height: auto;
+    }
+
     @media (max-width: 850px) {
-        width: 140px;
-        height: 100%;
+        width: 160px;
+        height: auto;
     }
     :hover {
         transform: translateY(-1vh)
@@ -68,7 +73,7 @@ const ImageContainer = styled.div`
         max-height: 100%;
     }
     @media (max-width: 850px) {
-        height: 150px;
+        height: 100%;
     }
 `
 const spinAnimation = keyframes`

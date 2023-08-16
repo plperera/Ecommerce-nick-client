@@ -6,6 +6,7 @@ import api from "../../../services/API"
 export default function BannerSlide ({navigateAndMoveUp}) {
 
     const [ banners, setBanners ] = useState(undefined)
+    const [slide, setSlide] = useState(0)
 
     useEffect(() => {
         getAllBanners()
@@ -19,8 +20,6 @@ export default function BannerSlide ({navigateAndMoveUp}) {
             console.log(error)
         }
     }
-
-    const [slide, setSlide] = useState(0)
 
     function ChangeSlide(){
         (slide === (banners.length - 1)) ? (setSlide(0)):(setSlide(slide + 1))
@@ -76,8 +75,10 @@ const ImageContainer = styled.div`
     padding: 0 2vw;    
     flex-direction: column;
     border-radius: 0 0 25px 25px;
-    @media (max-width: 1366px) {
-        padding: 0 4vw;    
+    @media (max-width: 850px) {
+        padding: 0 4vw;   
+        width: 100%;
+        border-radius: 0; 
     }
 `
 const Button = styled.div`
@@ -140,9 +141,9 @@ const Slide = styled.div`
     gap: 2vw;
     top: 66vh;
     position: absolute;
-
     @media (max-width: 850px) {
         gap: 4vw;
+        top: 61vh;
     }
 `
 const SlideIcon = styled.div`

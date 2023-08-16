@@ -27,7 +27,7 @@ const fadeIn = keyframes`
     }
 `;
 const Container = styled.div`
-    width: 320px;
+    width: 293px;
     display: flex;
     align-items: center;
     flex-direction: column; 
