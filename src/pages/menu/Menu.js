@@ -33,7 +33,8 @@ export default function Menu () {
 
 const UserMenuContainer = styled.div`
     width: 100%;
-    height: 14vh;
+    //height: 14vh;
+    height: 10.5vh;
     z-index: 9;
     position: fixed;
     top: 0;

@@ -20,7 +20,7 @@ function GetAllProductsByCategory(categoryId) {
     return axios.get(`${BASE_URL}/product/category/${categoryId}`)
 }
 function GetUniqueProductByName(name) {
-    return axios.get(`${BASE_URL}/product/unique/name/${name}`)
+    return axios.get(`${BASE_URL}/product/unique/name/${encodeURIComponent(name)}`)
 }
 function GetAllAddress(token) {
     return axios.get(`${BASE_URL}/address`, {headers: { Authorization: `Bearer ${token}`}})
@@ -133,6 +133,19 @@ function UpdateOrder({body, token}) {
 function CreateNewOrderByPix({token, body}){
     return axios.post(`${BASE_URL}/order/pix`, body, {headers: { Authorization: `Bearer ${token}`}});
 }
+function GetProductsBannerHome() {
+    return axios.get(`${BASE_URL}/homepage/productbanner`)
+}
+function CreateProductsBannerHome({body, token}) {
+    return axios.post(`${BASE_URL}/homepage/productbanner/admin`, body, {headers: { Authorization: `Bearer ${token}`}})
+}
+function UpdateProductsBannerHome({body, token}) {
+    return axios.put(`${BASE_URL}/homepage/productbanner/admin`, body, {headers: { Authorization: `Bearer ${token}`}})
+}
+function DeleteProductsBannerHome({body, token}) {
+    console.log(body, token)
+    return axios.delete(`${BASE_URL}/homepage/productbanner/admin`, {data: body, headers: { Authorization: `Bearer ${token}`}}); 
+}
 
 const api = {
     GetAllCategories,
@@ -178,7 +191,11 @@ const api = {
     GetAllUserOrders,
     GetAllOrders,
     UpdateOrder,
-    CreateNewOrderByPix
+    CreateNewOrderByPix,
+    GetProductsBannerHome,
+    CreateProductsBannerHome,
+    UpdateProductsBannerHome,
+    DeleteProductsBannerHome
 };
 
 export default api;

@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { toast } from "react-toastify"
 import styled from "styled-components"
 import { InputWrapper } from "../../../../userDashboard/content/userData/InputWrapper"
 import Input from "../../../../../common/form/Input"
@@ -16,15 +15,13 @@ export default function TecnicDetails ({ setForm, form }) {
 
 
     function AddMoreImages(){
-        if (lines.length < 5){
-            setLines([...lines, lines.length + 1])
-            const newTecnicDetails = [...form.tecnicDetails]
-            newTecnicDetails.push({topic:'', topicDetail: ''})
-            console.log(newTecnicDetails)
-            setForm({...form, tecnicDetails: newTecnicDetails})
-        } else {
-            toast.dark("Limite de tópicos atingido!!")
-        }
+        
+        setLines([...lines, lines.length + 1])
+        const newTecnicDetails = [...form.tecnicDetails]
+        newTecnicDetails.push({topic:'', topicDetail: ''})
+        console.log(newTecnicDetails)
+        setForm({...form, tecnicDetails: newTecnicDetails})
+        
     }
 
     function handleTecnincDetailsForm(event, index){

@@ -33,6 +33,20 @@ export default function ImageCreator ({setRefresh, refresh}) {
             return
         }
 
+        const validImageTypes = [
+            'image/jpeg', 
+            'image/png', 
+            'image/gif', 
+            'image/bmp', 
+            'image/svg+xml', 
+            'image/webp'
+        ];
+
+        if (!validImageTypes.includes(file.type)) {
+            toast.error('Tipo de arquivo inválido! Por favor, carregue uma imagem válida.');
+            return;
+        }
+
         setImageFile(file)
     }
     async function sendForm(){

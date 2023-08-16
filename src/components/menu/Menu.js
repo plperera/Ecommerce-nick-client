@@ -30,7 +30,8 @@ export default function Menu ({ setExpandMenu }) {
 
 const Container = styled.div`
     width: 100%;
-    height: 75%;
+    //height: 75%;
+    height: 100%;
     padding: 0 10vw;
     background-color: #02131B;
     display: flex;

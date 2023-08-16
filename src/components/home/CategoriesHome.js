@@ -143,7 +143,7 @@ const ArrowContainer = styled.div`
     position: absolute;
     width: 40px;
     height: 100px;
-    top: 115vh;
+    top: 98vh;
     display: flex;
     align-items: center;
     justify-content: center;

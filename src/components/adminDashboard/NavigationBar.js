@@ -12,6 +12,8 @@ import UpdateCategoryHome from "./content/homePage/categoryHome/edit/UpdateCateg
 import CreateShippingMethods from "./content/shippingMethods/create/CreateShippingMethods";
 import PutShipping from "./content/shippingMethods/update/PutShipping";
 import UpdateOrders from "./content/order/update/UpdateOrders";
+import CreateProductCardHome from "./content/homePage/productBannerHome/create/CreateProductCard";
+import UpdateProductCard from "./content/homePage/productBannerHome/edit/UpdateProductCard";
 
 export default function NavigationBar ({setContent}) {
     const options = [
@@ -52,23 +54,41 @@ export default function NavigationBar ({setContent}) {
             ]
         },
         {
-            name:"Home",
+            name:"Banner",
             options: [
                 {
-                    name:"Banners - Novo",
+                    name:"Novo",
                     content: <CreateBannerHome/>
                 },
                 {
-                    name:"Banners - Editar",
+                    name:"Editar",
                     content: <UpdateBannerHome/>
                 },
+            ]
+        },
+        {
+            name:"Card Categorias",
+            options: [
                 {
-                    name:"Categorias - Nova",
+                    name:"Novo",
                     content: <CreateCategoryHome/>
                 },
                 {
-                    name:"Categorias - Editar",
+                    name:"Editar",
                     content: <UpdateCategoryHome/>
+                }
+            ]
+        },
+        {
+            name:"Card Produto",
+            options: [
+                {
+                    name:"Novo",
+                    content: <CreateProductCardHome/>
+                },
+                {
+                    name:"Editar",
+                    content: <UpdateProductCard/>
                 }
             ]
         },

@@ -85,7 +85,11 @@ const SearchInput = styled.input`
     border: 0;
     vertical-align: baseline;
     outline: none;
-    border-bottom: 1.4px solid #FFFFFF;
+
+    background-color: #28373F;
+    border: none;
+    border-radius: 15px;
+
     margin-left: -1.1vw; 
     font-size: 18px;
     color: #FFFFFF;

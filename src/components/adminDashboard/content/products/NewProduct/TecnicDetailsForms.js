@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { toast } from "react-toastify"
 import styled from "styled-components"
 
 export default function TecnicDetails ({ tecnicDetails, setTecnicDetails }) {
@@ -7,14 +6,12 @@ export default function TecnicDetails ({ tecnicDetails, setTecnicDetails }) {
     const [lines, setLines] = useState([1])
 
     function AddMoreImages(){
-        if (lines.length < 5){
-            setLines([...lines, lines.length + 1])
-            const newArray = [...tecnicDetails]
-            newArray.push({topic: "", topicDetail:""})
-            setTecnicDetails(newArray)
-        } else {
-            toast.dark("Limite de tópicos atingido!!")
-        }
+        
+        setLines([...lines, lines.length + 1])
+        const newArray = [...tecnicDetails]
+        newArray.push({topic: "", topicDetail:""})
+        setTecnicDetails(newArray)
+        
     }
 
     function handleTecnincDetailsForm(index, event){

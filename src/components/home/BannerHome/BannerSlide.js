@@ -1,10 +1,9 @@
-import styled from "styled-components"
-import { useState } from "react"
 import { useEffect } from "react"
-import useNavigateAndMoveUp from "../../hooks/useNavigateAndMoveUp"
-import api from "../../services/API"
+import { useState } from "react"
+import styled from "styled-components"
+import api from "../../../services/API"
 
-export default function BannerHome () {
+export default function BannerSlide ({navigateAndMoveUp}) {
 
     const [ banners, setBanners ] = useState(undefined)
 
@@ -20,12 +19,7 @@ export default function BannerHome () {
             console.log(error)
         }
     }
-/*
-    const ExampleArray = [
-        {title: "Aumente a vida útil de suas máquinas", image: Banner01}, 
-        {title: "Excelência com quem realmente conhece", image: Banner02}
-    ]
-*/
+
     const [slide, setSlide] = useState(0)
 
     function ChangeSlide(){
@@ -42,50 +36,35 @@ export default function BannerHome () {
 
     }, [banners?.length, slide]);
 
-    const navigateAndMoveUp = useNavigateAndMoveUp();
 
     return(
-        <Container>
-            {banners ? (
-                <>
-                    <ImageContainer backgroundImage={banners[slide]?.imageUrl}>
+        banners ? (
+            <>
+                <ImageContainer backgroundImage={banners[slide]?.imageUrl}>
 
-                        <Title>{banners[slide].text}</Title>
-                        <Button onClick={() => navigateAndMoveUp({locate: "catalogo"})}>Conheça nosso catálogo</Button>
+                    <Title>{banners[slide].text}</Title>
+                    <Button onClick={() => navigateAndMoveUp({locate: "catalogo"})}>Conheça nosso catálogo</Button>
 
-                    </ImageContainer>
+                </ImageContainer>
 
-                    <Slide>
-                        {banners.map( (e,i) => 
-                            <SlideIcon 
-                                onClick={() => ChangeSlide()} 
-                                backgroundColor={slide === i?("#009395"):("")}
-                                key={i}
-                            />
-                        )}
-                    </Slide>
-                </>
-            ):(
-                <></>
-            )}
-            
-            
-        </Container>
+                <Slide>
+                    {banners.map( (e,i) => 
+                        <SlideIcon 
+                            onClick={() => ChangeSlide()} 
+                            backgroundColor={slide === i?("#009395"):("")}
+                            key={i}
+                        />
+                    )}
+                </Slide>
+            </>
+        ):(
+            <></>
+        )
     )
 }
 
-const Container = styled.div`
-    margin-top: 12vh;
-    width: 100%;
-    height: 73vh;
-    background-color: #02131BD5;
-
-    @media (max-width: 850px) {
-        height: 53vh;
-    }
-`
 const ImageContainer = styled.div`
-    width: 100%;
+    width: 60%;
     height: 100%;
     background-image: url(${props => props.backgroundImage});
     background-repeat: no-repeat;
@@ -94,8 +73,9 @@ const ImageContainer = styled.div`
     display: flex;
     align-items: left;
     justify-content: center;
-    padding: 0 10vw;    
+    padding: 0 2vw;    
     flex-direction: column;
+    border-radius: 0 0 25px 25px;
     @media (max-width: 1366px) {
         padding: 0 4vw;    
     }
@@ -158,7 +138,7 @@ const Slide = styled.div`
     align-items: center;
     justify-content: center;
     gap: 2vw;
-    margin-top: -8vh;
+    top: 66vh;
     position: absolute;
 
     @media (max-width: 850px) {

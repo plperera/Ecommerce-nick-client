@@ -50,7 +50,7 @@ export default function EditCategoryHome ({categoryData, form, handleForm, setFo
     }
 
     function getCategoryId() {
-        const category = categories.find(e => e.name === categoryData?.title);
+        const category = categories.find(e => e.name === categoryData?.categoryName);
         if(category) {
             return {[`category${category.id}`]: category.id};
         }
@@ -61,7 +61,6 @@ export default function EditCategoryHome ({categoryData, form, handleForm, setFo
     useEffect(() => {
         console.log(categoryData)
         setForm({
-            text: categoryData?.subTitle,
             title: categoryData?.title,
             imageUrl: categoryData?.imageUrl
         })
@@ -90,22 +89,6 @@ export default function EditCategoryHome ({categoryData, form, handleForm, setFo
 
     return(
         <Container>
-
-            <div>
-                <h2>
-                    {"Insira o texto que ira aparcerer junto da Categoria"}
-                </h2>
-
-                <Input 
-                    label="Texto" 
-                    type="text" 
-                    name={"text"} 
-                    value={form?.text} 
-                    width="100%"
-                    onChange={handleForm}
-                />
-            </div>  
-
             <div>  
                 <h2>
                     {"Selecione uma Categoria"}

@@ -90,7 +90,7 @@ export default function ContentProductCard ({ productData }) {
 
             </UpContainer>
 
-            <MiddleContainer onClick={() => navigateAndMoveUp({locate: `produto/${productData.name}`})}>
+            <MiddleContainer onClick={() => navigateAndMoveUp({locate: `produto/${encodeURIComponent(productData.name)}`})}>
 
                 <ImageContainer>
 

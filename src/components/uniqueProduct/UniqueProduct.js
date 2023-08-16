@@ -63,9 +63,9 @@ export default function UniqueProduct ({product}) {
                 <>
                     <LeftSideContainer>
 
-                        <MainCategory>{product?.categories[0]?.name}</MainCategory>
+                        {/* <MainCategory>{product?.categories[0]?.name}</MainCategory> */}
                         <ProductName>{product.name.toUpperCase()}</ProductName>
-                        { !product?.stock ? (
+                        { !product?.stock && product?.price !== 0 ? (
                             <>
                                 <LowPrice>
                                     <PriceSign>{"R$ "}</PriceSign><span>{ (product.price / 100).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</span>
@@ -220,13 +220,13 @@ const CommumConfig = styled.div`
     align-items: center;
     justify-content: left;
 `
-const MainCategory = styled(CommumConfig)`
-    font-size: 28px;
-`
+// const MainCategory = styled(CommumConfig)`
+//     font-size: 28px;
+// `
 const ProductName = styled(CommumConfig)`
-    font-size: 21px;
+    font-size: 25px;
     @media (max-width: 1366px) {
-        font-size: 17px;
+        font-size: 19px;
     }
 `
 const PriceSign = styled.span`

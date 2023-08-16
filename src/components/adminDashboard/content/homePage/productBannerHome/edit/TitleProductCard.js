@@ -3,21 +3,21 @@ import Button from "../../../../../../common/form/Button"
 import { toast } from "react-toastify"
 import api from "../../../../../../services/API"
 
-export default function Title ({text, form, adminData, setForm, categoryData, setCategoriesCardSelect}) {
+export default function Title ({text, form, adminData, setForm, productBannerCardData, setProductBannerCardSelect}) {
 
     async function SubmitForm(){
         try {
             const body = {
-                homeCategoryId: categoryData?.categoryCardId,
-                categoryId: form?.categories[0]?.categoryId, 
-                imageId: form.images[0]?.imageId 
+                productBannerId: productBannerCardData?.productBannerId,
+                imageId: form?.images[0]?.imageId,
+                productId: form?.products[0]?.productId
             }
-            const response = await api.UpdateHomeCategory({body, token: adminData?.token})
+            const response = await api.UpdateProductsBannerHome({body, token: adminData?.token})
 
             if (response.status === 200){
-                toast.dark("Card de Categoria Atualizado com Sucesso")
+                toast.dark("Card de Produto Atualizado com Sucesso")
                 setForm({})
-                setCategoriesCardSelect(undefined)
+                setProductBannerCardSelect(undefined)
                 return
             }
         } catch (error) {
@@ -28,15 +28,15 @@ export default function Title ({text, form, adminData, setForm, categoryData, se
     async function deleteHomeCategory(){
         try {
             const body = {
-                homeCategoryId: categoryData?.categoryCardId,
+                productBannerId: productBannerCardData?.productBannerId,
             }
 
-            const result = await api.DeleteHomeCategory({token: adminData?.token, body})
+            const result = await api.DeleteProductsBannerHome({token: adminData?.token, body})
 
             if( result.status === 200){
-                toast.dark("Card de Categoria deletado com Sucesso")
+                toast.dark("Card de Produto deletado com Sucesso")
                 setForm({})
-                setCategoriesCardSelect(undefined)
+                setProductBannerCardSelect(undefined)
                 return
             }
         } catch (error) {
@@ -49,17 +49,17 @@ export default function Title ({text, form, adminData, setForm, categoryData, se
         <Container>
             <h1>{text}</h1>
 
-            {categoryData ? (
+            {productBannerCardData ? (
                 <>
                     <ButtonContainer>
                         <Button onClick={() => deleteHomeCategory()} backgroundhover={"#C71313 !important"} background={"#A70B0B !important"}>{"Desabilitar"}</Button>                    
                         <Button background={"#006FAA !important"} backgroundhover={"#0085CC !important"} onClick={() => SubmitForm()}>{"Atualizar Banner"}</Button>
-                        <Button onClick={() => setCategoriesCardSelect(undefined)} background={"#949494 !important"}>{"Voltar"}</Button>
+                        <Button onClick={() => setProductBannerCardSelect(undefined)} background={"#949494 !important"}>{"Voltar"}</Button>
                     </ButtonContainer>
                     <MobileButtonContainer>
                         <Button width={"30%"} fontsize={"12px !important"}  onClick={() => deleteHomeCategory()} backgroundhover={"#C71313 !important"} background={"#A70B0B !important"}>{"Desabilitar"}</Button>                    
                         <Button width={"30%"} fontsize={"12px !important"}  background={"#006FAA !important"} backgroundhover={"#0085CC !important"} onClick={() => SubmitForm()}>{"Atualizar Banner"}</Button>
-                        <Button width={"30%"} fontsize={"12px !important"}  onClick={() => setCategoriesCardSelect(undefined)} background={"#949494 !important"}>{"Voltar"}</Button>
+                        <Button width={"30%"} fontsize={"12px !important"}  onClick={() => setProductBannerCardSelect(undefined)} background={"#949494 !important"}>{"Voltar"}</Button>
                     </MobileButtonContainer>
                 </>
             ):(<></>)}

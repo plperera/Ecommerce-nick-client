@@ -1,14 +1,13 @@
 import { useState } from "react";
 import styled, { keyframes } from "styled-components"
 
-export default function HomeCategoryCard ({ categoryData, setCategoriesCardSelect }) {
-    console.log(categoryData)
+export default function ProductBannerCard ({setProductBannerCardSelect, productBannerData}) {
     const [isLoading, setIsLoading] = useState(true);
     return(
-        <Container onClick={() => setCategoriesCardSelect(categoryData)}>
+        <Container onClick={() => setProductBannerCardSelect(productBannerData)}>
             {isLoading && <Spinner />}
             <ImageContainer>
-                <img src={categoryData.imageUrl} alt="" onLoad={() => setIsLoading(false)}/>
+                <img src={productBannerData?.imageUrl} alt="" onLoad={() => setIsLoading(false)}/>
             </ImageContainer>  
         </Container>
     )

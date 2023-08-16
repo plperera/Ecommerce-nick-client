@@ -1,11 +1,12 @@
 import styled from "styled-components"
-import BannerHome from "../../components/home/BannerHome"
+
 import CategoriesHome from "../../components/home/CategoriesHome"
 import HighlightsHome from "../../components/home/HighlightsHome"
 import api from "../../services/API"
 import { useContext, useState } from "react"
 import { useEffect } from "react"
 import UserContext from "../../context/UserContext"
+import BannerHome from "../../components/home/BannerHome/BannerHome"
 
 export default function Home () {
 
@@ -45,7 +46,7 @@ export default function Home () {
 }
 
 const Container = styled.div`
-    margin-top: 14vh;
+    margin-top: 10.5vh;
     width: 100%;
     min-height: 73vh;
     background-color: #E6E6E6;

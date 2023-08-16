@@ -10,14 +10,19 @@ import { useEffect } from "react";
 export default function UniqueProduct () {
 
     const { productName } = useParams();
+    console.log(decodeURIComponent(productName))
     const [product, setProduct] = useState(undefined)
     const [moreProduct, setMoreProduct] = useState(undefined)
 
     async function GetData(){
-        const responseByName = await api.GetUniqueProductByName(productName)
-        setProduct(responseByName.data)
-        const responseByCategoryId = await api.GetAllProductsByCategory(responseByName.data?.categories[0]?.categoryId)
-        setMoreProduct(responseByCategoryId.data.filter(e => e.productId !== responseByName.data.productId))
+        try {
+            const responseByName = await api.GetUniqueProductByName(decodeURIComponent(productName))   
+            setProduct(responseByName.data)
+            const responseByCategoryId = await api.GetAllProductsByCategory(responseByName.data?.categories[0]?.categoryId)
+            setMoreProduct(responseByCategoryId.data.filter(e => e.productId !== responseByName.data.productId))
+        } catch (error) {
+            console.log(error)
+        }   
     }
 
     useEffect(() => {

@@ -9,23 +9,27 @@ export default function Title ({text, form, adminData, setForm}) {
 
     const [hasAllData, setHasAllData] = useState()
 
+    useEffect(() => {
+        console.log(form)
+    }, [form])
+
     async function SubmitForm(){
         try {
 
-            if(!form?.images[0]?.imageId && !form?.categories[0]?.categoryId){
+            if(!form?.images[0]?.imageId && !form?.products[0]?.productId){
                 return
             }
 
             const body = {
                 imageId: form?.images[0]?.imageId,
-                categoryId: form?.categories[0]?.categoryId
+                productId: form?.products[0]?.productId
             }
 
-            const result = await api.CreateHomeCategory({token: adminData?.token, body})
+            const result = await api.CreateProductsBannerHome({token: adminData?.token, body})
 
             if( result.status === 201){
-                toast.dark("Categoria Criada com Sucesso")
-                setForm({images:'', categories:''})
+                toast.dark("Card de Produto Criado com Sucesso")
+                setForm({images:'', products:''})
                 return
             }
 
@@ -36,7 +40,7 @@ export default function Title ({text, form, adminData, setForm}) {
     }
 
     useEffect(() => {
-        if(form?.images?.length > 0 && form?.categories?.length > 0){
+        if(form?.images?.length > 0 && form?.products?.length > 0){
             setHasAllData(true)
             return
         }
