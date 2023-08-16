@@ -10,7 +10,7 @@ export default function CategoryCard ({category, applyAnimation, navigateAndMove
 
             {isLoading && <Spinner />}
             <ImageContainer>
-                <img src={category.imageUrl} alt="" onLoad={() => setIsLoading(false)}/>
+                <img src={category?.imageUrl} alt="" onLoad={() => setIsLoading(false)}/>
             </ImageContainer>            
         </Container>
     )
