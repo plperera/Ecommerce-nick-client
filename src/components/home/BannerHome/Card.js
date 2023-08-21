@@ -41,7 +41,7 @@ export default function Card ({navigateAndMoveUp}) {
             { banners ? (
                 <>
                     <ImageContainer onClick={() => navigateAndMoveUp({locate: `produto/${encodeURIComponent(banners[slide].productName)}`})}>
-                        <img src={banners[slide].imageUrl} alt="" />  
+                        <img src={banners[slide]?.imageUrl} alt="" />  
                     </ImageContainer>
 
                     <Slide>
