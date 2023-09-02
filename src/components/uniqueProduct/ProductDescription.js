@@ -3,7 +3,7 @@ import styled from "styled-components"
 
 export default function ProductDescription({product}) {
 
-    const [show, setShow] = useState(false)
+    const [show, setShow] = useState(true)
     return(
         <Container>
             <Title>

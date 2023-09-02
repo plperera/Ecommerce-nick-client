@@ -79,11 +79,13 @@ const ImageContainer = styled.div`
     width: 100%;
     height: 100%;
     cursor: pointer;
-    @media (max-width: 1366px) {
-        img {
-            max-width: 100%;
-            max-height: 100%;
-        }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img {
+        max-width: 100%;
+        max-height: 100%;
+        border-radius: 15px;
     }
 `
 const Slide = styled.div`

@@ -84,7 +84,6 @@ export default function ContentProductCard ({ productData }) {
                 </RateSession>
 
                 <FavoriteSession onClick={() => handleFavorite()}>
-                    <div>{hasFavorite ? ("Favorito"):("Favoritar")}</div>
                     {hasFavorite ? (<FavoriteFilledStyledIcon/>):(<FavoriteStyledIcon/>)}
                 </FavoriteSession>
 
@@ -228,24 +227,24 @@ const RateStyledIcon = styled(FaStar)`
 `
 const FavoriteStyledIcon = styled(HiOutlineHeart)`
     margin-top: -2.5px;
-    font-size: 25px;
+    font-size: 29px;
     font-weight: 700;
     @media (max-width: 1366px) {
-        font-size: 19px;
+        font-size: 21px;
     }
     @media (max-width: 850px) {
-        font-size: 14.5px;
+        font-size: 16px;
     }
 `
 const FavoriteFilledStyledIcon = styled(HiHeart)`
     margin-top: -2.5px;
-    font-size: 27px;
+    font-size: 29px;
     font-weight: 700;
     @media (max-width: 1366px) {
-        font-size: 19px;
+        font-size: 21px;
     }
     @media (max-width: 850px) {
-        font-size: 14.5px;
+        font-size: 16px;
     }
 `
 //MIDDLECONTAINER -----------------------

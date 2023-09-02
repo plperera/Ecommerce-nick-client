@@ -4,9 +4,10 @@ import styled, { keyframes } from "styled-components"
 export default function CategoryCard ({category, applyAnimation, navigateAndMoveUp}) {
 
     const [isLoading, setIsLoading] = useState(true);
+    console.log(category)
 
     return(
-        <Container height={"425px"} applyAnimation={applyAnimation} onClick={() => navigateAndMoveUp({locate:`catalogo/${category.title}`})}>
+        <Container height={"425px"} applyAnimation={applyAnimation} onClick={() => navigateAndMoveUp({locate:`catalogo/${category?.categoryName}`})}>
 
             {isLoading && <Spinner />}
             <ImageContainer>

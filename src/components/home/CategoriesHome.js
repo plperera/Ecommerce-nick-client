@@ -108,7 +108,8 @@ const CategoryContainer = styled.div`
     height: 425px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+    column-gap: 2.6vw;
     user-select: none;
     @media (max-width: 850px) {
         display: none;
@@ -142,6 +143,9 @@ const ArrowContainer = styled.div`
     color: #009395ff;
     &:hover {
         color: #00BFC2;
+    }
+    @media (max-width: 1366px) {
+        top: 104vh;
     }
     @media (max-width: 850px) {
         top: 88vh;
