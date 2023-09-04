@@ -82,6 +82,8 @@ const ImageContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    //background-color: white;
+    //border-radius: 15px;
     img {
         max-width: 100%;
         max-height: 100%;

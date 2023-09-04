@@ -5,53 +5,66 @@ import { IoMdCloseCircle } from 'react-icons/io';
 
 export default function Filter ({categories, selected, selectOption}) {
 
+    const [ showFilter, setShowFilter ] = useState(true)
     const [ expandFilter, setExpandFilter ] = useState(false)
 
     return(
         <Container>
-                
             <Title>
                 {selected?(selected):("Todos os Produtos")}
                 {selected?(<ClearFilterContainer onClick={() => selectOption(selected)}>{"X"}</ClearFilterContainer>):(<></>)}
             </Title>
-            
 
-            <SubContainer>
+            <SubContainer showFilter={showFilter}>
 
-                <UpperContainer>
-                    <SubTitle>Selecione um filtro</SubTitle>
-                    <ExpandButton onClick={ () => setExpandFilter(!expandFilter)}>{ expandFilter ? ("Minimizar"):("Ver Todas")}</ExpandButton>
+                <UpperContainer showFilter={showFilter}>
+                    <SubTitle showFilter={showFilter}>Selecione uma Categoria</SubTitle>
+                    <ButtonContainer>
+                        <ShowFilterButton 
+                            onClick={() => setShowFilter(!showFilter)}
+                            showFilter={showFilter}
+                        >
+                            { showFilter ? ("Esconder Filtro"):("Abrir filtro")}
+                        </ShowFilterButton>
+                        <ExpandButton 
+                            onClick={ () => setExpandFilter(!expandFilter)}
+                            showFilter={showFilter}
+                        >
+                            {expandFilter ? ("Mostra menos"):("Ver Todas")}
+                        </ExpandButton>
+                    </ButtonContainer>
                 </UpperContainer>
 
-                {/* Opções de categoria para DESKTOP */}
-                <OptionsContainer>
+                { showFilter ? (
+                        <>    
+                            {/* Opções de categoria para DESKTOP */}
+                            <OptionsContainer>
 
-                    {categories?(
+                                {categories?(
 
-                        categories.map( (e, i) => 
-                            i < (expandFilter ? (99):(7)) && <FilterOptionCard name={e?.name} key={i} selected={selected} selectOption={selectOption}/>
-                        )
+                                    categories.map( (e, i) => 
+                                        i < (expandFilter ? (99):(7)) && <FilterOptionCard name={e?.name} key={i} selected={selected} selectOption={selectOption}/>
+                                    )
 
-                    ):(<SpinnerContainer><Spinner/></SpinnerContainer>)}
+                                ):(<SpinnerContainer><Spinner/></SpinnerContainer>)}
 
-                </OptionsContainer>
-                
-                {/* Opções de categoria para MOBILE */}
-                <MobileOptionsContainer>
+                            </OptionsContainer>
+                            
+                            {/* Opções de categoria para MOBILE */}
+                            <MobileOptionsContainer>
 
-                    {categories?(
+                                {categories?(
 
-                        categories.map( (e, i) => 
-                            i < (expandFilter ? (99):(3)) && <FilterOptionCard name={e?.name} key={i} selected={selected} selectOption={selectOption}/>
-                        )
+                                    categories.map( (e, i) => 
+                                        i < (expandFilter ? (99):(3)) && <FilterOptionCard name={e?.name} key={i} selected={selected} selectOption={selectOption}/>
+                                    )
 
-                    ):(<SpinnerContainer><Spinner/></SpinnerContainer>)}
+                                ):(<SpinnerContainer><Spinner/></SpinnerContainer>)}
 
-                </MobileOptionsContainer>
-
+                            </MobileOptionsContainer>
+                        </>
+                    ):(<></>)}
             </SubContainer>
-                
-
         </Container>
     )
 }
@@ -63,29 +76,37 @@ const Container = styled.div`
     //border: 1px solid red;
 `
 const Title = styled.div`
-    font-size: 38px;
+    font-size: 28px;
+    font-weight: 600;
     display: flex; 
     align-items: center;
     justify-content: left;
     color: #ffffff;
+    @media (max-width: 1366px) {
+        font-size: 21px;
+    }
     @media (max-width: 850px) {
         font-size: 25px;
         padding-top: 2vh;
     }
 `
 const SubContainer = styled.div`
-    width: 100%;
     border-radius: 5px;
+    width: ${props => props.showFilter ? ("100%"):("10%")};
     background-color: #00000042;
     margin-top: 2vh;
-    padding: 2vh 1vw;
+    padding: 1vh 1vw;
+    @media (max-width: 1366px) {
+        padding: 2vh 1vw;
+        width: ${props => props.showFilter ? ("100%"):("12%")};
+    }
 `
 const UpperContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    padding-bottom: 2vh;
+    padding-bottom: ${props => props.showFilter ? ("2vh"):("0")};
     @media (max-width: 850px) {
         padding: 0 3vw;
         padding-bottom: 2vh;
@@ -95,20 +116,29 @@ const SubTitle = styled.div`
     font-weight: 700;
     font-size: 19px;
     color: #ffffff;
-    display: flex; 
+    display: ${props => props.showFilter ? ("flex"):("none")};
     align-items: center;
     justify-content: left;
-
+    @media (max-width: 1366px) {
+        font-size: 16px;
+    }
     @media (max-width: 850px) {
         font-size: 14px;
     }
+`
+const ButtonContainer = styled.div`
+    width: auto;
+    column-gap: 1.5vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 `
 const ExpandButton = styled.div`
     padding: 0 1.7vw;
     height: 4vh;
     background-color: #009395;
     border-radius: 5px;
-    display: flex;
+    display: ${props => props.showFilter ? ("flex"):("none")};
     align-items: center;
     justify-content: center;
     font-weight: 700;
@@ -116,7 +146,34 @@ const ExpandButton = styled.div`
     color: #FFFFFF;
     user-select: none;
     cursor: pointer;
-
+    @media (max-width: 1366px) {
+        font-size: 14px;
+    }
+    @media (max-width: 850px) {
+        font-size: 12px;
+        padding: 0 3vw;
+    }
+`
+const ShowFilterButton = styled.div`
+    padding: 0 .9vw;
+    height: 4vh;
+    background-color: #00929500;
+    border: 2px solid #009295;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 14px;
+    color: #FFFFFF;
+    user-select: none;
+    cursor: pointer;
+    :hover {
+        background-color: #009295;
+    }
+    @media (max-width: 1366px) {
+        font-size: 12px;
+    }
     @media (max-width: 850px) {
         font-size: 12px;
         padding: 0 3vw;
@@ -130,6 +187,9 @@ const OptionsContainer = styled.div`
     column-gap: 1.2vw;
     row-gap: 1vh;
     flex-wrap: wrap;
+    @media (max-width: 1366px) {
+        column-gap: 1.36vw;
+    }
     @media (max-width: 850px) {
         display: none;
     }
