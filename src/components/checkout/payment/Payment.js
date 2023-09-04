@@ -3,7 +3,7 @@ import CreditCard from "./CreditCard"
 import Pix from "./Pix"
 import { useState } from "react"
 
-export default function Payment ({userData, checkoutDetails}) {
+export default function Payment ({userData, checkoutDetails, selectedSession, setSelectedSession}) {
     const [paymentSelected, setPaymentSelected] = useState(undefined)
 
     function SelectPayment(method) {
@@ -14,7 +14,7 @@ export default function Payment ({userData, checkoutDetails}) {
     }
 
     return(
-        <Container>  
+        <Container isSelected={selectedSession === 2}>  
             <Title>{"Pagamento"}</Title>
 
             <SubContainer>
@@ -35,6 +35,8 @@ const Container = styled.div`
     align-items: start;
     justify-content: center;
     flex-direction: column;
+    pointer-events: ${props => props.isSelected ? ("initial"):("none")};
+    opacity: ${props => props.isSelected ? ("1"):(".8")};
     @media (max-width: 850px) {
         width: 100%;
         margin-top: 3vh;

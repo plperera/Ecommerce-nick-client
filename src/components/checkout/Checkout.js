@@ -8,6 +8,7 @@ import { useState } from "react"
 export default function Checkout ({userData, allAddress, refreshAddress, setRefreshAddress}) {
 
     const [ checkoutDetails, setCheckoutDetails ] = useState({})
+    const [ selectedSession, setSelectedSession ] = useState(0)
 
     return(
         <Container>  
@@ -19,16 +20,22 @@ export default function Checkout ({userData, allAddress, refreshAddress, setRefr
                 setRefreshAddress={setRefreshAddress} 
                 setCheckoutDetails={setCheckoutDetails} 
                 checkoutDetails={checkoutDetails}
+                selectedSession={selectedSession} 
+                setSelectedSession={setSelectedSession}
             />
 
             <OrderResume
                 userData={userData}
                 checkoutDetails={checkoutDetails}
+                selectedSession={selectedSession} 
+                setSelectedSession={setSelectedSession}
             />
 
             <Payment 
                 userData={userData}
                 checkoutDetails={checkoutDetails}
+                selectedSession={selectedSession} 
+                setSelectedSession={setSelectedSession}
             />
         </Container>
     )

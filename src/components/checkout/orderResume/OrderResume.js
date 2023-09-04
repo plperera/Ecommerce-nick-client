@@ -4,8 +4,9 @@ import styled from "styled-components"
 import ResumeProductCard from "./ResumeProductCard"
 import api from "../../../services/API"
 import { toast } from "react-toastify"
+import Button from "../../../common/form/Button"
 
-export default function OrderResume ({ userData, checkoutDetails }) {
+export default function OrderResume ({ userData, checkoutDetails, selectedSession, setSelectedSession }) {
 
     const [products, setProducts] = useState(undefined)
 
@@ -38,6 +39,20 @@ export default function OrderResume ({ userData, checkoutDetails }) {
         setProducts(updatedCartProducts)
     }
 
+    function HandleSession() { 
+        if (!checkoutDetails?.addressId || !checkoutDetails?.shippingId || !checkoutDetails?.shippingPrice){
+            toast.warning("Selecione o Endereço e o Método de Entrega")
+            setSelectedSession(0)
+            return
+        }
+        setSelectedSession(2)
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });   
+        return 
+    }
+
     useEffect(() => {
         console.log(products)
     }, [products])
@@ -51,7 +66,7 @@ export default function OrderResume ({ userData, checkoutDetails }) {
     }
 
     return(
-        <Container>  
+        <Container isSelected={selectedSession === 1}>  
             <Title>{"Resumo do pedido"}</Title>
             <SubContainer>
                 {products ? (
@@ -73,6 +88,19 @@ export default function OrderResume ({ userData, checkoutDetails }) {
                             <h5>{((userData.totalPrice + (checkoutDetails.shippingPrice || 0)) / 100).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</h5>
                         </ResumeLine>
 
+                        <ButtonContainer>
+                            <Button 
+                                width={"80%"} 
+                                height={"45px"} 
+                                fontsize={"18px !important"} 
+                                background={"#008183 !important"} 
+                                backgroundhover={"#009395ff !important"}
+                                onClick={() => HandleSession()}
+                            >
+                                {"Ir para o Pagamento"}
+                            </Button>
+                        </ButtonContainer>
+
                     </>
                 ):(<></>)}
 
@@ -88,6 +116,8 @@ const Container = styled.div`
     align-items: start;
     justify-content: center;
     flex-direction: column;
+    pointer-events: ${props => props.isSelected ? ("initial"):("none")};
+    opacity: ${props => props.isSelected ? ("1"):(".8")};
     @media (max-width: 850px) {
         width: 100%;
         margin-top: 3vh;
@@ -130,4 +160,11 @@ const ResumeLine = styled.div`
         padding: 2vh 3vw;
         font-size: 16px;
     } 
+`
+const ButtonContainer = styled.div`
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5vh 0;
 `

@@ -3,9 +3,9 @@ import UserData from "./userData/UserData"
 import AddressSelector from "./address/AddressSelector"
 import DeliveryMethod from "./delivery/DeliveryMethod"
 
-export default function Identification ({userData, allAddress, refreshAddress, setRefreshAddress, checkoutDetails, setCheckoutDetails}) {
+export default function Identification ({userData, allAddress, refreshAddress, setRefreshAddress, checkoutDetails, setCheckoutDetails, selectedSession, setSelectedSession}) {
     return(
-        <Container>  
+        <Container isSelected={selectedSession === 0}>  
 
             <Title>{"Identificação"}</Title>
 
@@ -27,6 +27,7 @@ export default function Identification ({userData, allAddress, refreshAddress, s
                 <DeliveryMethod
                     checkoutDetails={checkoutDetails} 
                     setCheckoutDetails={setCheckoutDetails}
+                    setSelectedSession={setSelectedSession}
                 />
 
             </SubContainer>
@@ -41,6 +42,8 @@ const Container = styled.div`
     align-items: start;
     justify-content: center;
     flex-direction: column;
+    pointer-events: ${props => props.isSelected ? ("initial"):("none")};
+    opacity: ${props => props.isSelected ? ("1"):(".8")};
     @media (max-width: 850px) {
         width: 100%;
     }

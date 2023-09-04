@@ -4,23 +4,36 @@ import styled from "styled-components"
 import MethodCard from "./MethodCard"
 import Button from "../../../../common/form/Button"
 import api from "../../../../services/API"
+import { toast } from "react-toastify"
 
-export default function DeliveryMethod ({checkoutDetails, setCheckoutDetails}) {
+export default function DeliveryMethod ({checkoutDetails, setCheckoutDetails, setSelectedSession}) {
 
     const [deliveryMethodSelector, setDeliveryMethodSelector] = useState(undefined)
     const [deliveryMethods, setDeliveryMethods] = useState(undefined)
 
-    function ScrollToTop() { 
+    function HandleSession() { 
+        if (!checkoutDetails?.addressId || !checkoutDetails?.shippingId || !checkoutDetails?.shippingPrice){
+            toast.warning("Selecione o Endereço e o Método de Entrega")
+            return
+        }
+        setSelectedSession(1)
         window.scrollTo({
             top: 0,
             behavior: "smooth"
-        });    
+        });   
+        return 
     }
-    function ScrollToDown() { 
+    function HandleSessionMobile() { 
+        if (!checkoutDetails?.addressId || !checkoutDetails?.shippingId || !checkoutDetails?.shippingPrice){
+            toast.warning("Selecione o Endereço e o Método de Entrega")
+            return
+        }
+        setSelectedSession(1)
         window.scrollTo({
             top: 900,
             behavior: "smooth"
         });    
+        return      
     }
 
     useEffect(() => {
@@ -64,9 +77,9 @@ export default function DeliveryMethod ({checkoutDetails, setCheckoutDetails}) {
                     fontsize={"18px !important"} 
                     background={"#008183 !important"} 
                     backgroundhover={"#009395ff !important"}
-                    onClick={() => ScrollToDown()}
+                    onClick={() => HandleSessionMobile()}
                 >
-                    {"▼"}
+                    {"Prosseguir"}
                 </Button>
             </MobileButtonContainer>
 
@@ -77,9 +90,9 @@ export default function DeliveryMethod ({checkoutDetails, setCheckoutDetails}) {
                     fontsize={"18px !important"} 
                     background={"#008183 !important"} 
                     backgroundhover={"#009395ff !important"}
-                    onClick={() => ScrollToTop()}
+                    onClick={() => HandleSession()}
                 >
-                    {"Ir para o Pagamento"}
+                    {"Prosseguir"}
                 </Button>
             </ButtonContainer>
         </Container>

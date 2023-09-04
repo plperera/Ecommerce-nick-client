@@ -1,6 +1,5 @@
 import styled, { keyframes } from "styled-components"
 import { useEffect, useState } from "react"
-import useNavigateAndMoveUp from "../../hooks/useNavigateAndMoveUp"
 import ContentProductCard from "../products/ContentProductCard"
 
 export default function HighlightsHome ({ products }) {
