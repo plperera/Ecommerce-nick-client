@@ -72,11 +72,11 @@ export default function AllProducts () {
 }
 
 const Container = styled.div`
-    margin-top: 14vh;
+    margin-top: 10.5vh;
     width: 100%;
     min-height: 73vh;
     background-color: #0A1F2A;
-    padding: 3vw 10vw;
+    padding: 2.5vw 10vw;
     @media (max-width: 850px) {
         padding: 3vw 2vw;
         margin-top: 18vh;

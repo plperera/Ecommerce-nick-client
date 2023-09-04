@@ -40,8 +40,8 @@ export default function Inputs ({handleForm, form}) {
 
             <DescriptionInputContainer>
                 <label>{"Descrição"}</label>
-                <input 
-                    placeholder="Descrição" 
+                <textarea 
+                    placeholder="Descrição do Produto..." 
                     onChange={handleForm}
                     value={form.description}
                     name={"description"}
@@ -158,4 +158,25 @@ const NameInputContainer = styled(InputContainer)`
 `
 const DescriptionInputContainer = styled(InputContainer)`
     width: calc( 99% + 1vw);
+    textarea {
+        margin-top: 10px;
+        max-width: 100%;
+        height: 200px;
+        padding: 10px;
+        border: 2px solid #02131B;
+        border-radius: 0px;
+        resize: vertical;  // permite o redimensionamento vertical
+        font-size: 14px;
+        font-weight: 600;
+        color: #02131B;
+        ::placeholder{
+            color: #171717;
+            opacity: .2;
+        }
+        &:focus {
+            outline: none;
+            border-color: #007BFF;
+            border-radius: 10px;
+        }
+    }
 `

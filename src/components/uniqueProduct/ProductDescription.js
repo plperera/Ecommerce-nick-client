@@ -2,7 +2,7 @@ import { useState } from "react"
 import styled from "styled-components"
 
 export default function ProductDescription({product}) {
-
+    console.log(product)
     const [show, setShow] = useState(true)
     return(
         <Container>
@@ -11,7 +11,7 @@ export default function ProductDescription({product}) {
             </Title>
 
             <DescriptionContainer>
-                <p>{product?.description}</p>
+                <pre>{product?.description}</pre>
             </DescriptionContainer>
 
             {product?.tecnicDetails ? (
@@ -70,17 +70,26 @@ const Title = styled.div`
     }
 `
 const DescriptionContainer = styled.div`
-    padding-bottom: 2vh;
+    padding-bottom: 3%;
     display: flex;
     align-items: center;
-    p {
+    pre {
+        max-width: 100%;
         text-align: left;
         line-height: 3.2vh;
         user-select: none;
-        font-size: 20px;
+        font-size: 17px;  
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        overflow-x: auto;
+
+        padding: 15px;
+        border-radius: 8px;
+        background-color: #F5F5F54F;
+        border: 1px solid #E0E0E027;
     }
     @media (max-width: 850px) {
-        p {
+        pre {
             line-height: 3.8vh;
             font-size: 15px;
         }

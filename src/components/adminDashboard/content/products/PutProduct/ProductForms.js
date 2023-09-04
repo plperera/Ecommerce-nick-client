@@ -159,7 +159,7 @@ export default function ProductForms ({form, handleForm, setForm, productData, t
                         </InputWrapper>
 
                         <InputWrapper width={"100%"}>
-                            <Input 
+                            <StyledTextArea 
                                 label="Descrição sobre o Produto"     
                                 type="text" 
                                 name={"description"} 
@@ -386,4 +386,26 @@ const MobileInputWrapper = styled(InputWrapper)`
         display: initial;
     }
 `
-
+const StyledTextArea = styled.textarea`
+    margin-top: 10px;
+    max-width: 100%;
+    min-width: 100%;
+    height: 200px;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 7px;
+    resize: vertical;  // permite o redimensionamento vertical
+    font-size: 14px;
+    font-weight: 600;
+    color: #02131B;
+    box-sizing: border-box;
+    ::placeholder{
+        color: #171717;
+        opacity: .2;
+    }
+    &:focus {
+        outline: none;
+        border: 2px solid #009395ff;
+        border-radius: 10px;
+    }
+`

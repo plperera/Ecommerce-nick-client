@@ -30,8 +30,7 @@ export default function UserAccount () {
 
 const Container = styled.div`
     width: 100%;
-    padding-top: 14vh;
-    padding: calc(14vh + 3vh) 10vw 3vh 10vw;
+    padding: calc(10.5vh + 3vh) 10vw 3vh 10vw;
     background-color: #0A1F2A;
     display: flex;
     justify-content: center;

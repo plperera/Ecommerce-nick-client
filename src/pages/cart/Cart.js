@@ -116,7 +116,7 @@ export default function Cart () {
 }
 
 const Container = styled.div`
-    margin-top: 11vh;
+    margin-top: 10.5vh;
     width: 100%;
     background-color: #0A1F2A;
     padding: 3vw 10vw 2vw 10vw;
