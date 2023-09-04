@@ -1,12 +1,13 @@
 import styled from "styled-components"
 
 import CategoriesHome from "../../components/home/CategoriesHome"
-import HighlightsHome from "../../components/home/HighlightsHome"
+
 import api from "../../services/API"
 import { useContext, useState } from "react"
 import { useEffect } from "react"
 import UserContext from "../../context/UserContext"
 import BannerHome from "../../components/home/BannerHome/BannerHome"
+import HighlightsHome from "../../components/home/HighlightsHome"
 
 export default function Home () {
 
@@ -40,7 +41,8 @@ export default function Home () {
         <Container>
             <BannerHome/>
             <CategoriesHome/>
-            <HighlightsHome products={products}/>
+            {/* <HighlightsHome products={products}/> */}
+            <HighlightsHome products={products} />
         </Container>
     )
 }

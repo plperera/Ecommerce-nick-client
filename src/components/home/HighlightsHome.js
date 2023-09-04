@@ -1,104 +1,175 @@
 import styled, { keyframes } from "styled-components"
-import Background from "../../assets/images/background-produtos-em-alta.png"
+import { useEffect, useState } from "react"
+import useNavigateAndMoveUp from "../../hooks/useNavigateAndMoveUp"
 import ContentProductCard from "../products/ContentProductCard"
 
-export default function CategoriesHome ({products}) {
+export default function HighlightsHome ({ products }) {
+    const [ slide, setSlide ] = useState(0)
+    const [ applyAnimation, setApplyAnimation ] = useState(false)
+
+    useEffect(() => {
+
+        setApplyAnimation(true)
+
+        setTimeout(() => {
+            setApplyAnimation(false)
+        }, 200); 
+      
+    }, [slide]);
+
+
+    function ChangeSlide(changeAmount){
+        let newSlide = slide + changeAmount;
+
+        if (newSlide > products.length - 1) {
+            newSlide = 0;
+        }
+    
+        if (newSlide < 0) {
+            newSlide = products.length - 1;
+        }
+        setSlide(newSlide);
+    }
+    
     return(
-        <Container backgroundImage={Background}>
-            <Title>Produtos em destaque</Title>
-            <ProductOptions>
-                {products ? (products?.map((e, i) => <ContentProductCard productData={e} key={i}/>)):(
+        <Container>
+            <Title>{"Produtos em destaque"}</Title>
+
+            <LeftArrowContainer onClick={() =>  applyAnimation ? (""):(ChangeSlide(-1))}>{"<"}</LeftArrowContainer>
+            
+            <CategoryContainer>
+                {products ? (
+                    Array(products.length > 4 ?(4):(products.length)).fill(0).map((_, i) => {
+                        const index = (slide + i) % products.length;
+                        return <ContentProductCard productData={products[index]} key={index}/>
+                    })
+                ):(
                     <SpinnerContainer>
                         <Spinner/>
                     </SpinnerContainer>
                 )}
-                {/* {products ? (<><ContentProductCard productData={products[0]} /></>):(<Spinner/>)} */}
-            </ProductOptions>
+
+            </CategoryContainer>
+
+            {/* <MobileCategoryContainer>
+                {products ? (
+                    Array(products.length > 2 ?(2):(products.length)).fill(0).map((_, i) => {
+                        const index = (slide + i) % products.length;
+                        return <CategoryCard category={products[index]} key={index} applyAnimation={applyAnimation} navigateAndMoveUp={navigateAndMoveUp}/>
+                    })
+                ):(<></>)}
+            </MobileCategoryContainer> */}
+
+            <RightArrowContainer onClick={() =>  applyAnimation ? (""):(ChangeSlide(1))}>{">"}</RightArrowContainer>
         </Container>
     )
 }
 
 const Container = styled.div`
     width: 100%;
-    height: 72vh;
-    padding: 5vh 10vw;
+    min-height: 56vh;
+    padding: 4vh 10vw;
+    padding-bottom: 6vh;
     display: flex;
     flex-direction: column;
-    align-items: start;
-    justify-content: center;
-    box-shadow: inset 0 0 50px #FFFFFF;
+    row-gap: 4vh;
     @media (max-width: 1366px) {
-        padding: 5vh 4vw;  
-        height: 77vh; 
+        padding: 0 4vw;  
+        padding-top: 5vh;  
+        row-gap: 0vh; 
     }
     @media (max-width: 850px) {
-        height: 65vh;
-    }
+        padding-top: 3vh;
+        min-height: 50vh;
+    } 
 `
 const Title = styled.h1`
-    width: 100%;
     border-left: 8px solid #009395;
     font-size: 42px;
     font-weight: 600;
     padding-left: 1vw;
-    margin-bottom: 3vh;
-    text-shadow: 4px 4px 6px #FFFFFF81;
     @media (max-width: 1366px) {
-        font-size: 30px;  
-        font-weight: 700;
+        font-size: 36px;    
     }
     @media (max-width: 850px) {
-        font-size: 28px;  
-        font-weight: 600;
-    } 
+        font-size: 28px;
+    }
 `
-const ProductOptions = styled.div`
+const CategoryContainer = styled.div`    
     width: 100%;
-    height: 90%;
-    padding-top: 5vh;
+    height: 425px;
     display: flex;
     align-items: center;
-    justify-content: left;
-    gap: 3vw;
-    overflow-x: scroll;
-    padding: 0 1vw;
-    background-color: #00000009;
+    justify-content: center;
+    column-gap: 2.6vw;
+    user-select: none;
+    @media (max-width: 850px) {
+        display: none;
+    }   
+`
+const MobileCategoryContainer = styled(CategoryContainer)`
+
+    display: none;
 
     @media (max-width: 850px) {
-        padding-top: 0vh;
+        display: flex;
+        font-size: 28px;
+        height: 300px;
+        justify-content: space-evenly;
+        margin-top: 2vh;    
+    }
+` 
+
+const ArrowContainer = styled.div`
+    position: absolute;
+    width: 40px;
+    height: 100px;
+    top: 164vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 70px;
+    font-weight: 600;
+    user-select: none;
+    cursor: pointer;
+    color: #009395ff;
+    &:hover {
+        color: #00BFC2;
+    }
+    @media (max-width: 1366px) {
+        top: 170vh;
+    }
+    @media (max-width: 850px) {
+        top: 88vh;
+        font-size: 60px;
+    }
+`
+const LeftArrowContainer = styled(ArrowContainer)`
+    left: 3vw;
+    display: ${props => props.display};
+    @media (max-width: 1366px) {
+        left: 2vw;
+    }
+    @media (max-width: 850px) {
+        left: 0vw;
         justify-content: left;
-        overflow-x: scroll;
-        overflow-y: hidden;
     }
-
-    &::-webkit-scrollbar {
-        width: 10px;
-        height: 1vh;
-        background-color: #0023242F;
-        border-radius: 50px;
+`
+const RightArrowContainer = styled(ArrowContainer)`
+    right: 3vw;
+    display: ${props => props.display};
+    @media (max-width: 1366px) {
+        right: 2vw;
     }
-
-    &::-webkit-scrollbar-thumb {
-        background-color: #00575A;
-        border-radius: 50px;
-    }
-
-    &::-webkit-scrollbar-thumb:hover {
-        background-color: #01989D;
-        height: 5vh;
-        cursor: pointer;
-    }
-
     @media (max-width: 850px) {
-        height: 100%;
-        padding: 2vh 2vw 2vh 2vw;
+        right: 0vw;
+        justify-content: right;
     }
 `
 const spinAnimation = keyframes`
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 `;
-
 const Spinner = styled.div`
   border-radius: 50px;
 

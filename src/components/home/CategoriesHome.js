@@ -50,8 +50,9 @@ export default function CategoriesHome () {
     return(
         <Container>
             <Title>Categorias</Title>
-            <LeftArrowContainer onClick={() =>  applyAnimation ? (""):(ChangeSlide(-1))}>{"<"}</LeftArrowContainer>
 
+            <LeftArrowContainer onClick={() =>  applyAnimation ? (""):(ChangeSlide(-1))}>{"<"}</LeftArrowContainer>
+            
             <CategoryContainer>
                 {categoryCardData ? (
                     Array(categoryCardData.length > 4 ?(4):(categoryCardData.length)).fill(0).map((_, i) => {
@@ -78,13 +79,17 @@ export default function CategoriesHome () {
 const Container = styled.div`
     width: 100%;
     min-height: 56vh;
+    margin-top: 4vh;
     padding: 4vh 10vw;
+    padding-bottom: 6vh;
     display: flex;
     flex-direction: column;
-    row-gap: 3vh;
+    row-gap: 4vh;
+    background-color: #FFFFFF69;
     @media (max-width: 1366px) {
         padding: 0 4vw;  
         padding-top: 5vh;  
+        row-gap: 0vh; 
     }
     @media (max-width: 850px) {
         padding-top: 3vh;
@@ -132,7 +137,7 @@ const ArrowContainer = styled.div`
     position: absolute;
     width: 40px;
     height: 100px;
-    top: 98vh;
+    top: 102vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -156,7 +161,7 @@ const LeftArrowContainer = styled(ArrowContainer)`
     left: 2vw;
     display: ${props => props.display};
     @media (max-width: 1366px) {
-        left: 0.6vw;
+        left: 2vw;
     }
     @media (max-width: 850px) {
         left: 0vw;
@@ -167,7 +172,7 @@ const RightArrowContainer = styled(ArrowContainer)`
     right: 2vw;
     display: ${props => props.display};
     @media (max-width: 1366px) {
-        right: 0.6vw;
+        right: 2vw;
     }
     @media (max-width: 850px) {
         right: 0vw;

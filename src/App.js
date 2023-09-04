@@ -8,7 +8,7 @@ import NotFound from "./pages/notFound/NotFound"
 import UniqueProduct from "./pages/uniqueProduct/UniqueProduct"
 import Auth from "./pages/auth/Auth"
 import AdminDashboard from "./pages/adminDashboard/AdminDashboard"
-import UserContext, { UserProvider } from './context/UserContext';
+import { UserProvider } from './context/UserContext';
 import UserAccount from "./pages/userAccount/UserAccount"
 import Cart from "./pages/cart/Cart"
 import Checkout from "./pages/checkout/Checkout"
@@ -47,14 +47,13 @@ export default function App (){
                             <Route path="/auth" element={<Auth />} />
                             <Route path="/carrinho" element={<Cart />} />
 
+                            <Route path="/minha-conta" element={<ProtectedRouteGuard><UserAccount /></ProtectedRouteGuard>} />
+                            <Route path="/favoritos" element={<ProtectedRouteGuard><Favorites /></ProtectedRouteGuard>} />
+                            <Route path="/checkout" element={<ProtectedRouteGuard><Checkout /></ProtectedRouteGuard>} />
+                            <Route path="/checkout/obrigado" element={<ProtectedRouteGuard><ThankYou /></ProtectedRouteGuard>} />
                             
-                                <Route path="/minha-conta" element={<ProtectedRouteGuard><UserAccount /></ProtectedRouteGuard>} />
-                                <Route path="/favoritos" element={<ProtectedRouteGuard><Favorites /></ProtectedRouteGuard>} />
-                                <Route path="/checkout" element={<ProtectedRouteGuard><Checkout /></ProtectedRouteGuard>} />
-                                <Route path="/checkout/obrigado" element={<ProtectedRouteGuard><ThankYou /></ProtectedRouteGuard>} />
-                                
-                                <Route path="/admin/dashboard" element={<AdminProtectedRouteGuard><AdminDashboard/></AdminProtectedRouteGuard>}/>
-                                <Route path="/admin/auth" element={<><AdminAuth/></>}/>  
+                            <Route path="/admin/dashboard" element={<AdminProtectedRouteGuard><AdminDashboard/></AdminProtectedRouteGuard>}/>
+                            <Route path="/admin/auth" element={<><AdminAuth/></>}/>  
 
                             <Route path="*" element={<NotFound />} />
                         </Routes>
