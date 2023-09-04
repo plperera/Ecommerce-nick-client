@@ -93,7 +93,7 @@ const Container = styled.div`
     }
     @media (max-width: 850px) {
         padding-top: 3vh;
-        min-height: 50vh;
+        min-height: 40vh;
     } 
 `
 const Title = styled.h1`
@@ -105,7 +105,8 @@ const Title = styled.h1`
         font-size: 36px;    
     }
     @media (max-width: 850px) {
-        font-size: 28px;
+        font-size: 26px;
+        padding-left: 2.2vw;
     }
 `
 const CategoryContainer = styled.div`    
@@ -121,9 +122,7 @@ const CategoryContainer = styled.div`
     }   
 `
 const MobileCategoryContainer = styled(CategoryContainer)`
-
     display: none;
-
     @media (max-width: 850px) {
         display: flex;
         font-size: 28px;

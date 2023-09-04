@@ -37,7 +37,7 @@ export default function HighlightsHome ({ products }) {
 
             <LeftArrowContainer onClick={() =>  applyAnimation ? (""):(ChangeSlide(-1))}>{"<"}</LeftArrowContainer>
             
-            <CategoryContainer>
+            <ProductContainer>
                 {products ? (
                     Array(products.length > 4 ?(4):(products.length)).fill(0).map((_, i) => {
                         const index = (slide + i) % products.length;
@@ -49,16 +49,20 @@ export default function HighlightsHome ({ products }) {
                     </SpinnerContainer>
                 )}
 
-            </CategoryContainer>
+            </ProductContainer>
 
-            {/* <MobileCategoryContainer>
+            <MobileProductContainer>
                 {products ? (
                     Array(products.length > 2 ?(2):(products.length)).fill(0).map((_, i) => {
                         const index = (slide + i) % products.length;
-                        return <CategoryCard category={products[index]} key={index} applyAnimation={applyAnimation} navigateAndMoveUp={navigateAndMoveUp}/>
+                        return <ContentProductCard productData={products[index]} key={index}/>
                     })
-                ):(<></>)}
-            </MobileCategoryContainer> */}
+                ):(
+                    <SpinnerContainer>
+                        <Spinner/>
+                    </SpinnerContainer>
+                )}
+            </MobileProductContainer>
 
             <RightArrowContainer onClick={() =>  applyAnimation ? (""):(ChangeSlide(1))}>{">"}</RightArrowContainer>
         </Container>
@@ -79,8 +83,9 @@ const Container = styled.div`
         row-gap: 0vh; 
     }
     @media (max-width: 850px) {
-        padding-top: 3vh;
-        min-height: 50vh;
+        padding: 3vh 4vw;  
+        min-height: 20vh;
+        row-gap: 3vh; 
     } 
 `
 const Title = styled.h1`
@@ -92,10 +97,11 @@ const Title = styled.h1`
         font-size: 36px;    
     }
     @media (max-width: 850px) {
-        font-size: 28px;
+        font-size: 26px;
+        padding-left: 2.2vw;
     }
 `
-const CategoryContainer = styled.div`    
+const ProductContainer = styled.div`    
     width: 100%;
     height: 425px;
     display: flex;
@@ -107,16 +113,16 @@ const CategoryContainer = styled.div`
         display: none;
     }   
 `
-const MobileCategoryContainer = styled(CategoryContainer)`
-
+const MobileProductContainer = styled(ProductContainer)`
     display: none;
-
     @media (max-width: 850px) {
+        width: 100%;
+        height: auto;
         display: flex;
-        font-size: 28px;
-        height: 300px;
-        justify-content: space-evenly;
-        margin-top: 2vh;    
+        align-items: center;
+        justify-content: center;
+        column-gap: 4vw;
+        user-select: none;   
     }
 ` 
 
@@ -140,7 +146,7 @@ const ArrowContainer = styled.div`
         top: 170vh;
     }
     @media (max-width: 850px) {
-        top: 88vh;
+        top: 140vh;
         font-size: 60px;
     }
 `
@@ -151,7 +157,7 @@ const LeftArrowContainer = styled(ArrowContainer)`
         left: 2vw;
     }
     @media (max-width: 850px) {
-        left: 0vw;
+        left: .6vw;
         justify-content: left;
     }
 `
@@ -162,7 +168,7 @@ const RightArrowContainer = styled(ArrowContainer)`
         right: 2vw;
     }
     @media (max-width: 850px) {
-        right: 0vw;
+        right: .6vw;
         justify-content: right;
     }
 `
