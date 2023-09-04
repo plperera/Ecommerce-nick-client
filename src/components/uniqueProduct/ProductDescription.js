@@ -34,9 +34,6 @@ export default function ProductDescription({product}) {
                 </TecnicDetailsContainer>
 
             ):(<></>)}
-
-            
-            
         </Container>
     )
 }

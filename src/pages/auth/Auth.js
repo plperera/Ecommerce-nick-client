@@ -15,7 +15,7 @@ export default function Auth () {
 }
 
 const Container = styled.div`
-    margin-top: 14vh;
+    margin-top: 10.5vh;
     width: 100%;
     min-height: 73vh;
     background-color: #0A1F2A;

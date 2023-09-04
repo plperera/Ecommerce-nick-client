@@ -31,6 +31,7 @@ export default function ContentProductCard ({ productData }) {
     function handleFavorite(){
 
         if (!userData?.token) {
+            navigateAndMoveUp({locate: `auth`})
             return
         }
 
@@ -40,7 +41,21 @@ export default function ContentProductCard ({ productData }) {
         }
 
         createFavorite()
+    }
 
+    async function removeFavorite(){
+        try {
+            const result = await api.DeleteFavorite({token, body: {productId: productData.productId}})
+
+            if( result.status === 200){
+                const newFavorites = userData?.favorites?.filter(e => e.productId !== productData.productId)
+                setUserData({...userData, favorites: newFavorites})
+            }
+
+        } catch (error) {
+            toast.error("Ocorreu um erro, tente novamente")
+            console.log(error)
+        }
     }
 
     async function createFavorite(){
@@ -59,20 +74,7 @@ export default function ContentProductCard ({ productData }) {
         }
     }
 
-    async function removeFavorite(){
-        try {
-            const result = await api.DeleteFavorite({token, body: {productId: productData.productId}})
-
-            if( result.status === 200){
-                const newFavorites = userData?.favorites?.filter(e => e.productId !== productData.productId)
-                setUserData({...userData, favorites: newFavorites})
-            }
-
-        } catch (error) {
-            toast.error("Ocorreu um erro, tente novamente")
-            console.log(error)
-        }
-    }
+    
 
     return(
         <Container>

@@ -5,10 +5,21 @@ import { AiOutlineHeart } from 'react-icons/ai';
 import CartMenu from "./CartMenu";
 import AccountMenu from "./AccountMenu";
 import useNavigateAndMoveUp from "../../hooks/useNavigateAndMoveUp";
+import UserContext from "../../context/UserContext";
+import { useContext } from "react";
 
 export default function Menu ({ setExpandMenu }) {
 
     const navigateAndMoveUp = useNavigateAndMoveUp();
+    const { userData } = useContext(UserContext);
+
+    function handleFavorite(){
+        if (!userData?.token) {
+            navigateAndMoveUp({locate: `auth`})
+            return
+        }
+        navigateAndMoveUp({locate: `favoritos`})
+    }
 
     return(
         <Container onMouseEnter={() => setExpandMenu(false)}>
@@ -19,7 +30,7 @@ export default function Menu ({ setExpandMenu }) {
 
             <SubContainer>
                 <SearchBar navigateAndMoveUp={navigateAndMoveUp}/>
-                <HearthIcon onClick={() => navigateAndMoveUp({locate: "favoritos"})}/>
+                <HearthIcon onClick={() => handleFavorite()}/>
                 <CartMenu navigateAndMoveUp={navigateAndMoveUp}/>
                 <AccountMenu/>
             </SubContainer>

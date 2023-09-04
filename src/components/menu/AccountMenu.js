@@ -1,14 +1,24 @@
 import styled from "styled-components"
 import { CiUser } from 'react-icons/ci';
 import useNavigateAndMoveUp from "../../hooks/useNavigateAndMoveUp";
+import UserContext from "../../context/UserContext";
+import { useContext } from "react";
 
 export default function AccountMenu () {
 
     const navigateAndMoveUp = useNavigateAndMoveUp();
+    const { userData } = useContext(UserContext);
 
+    function directUser(){
+        if (!userData?.token) {
+            navigateAndMoveUp({locate: `auth`})
+            return
+        }
+        navigateAndMoveUp({locate: `minha-conta`})
+    }
 
     return(
-        <Container onClick={() => navigateAndMoveUp({locate:"minha-conta"})}>
+        <Container onClick={() => directUser()}>
             <AccountIcon/>
             <Title>Minha Conta</Title>
         </Container>
