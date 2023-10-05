@@ -25,7 +25,7 @@ export default function Category({mainCategoryData, handleLoading, adminData}) {
         components: [
             {
                 title: "Editar Categoria Principal",
-                content: <CategoryForms form={form} handleForm={handleForm} submitForm={submitForm}/>
+                content: <CategoryForms form={form} handleForm={handleForm} submitForm={submitForm} deleteButton={true}/>
             },
             {
                 title: selectSubCategory ? "Voltar" : "Lista de SubCategorias",
@@ -42,12 +42,32 @@ export default function Category({mainCategoryData, handleLoading, adminData}) {
         setSelectSubCategory(undefined)
     }
 
-    async function submitForm(){
+    async function submitForm(operation){
         if(!form?.name) {
             toast.dark("Valor inválido!")
             return
         }
         handleLoading(true)
+        if (operation === "delete"){
+            try {
+                const body = {
+                    categoryId: mainCategoryData?.id,
+                }
+                const response = await api.DisableCategory({body, token: adminData?.token})
+
+                if(response.status === 200){
+                    toast.dark("Categoria Desativada com Sucesso")
+                }
+                handleLoading(false) 
+                return
+
+            } catch (error) {
+                toast.dark("Ocorreu um erro, tente novamente mais tarde ou contate o desenvolvedor")
+                console.log(error)
+                handleLoading(false) 
+                return
+            }
+        }
         try {
             const body = {
                 categoryId: mainCategoryData?.id,
@@ -58,10 +78,15 @@ export default function Category({mainCategoryData, handleLoading, adminData}) {
             if(response.status === 200){
                 toast.dark("Atualização feita com sucesso")
             }
+            handleLoading(false)
+            return
+            
         } catch (error) {
+            toast.dark("Ocorreu um erro, tente novamente mais tarde ou contate o desenvolvedor")
             console.log(error)
+            handleLoading(false) 
+            return
         }
-        handleLoading(false)
     }
 
     return(

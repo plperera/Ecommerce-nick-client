@@ -34,6 +34,9 @@ function CreateCategory({body, token}) {
 function UpdateCategory({body, token}) {
     return axios.put(`${BASE_URL}/category/admin`, body, {headers: { Authorization: `Bearer ${token}`}})
 }
+function DisableCategory({body, token}){
+    return axios.put(`${BASE_URL}/category/admin/disable`, body, {headers: { Authorization: `Bearer ${token}`}});
+}
 function CreateImage({formData, token}) {
     return axios.post(`${BASE_URL}/image/admin`, formData, {headers: { Authorization: `Bearer ${token}`}});
 }
@@ -160,6 +163,7 @@ const api = {
     GetCepDetails,
     CreateCategory,
     UpdateCategory,
+    DisableCategory,
     CreateAddress,
     CreateImage,
     CreateProduct,
