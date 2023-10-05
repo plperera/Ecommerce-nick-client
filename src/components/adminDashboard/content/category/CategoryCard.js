@@ -18,4 +18,10 @@ const Container = styled.div`
     background-color: #DFDFDF;
     border-radius: 10px;
     font-size: 15px;
+    cursor: pointer;
+    user-select: none;
+    :hover {
+        background-color: #B9B9B9;
+        transform: scale(.95)
+    }
 `

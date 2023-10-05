@@ -6,34 +6,18 @@ import ItemList from "./common/ItensList";
 import SubCategoryCard from "./subCategory/SubCategoryCard";
 import { useState } from "react";
 import ManagementSubCategory from "./subCategory/ManagementSubCategory";
+import api from "../../../../services/API";
 
-export default function Category({mainCategoryData, handleLoading}) {
+export default function Category({mainCategoryData, handleLoading, adminData}) {
 
     const [ form, handleForm ] = useCustomForm({name: mainCategoryData?.name});
     const [selectSubCategory, setSelectSubCategory] = useState(undefined)
 
-    const SubCategoryCardData = {
-        name: "XMCOIS 141",
-        products: [1, 2, 3]
-    }
-
-    const SubCategoryListData = [
-        {
-            content: <SubCategoryCard subCategoryData={SubCategoryCardData} setSelect={setSelectSubCategory}/>
-        },
-        {
-            content: <SubCategoryCard subCategoryData={SubCategoryCardData} setSelect={setSelectSubCategory}/>
-        },
-        {
-            content: <SubCategoryCard subCategoryData={SubCategoryCardData} setSelect={setSelectSubCategory}/>
-        },
-        {
-            content: <SubCategoryCard subCategoryData={SubCategoryCardData} setSelect={setSelectSubCategory}/>
-        },
-        {
-            content: <SubCategoryCard subCategoryData={SubCategoryCardData} setSelect={setSelectSubCategory}/>
-        },
-    ]
+    const SubCategoryListData = mainCategoryData?.subCategories?.map(e => {
+        return {
+            content: <SubCategoryCard subCategoryData={e} setSelect={setSelectSubCategory}/>
+        }
+    })
 
     const CategoryManagementData = {
         title: mainCategoryData?.name,
@@ -58,14 +42,26 @@ export default function Category({mainCategoryData, handleLoading}) {
         setSelectSubCategory(undefined)
     }
 
-    // content: selectCategory ? <SubCategories mainCategoryData={selectCategory} /> : <ItemList ListData={CategoryListData} title={"Categorias"}/>,
-
-    function submitForm(){
-        //handleLoading()
+    async function submitForm(){
         if(!form?.name) {
             toast.dark("Valor inválido!")
             return
         }
+        handleLoading(true)
+        try {
+            const body = {
+                categoryId: mainCategoryData?.id,
+                name: form?.name
+            }
+            const response = await api.UpdateCategory({body, token: adminData?.token})
+
+            if(response.status === 200){
+                toast.dark("Atualização feita com sucesso")
+            }
+        } catch (error) {
+            console.log(error)
+        }
+        handleLoading(false)
     }
 
     return(

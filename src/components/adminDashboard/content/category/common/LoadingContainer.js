@@ -9,7 +9,7 @@ export default function LoadingContainer ({isLoading}) {
     )
 }
 const Container = styled.div`
-    display: ${props => !props.isLoading ? 'initial':'none'};
+    display: ${props => props.isLoading ? 'flex':'none'};
     width: 100%;
     height: 100%;
     z-index: 99;
@@ -19,7 +19,6 @@ const Container = styled.div`
     background: #D8D8D821;
     backdrop-filter: blur(2px);
     -webkit-backdrop-filter: blur(2px);
-    display: flex;
     align-items: center;
     justify-content: center;
 `

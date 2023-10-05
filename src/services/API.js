@@ -31,6 +31,9 @@ function CreateAddress({body, token}) {
 function CreateCategory({body, token}) {
     return axios.post(`${BASE_URL}/category/admin`, body, {headers: { Authorization: `Bearer ${token}`}})
 }
+function UpdateCategory({body, token}) {
+    return axios.put(`${BASE_URL}/category/admin`, body, {headers: { Authorization: `Bearer ${token}`}})
+}
 function CreateImage({formData, token}) {
     return axios.post(`${BASE_URL}/image/admin`, formData, {headers: { Authorization: `Bearer ${token}`}});
 }
@@ -156,6 +159,7 @@ const api = {
     GetUniqueProductByName,
     GetCepDetails,
     CreateCategory,
+    UpdateCategory,
     CreateAddress,
     CreateImage,
     CreateProduct,
