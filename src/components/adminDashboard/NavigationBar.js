@@ -1,7 +1,6 @@
 import styled from "styled-components"
 import NavigationItem from "./NavigationItem";
 
-import NewCategory from "./content/category/NewCategory";
 import NewImage from "./content/image/NewCategory";
 import NewProduct from "./content/products/NewProduct/NewProduct";
 import PutProduct from "./content/products/PutProduct/PutProduct";
@@ -14,6 +13,7 @@ import PutShipping from "./content/shippingMethods/update/PutShipping";
 import UpdateOrders from "./content/order/update/UpdateOrders";
 import CreateProductCardHome from "./content/homePage/productBannerHome/create/CreateProductCard";
 import UpdateProductCard from "./content/homePage/productBannerHome/edit/UpdateProductCard";
+import ManagementCategory from "./content/category/ManagementCategory";
 
 export default function NavigationBar ({setContent}) {
     const options = [
@@ -97,7 +97,7 @@ export default function NavigationBar ({setContent}) {
             options: [
                 {
                     name:"Inserir Nova Categoria",
-                    content: <NewCategory/>
+                    content: <ManagementCategory/>
                 }
             ]
         },

@@ -15,25 +15,33 @@ export default function Home () {
     const { userData, setUserData } = useContext(UserContext);
 
     async function GetAllProducts(){
-        const response = await api.GetAllProducts()
-        setProducts(response.data)
-        if (userData.token) {
-            GetAllFavorites()
+        try {
+            const response = await api.GetAllProducts()
+            setProducts(response.data)
+            if (userData.token) {
+                GetAllFavorites()
+            }
+        } catch (error) {
+            console.log(error)
         }
+        
     }
 
     async function GetAllFavorites(){
-        const response = await api.GetAllFavorites(userData.token)
-        setUserData({...userData, 
-            favorites: response.data.map(e => {
-                return {productId: e.productId}
+        try {
+            const response = await api.GetAllFavorites(userData?.token)
+            setUserData({...userData, 
+                favorites: response.data.map(e => {
+                    return {productId: e.productId}
+                })
             })
-        })
+        } catch (error) {
+            console.log(error)
+        } 
     }
 
     useEffect(() => {
-        GetAllProducts()
-        
+        GetAllProducts() 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 

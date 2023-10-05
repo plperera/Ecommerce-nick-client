@@ -14,20 +14,20 @@ export default function Card ({navigateAndMoveUp}) {
     async function getAllBanners(){
         try {
             const result = await api.GetProductsBannerHome()
-            setBanners(result.data)
+            setBanners(result?.data)
         } catch (error) {
             console.log(error)
         }
     }
 
     function ChangeSlide(){
-        (slide === (banners.length - 1)) ? (setSlide(0)):(setSlide(slide + 1))
+        (slide === (banners?.length - 1)) ? (setSlide(0)):(setSlide(slide + 1))
     }
 
     useEffect(() => {
 
         const slideInterval = setInterval(() => {
-            (slide === (banners.length - 1)) ? (setSlide(0)):(setSlide(slide + 1))
+            (slide === (banners?.length - 1)) ? (setSlide(0)):(setSlide(slide + 1))
         }, (5 * 1000));
 
         return () => clearInterval(slideInterval);
@@ -40,7 +40,7 @@ export default function Card ({navigateAndMoveUp}) {
 
             { banners ? (
                 <>
-                    <ImageContainer onClick={() => navigateAndMoveUp({locate: `produto/${encodeURIComponent(banners[slide].productName)}`})}>
+                    <ImageContainer onClick={() => navigateAndMoveUp({locate: `produto/${encodeURIComponent(banners[slide]?.productName)}`})}>
                         <img src={banners[slide]?.imageUrl} alt="" />  
                     </ImageContainer>
 

@@ -22,13 +22,13 @@ export default function BannerSlide ({navigateAndMoveUp}) {
     }
 
     function ChangeSlide(){
-        (slide === (banners.length - 1)) ? (setSlide(0)):(setSlide(slide + 1))
+        (slide === (banners?.length - 1)) ? (setSlide(0)):(setSlide(slide + 1))
     }
 
     useEffect(() => {
 
         const slideInterval = setInterval(() => {
-            (slide === (banners.length - 1)) ? (setSlide(0)):(setSlide(slide + 1))
+            (slide === (banners?.length - 1)) ? (setSlide(0)):(setSlide(slide + 1))
         }, (5 * 1000));
 
         return () => clearInterval(slideInterval);

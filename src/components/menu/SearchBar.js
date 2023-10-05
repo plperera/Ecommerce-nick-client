@@ -12,11 +12,9 @@ export default function SearchBar ({navigateAndMoveUp}) {
 
     async function getAllProducts() {
         try {
-
             const result = await api.GetAllProducts()
             setProducts(result.data)
             setFilteredProducts(result.data)
-
         } catch (error) {
             console.log(error)
         }
