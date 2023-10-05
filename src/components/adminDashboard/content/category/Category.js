@@ -10,7 +10,7 @@ import ManagementSubCategory from "./subCategory/ManagementSubCategory";
 export default function Category({mainCategoryData}) {
 
     const [ form, handleForm ] = useCustomForm({name: mainCategoryData?.name});
-    const [selectSubCategory, setSubSelectCategory] = useState(undefined)
+    const [selectSubCategory, setSelectSubCategory] = useState(undefined)
 
     const SubCategoryCardData = {
         name: "XMCOIS 141",
@@ -19,19 +19,19 @@ export default function Category({mainCategoryData}) {
 
     const SubCategoryListData = [
         {
-            content: <SubCategoryCard subCategoryData={SubCategoryCardData} setSelect={setSubSelectCategory}/>
+            content: <SubCategoryCard subCategoryData={SubCategoryCardData} setSelect={setSelectSubCategory}/>
         },
         {
-            content: <SubCategoryCard subCategoryData={SubCategoryCardData} setSelect={setSubSelectCategory}/>
+            content: <SubCategoryCard subCategoryData={SubCategoryCardData} setSelect={setSelectSubCategory}/>
         },
         {
-            content: <SubCategoryCard subCategoryData={SubCategoryCardData} setSelect={setSubSelectCategory}/>
+            content: <SubCategoryCard subCategoryData={SubCategoryCardData} setSelect={setSelectSubCategory}/>
         },
         {
-            content: <SubCategoryCard subCategoryData={SubCategoryCardData} setSelect={setSubSelectCategory}/>
+            content: <SubCategoryCard subCategoryData={SubCategoryCardData} setSelect={setSelectSubCategory}/>
         },
         {
-            content: <SubCategoryCard subCategoryData={SubCategoryCardData} setSelect={setSubSelectCategory}/>
+            content: <SubCategoryCard subCategoryData={SubCategoryCardData} setSelect={setSelectSubCategory}/>
         },
     ]
 
@@ -55,7 +55,7 @@ export default function Category({mainCategoryData}) {
         if(!selectSubCategory){
             return
         }
-        setSubSelectCategory(undefined)
+        setSelectSubCategory(undefined)
     }
 
     // content: selectCategory ? <SubCategories mainCategoryData={selectCategory} /> : <ItemList ListData={CategoryListData} title={"Categorias"}/>,

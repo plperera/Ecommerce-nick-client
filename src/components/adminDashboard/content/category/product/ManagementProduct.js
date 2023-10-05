@@ -1,13 +1,11 @@
 import { toast } from "react-toastify";
 import { useCustomForm } from "../../../../../hooks/useCustomForms";
 import ManagementComponent from "../common/ManagementComponent"
-import SubCategoryForms from "./SubCategoryForms"
 import { useState } from "react";
 import ItemList from "../common/ItensList";
-import ProductCard from "../product/ProductCard";
-import ManagementProduct from "../product/ManagementProduct";
 
-export default function ManagementSubCategory ({SubCategoryData}) {
+
+export default function ManagementProduct ({SubCategoryData}) {
 
     const [ form, handleForm ] = useCustomForm({name: SubCategoryData?.name});
     const [selectProduct, setSelectProduct] = useState(undefined)
@@ -18,21 +16,23 @@ export default function ManagementSubCategory ({SubCategoryData}) {
 
     const ProductListData = [
         {
-            content: <ProductCard productData={ProductCardData} setSelect={setSelectProduct}/>
+            content: <></>
+            //content: <ProductCard productData={ProductCardData} setSelect={setSelectProduct}/>
         },
     ]
 
-    const CategoryManagementData = {
-        title:"Gerir SubCategorias",
+    const ProductManagementData = {
+        title:"Gerir Produto",
         isMainComponent: false,
         components: [
             {
                 title: "Editar",
-                content: <SubCategoryForms form={form} handleForm={handleForm} submitForm={submitForm}/>
+                content: <></>
+                //content: <SubCategoryForms form={form} handleForm={handleForm} submitForm={submitForm}/>
             },
             {
                 title: selectProduct ? "Voltar" : "Lista de Produtos Atrelados",
-                content: selectProduct ? <ManagementProduct/> : <ItemList ListData={ProductListData} title={"Produtos"}/>,
+                content: selectProduct ? <>PRODUCT_MANAGEMENT</> : <ItemList ListData={ProductListData} title={"Produtos"}/>,
                 handleReturn: handleReturnSubCategoryList
                 // title: selectSubCategory ? "Voltar" : "Lista de SubCategorias",
                 // content: selectSubCategory ? <ManagementSubCategory SubCategoryData={selectSubCategory}/> : <ItemList ListData={SubCategoryListData} title={"SubCategorias"}/>,
@@ -56,6 +56,6 @@ export default function ManagementSubCategory ({SubCategoryData}) {
     }
     
     return(
-        <ManagementComponent ManagementData={CategoryManagementData}/>
+        <ManagementComponent ManagementData={ProductManagementData}/>
     )
 }
