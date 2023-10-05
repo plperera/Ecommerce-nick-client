@@ -7,7 +7,7 @@ import ItemList from "../common/ItensList";
 import ProductCard from "../product/ProductCard";
 import ManagementProduct from "../product/ManagementProduct";
 
-export default function ManagementSubCategory ({SubCategoryData}) {
+export default function ManagementSubCategory ({SubCategoryData, handleLoading}) {
 
     const [ form, handleForm ] = useCustomForm({name: SubCategoryData?.name});
     const [selectProduct, setSelectProduct] = useState(undefined)
@@ -32,7 +32,7 @@ export default function ManagementSubCategory ({SubCategoryData}) {
             },
             {
                 title: selectProduct ? "Voltar" : "Lista de Produtos Atrelados",
-                content: selectProduct ? <ManagementProduct/> : <ItemList ListData={ProductListData} title={"Produtos"}/>,
+                content: selectProduct ? <ManagementProduct handleLoading={handleLoading}/> : <ItemList ListData={ProductListData} title={"Produtos"}/>,
                 handleReturn: handleReturnSubCategoryList
                 // title: selectSubCategory ? "Voltar" : "Lista de SubCategorias",
                 // content: selectSubCategory ? <ManagementSubCategory SubCategoryData={selectSubCategory}/> : <ItemList ListData={SubCategoryListData} title={"SubCategorias"}/>,
@@ -42,6 +42,7 @@ export default function ManagementSubCategory ({SubCategoryData}) {
     }
 
     function submitForm(){
+        //handleLoading()
         if(!form?.name) {
             toast.dark("Valor inválido!")
             return

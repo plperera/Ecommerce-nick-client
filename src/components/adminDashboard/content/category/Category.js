@@ -7,7 +7,7 @@ import SubCategoryCard from "./subCategory/SubCategoryCard";
 import { useState } from "react";
 import ManagementSubCategory from "./subCategory/ManagementSubCategory";
 
-export default function Category({mainCategoryData}) {
+export default function Category({mainCategoryData, handleLoading}) {
 
     const [ form, handleForm ] = useCustomForm({name: mainCategoryData?.name});
     const [selectSubCategory, setSelectSubCategory] = useState(undefined)
@@ -45,7 +45,7 @@ export default function Category({mainCategoryData}) {
             },
             {
                 title: selectSubCategory ? "Voltar" : "Lista de SubCategorias",
-                content: selectSubCategory ? <ManagementSubCategory SubCategoryData={selectSubCategory}/> : <ItemList ListData={SubCategoryListData} title={"SubCategorias"}/>,
+                content: selectSubCategory ? <ManagementSubCategory SubCategoryData={selectSubCategory} handleLoading={handleLoading}/> : <ItemList ListData={SubCategoryListData} title={"SubCategorias"}/>,
                 handleReturn: handleReturnSubCategoryList
             }
         ]
@@ -61,6 +61,7 @@ export default function Category({mainCategoryData}) {
     // content: selectCategory ? <SubCategories mainCategoryData={selectCategory} /> : <ItemList ListData={CategoryListData} title={"Categorias"}/>,
 
     function submitForm(){
+        //handleLoading()
         if(!form?.name) {
             toast.dark("Valor inválido!")
             return
