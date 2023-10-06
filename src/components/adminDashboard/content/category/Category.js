@@ -29,7 +29,9 @@ export default function Category({mainCategoryData, handleLoading, adminData}) {
             },
             {
                 title: selectSubCategory ? "Voltar" : "Lista de SubCategorias",
-                content: selectSubCategory ? <ManagementSubCategory SubCategoryData={selectSubCategory} handleLoading={handleLoading}/> : <ItemList ListData={SubCategoryListData} title={"SubCategorias"}/>,
+                content: selectSubCategory 
+                    ? <ManagementSubCategory SubCategoryData={selectSubCategory} handleLoading={handleLoading}/> 
+                    : <ItemList ListData={SubCategoryListData} title={"SubCategorias"}/>,
                 handleReturn: handleReturnSubCategoryList
             }
         ]

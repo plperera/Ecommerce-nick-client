@@ -152,8 +152,20 @@ function DeleteProductsBannerHome({body, token}) {
     console.log(body, token)
     return axios.delete(`${BASE_URL}/homepage/productbanner/admin`, {data: body, headers: { Authorization: `Bearer ${token}`}}); 
 }
+function CreateSubCategory({body, token}) {
+    return axios.post(`${BASE_URL}/subcategory/admin`, body, {headers: { Authorization: `Bearer ${token}`}})
+}
+function UpdateSubCategory({body, token}) {
+    return axios.put(`${BASE_URL}/subcategory/admin`, body, {headers: { Authorization: `Bearer ${token}`}})
+}
+function DisableSubCategory({body, token}){
+    return axios.put(`${BASE_URL}/subcategory/admin/disable`, body, {headers: { Authorization: `Bearer ${token}`}});
+}
 
 const api = {
+    CreateSubCategory,
+    UpdateSubCategory,
+    DisableSubCategory,
     GetAllCategories,
     GetAllImages,
     GetAllProductsByCategory,
