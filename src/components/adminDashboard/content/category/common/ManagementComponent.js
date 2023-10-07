@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-export default function ManagementComponent ({ManagementData, showReturnButton}) {
+export default function ManagementComponent ({ManagementData}) {
     return(
         <Container isMainComponent={ManagementData?.isMainComponent}>
             <TitleContainer>
@@ -12,14 +12,13 @@ export default function ManagementComponent ({ManagementData, showReturnButton})
                 {ManagementData?.components?.map(comp => 
                     <>
                         <MiddleTitleContainer>
-                            
                             {comp?.showReturnButton
                                 ? 
                                     <StyledReturnButton onClick={comp?.handleReturn}>
                                         <span>{`Voltar `}</span>
                                         <span>{`(${comp?.title})`}</span>
                                     </StyledReturnButton>
-                                : <h2 onClick={comp?.handleReturn}>{comp?.title}</h2>            
+                                : <h2 onClick={comp?.handleReturn}>{comp?.title}</h2>         
                             }
                         </MiddleTitleContainer>
 
@@ -43,6 +42,9 @@ const Container = styled.div`
     background-color: ${props => props.isMainComponent ? '#FFFFFF00':'#DFDFDF2D'};
     border-radius: ${props => props.isMainComponent ? '0':'10px'};
     /* padding: 25px 1.4vw; */
+    -webkit-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+    -moz-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+    box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
     
     @media (max-width: 850px) {
         width: 100%;

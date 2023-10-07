@@ -1,26 +1,35 @@
 import styled from "styled-components"
 
-export default function ItemList ({ListData, title}) {
+export default function ItemList ({ListData, title, selectItem, contentWhenSelected}) {
     return(
-        <Container>
-            <ContentContainer>
-                {ListData?.map(e => 
-                    e?.content
-                )}
-            </ContentContainer>
+        <>  
+        {
+            selectItem 
+            ? contentWhenSelected
 
-            <BottomContainer>
-                <CountContainer>
-                    <p>{`${ListData?.length || 0} ${title || "itens"} no total`}</p>
-                </CountContainer>
+            : <Container>
+                <ContentContainer>
+                    {ListData?.map(e => 
+                        e?.content
+                    )}
+                </ContentContainer>
 
-                <CommandContainer>
-                    <ArrowStyle>{"<"}</ArrowStyle>
-                    <IndexStyle>{"1"}</IndexStyle>
-                    <ArrowStyle>{">"}</ArrowStyle>
-                </CommandContainer>
-            </BottomContainer>
-        </Container>
+                <BottomContainer>
+                    <CountContainer>
+                        <p>{`${ListData?.length || 0} ${title || "itens"} no total`}</p>
+                    </CountContainer>
+
+                    <CommandContainer>
+                        <ArrowStyle>{"<"}</ArrowStyle>
+                        <IndexStyle>{"1"}</IndexStyle>
+                        <ArrowStyle>{">"}</ArrowStyle>
+                    </CommandContainer>
+                </BottomContainer>
+            </Container>
+        }
+            
+        </>
+        
     )
 }
 

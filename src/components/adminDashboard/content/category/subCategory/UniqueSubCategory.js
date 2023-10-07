@@ -5,16 +5,14 @@ import SubCategoryForms from "./SubCategoryForms"
 import { useState } from "react";
 import ItemList from "../common/ItensList";
 import ProductCard from "../product/ProductCard";
-import ManagementProduct from "../product/ManagementProduct";
+import UniqueProduct from "../product/UniqueProduct";
 import api from "../../../../../services/API";
-import AdminContext from "../../../../../context/AdminContext";
-import { useContext } from "react";
 
-export default function ManagementSubCategory ({SubCategoryData, handleLoading}) {
+export default function UniqueSubCategory ({SubCategoryData, handleLoading, adminData}) {
 
     const [ form, handleForm ] = useCustomForm({name: SubCategoryData?.name});
     const [selectProduct, setSelectProduct] = useState(undefined)
-    const { adminData } = useContext(AdminContext); 
+    const [selectOtherProduct, setSelectOtherProduct] = useState(undefined)
 
     const ProductCardData = {
         name: "Maquina GWOW - 418 | dkdwo DWKdowk ow",
@@ -37,7 +35,7 @@ export default function ManagementSubCategory ({SubCategoryData, handleLoading})
         {
             content: <ProductCard 
                 productData={ProductCardData} 
-                setSelect={setSelectProduct}
+                setSelect={setSelectOtherProduct}
                 productBelong={false} 
                 hasOtherSubCategory={Math.random() >= 0.5} 
                 handleLinkProduct={() => {}}
@@ -55,24 +53,36 @@ export default function ManagementSubCategory ({SubCategoryData, handleLoading})
                 content: <SubCategoryForms form={form} handleForm={handleForm} submitForm={submitForm} deleteButton={true}/>
             },
             {
-                title: selectProduct ? "Voltar" : "Lista de Produtos Atrelados",
-                content: selectProduct 
-                    ? <ManagementProduct handleLoading={handleLoading}/> 
-                    : <ItemList ListData={ProductListData} title={"Produtos"}/>,
-                handleReturn: handleReturnSubCategoryList
-                // title: selectSubCategory ? "Voltar" : "Lista de SubCategorias",
-                // content: selectSubCategory ? <ManagementSubCategory SubCategoryData={selectSubCategory}/> : <ItemList ListData={SubCategoryListData} title={"SubCategorias"}/>,
-                // handleReturn: handleReturnSubCategoryList
+                title: "Lista de Produtos Atrelados",
+                showReturnButton: !!selectProduct,
+                handleReturn: handleReturnProductList,
+                content: <ItemList 
+                    ListData={ProductListData} 
+                    title={"Produtos"}
+                    selectItem={selectProduct}
+                    contentWhenSelected={
+                        <UniqueProduct 
+                            productData={selectProduct}
+                            handleLoading={handleLoading}
+                        /> 
+                    }
+                />, 
             },
             {
-                title: selectProduct ? "Voltar" : "Atrelar outros Produtos",
-                content: selectProduct 
-                    ? <ManagementProduct handleLoading={handleLoading}/> 
-                    : <ItemList ListData={OtherProductListData} title={"Produtos"}/>,
-                handleReturn: handleReturnSubCategoryList
-                // title: selectSubCategory ? "Voltar" : "Lista de SubCategorias",
-                // content: selectSubCategory ? <ManagementSubCategory SubCategoryData={selectSubCategory}/> : <ItemList ListData={SubCategoryListData} title={"SubCategorias"}/>,
-                // handleReturn: handleReturnSubCategoryList
+                title: "Atrelar outros Produtos",
+                showReturnButton: !!selectOtherProduct,
+                handleReturn: handleReturnOtherProductList,
+                content: <ItemList 
+                    ListData={OtherProductListData} 
+                    title={"Produtos"}
+                    selectItem={selectOtherProduct}
+                    contentWhenSelected={
+                        <UniqueProduct 
+                            handleLoading={handleLoading}
+                            productData={selectProduct}
+                        /> 
+                    }
+                />,
             },
         ]
     }
@@ -127,11 +137,18 @@ export default function ManagementSubCategory ({SubCategoryData, handleLoading})
         }
     }
 
-    function handleReturnSubCategoryList(){
+    function handleReturnProductList(){
         if(!setSelectProduct){
             return
         }
         setSelectProduct(undefined)
+    }
+
+    function handleReturnOtherProductList(){
+        if(!setSelectOtherProduct){
+            return
+        }
+        setSelectOtherProduct(undefined)
     }
     
     return(

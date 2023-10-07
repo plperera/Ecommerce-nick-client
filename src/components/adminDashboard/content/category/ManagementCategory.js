@@ -2,7 +2,7 @@ import ManagementComponent from "./common/ManagementComponent"
 import ItemList from "./common/ItensList"
 import CategoryCard from "./CategoryCard"
 import { useState } from "react"
-import Category from "./Category"
+import UniqueCategory from "./UniqueCategory"
 import api from "../../../../services/API"
 import { useEffect } from "react"
 import styled from "styled-components"
@@ -15,12 +15,14 @@ import { toast } from "react-toastify"
 
 export default function ManagementCategory () {
 
-    const [selectCategory, setSelectCategory] = useState(undefined)
-    const [categoriesData, setCategoriesData] = useState([])
-    const [isLoading, setIsLoading] = useState(true)
-    const [refresh, setRefresh] = useState(true)
     const { adminData } = useContext(AdminContext); 
     const [ form, handleForm ] = useCustomForm();
+    const [selectCategory, setSelectCategory] = useState(undefined)
+
+    const [categoriesData, setCategoriesData] = useState([])
+
+    const [isLoading, setIsLoading] = useState(true)
+    const [refresh, setRefresh] = useState(true)
 
     const CategoryListData = categoriesData?.map(e => {
         return {
@@ -30,15 +32,18 @@ export default function ManagementCategory () {
 
     const [CategoryManagementData, setCategoryManagementData] = useState({});
 
+    //faz a busca de todas as categorias
     useEffect(() => {
         getAllCategories()
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [refresh])
 
+    //apenas para teste
     useEffect(() => {
         console.log(categoriesData)
     }, [categoriesData])
 
+    //manipula o componente de gerenciamento
     useEffect(() => {
         setCategoryManagementData({
             title:"Gerir Categorias",
@@ -51,16 +56,27 @@ export default function ManagementCategory () {
                 {
                     title: "Lista de Categorias",
                     showReturnButton: !!selectCategory,
-                    content: selectCategory
-                        ? <Category mainCategoryData={selectCategory} handleLoading={handleLoading} adminData={adminData} handleLinkSubCategory={handleLinkSubCategory}/> 
-                        : <ItemList ListData={CategoryListData} title={"Categorias"}/>,
-                    handleReturn: handleReturnCategoryList
+                    handleReturn: handleReturnCategoryList,
+                    content: <ItemList 
+                        ListData={CategoryListData} 
+                        title={"Categorias"} 
+                        selectItem={selectCategory}
+                        contentWhenSelected={
+                            <UniqueCategory 
+                                mainCategoryData={selectCategory} 
+                                handleLoading={handleLoading} 
+                                adminData={adminData} 
+                                handleLinkSubCategory={handleLinkSubCategory}
+                            />
+                        }
+                    />,
                 },
             ]
         })
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [categoriesData, selectCategory, refresh, form])
 
+    //apenas para teste
     function formatCategoriesForTest(arr){
         const newArray = arr.map(e => {
             return {
@@ -100,6 +116,7 @@ export default function ManagementCategory () {
         return newArray
     }
 
+    //busca todas as categorias
     async function getAllCategories(){
         handleLoading(true)
         try {
@@ -113,6 +130,7 @@ export default function ManagementCategory () {
         }, 2000)
     }
 
+    //Manipula o LoadSpinner
     function handleLoading(status){
         if(status !== undefined){
             setIsLoading(status)
@@ -122,10 +140,12 @@ export default function ManagementCategory () {
         return
     }
 
+    //Atualiza o componente
     function handleRefresh(){
         setRefresh(!refresh)
     }
 
+    //Retorna para seleção de categorias
     function handleReturnCategoryList(){
         if(!selectCategory){
             return
@@ -133,6 +153,7 @@ export default function ManagementCategory () {
         setSelectCategory(undefined)
     }
 
+    //Cria uma nova Categoria
     async function handleSubmitNewCategory() {
         if(!form?.name){
             toast.dark("Valor inválido")
@@ -173,6 +194,7 @@ export default function ManagementCategory () {
         }
     }
 
+    //Manipula a linkagem
     async function handleLinkSubCategory({mainCategoryId, subCategoryId, unlink}){
         
         if(!mainCategoryId && !subCategoryId){
@@ -213,10 +235,7 @@ export default function ManagementCategory () {
     return(
         <Container>
             <LoadingContainer isLoading={isLoading}/>
-            { categoriesData 
-                ? <ManagementComponent ManagementData={CategoryManagementData}/> 
-                : <></>
-            }
+            {categoriesData && <ManagementComponent ManagementData={CategoryManagementData}/>}
             <TestButton onClick={handleRefresh}/>
         </Container>
     )
