@@ -15,7 +15,7 @@ export default function UniqueSubCategory ({SubCategoryData, handleLoading, admi
     const [selectOtherProduct, setSelectOtherProduct] = useState(undefined)
 
     const ProductCardData = {
-        name: "Maquina GWOW - 418 | dkdwo DWKdowk ow",
+        name: "ESQUADREJADEIRA 2900MM COM EIXO INCLINAVEL 45° SEM MOTOR - FORTG BY MAKSIWA- 106[1464]",
         imageUrl: "https://storage.googleapis.com/imageuploads-7b8bc.appspot.com/1689369296686.png"
     }
 
@@ -45,7 +45,7 @@ export default function UniqueSubCategory ({SubCategoryData, handleLoading, admi
     ]
 
     const CategoryManagementData = {
-        title:"Gerir SubCategorias",
+        title:SubCategoryData?.name,
         isMainComponent: false,
         components: [
             {

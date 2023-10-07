@@ -1,7 +1,6 @@
 import { toast } from "react-toastify";
 import { useCustomForm } from "../../../../../hooks/useCustomForms";
 import ManagementComponent from "../common/ManagementComponent"
-import { useState } from "react";
 import ItemList from "../common/ItensList";
 import ProductForms from "./ProductForms";
 import ImageCard from "../image/ImageCard";
@@ -29,7 +28,7 @@ export default function UniqueProduct ({productData}) {
     ]
 
     const ProductManagementData = {
-        title:"Gerir Produto",
+        title: productData?.name,
         isMainComponent: false,
         components: [
             {
