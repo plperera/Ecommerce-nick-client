@@ -18,11 +18,31 @@ export default function ManagementSubCategory ({SubCategoryData, handleLoading})
 
     const ProductCardData = {
         name: "Maquina GWOW - 418 | dkdwo DWKdowk ow",
+        imageUrl: "https://storage.googleapis.com/imageuploads-7b8bc.appspot.com/1689369296686.png"
     }
 
     const ProductListData = [
         {
-            content: <ProductCard productData={ProductCardData} setSelect={setSelectProduct}/>
+            content: <ProductCard 
+                productData={ProductCardData} 
+                setSelect={setSelectProduct}
+                productBelong={true} 
+                handleLinkProduct={() => {}}
+                subcategoryId={SubCategoryData?.id}
+            />
+        },
+    ]
+
+    const OtherProductListData = [
+        {
+            content: <ProductCard 
+                productData={ProductCardData} 
+                setSelect={setSelectProduct}
+                productBelong={false} 
+                hasOtherSubCategory={Math.random() >= 0.5} 
+                handleLinkProduct={() => {}}
+                subcategoryId={SubCategoryData?.id}
+            />
         },
     ]
 
@@ -39,6 +59,16 @@ export default function ManagementSubCategory ({SubCategoryData, handleLoading})
                 content: selectProduct 
                     ? <ManagementProduct handleLoading={handleLoading}/> 
                     : <ItemList ListData={ProductListData} title={"Produtos"}/>,
+                handleReturn: handleReturnSubCategoryList
+                // title: selectSubCategory ? "Voltar" : "Lista de SubCategorias",
+                // content: selectSubCategory ? <ManagementSubCategory SubCategoryData={selectSubCategory}/> : <ItemList ListData={SubCategoryListData} title={"SubCategorias"}/>,
+                // handleReturn: handleReturnSubCategoryList
+            },
+            {
+                title: selectProduct ? "Voltar" : "Atrelar outros Produtos",
+                content: selectProduct 
+                    ? <ManagementProduct handleLoading={handleLoading}/> 
+                    : <ItemList ListData={OtherProductListData} title={"Produtos"}/>,
                 handleReturn: handleReturnSubCategoryList
                 // title: selectSubCategory ? "Voltar" : "Lista de SubCategorias",
                 // content: selectSubCategory ? <ManagementSubCategory SubCategoryData={selectSubCategory}/> : <ItemList ListData={SubCategoryListData} title={"SubCategorias"}/>,

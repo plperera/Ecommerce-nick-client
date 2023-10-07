@@ -161,8 +161,16 @@ function UpdateSubCategory({body, token}) {
 function DisableSubCategory({body, token}){
     return axios.put(`${BASE_URL}/subcategory/admin/disable`, body, {headers: { Authorization: `Bearer ${token}`}});
 }
+function CreateCategoryLink({body, token}) {
+    return axios.post(`${BASE_URL}/category/link/admin`, body, {headers: { Authorization: `Bearer ${token}`}})
+}
+function RemoveCategoryLink({body, token}) {
+    return axios.put(`${BASE_URL}/category/link/admin`, body, {headers: { Authorization: `Bearer ${token}`}})
+}
 
 const api = {
+    CreateCategoryLink,
+    RemoveCategoryLink,
     CreateSubCategory,
     UpdateSubCategory,
     DisableSubCategory,

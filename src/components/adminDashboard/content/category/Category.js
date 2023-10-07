@@ -8,14 +8,33 @@ import { useState } from "react";
 import ManagementSubCategory from "./subCategory/ManagementSubCategory";
 import api from "../../../../services/API";
 
-export default function Category({mainCategoryData, handleLoading, adminData}) {
+export default function Category({mainCategoryData, handleLoading, adminData, handleLinkSubCategory}) {
 
     const [ form, handleForm ] = useCustomForm({name: mainCategoryData?.name});
     const [selectSubCategory, setSelectSubCategory] = useState(undefined)
+    const [selectOtherSubCategory, setSelectOtherSubCategory] = useState(undefined)
 
     const SubCategoryListData = mainCategoryData?.subCategories?.map(e => {
         return {
-            content: <SubCategoryCard subCategoryData={e} setSelect={setSelectSubCategory}/>
+            content: <SubCategoryCard 
+                subCategoryData={e} 
+                setSelect={setSelectSubCategory} 
+                subCategoryBelong={true} 
+                handleLinkSubCategory={handleLinkSubCategory}
+                mainCategoryId={mainCategoryData?.id}
+            />
+        }
+    })
+    const OtherSubCategoryListData = mainCategoryData?.subCategories?.map(e => {
+        return {
+            content: <SubCategoryCard 
+                subCategoryData={e} 
+                setSelect={setSelectOtherSubCategory} 
+                subCategoryBelong={false} 
+                hasOtherMainCategory={Math.random() >= 0.5} 
+                handleLinkSubCategory={handleLinkSubCategory}
+                mainCategoryId={mainCategoryData?.id}
+            />
         }
     })
 
@@ -28,11 +47,20 @@ export default function Category({mainCategoryData, handleLoading, adminData}) {
                 content: <CategoryForms form={form} handleForm={handleForm} submitForm={submitForm} deleteButton={true}/>
             },
             {
-                title: selectSubCategory ? "Voltar" : "Lista de SubCategorias",
+                title: "Lista de SubCategorias",
+                showReturnButton: !!selectSubCategory,
                 content: selectSubCategory 
                     ? <ManagementSubCategory SubCategoryData={selectSubCategory} handleLoading={handleLoading}/> 
                     : <ItemList ListData={SubCategoryListData} title={"SubCategorias"}/>,
                 handleReturn: handleReturnSubCategoryList
+            },
+            {
+                title: "Atrelar outras Subcategoria",
+                showReturnButton: !!selectOtherSubCategory,
+                content: selectOtherSubCategory 
+                    ? <ManagementSubCategory SubCategoryData={selectOtherSubCategory} handleLoading={handleLoading}/> 
+                    : <ItemList ListData={OtherSubCategoryListData} title={"SubCategorias"}/>,
+                handleReturn: handleReturnOtherSubCategoryList
             }
         ]
     }
@@ -42,6 +70,12 @@ export default function Category({mainCategoryData, handleLoading, adminData}) {
             return
         }
         setSelectSubCategory(undefined)
+    }
+    function handleReturnOtherSubCategoryList(){
+        if(!selectOtherSubCategory){
+            return
+        }
+        setSelectOtherSubCategory(undefined)
     }
 
     async function submitForm(operation){

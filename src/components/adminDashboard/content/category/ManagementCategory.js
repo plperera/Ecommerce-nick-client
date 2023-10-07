@@ -49,9 +49,10 @@ export default function ManagementCategory () {
                     content: <CategoryForms textButton={"Criar"} form={form} handleForm={handleForm} submitForm={handleSubmitNewCategory}/>,
                 },
                 {
-                    title: selectCategory ? "Voltar" : "Lista de Categorias:",
-                    content: selectCategory 
-                        ? <Category mainCategoryData={selectCategory} handleLoading={handleLoading} adminData={adminData}/> 
+                    title: "Lista de Categorias",
+                    showReturnButton: !!selectCategory,
+                    content: selectCategory
+                        ? <Category mainCategoryData={selectCategory} handleLoading={handleLoading} adminData={adminData} handleLinkSubCategory={handleLinkSubCategory}/> 
                         : <ItemList ListData={CategoryListData} title={"Categorias"}/>,
                     handleReturn: handleReturnCategoryList
                 },
@@ -164,6 +165,43 @@ export default function ManagementCategory () {
                 handleLoading(false)
                 return
             }
+            console.log(error)
+            toast.dark("Ocorreu um erro, tente novamente mais tarde ou contate o desenvolvedor")
+            handleRefresh()
+            handleLoading(false)
+            return
+        }
+    }
+
+    async function handleLinkSubCategory({mainCategoryId, subCategoryId, unlink}){
+        
+        if(!mainCategoryId && !subCategoryId){
+            toast.dark("Ocorreu um erro nos valores")
+            console.log("Valores handleLinkSubCategory: ", {mainCategoryId, subCategoryId})
+            return
+        }
+        try {
+            const body = {
+                mainCategoryId,
+                subCategoryId
+            }
+
+            let response
+
+            if(!unlink){
+                response = await api.CreateCategoryLink({body, token: adminData?.token})
+            } else {
+                response = await api.RemoveCategoryLink({body, token: adminData?.token})
+            }
+            
+            if(response?.status === 200){
+                toast.dark("Atualização feita com Sucesso")
+            }
+
+            handleRefresh()
+            handleLoading(false)
+            return
+        } catch (error) {
             console.log(error)
             toast.dark("Ocorreu um erro, tente novamente mais tarde ou contate o desenvolvedor")
             handleRefresh()

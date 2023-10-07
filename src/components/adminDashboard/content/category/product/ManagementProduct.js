@@ -3,6 +3,7 @@ import { useCustomForm } from "../../../../../hooks/useCustomForms";
 import ManagementComponent from "../common/ManagementComponent"
 import { useState } from "react";
 import ItemList from "../common/ItensList";
+import ProductForms from "./ProductForms";
 
 
 export default function ManagementProduct ({SubCategoryData}) {
@@ -27,11 +28,11 @@ export default function ManagementProduct ({SubCategoryData}) {
         components: [
             {
                 title: "Editar",
-                content: <></>
+                content: <ProductForms/>
                 //content: <SubCategoryForms form={form} handleForm={handleForm} submitForm={submitForm}/>
             },
             {
-                title: selectProduct ? "Voltar" : "Lista de Produtos Atrelados",
+                title: selectProduct ? "Voltar" : "Lista de Imagens Atreladas",
                 content: selectProduct ? <>PRODUCT_MANAGEMENT</> : <ItemList ListData={ProductListData} title={"Produtos"}/>,
                 handleReturn: handleReturnSubCategoryList
                 // title: selectSubCategory ? "Voltar" : "Lista de SubCategorias",
