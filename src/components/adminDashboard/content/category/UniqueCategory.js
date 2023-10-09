@@ -37,6 +37,7 @@ export default function UniqueCategory({mainCategoryData, handleLoading, adminDa
             />
         }
     })
+
     const CategoryManagementData = {
         title: mainCategoryData?.categoryName,
         isMainComponent: false,

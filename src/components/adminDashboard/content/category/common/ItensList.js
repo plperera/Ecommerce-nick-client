@@ -1,6 +1,7 @@
 import styled from "styled-components"
 
 export default function ItemList ({ListData, title, selectItem, contentWhenSelected}) {
+    console.log("ListData", ListData)
     return(
         <>  
         {
@@ -9,6 +10,7 @@ export default function ItemList ({ListData, title, selectItem, contentWhenSelec
 
             : <Container>
                 <ContentContainer>
+                    {ListData[0]?.length === 0 && <>113</>}
                     {ListData?.map(e => 
                         e?.content
                     )}

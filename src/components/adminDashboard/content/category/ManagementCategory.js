@@ -42,7 +42,10 @@ export default function ManagementCategory () {
         
         const CategoryListData = categoriesData?.map(e => {
             return {
-                content: <CategoryCard categoryData={e} setSelect={setSelectCategory}/>
+                content: <CategoryCard 
+                    categoryData={e} 
+                    setSelect={setSelectCategory}
+                />
             }
         })
 
