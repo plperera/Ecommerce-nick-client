@@ -24,12 +24,6 @@ export default function ManagementCategory () {
     const [isLoading, setIsLoading] = useState(true)
     const [refresh, setRefresh] = useState(true)
 
-    const CategoryListData = categoriesData?.map(e => {
-        return {
-            content: <CategoryCard categoryData={e} setSelect={setSelectCategory}/>
-        }
-    })
-
     const [CategoryManagementData, setCategoryManagementData] = useState({});
 
     //faz a busca de todas as categorias
@@ -45,6 +39,13 @@ export default function ManagementCategory () {
 
     //manipula o componente de gerenciamento
     useEffect(() => {
+        
+        const CategoryListData = categoriesData?.map(e => {
+            return {
+                content: <CategoryCard categoryData={e} setSelect={setSelectCategory}/>
+            }
+        })
+
         setCategoryManagementData({
             title:"Gerir Categorias",
             isMainComponent: true,
@@ -67,6 +68,7 @@ export default function ManagementCategory () {
                                 handleLoading={handleLoading} 
                                 adminData={adminData} 
                                 handleLinkSubCategory={handleLinkSubCategory}
+                                handleRefresh={handleRefresh}
                             />
                         }
                     />,
@@ -77,51 +79,51 @@ export default function ManagementCategory () {
     }, [categoriesData, selectCategory, refresh, form])
 
     //apenas para teste
-    function formatCategoriesForTest(arr){
-        const newArray = arr.map(e => {
-            return {
-                ...e,
-                subCategories: [
-                    {
-                        id: 1,
-                        name: "DWEK 252",
-                        products: [
-                            {
-                                id: 1,
-                                name: "Maquina 1"
-                            },
-                            {
-                                id: 1,
-                                name: "Maquina 2"
-                            }
-                        ]
-                    },
-                    {
-                        id: 1,
-                        name: "DWEK 252",
-                        products: [
-                            {
-                                id: 1,
-                                name: "Maquina 1"
-                            },
-                            {
-                                id: 1,
-                                name: "Maquina 2"
-                            }
-                        ]
-                    },
-                ]
-            }
-        })
-        return newArray
-    }
+    // function formatCategoriesForTest(arr){
+    //     const newArray = arr.map(e => {
+    //         return {
+    //             ...e,
+    //             subCategories: [
+    //                 {
+    //                     id: 1,
+    //                     name: "DWEK 252",
+    //                     products: [
+    //                         {
+    //                             id: 1,
+    //                             name: "Maquina 1"
+    //                         },
+    //                         {
+    //                             id: 1,
+    //                             name: "Maquina 2"
+    //                         }
+    //                     ]
+    //                 },
+    //                 {
+    //                     id: 1,
+    //                     name: "DWEK 252",
+    //                     products: [
+    //                         {
+    //                             id: 1,
+    //                             name: "Maquina 1"
+    //                         },
+    //                         {
+    //                             id: 1,
+    //                             name: "Maquina 2"
+    //                         }
+    //                     ]
+    //                 },
+    //             ]
+    //         }
+    //     })
+    //     return newArray
+    // }
 
     //busca todas as categorias
     async function getAllCategories(){
         handleLoading(true)
         try {
-            const response = await api.GetAllCategories()
-            setCategoriesData(formatCategoriesForTest(response.data))
+            const response = await api.GetAllCategoriesWithAllData(adminData?.token)
+            setCategoriesData(response.data)
         } catch (error) {
             console.log(error)
         }

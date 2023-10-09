@@ -8,9 +8,9 @@ import { useState } from "react";
 import UniqueSubCategory from "./subCategory/UniqueSubCategory";
 import api from "../../../../services/API";
 
-export default function UniqueCategory({mainCategoryData, handleLoading, adminData, handleLinkSubCategory}) {
+export default function UniqueCategory({mainCategoryData, handleLoading, adminData, handleLinkSubCategory, handleRefresh}) {
 
-    const [ form, handleForm ] = useCustomForm({name: mainCategoryData?.name});
+    const [ form, handleForm ] = useCustomForm({categoryName: mainCategoryData?.categoryName});
     const [selectSubCategory, setSelectSubCategory] = useState(undefined)
     const [selectOtherSubCategory, setSelectOtherSubCategory] = useState(undefined)
 
@@ -38,7 +38,7 @@ export default function UniqueCategory({mainCategoryData, handleLoading, adminDa
         }
     })
     const CategoryManagementData = {
-        title: mainCategoryData?.name,
+        title: mainCategoryData?.categoryName,
         isMainComponent: false,
         components: [
             {
@@ -81,6 +81,7 @@ export default function UniqueCategory({mainCategoryData, handleLoading, adminDa
             }
         ]
     }
+
     function handleReturnSubCategoryList(){
         if(!selectSubCategory){
             return
@@ -94,47 +95,49 @@ export default function UniqueCategory({mainCategoryData, handleLoading, adminDa
         setSelectOtherSubCategory(undefined)
     }
     async function submitForm(operation){
-        if(!form?.name) {
+        if(!form?.categoryName) {
             toast.dark("Valor inválido!")
             return
         }
         handleLoading(true)
-        if (operation === "delete"){
-            try {
-                const body = {
-                    categoryId: mainCategoryData?.id,
-                }
-                const response = await api.DisableCategory({body, token: adminData?.token})
-
-                if(response.status === 200){
-                    toast.dark("Categoria Desativada com Sucesso")
-                }
-                handleLoading(false) 
-                return
-
-            } catch (error) {
-                toast.dark("Ocorreu um erro, tente novamente mais tarde ou contate o desenvolvedor")
-                console.log(error)
-                handleLoading(false) 
-                return
-            }
-        }
         try {
             const body = {
-                categoryId: mainCategoryData?.id,
-                name: form?.name
+                categoryId: mainCategoryData?.categoryId,
+                categoryName: form?.categoryName
             }
-            const response = await api.UpdateCategory({body, token: adminData?.token})
+
+            let response
+
+            if (operation === "delete"){
+                delete body.categoryName
+                response = await api.DisableCategory({body, token: adminData?.token})
+            } else {
+                response = await api.UpdateCategory({body, token: adminData?.token})
+            }
 
             if(response.status === 200){
                 toast.dark("Atualização feita com sucesso")
             }
+            handleRefresh()
             handleLoading(false)
             return
             
         } catch (error) {
+            if (error?.response?.status === 409) {
+                toast.error("Categoria ja cadastrada")
+                handleRefresh()
+                handleLoading(false)
+                return
+            }
+            if (error?.response?.status === 400) {
+                toast.error("Nome de categoria inválido")
+                handleRefresh()
+                handleLoading(false)
+                return
+            }
             toast.dark("Ocorreu um erro, tente novamente mais tarde ou contate o desenvolvedor")
             console.log(error)
+            handleRefresh()
             handleLoading(false) 
             return
         }

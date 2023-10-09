@@ -8,8 +8,8 @@ export default function CategoryForms ({form, handleForm, submitForm, textButton
             <Input 
                 label="Nome da Categoria"
                 type="text" 
-                name={"name"} 
-                value={form?.name} 
+                name={"categoryName"} 
+                value={form?.categoryName} 
                 width="25%"
                 onChange={handleForm}
             />

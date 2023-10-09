@@ -10,6 +10,9 @@ function GetAllImages({token}) {
 function GetAllProducts() {
     return axios.get(`${BASE_URL}/product`)
 }
+function GetAllCategoriesWithAllData(token) {
+    return axios.get(`${BASE_URL}/category/admin`, {headers: { Authorization: `Bearer ${token}`}})
+}
 function GetAllProductsWithAllData(token) {
     return axios.get(`${BASE_URL}/product/admin`, {headers: { Authorization: `Bearer ${token}`}})
 }
@@ -223,7 +226,8 @@ const api = {
     GetProductsBannerHome,
     CreateProductsBannerHome,
     UpdateProductsBannerHome,
-    DeleteProductsBannerHome
+    DeleteProductsBannerHome,
+    GetAllCategoriesWithAllData
 };
 
 export default api;
