@@ -7,82 +7,113 @@ import SubCategoryCard from "./subCategory/SubCategoryCard";
 import { useState } from "react";
 import UniqueSubCategory from "./subCategory/UniqueSubCategory";
 import api from "../../../../services/API";
+import { useEffect } from "react";
 
-export default function UniqueCategory({mainCategoryData, handleLoading, adminData, handleLinkSubCategory, handleRefresh}) {
+export default function UniqueCategory({mainCategoryData, handleLoading, adminData, handleLinkSubCategory, handleRefresh, refresh}) {
 
     const [ form, handleForm ] = useCustomForm({categoryName: mainCategoryData?.categoryName});
     const [selectSubCategory, setSelectSubCategory] = useState(undefined)
     const [selectOtherSubCategory, setSelectOtherSubCategory] = useState(undefined)
+    const [allSubCategoriesData, setAllSubCategoriesData] = useState(undefined)
+    const [categoryManagementData, setCategoryManagementData] = useState(undefined)
 
-    const SubCategoryListData = mainCategoryData?.subCategories?.map(e => {
-        return {
-            content: <SubCategoryCard 
-                subCategoryData={e} 
-                setSelect={setSelectSubCategory} 
-                subCategoryBelong={true} 
-                handleLinkSubCategory={handleLinkSubCategory}
-                mainCategoryId={mainCategoryData?.id}
-            />
-        }
-    })
-    const OtherSubCategoryListData = mainCategoryData?.subCategories?.map(e => {
-        return {
-            content: <SubCategoryCard 
-                subCategoryData={e} 
-                setSelect={setSelectOtherSubCategory} 
-                subCategoryBelong={false} 
-                hasOtherMainCategory={Math.random() >= 0.5} 
-                handleLinkSubCategory={handleLinkSubCategory}
-                mainCategoryId={mainCategoryData?.id}
-            />
-        }
-    })
+    useEffect(() => {
+        getAllSubCategoriesData()
+    }, [mainCategoryData, refresh])
 
-    const CategoryManagementData = {
-        title: mainCategoryData?.categoryName,
-        isMainComponent: false,
-        components: [
-            {
-                title: "Editar Categoria Principal",
-                content: <CategoryForms form={form} handleForm={handleForm} submitForm={submitForm} deleteButton={true}/>
-            },
-            {
-                title: "Lista de SubCategorias",
-                showReturnButton: !!selectSubCategory,
-                handleReturn: handleReturnSubCategoryList,
-                content: <ItemList 
-                    ListData={SubCategoryListData} 
-                    title={"SubCategorias"}
-                    selectItem={selectSubCategory}
-                    contentWhenSelected={
-                        <UniqueSubCategory 
-                            SubCategoryData={selectSubCategory} 
-                            handleLoading={handleLoading}
-                            adminData={adminData}
-                        /> 
-                    }
-                />,
-            },
-            {
-                title: "Atrelar outras Subcategoria",
-                showReturnButton: !!selectOtherSubCategory,
-                handleReturn: handleReturnOtherSubCategoryList,
-                content: <ItemList 
-                    ListData={OtherSubCategoryListData} 
-                    title={"SubCategorias"}
-                    selectItem={selectOtherSubCategory}
-                    contentWhenSelected={
-                        <UniqueSubCategory 
-                            SubCategoryData={selectOtherSubCategory} 
-                            handleLoading={handleLoading}
-                            adminData={adminData}
-                        /> 
-                    }
-                />,
-            }
-        ]
+    useEffect(() => {
+
+        const SubCategoryListData = allSubCategoriesData
+            ?.filter(
+                (e) =>
+                mainCategoryData?.categoryId === e?.mainCategory?.categoryId
+            )
+            .map((e) => ({
+                content: (
+                <SubCategoryCard
+                    subCategoryData={e} 
+                    setSelect={setSelectSubCategory} 
+                    subCategoryBelong={true} 
+                    handleLinkSubCategory={handleLinkSubCategory}
+                    mainCategoryId={mainCategoryData?.categoryId}    
+                />
+                ),
+            }));
+
+        const OtherSubCategoryListData = allSubCategoriesData
+            ?.filter(
+            (e) =>
+                mainCategoryData?.categoryId !== e?.mainCategory?.categoryId
+            )
+            .map((e) => ({
+            content: (
+                <SubCategoryCard
+                subCategoryData={e}
+                setSelect={setSelectOtherSubCategory}
+                subCategoryBelong={false}
+                hasOtherMainCategory={!!e?.mainCategory?.categoryId}
+                handleLinkSubCategory={handleLinkSubCategory}
+                mainCategoryId={mainCategoryData?.categoryId}
+                />
+            ),
+            }));
+
+        setCategoryManagementData({
+            title: mainCategoryData?.categoryName,
+            isMainComponent: false,
+            components: [
+                {
+                    title: "Editar Categoria Principal",
+                    content: <CategoryForms form={form} handleForm={handleForm} submitForm={submitForm} deleteButton={true}/>
+                },
+                {
+                    title: "Lista de SubCategorias",
+                    showReturnButton: !!selectSubCategory,
+                    handleReturn: handleReturnSubCategoryList,
+                    content: <ItemList 
+                        ListData={SubCategoryListData} 
+                        title={"SubCategorias"}
+                        selectItem={selectSubCategory}
+                        contentWhenSelected={
+                            <UniqueSubCategory 
+                                SubCategoryData={selectSubCategory} 
+                                handleLoading={handleLoading}
+                                adminData={adminData}
+                            /> 
+                        }
+                    />,
+                },
+                {
+                    title: "Atrelar outras Subcategoria",
+                    showReturnButton: !!selectOtherSubCategory,
+                    handleReturn: handleReturnOtherSubCategoryList,
+                    content: <ItemList 
+                        ListData={OtherSubCategoryListData} 
+                        title={"SubCategorias"}
+                        selectItem={selectOtherSubCategory}
+                        contentWhenSelected={
+                            <UniqueSubCategory 
+                                SubCategoryData={selectOtherSubCategory} 
+                                handleLoading={handleLoading}
+                                adminData={adminData}
+                            /> 
+                        }
+                    />,
+                }
+            ]
+        })
+
+    }, [allSubCategoriesData, mainCategoryData, refresh])
+
+    async function getAllSubCategoriesData(){
+        try {
+            const response = await api.GetAllSubCategoriesData(adminData?.token)
+            setAllSubCategoriesData(response?.data)
+            console.log(response?.data)
+        } catch (error) {
+            console.log(error)
+        }
     }
-
     function handleReturnSubCategoryList(){
         if(!selectSubCategory){
             return
@@ -145,6 +176,8 @@ export default function UniqueCategory({mainCategoryData, handleLoading, adminDa
     }
 
     return(
-        <ManagementComponent ManagementData={CategoryManagementData}/>
+        <>
+            {allSubCategoriesData && <ManagementComponent ManagementData={categoryManagementData}/>}
+        </>
     )
 }

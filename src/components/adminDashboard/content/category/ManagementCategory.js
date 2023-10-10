@@ -72,6 +72,7 @@ export default function ManagementCategory () {
                                 adminData={adminData} 
                                 handleLinkSubCategory={handleLinkSubCategory}
                                 handleRefresh={handleRefresh}
+                                refresh={refresh}
                             />
                         }
                     />,
@@ -200,26 +201,20 @@ export default function ManagementCategory () {
     }
 
     //Manipula a linkagem
-    async function handleLinkSubCategory({mainCategoryId, subCategoryId, unlink}){
+    async function handleLinkSubCategory({mainCategoryId, subCategoryId}){
         
         if(!mainCategoryId && !subCategoryId){
             toast.dark("Ocorreu um erro nos valores")
-            console.log("Valores handleLinkSubCategory: ", {mainCategoryId, subCategoryId})
+            console.log("Valores LinkSubCategory: ", {mainCategoryId, subCategoryId})
             return
         }
         try {
             const body = {
-                mainCategoryId,
+                categoryId: mainCategoryId,
                 subCategoryId
             }
 
-            let response
-
-            if(!unlink){
-                response = await api.CreateCategoryLink({body, token: adminData?.token})
-            } else {
-                response = await api.RemoveCategoryLink({body, token: adminData?.token})
-            }
+            const response = await api.HandleCategoryLink({body, token: adminData?.token})
             
             if(response?.status === 200){
                 toast.dark("Atualização feita com Sucesso")
@@ -239,7 +234,7 @@ export default function ManagementCategory () {
     
     return(
         <Container>
-            <LoadingContainer isLoading={isLoading}/>
+            {/* <LoadingContainer isLoading={isLoading}/> */}
             {categoriesData && <ManagementComponent ManagementData={CategoryManagementData}/>}
             <TestButton onClick={handleRefresh}/>
         </Container>

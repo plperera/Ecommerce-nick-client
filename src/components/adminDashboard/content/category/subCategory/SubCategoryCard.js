@@ -12,16 +12,16 @@ export default function SubCategoryCard ({subCategoryData, setSelect, subCategor
     }
     return(
         <Container >
-            <UpperContainer>
+            <UpperContainer countBackground={subCategoryData?.products?.length > 0 ? '#434FB3':'#B9B9B9'}>
                 {/* <p>{subCategoryData?.name}</p> */}
-                <p>{subCategoryData?.name}</p>
+                <p>{subCategoryData?.subCategoryName}</p>
                 <p>{subCategoryData?.products?.length}</p>
             </UpperContainer>
             <ActionsContainer>
                 <StyledIconContainer color={subCategoryBelong ? '#C54F4F': hasOtherMainCategory ? '#79511D':'#32829B'}>
                     {subCategoryBelong
-                        ? <BiUnlink onClick={() => handleLinkSubCategory({mainCategoryId: mainCategoryId, subCategoryId: subCategoryData?.id, unlink: true})}/>
-                        : <BiLink onClick={() => handleLinkSubCategory({mainCategoryId: mainCategoryId, subCategoryId: subCategoryData?.id, unlink: false})}/>
+                        ? <BiUnlink onClick={() => handleLinkSubCategory({mainCategoryId: mainCategoryId, subCategoryId: subCategoryData?.subCategoryId, unlink: true})}/>
+                        : <BiLink onClick={() => handleLinkSubCategory({mainCategoryId: mainCategoryId, subCategoryId: subCategoryData?.subCategoryId, unlink: false})}/>
                     }
                     {hasOtherMainCategory
                         ? <><PiWarningDiamondBold onClick={handleAlert}/></>
@@ -43,6 +43,7 @@ const Container = styled.div`
     background-color: #DFDFDF;
     border-radius: 10px;
     padding: 1vh 0;
+    row-gap: 1vh;
 `
 const UpperContainer = styled.div`
     padding: 0vh 1vw;
@@ -51,19 +52,24 @@ const UpperContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1vh 1vw;
     position: relative;
     > :last-child {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 25px;
+        max-width: 32px;
         position: absolute;
         right: 1vw;
         top: calc(1vh - 5px * 1);
         padding: 5px 8px;
         border-radius: 5px;
-        background-color: #434FB3;
+        background-color: ${props => props.countBackground};
         color: white;
         font-size: 12px;
     }
 `
+
 const ActionsContainer = styled.div`
     width: 100%;
     height: 50px;

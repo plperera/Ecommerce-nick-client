@@ -1,7 +1,6 @@
 import styled from "styled-components"
 
 export default function ItemList ({ListData, title, selectItem, contentWhenSelected}) {
-    console.log("ListData", ListData)
     return(
         <>  
         {
@@ -10,7 +9,9 @@ export default function ItemList ({ListData, title, selectItem, contentWhenSelec
 
             : <Container>
                 <ContentContainer>
-                    {ListData[0]?.length === 0 && <>113</>}
+                    {!ListData?.length && 
+                        <EmptyContainer>{"Nenhum Conteudo Encontrado..."}</EmptyContainer>
+                    }
                     {ListData?.map(e => 
                         e?.content
                     )}
@@ -94,3 +95,14 @@ const IndexStyle = styled.div`
         background-color: #CCCCCC;
     }
 `
+const EmptyContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    font-weight: 700;
+    font-size: 14px;
+    color: #A8A8A8;
+    letter-spacing: 3px;
+    user-select: none;
+` 
