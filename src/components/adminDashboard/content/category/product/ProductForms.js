@@ -2,11 +2,11 @@ import styled from "styled-components"
 import Input from "../../../../../common/form/Input"
 import Button from "../../../../../common/form/Button"
 import { InputWrapper } from "../common/InputWrapper"
+import ProductTecnicDetails from "./ProductTecnicDetails"
 
-export default function ProductForms ({form, handleForm, submitForm, textButton, deleteButton}) {
+export default function ProductForms ({form, handleForm, setForm, submitForm, textButton, deleteButton}) {
     return(
-        <Container>
-            
+        <Container>    
             <InputWrapper width={"80%"}>
                 <Input 
                     label="Nome do Produto" 
@@ -57,7 +57,9 @@ export default function ProductForms ({form, handleForm, submitForm, textButton,
                     onChange={handleForm}
                 />
             </InputWrapper>
-            
+
+            <ProductTecnicDetails form={form} handleForm={handleForm} setForm={setForm}/>
+
             <ButtonContainer>
                 {
                 deleteButton 

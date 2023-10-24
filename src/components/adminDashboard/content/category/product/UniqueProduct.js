@@ -8,7 +8,7 @@ import api from "../../../../../services/API";
 
 export default function UniqueProduct ({productData, adminData, handleRefresh, handleLoading}) {
 
-    const [ form, handleForm ] = useCustomForm({
+    const [ form, handleForm, setForm ] = useCustomForm({
         name: productData?.name,
         isActive: productData?.isActive,
         description: productData?.description,
@@ -42,7 +42,7 @@ export default function UniqueProduct ({productData, adminData, handleRefresh, h
         components: [
             {
                 title: "Editar",
-                content: <ProductForms form={form} handleForm={handleForm} submitForm={submitForm}/>
+                content: <ProductForms form={form} handleForm={handleForm} submitForm={submitForm} setForm={setForm}/>
             },
             {
                 title: "Lista de Imagens Atreladas",
@@ -63,17 +63,7 @@ export default function UniqueProduct ({productData, adminData, handleRefresh, h
         }
     }
     async function submitForm(){
-        if (
-            !form?.name ||
-            !form?.isActive ||
-            !form?.description ||
-            !form?.price ||
-            !form?.highPrice ||
-            !form?.stock ||
-            !form?.tecnicDetails       
-        ) {
-            toast?.warn("Campo(s) inválido(s)")
-        }
+        
         try {
             const body = {
                 id: productData?.productId,
@@ -82,7 +72,7 @@ export default function UniqueProduct ({productData, adminData, handleRefresh, h
                 price: form?.price,
                 highPrice: form?.highPrice,
                 stock: form?.stock,
-                tecnicDetails: productData?.tecnicDetails,
+                tecnicDetails: form?.tecnicDetails,
                 subCategories: productData?.subCategories?.map(e => {
                     return {
                         subCategoryId: e?.subCategoryId
@@ -95,6 +85,7 @@ export default function UniqueProduct ({productData, adminData, handleRefresh, h
                     }
                 }),
             }
+            console.log("body", body)
             const response = await api.UpdateProduct({body, token: adminData?.token})
             console.log(response)
             if(response?.status === 200){
@@ -112,7 +103,6 @@ export default function UniqueProduct ({productData, adminData, handleRefresh, h
             return
         }
     }
-
 
     return(
         <ManagementComponent ManagementData={ProductManagementData}/>
