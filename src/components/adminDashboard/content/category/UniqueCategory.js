@@ -48,12 +48,12 @@ export default function UniqueCategory({mainCategoryData, handleLoading, adminDa
             .map((e) => ({
             content: (
                 <SubCategoryCard
-                subCategoryData={e}
-                setSelect={setSelectOtherSubCategory}
-                subCategoryBelong={false}
-                hasOtherMainCategory={!!e?.mainCategory?.categoryId}
-                handleLinkSubCategory={handleLinkSubCategory}
-                mainCategoryId={mainCategoryData?.categoryId}
+                    subCategoryData={e}
+                    setSelect={setSelectOtherSubCategory}
+                    subCategoryBelong={false}
+                    hasOtherMainCategory={!!e?.mainCategory?.categoryId}
+                    handleLinkSubCategory={handleLinkSubCategory}
+                    mainCategoryId={mainCategoryData?.categoryId}
                 />
             ),
             }));
@@ -103,7 +103,7 @@ export default function UniqueCategory({mainCategoryData, handleLoading, adminDa
             ]
         })
 
-    }, [allSubCategoriesData, mainCategoryData, refresh])
+    }, [allSubCategoriesData, mainCategoryData, refresh, selectSubCategory, selectOtherSubCategory])
 
     async function getAllSubCategoriesData(){
         try {

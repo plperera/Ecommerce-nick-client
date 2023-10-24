@@ -2,7 +2,7 @@ import { toast } from "react-toastify";
 import { useCustomForm } from "../../../../../hooks/useCustomForms";
 import ManagementComponent from "../common/ManagementComponent"
 import SubCategoryForms from "./SubCategoryForms"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ItemList from "../common/ItensList";
 import ProductCard from "../product/ProductCard";
 import UniqueProduct from "../product/UniqueProduct";
@@ -13,80 +13,96 @@ export default function UniqueSubCategory ({SubCategoryData, handleLoading, admi
     const [ form, handleForm ] = useCustomForm({name: SubCategoryData?.name});
     const [selectProduct, setSelectProduct] = useState(undefined)
     const [selectOtherProduct, setSelectOtherProduct] = useState(undefined)
+    const [categoryManagementData, setCategoryManagementData] = useState(undefined)
+    const [productsData, setProductsData] = useState(undefined)
+    const [refresh, setRefresh] = useState(true)
 
-    const ProductCardData = {
-        name: "ESQUADREJADEIRA 2900MM COM EIXO INCLINAVEL 45° SEM MOTOR - FORTG BY MAKSIWA- 106[1464]",
-        imageUrl: "https://storage.googleapis.com/imageuploads-7b8bc.appspot.com/1689369296686.png"
+    useEffect(() => {
+        getAllProductsData()
+    }, [SubCategoryData, refresh])
+
+    useEffect(() => {
+        const ProductListData = productsData
+            ?.filter((e) => e?.subCategories?.some(e => e.subCategoryId === SubCategoryData?.subCategoryId))
+            .map((e) => ({
+                content: (
+                    <ProductCard
+                        productData={e} 
+                        setSelect={setSelectProduct}
+                        productBelong={true} 
+                        handleLinkProduct={handleLinkProductSubCategory}
+                        subcategoryId={SubCategoryData?.subCategoryId}   
+                    />
+                ),
+            }));
+
+        const OtherProductListData = productsData
+        ?.filter((e) => !e?.subCategories?.some(e => e.subCategoryId == SubCategoryData?.subCategoryId))
+        .map((e) => ({
+            content: (
+                <ProductCard
+                    productData={e} 
+                    setSelect={setSelectOtherProduct}
+                    productBelong={false} 
+                    handleLinkProduct={handleLinkProductSubCategory}
+                    subcategoryId={SubCategoryData?.subCategoryId} 
+                    hasOtherSubCategory={e?.subCategories?.length > 0} 
+                />
+            ),
+        }));
+        setCategoryManagementData({
+            title:SubCategoryData?.subCategoryName,
+            isMainComponent: false,
+            components: [
+                {
+                    title: "Editar",
+                    content: <SubCategoryForms form={form} handleForm={handleForm} submitForm={submitForm} deleteButton={true}/>
+                },
+                {
+                    title: "Lista de Produtos Atrelados",
+                    showReturnButton: !!selectProduct,
+                    handleReturn: handleReturnProductList,
+                    content: <ItemList 
+                        ListData={ProductListData} 
+                        title={"Produtos"}
+                        selectItem={selectProduct}
+                        contentWhenSelected={
+                            <UniqueProduct 
+                                productData={selectProduct}
+                                handleLoading={handleLoading}
+                            /> 
+                        }
+                    />, 
+                },
+                {
+                    title: "Atrelar outros Produtos",
+                    showReturnButton: !!selectOtherProduct,
+                    handleReturn: handleReturnOtherProductList,
+                    content: <ItemList 
+                        ListData={OtherProductListData} 
+                        title={"Produtos"}
+                        selectItem={selectOtherProduct}
+                        contentWhenSelected={
+                            <UniqueProduct 
+                                handleLoading={handleLoading}
+                                productData={selectProduct}
+                            /> 
+                        }
+                    />,
+                },
+            ]
+        })
+    }, [SubCategoryData, productsData, selectOtherProduct, selectProduct, refresh])
+
+    async function getAllProductsData(){
+        try {
+            const response = await api.GetAllProductsWithAllData(adminData?.token)
+            setProductsData(response?.data)
+            console.log(response?.data)
+        } catch (error) {
+            console.log(error)
+        }
     }
-
-    const ProductListData = [
-        {
-            content: <ProductCard 
-                productData={ProductCardData} 
-                setSelect={setSelectProduct}
-                productBelong={true} 
-                handleLinkProduct={() => {}}
-                subcategoryId={SubCategoryData?.id}
-            />
-        },
-    ]
-
-    const OtherProductListData = [
-        {
-            content: <ProductCard 
-                productData={ProductCardData} 
-                setSelect={setSelectOtherProduct}
-                productBelong={false} 
-                hasOtherSubCategory={Math.random() >= 0.5} 
-                handleLinkProduct={() => {}}
-                subcategoryId={SubCategoryData?.id}
-            />
-        },
-    ]
-
-    const CategoryManagementData = {
-        title:SubCategoryData?.name,
-        isMainComponent: false,
-        components: [
-            {
-                title: "Editar",
-                content: <SubCategoryForms form={form} handleForm={handleForm} submitForm={submitForm} deleteButton={true}/>
-            },
-            {
-                title: "Lista de Produtos Atrelados",
-                showReturnButton: !!selectProduct,
-                handleReturn: handleReturnProductList,
-                content: <ItemList 
-                    ListData={ProductListData} 
-                    title={"Produtos"}
-                    selectItem={selectProduct}
-                    contentWhenSelected={
-                        <UniqueProduct 
-                            productData={selectProduct}
-                            handleLoading={handleLoading}
-                        /> 
-                    }
-                />, 
-            },
-            {
-                title: "Atrelar outros Produtos",
-                showReturnButton: !!selectOtherProduct,
-                handleReturn: handleReturnOtherProductList,
-                content: <ItemList 
-                    ListData={OtherProductListData} 
-                    title={"Produtos"}
-                    selectItem={selectOtherProduct}
-                    contentWhenSelected={
-                        <UniqueProduct 
-                            handleLoading={handleLoading}
-                            productData={selectProduct}
-                        /> 
-                    }
-                />,
-            },
-        ]
-    }
-
     async function submitForm(operation){
         //handleLoading()
         if(!form?.name) {
@@ -136,22 +152,46 @@ export default function UniqueSubCategory ({SubCategoryData, handleLoading, admi
             return
         }
     }
-
     function handleReturnProductList(){
         if(!setSelectProduct){
             return
         }
         setSelectProduct(undefined)
     }
-
     function handleReturnOtherProductList(){
         if(!setSelectOtherProduct){
             return
         }
         setSelectOtherProduct(undefined)
     }
+    function handleRefresh(){
+        setRefresh(!refresh)
+    }
+    async function handleLinkProductSubCategory(productId){
+        try {
+            const body = {
+                productId,
+                subCategoryId: SubCategoryData?.subCategoryId
+            }
+            const response = await api.HandleProductLink({body, token: adminData?.token})
+            console.log(response)
+            if(response?.status === 200){
+                toast.dark("Atualização feita com Sucesso")
+                
+            }
+            handleRefresh()
+            handleLoading(false)
+            return
+        } catch (error) {
+            console.log(error)
+            toast.dark("Ocorreu um erro, tente novamente mais tarde ou contate o desenvolvedor")
+            handleRefresh()
+            handleLoading(false)
+            return
+        }
+    }
     
     return(
-        <ManagementComponent ManagementData={CategoryManagementData}/>
+        <ManagementComponent ManagementData={categoryManagementData}/>
     )
 }

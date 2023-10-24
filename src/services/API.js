@@ -170,6 +170,9 @@ function HandleCategoryLink({body, token}) {
 function GetAllSubCategoriesData(token) {
     return axios.get(`${BASE_URL}/subcategory/admin`, {headers: { Authorization: `Bearer ${token}`}})
 }
+function HandleProductLink({body, token}) {
+    return axios.put(`${BASE_URL}/subcategory/admin/productlink`, body, {headers: { Authorization: `Bearer ${token}`}})
+}
 
 const api = {
     GetAllSubCategoriesData,
@@ -227,7 +230,8 @@ const api = {
     CreateProductsBannerHome,
     UpdateProductsBannerHome,
     DeleteProductsBannerHome,
-    GetAllCategoriesWithAllData
+    GetAllCategoriesWithAllData,
+    HandleProductLink
 };
 
 export default api;

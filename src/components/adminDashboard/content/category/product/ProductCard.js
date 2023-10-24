@@ -3,7 +3,7 @@ import { BiLink, BiUnlink, BiEditAlt } from 'react-icons/bi';
 import { PiWarningDiamondBold } from 'react-icons/pi';
 import { toast } from "react-toastify";
 
-export default function ProductCard ({productData, setSelect, productBelong, hasOtherSubCategory, handleLinkProduct, subcategoryId}) {
+export default function ProductCard ({productData, setSelect, productBelong, hasOtherSubCategory, handleLinkProduct}) {
     function handleClick(){
         setSelect(productData)
     }
@@ -14,15 +14,15 @@ export default function ProductCard ({productData, setSelect, productBelong, has
         <Container >
             <UpperContainer>
                 <ImageContainer>
-                    <img alt="" src={productData?.imageUrl}/>
+                    <img alt="" src={productData?.images[0]?.imageUrl}/>
                 </ImageContainer>   
                 <p>{productData?.name}</p>
             </UpperContainer>
             <ActionsContainer>
                 <StyledIconContainer color={productBelong ? '#C54F4F': hasOtherSubCategory ? '#79511D':'#32829B'}>
                     {productBelong
-                        ? <BiUnlink onClick={() => handleLinkProduct({subcategoryId: subcategoryId, unlink: true})}/>
-                        : <BiLink onClick={() => handleLinkProduct({subcategoryId: subcategoryId, unlink: false})}/>
+                        ? <BiUnlink onClick={() => handleLinkProduct(productData?.productId)}/>
+                        : <BiLink onClick={() => handleLinkProduct(productData?.productId)}/>
                     }
                     {hasOtherSubCategory
                         ? <><PiWarningDiamondBold onClick={handleAlert}/></>
@@ -89,6 +89,7 @@ const ImageContainer = styled.div`
 `
 const StyledIconContainer = styled.div`
     position: relative;
+    user-select: none;
     > svg {
         font-size: 35px;
         color: ${props => props.color};

@@ -4,7 +4,7 @@ export default function ManagementComponent ({ManagementData}) {
     return(
         <Container isMainComponent={ManagementData?.isMainComponent}>
             <TitleContainer>
-                <h1>{ManagementData.title}</h1>
+                <h1>{ManagementData?.title}</h1>
             </TitleContainer>
 
             <MiddleContainer>

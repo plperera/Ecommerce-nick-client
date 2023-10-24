@@ -236,7 +236,7 @@ export default function ManagementCategory () {
         <Container>
             {/* <LoadingContainer isLoading={isLoading}/> */}
             {categoriesData && <ManagementComponent ManagementData={CategoryManagementData}/>}
-            <TestButton onClick={handleRefresh}/>
+            {/* <TestButton onClick={handleRefresh}/> */}
         </Container>
     )
 }
