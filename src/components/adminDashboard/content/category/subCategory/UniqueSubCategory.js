@@ -70,6 +70,8 @@ export default function UniqueSubCategory ({SubCategoryData, handleLoading, admi
                             <UniqueProduct 
                                 productData={selectProduct}
                                 handleLoading={handleLoading}
+                                adminData={adminData}
+                                handleRefresh={handleRefresh}
                             /> 
                         }
                     />, 
@@ -86,6 +88,8 @@ export default function UniqueSubCategory ({SubCategoryData, handleLoading, admi
                             <UniqueProduct 
                                 handleLoading={handleLoading}
                                 productData={selectProduct}
+                                adminData={adminData}
+                                handleRefresh={handleRefresh}
                             /> 
                         }
                     />,

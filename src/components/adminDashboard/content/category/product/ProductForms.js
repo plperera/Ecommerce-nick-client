@@ -11,8 +11,8 @@ export default function ProductForms ({form, handleForm, submitForm, textButton,
                 <Input 
                     label="Nome do Produto" 
                     type="text" 
-                    name={"productName"} 
-                    value={form?.productName} 
+                    name={"name"} 
+                    value={form?.name} 
                     width="100%"
                     onChange={handleForm}
                 />
@@ -35,16 +35,16 @@ export default function ProductForms ({form, handleForm, submitForm, textButton,
                 <Input 
                     label="Preço" 
                     type="text" 
-                    name={"productPrice"} 
-                    value={form?.productPrice} 
+                    name={"price"} 
+                    value={form?.price} 
                     width="37%"
                     onChange={handleForm}
                 />
                 <Input 
                     label="Preço antes do Desconto" 
                     type="text" 
-                    name={"productPrice"} 
-                    value={form?.productPrice} 
+                    name={"highPrice"} 
+                    value={form?.highPrice} 
                     width="37%"
                     onChange={handleForm}
                 />
