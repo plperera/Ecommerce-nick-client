@@ -20,8 +20,6 @@ export default function CartList ({cartProducts, isLoading, handleProductQuantit
                         <TitleUpperTable width={"15%"}>{"Total"}</TitleUpperTable>
                     </UpperTable>
 
-                    
-
                     <CartItemContainer>
                         {cartProducts.map(e => <CartItem cartProduct={e} handleProductQuantity={handleProductQuantity} isLoadingQuantity={isLoadingQuantity}/>)}
                     </CartItemContainer>
@@ -53,7 +51,7 @@ const UpperTable = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 4px solid #ebebebff;
+    border-bottom: 4px solid #EBEBEB53;
     border-right: none;
 
     @media (max-width: 850px) {

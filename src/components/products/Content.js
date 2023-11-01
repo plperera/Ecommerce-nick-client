@@ -25,7 +25,7 @@ const ErroContainer = styled.div`
     justify-content: center;
     font-size: 20px;
     font-weight: 700;
-    color: #FFFFFF69;
+    color: #2C2C2C;
 `
 const ContentContainer = styled.div`
     display: flex;

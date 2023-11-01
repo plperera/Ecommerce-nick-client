@@ -50,7 +50,7 @@ const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 4px solid #ebebebff;
+    border-bottom: 4px solid #EBEBEB53;
 `
 const TableItem = styled.div`
     width: ${props => props.width || "auto"};

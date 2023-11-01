@@ -19,6 +19,7 @@ export default function UniqueCategory({mainCategoryData, handleLoading, adminDa
 
     useEffect(() => {
         getAllSubCategoriesData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [mainCategoryData, refresh])
 
     useEffect(() => {
@@ -78,6 +79,8 @@ export default function UniqueCategory({mainCategoryData, handleLoading, adminDa
                             <UniqueSubCategory 
                                 SubCategoryData={selectSubCategory} 
                                 handleLoading={handleLoading}
+                                handleRefresh={handleRefresh}
+                                refresh={refresh}
                                 adminData={adminData}
                             /> 
                         }
@@ -95,6 +98,8 @@ export default function UniqueCategory({mainCategoryData, handleLoading, adminDa
                             <UniqueSubCategory 
                                 SubCategoryData={selectOtherSubCategory} 
                                 handleLoading={handleLoading}
+                                handleRefresh={handleRefresh}
+                                refresh={refresh}
                                 adminData={adminData}
                             /> 
                         }
@@ -103,6 +108,7 @@ export default function UniqueCategory({mainCategoryData, handleLoading, adminDa
             ]
         })
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [allSubCategoriesData, mainCategoryData, refresh, selectSubCategory, selectOtherSubCategory])
 
     async function getAllSubCategoriesData(){

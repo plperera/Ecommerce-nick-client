@@ -5,22 +5,22 @@ export default function CategorySelector ({filter, refresh, categories, setForm,
     const [categoriesSelected, setCategoriesSelected] = useState(initSelect || [])
     const [filteredCategories, setFilteredCategories] = useState([])
 
-    function selectCategory({id}){
+    function selectCategory({categoryId}){
 
         if (limitSelect) {
 
             const totalSelected = Object.values(categoriesSelected).filter(Boolean).length;
-            console.log(!categoriesSelected[`category${id}`])
-            if(totalSelected >= limitSelect && !categoriesSelected[`category${id}`]) {
-                setCategoriesSelected({ [`category${id}`]: id })
+            console.log(!categoriesSelected[`category${categoryId}`])
+            if(totalSelected >= limitSelect && !categoriesSelected[`category${categoryId}`]) {
+                setCategoriesSelected({ [`category${categoryId}`]: categoryId })
                 return;
             }
 
         }
-        if( !categoriesSelected[`category${id}`] ){
-            setCategoriesSelected({...categoriesSelected, [`category${id}`]: id})
+        if( !categoriesSelected[`category${categoryId}`] ){
+            setCategoriesSelected({...categoriesSelected, [`category${categoryId}`]: categoryId})
         } else {
-            setCategoriesSelected({...categoriesSelected, [`category${id}`]: undefined})
+            setCategoriesSelected({...categoriesSelected, [`category${categoryId}`]: undefined})
         }
     }
 
@@ -67,8 +67,8 @@ export default function CategorySelector ({filter, refresh, categories, setForm,
             {filteredCategories ? (
                 filteredCategories.map( e => 
 
-                    <CategoryCard key={e.id} onClick={() => selectCategory(e)} isSelected={!!categoriesSelected[`category${e.id}`]}>
-                        {e.name}
+                    <CategoryCard key={e.categoryId} onClick={() => selectCategory(e)} isSelected={!!categoriesSelected[`category${e.categoryId}`]}>
+                        {e.categoryName}
                     </CategoryCard>
 
                 )

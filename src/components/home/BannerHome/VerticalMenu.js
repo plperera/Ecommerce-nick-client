@@ -1,9 +1,12 @@
 import { useState } from "react"
 import styled from "styled-components"
+import api from "../../../services/API"
+import { useEffect } from "react"
 
-export default function VerticalMenu () {
+export default function VerticalMenu ({navigateAndMoveUp}) {
 
     const [selected, setSelected] = useState(undefined)
+    const [categoriesData, setCategoriesData] = useState(false)
 
     function handleSelect(element){
         if (element === selected) {
@@ -13,36 +16,45 @@ export default function VerticalMenu () {
         setSelected(element)
     }
 
-    const topics = [
-        {title: "Equipamentos", subTitle: ["Máquinas Usadas", "Exaustão e Cabines de Pintura", "Coleiro PUR"]},
-        {title: "Máquinas", subTitle: ["Máquinas Novas", "Máquinas Usadas"]},
-        {title: "Produtos", subTitle: ["Colas", "Ferramentas", "Graxas Especiais", "Líquidos", "Peças"]},
-        {title: "Assistência Técnica", subTitle: ["Suporte Técnico", "Reforma de Coleiro"]},
-        
-    ]
+    async function GetAllCategories(){
+        try {
+            const result = await api.GetAllCategories()
+            setCategoriesData(result?.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    function handleNavigate(element){
+        navigateAndMoveUp({locate: `catalogo/${encodeURIComponent(element?.subCategoryName)}`})
+    }
+
+    useEffect(() => {
+        GetAllCategories()
+    }, [])
 
     return(
         <Container>
             <SubContainer>
                 <Title>{"Categorias"}</Title>
-                {topics.map((e, i) => 
+                {categoriesData ? categoriesData.map((e, i) => 
                     <>
-                        <div onClick={() => handleSelect(e.title)} key={i}>
-                            {e.title}
+                        <div onClick={() => handleSelect(e.categoryName)} key={i}>
+                            {e.categoryName}
                         </div>
 
-                        {selected === e.title ? (
+                        {selected === e.categoryName ? (
 
-                            e.subTitle.map((e, i) => 
+                            e.subCategories.map((e, i) => 
 
-                                <h3 key={i}>
-                                    {e}
+                                <h3 key={i} onClick={() => handleNavigate(e)}>
+                                    {e?.subCategoryName}
                                 </h3>
                             )
 
                         ):(<></>)}
                     </>
-                )}
+                ): <></>}
             </SubContainer>            
         </Container>
     )

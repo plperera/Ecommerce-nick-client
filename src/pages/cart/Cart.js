@@ -118,7 +118,7 @@ export default function Cart () {
 const Container = styled.div`
     margin-top: 10.5vh;
     width: 100%;
-    background-color: #0A1F2A;
+    background-color: #e6e6e6;
     padding: 3vw 10vw 2vw 10vw;
     display: flex;
     justify-content: space-between;

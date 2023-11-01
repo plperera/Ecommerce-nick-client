@@ -99,7 +99,7 @@ const Title = styled.div`
     justify-content: center;
     font-size: 18px;
     font-weight: 600;
-    border-bottom: 4px solid #ebebebff;
+    border-bottom: 4px solid #EBEBEB53;
     padding: 1.6vh 1vw;
     @media (max-width: 850px) {
         padding: 2.2vh 1vw;
@@ -113,7 +113,7 @@ const PriceDetails = styled.div`
     justify-content: space-between;
     padding: 14px 1vw;
     font-size: 16px;
-    border-bottom: 3px solid #ebebebff;
+    border-bottom: 3px solid #EBEBEB53;
     @media (max-width: 850px) {
         padding: 14px 3vw;
     }

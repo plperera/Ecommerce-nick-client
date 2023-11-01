@@ -16,7 +16,7 @@ export default function AllProducts () {
         GetAllProducts()
         GetAllCategories()
     },[])
-
+    console.log(products)
     useEffect(() => {
         if(!products || !categoryName || !categories){
             return 
@@ -54,8 +54,8 @@ export default function AllProducts () {
         } else {
 
             const filterResult = products.filter(item => {
-                return item.categories.some(categoria => {
-                    return categoria.name.toLowerCase() === categoryNameData.toLowerCase();
+                return item?.subCategories?.some(subCategoria => {
+                    return subCategoria?.subCategoryName?.toLowerCase() === categoryNameData?.toLowerCase();
                 });
             });
             setFilterContent(filterResult)
@@ -75,7 +75,7 @@ const Container = styled.div`
     margin-top: 10.5vh;
     width: 100%;
     min-height: 73vh;
-    background-color: #0A1F2A;
+    background-color: #e6e6e6;
     padding: 2.5vw 10vw;
     @media (max-width: 850px) {
         padding: 3vw 2vw;

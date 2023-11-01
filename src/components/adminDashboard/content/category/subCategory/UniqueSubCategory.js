@@ -8,17 +8,18 @@ import ProductCard from "../product/ProductCard";
 import UniqueProduct from "../product/UniqueProduct";
 import api from "../../../../../services/API";
 
-export default function UniqueSubCategory ({SubCategoryData, handleLoading, adminData}) {
+export default function UniqueSubCategory ({SubCategoryData, handleLoading, handleRefresh, refresh, adminData }) {
 
     const [ form, handleForm ] = useCustomForm({name: SubCategoryData?.name});
     const [selectProduct, setSelectProduct] = useState(undefined)
     const [selectOtherProduct, setSelectOtherProduct] = useState(undefined)
     const [categoryManagementData, setCategoryManagementData] = useState(undefined)
     const [productsData, setProductsData] = useState(undefined)
-    const [refresh, setRefresh] = useState(true)
+    //const [refresh, setRefresh] = useState(true)
 
     useEffect(() => {
         getAllProductsData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [SubCategoryData, refresh])
 
     useEffect(() => {
@@ -37,7 +38,7 @@ export default function UniqueSubCategory ({SubCategoryData, handleLoading, admi
             }));
 
         const OtherProductListData = productsData
-        ?.filter((e) => !e?.subCategories?.some(e => e.subCategoryId == SubCategoryData?.subCategoryId))
+        ?.filter((e) => !e?.subCategories?.some(e => e.subCategoryId === SubCategoryData?.subCategoryId))
         .map((e) => ({
             content: (
                 <ProductCard
@@ -96,6 +97,7 @@ export default function UniqueSubCategory ({SubCategoryData, handleLoading, admi
                 },
             ]
         })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [SubCategoryData, productsData, selectOtherProduct, selectProduct, refresh])
 
     async function getAllProductsData(){
@@ -168,9 +170,9 @@ export default function UniqueSubCategory ({SubCategoryData, handleLoading, admi
         }
         setSelectOtherProduct(undefined)
     }
-    function handleRefresh(){
-        setRefresh(!refresh)
-    }
+    // function handleRefresh(){
+    //     setRefresh(!refresh)
+    // }
     async function handleLinkProductSubCategory(productId){
         try {
             const body = {

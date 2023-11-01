@@ -18,6 +18,7 @@ import Favorites from "./pages/favorites/Favorites"
 import ThankYou from "./pages/thankyou/ThankYou"
 import useToken from "./hooks/useToken"
 import { useContext } from "react"
+import WhatsAppButton from "./pages/whatsAppButton/WhatsAppButton"
 
 export default function App (){
  
@@ -39,6 +40,7 @@ export default function App (){
                 <AdminProvider>
                     <BrowserRouter>
                         <Menu/>
+                        <WhatsAppButton/>
                         <Routes>
                             <Route path="/" element={<Home/>} />
                             <Route path="/catalogo/:categoryName" element={<AllProducts />} />

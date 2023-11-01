@@ -12,7 +12,7 @@ export default function BannerHome () {
     return(
         <Container>
 
-            <VerticalMenu/>
+            <VerticalMenu navigateAndMoveUp={navigateAndMoveUp}/>
 
             <BannerSlide navigateAndMoveUp={navigateAndMoveUp}/>
 
