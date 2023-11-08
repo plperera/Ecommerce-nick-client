@@ -9,8 +9,7 @@ import UniqueProduct from "../product/UniqueProduct";
 import api from "../../../../../services/API";
 
 export default function UniqueSubCategory ({SubCategoryData, handleLoading, handleRefresh, refresh, adminData }) {
-
-    const [ form, handleForm ] = useCustomForm({name: SubCategoryData?.name});
+    const [ form, handleForm ] = useCustomForm({subCategoryName: SubCategoryData?.subCategoryName});
     const [selectProduct, setSelectProduct] = useState(undefined)
     const [selectOtherProduct, setSelectOtherProduct] = useState(undefined)
     const [categoryManagementData, setCategoryManagementData] = useState(undefined)
@@ -51,6 +50,7 @@ export default function UniqueSubCategory ({SubCategoryData, handleLoading, hand
                 />
             ),
         }));
+
         setCategoryManagementData({
             title:SubCategoryData?.subCategoryName,
             isMainComponent: false,
@@ -98,7 +98,7 @@ export default function UniqueSubCategory ({SubCategoryData, handleLoading, hand
             ]
         })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [SubCategoryData, productsData, selectOtherProduct, selectProduct, refresh])
+    }, [SubCategoryData, productsData, selectOtherProduct, selectProduct, form, refresh])
 
     async function getAllProductsData(){
         try {
@@ -110,47 +110,37 @@ export default function UniqueSubCategory ({SubCategoryData, handleLoading, hand
         }
     }
     async function submitForm(operation){
-        //handleLoading()
-        if(!form?.name) {
+        if(!form?.subCategoryName) {
             toast.dark("Valor inválido!")
             return
         }
 
         handleLoading(true)
 
-        if (operation === "delete"){
-            try {
-                const body = {
-                    subCategoryId: SubCategoryData?.id,
-                }
-                const response = await api.DisableSubCategory({body, token: adminData?.token})
+        try {
+            const body = {
+                subCategoryId: SubCategoryData?.subCategoryId,
+                subCategoryName: form?.subCategoryName
+            }
 
+            if (operation === "delete"){
+                delete body?.subCategoryName
+
+                const response = await api.DisableSubCategory({body, token: adminData?.token})
                 if(response.status === 200){
                     toast.dark("Subcategoria Desativada com Sucesso")
                 }
-                handleLoading(false) 
-                return
 
-            } catch (error) {
-                toast.dark("Ocorreu um erro, tente novamente mais tarde ou contate o desenvolvedor")
-                console.log(error)
-                handleLoading(false) 
-                return
-            }
-        }
-        try {
-            const body = {
-                categoryId: SubCategoryData?.id,
-                name: form?.name
-            }
-            const response = await api.UpdateSubCategory({body, token: adminData?.token})
-
-            if(response.status === 200){
-                toast.dark("Atualização feita com sucesso")
-            }
-            handleLoading(false)
+            } else {
+                const response = await api.UpdateSubCategory({body, token: adminData?.token})
+                if(response.status === 200){
+                    toast.dark("Atualização feita com sucesso")
+                }
+            }   
+            handleRefresh()         
+            handleLoading(false) 
             return
-            
+
         } catch (error) {
             toast.dark("Ocorreu um erro, tente novamente mais tarde ou contate o desenvolvedor")
             console.log(error)

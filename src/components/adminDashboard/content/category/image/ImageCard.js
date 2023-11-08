@@ -1,5 +1,6 @@
 import styled from "styled-components"
 import { BiLink, BiUnlink } from 'react-icons/bi';
+import Image from "../common/Image";
 
 export default function ImageCard ({productId, imageData, handleImageLink, ImageBelong}) {
     return(
@@ -7,16 +8,16 @@ export default function ImageCard ({productId, imageData, handleImageLink, Image
             <UpperContainer>
                 <ImageContainer>
                     <a href={imageData?.imageUrl} target="_blank" rel="noopener noreferrer">
-                        <img alt="" src={imageData?.imageUrl}/>
+                        <Image imageUrl={imageData?.imageUrl}/>
                     </a>
                 </ImageContainer>   
-                <p>{imageData?.name}</p>
+                <p>{imageData?.imageName}</p>
             </UpperContainer>
             <ActionsContainer>
                 <StyledIconContainer color={ImageBelong ? '#C54F4F': '#32829B'}>
                     {ImageBelong
-                        ? <BiUnlink onClick={() => handleImageLink({productId: productId, imageId: imageData?.id, unlink: true})}/>
-                        : <BiLink onClick={() => handleImageLink({productId: productId, imageId: imageData?.id, unlink: false})}/>
+                        ? <BiUnlink onClick={() => handleImageLink({productId: productId, imageId: imageData?.id})}/>
+                        : <BiLink onClick={() => handleImageLink({productId: productId, imageId: imageData?.id})}/>
                     }
                 </StyledIconContainer>
             </ActionsContainer>
@@ -83,6 +84,7 @@ const ImageContainer = styled.div`
 `
 const StyledIconContainer = styled.div`
     position: relative;
+    user-select: none;
     > svg {
         font-size: 35px;
         color: ${props => props.color};

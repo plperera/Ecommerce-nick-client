@@ -1,39 +1,44 @@
-import styled from "styled-components"
+import React, { useState } from 'react';
+import styled from 'styled-components';
 
-export default function ItemList ({ListData, title, selectItem, contentWhenSelected}) {
-    return(
-        <>  
-        {
-            selectItem 
-            ? contentWhenSelected
+export default function ItemList({ ListData, title, selectItem, contentWhenSelected, itemsPerPage = 4 }) {
+    const [currentPage, setCurrentPage] = useState(1);
+    const totalPages = Math.ceil(ListData?.length / itemsPerPage);
 
-            : <Container>
-                <ContentContainer>
-                    {!ListData?.length && 
-                        <EmptyContainer>{"Nenhum Conteudo Encontrado..."}</EmptyContainer>
-                    }
-                    {ListData?.map(e => 
-                        e?.content
-                    )}
-                </ContentContainer>
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const selectedItems = ListData?.slice(startIndex, startIndex + itemsPerPage);
+    
+    function goToPrevPage() {
+        setCurrentPage((prev) => (prev > 1 ? prev - 1 : prev)); 
+    }
+    function goToNextPage() {
+        setCurrentPage((prev) => (prev < totalPages ? prev + 1 : prev));
+    }
 
-                <BottomContainer>
-                    <CountContainer>
-                        <p>{`${ListData?.length || 0} ${title || "itens"} no total`}</p>
-                    </CountContainer>
+    return (<>{
+        selectItem 
+        ? contentWhenSelected
+        : <Container>
+            <ContentContainer>
+                { !ListData?.length && <EmptyContainer>{"Nenhum Conteudo Encontrado..."}</EmptyContainer> }
+                { selectedItems?.map(e => 
+                    e?.content
+                )}
+            </ContentContainer>
 
-                    <CommandContainer>
-                        <ArrowStyle>{"<"}</ArrowStyle>
-                        <IndexStyle>{"1"}</IndexStyle>
-                        <ArrowStyle>{">"}</ArrowStyle>
-                    </CommandContainer>
-                </BottomContainer>
-            </Container>
-        }
-            
-        </>
-        
-    )
+            <BottomContainer>
+                <CountContainer>
+                <p>{`${ListData?.length || 0} ${title || "itens"} no total`}</p>
+                </CountContainer>
+
+                <CommandContainer>
+                    <ArrowStyle onClick={goToPrevPage}>{"<"}</ArrowStyle>
+                    <IndexStyle>{`${currentPage} de ${totalPages}`}</IndexStyle>
+                    <ArrowStyle onClick={goToNextPage}>{">"}</ArrowStyle>
+                </CommandContainer>
+            </BottomContainer>
+        </Container>
+    }</>);
 }
 
 const Container = styled.div`

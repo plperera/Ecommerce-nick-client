@@ -173,8 +173,12 @@ function GetAllSubCategoriesData(token) {
 function HandleProductLink({body, token}) {
     return axios.put(`${BASE_URL}/subcategory/admin/productlink`, body, {headers: { Authorization: `Bearer ${token}`}})
 }
+function HandleImageProductLink({body, token}) {
+    return axios.put(`${BASE_URL}/product/admin/imagelink`, body, {headers: { Authorization: `Bearer ${token}`}})
+}
 
 const api = {
+    HandleImageProductLink,
     GetAllSubCategoriesData,
     HandleCategoryLink,
     CreateSubCategory,

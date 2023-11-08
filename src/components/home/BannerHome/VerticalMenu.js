@@ -37,23 +37,27 @@ export default function VerticalMenu ({navigateAndMoveUp}) {
         <Container>
             <SubContainer>
                 <Title>{"Categorias"}</Title>
-                {categoriesData ? categoriesData.map((e, i) => 
-                    <>
-                        <div onClick={() => handleSelect(e.categoryName)} key={i}>
-                            {e.categoryName}
-                        </div>
+                {categoriesData ? categoriesData.map((e, i) =>
+                    {
+                        return e?.subCategories?.length > 0 
+                        ? <>
+                            <div onClick={() => handleSelect(e.categoryName)} key={i}>
+                                {e.categoryName}
+                            </div>
 
-                        {selected === e.categoryName ? (
+                            {selected === e.categoryName ? (
 
-                            e.subCategories.map((e, i) => 
+                                e.subCategories.map((e, i) => 
 
-                                <h3 key={i} onClick={() => handleNavigate(e)}>
-                                    {e?.subCategoryName}
-                                </h3>
-                            )
+                                    <h3 key={i} onClick={() => handleNavigate(e)}>
+                                        {e?.subCategoryName}
+                                    </h3>
+                                )
 
-                        ):(<></>)}
-                    </>
+                            ):(<></>)}
+                        </>
+                        : <></>
+                    } 
                 ): <></>}
             </SubContainer>            
         </Container>

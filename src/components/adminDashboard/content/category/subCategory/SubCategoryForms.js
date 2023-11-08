@@ -8,8 +8,8 @@ export default function SubCategoryForms ({form, handleForm, submitForm, textBut
             <Input 
                 label="Nome da SubCategoria" 
                 type="text" 
-                name={"name"} 
-                value={form?.name} 
+                name={"subCategoryName"} 
+                value={form?.subCategoryName} 
                 width="25%"
                 onChange={handleForm}
             />
@@ -19,7 +19,7 @@ export default function SubCategoryForms ({form, handleForm, submitForm, textBut
                     ? <Button onClick={() => submitForm("delete")} width="35%" fontsize={"10px"} background={"#C93030 !important"} backgroundhover={"#E25D5D !important"}>{"Desativar"}</Button>
                     : <></>
                 }
-                <Button onClick={submitForm} width={deleteButton ? "60%": "100%"} fontsize={"10px"} background={"#3093C9 !important"} backgroundhover={"#5DB3E2 !important"}>{textButton || "Salvar"}</Button>
+                <Button onClick={() => submitForm(undefined)} width={deleteButton ? "60%": "100%"} fontsize={"10px"} background={"#3093C9 !important"} backgroundhover={"#5DB3E2 !important"}>{textButton || "Salvar"}</Button>
             </ButtonContainer>
         </Container>
     )

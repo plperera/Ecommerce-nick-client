@@ -6,7 +6,6 @@ import UniqueCategory from "./UniqueCategory"
 import api from "../../../../services/API"
 import { useEffect } from "react"
 import styled from "styled-components"
-import LoadingContainer from "./common/LoadingContainer"
 import AdminContext from "../../../../context/AdminContext"
 import { useContext } from "react"
 import CategoryForms from "./CategoryForms"
@@ -161,14 +160,14 @@ export default function ManagementCategory () {
 
     //Cria uma nova Categoria
     async function handleSubmitNewCategory() {
-        if(!form?.name){
+        if(!form?.categoryName){
             toast.dark("Valor inválido")
             return
         }
         handleLoading(true)
         try {
             const body = {
-                name: form?.name
+                categoryName: form?.categoryName
             }
             const response = await api.CreateCategory({body, token: adminData?.token})
 
@@ -236,7 +235,6 @@ export default function ManagementCategory () {
         <Container>
             {/* <LoadingContainer isLoading={isLoading}/> */}
             {categoriesData && <ManagementComponent ManagementData={CategoryManagementData}/>}
-            {/* <TestButton onClick={handleRefresh}/> */}
         </Container>
     )
 }
@@ -244,13 +242,4 @@ const Container = styled.div`
     position: relative;
     width: 100%;
     height: 100%;
-`
-const TestButton = styled.div`
-    width: 30px;
-    height: 30px;
-    position: absolute;
-    background-color: rebeccapurple;
-    cursor: pointer;
-    bottom: 0;
-    left: 0;
 `

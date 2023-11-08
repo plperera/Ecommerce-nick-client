@@ -49,22 +49,25 @@ export default function Filter ({categories, selected, selectOption}) {
                 : <>
                     <Title>{"Todos os Produtos"}</Title>
                     <OptionsContainer>
-                        {categoriesData ? categoriesData.map((e, i) => 
-                        <>
-                            <CategoryCard onClick={() => handleMenuSelect(e.categoryName)} key={i}>
-                                <h3>{e.categoryName}</h3>
-                                {menuSelected === e.categoryName ? (
+                        {categoriesData ? categoriesData.map((e, i) => {
+                            return e?.subCategories?.length > 0 
+                            ? <>
+                                <CategoryCard onClick={() => handleMenuSelect(e.categoryName)} key={i}>
+                                    <h3>{e.categoryName}</h3>
+                                    {menuSelected === e.categoryName ? (
 
-                                    e.subCategories.map((e, i) => 
+                                        e.subCategories.map((e, i) => 
 
-                                        <SubCategoryCard key={i} onClick={() => handleClick(e?.subCategoryName)}>
-                                            {e?.subCategoryName}
-                                        </SubCategoryCard>
-                                    )
+                                            <SubCategoryCard key={i} onClick={() => handleClick(e?.subCategoryName)}>
+                                                {e?.subCategoryName}
+                                            </SubCategoryCard>
+                                        )
 
-                                ):(<></>)}
-                            </CategoryCard>
-                        </>
+                                    ):(<></>)}
+                                </CategoryCard>
+                            </>
+                            : <></>
+                        }
                         ): <></>}
                     </OptionsContainer>
                 </>

@@ -5,61 +5,102 @@ import ItemList from "../common/ItensList";
 import ProductForms from "./ProductForms";
 import ImageCard from "../image/ImageCard";
 import api from "../../../../../services/API";
+import { useEffect } from "react";
+import { useState } from "react";
 
 export default function UniqueProduct ({productData, adminData, handleRefresh, handleLoading}) {
 
+    const [ productManagementData, setProductManagementData] = useState(undefined)
+    const [ imagesData, setImagesData ] = useState(undefined)
     const [ form, handleForm, setForm ] = useCustomForm({
         name: productData?.name,
-        isActive: productData?.isActive,
         description: productData?.description,
+        isActive: productData?.isActive,
         price: productData?.price,
         highPrice: productData?.highPrice,
         stock: productData?.stock,
         tecnicDetails: productData?.tecnicDetails
     });
+    console.log("productData", productData)
+    useEffect(() => {
+        getAllImagesData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [productData, handleRefresh])
 
-    const ImageCardData = {
-        imageUrl: "https://storage.googleapis.com/imageuploads-7b8bc.appspot.com/1689369296686.png",
-        name:"imagem tal",
-        id: 1
+    async function getAllImagesData(){
+        try {
+            const response = await api.GetAllImages({token: adminData?.token})
+            setImagesData(response?.data)
+            console.log(response?.data)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
-    const ImageListData = [
-        {
-            content: <ImageCard imageData={ImageCardData} setSelect={false} handleImageLink={handleImageLink} ImageBelong={true} productId={1}/>
-        },
-    ]
+    useEffect(() => {
+        const ImageListData = imagesData
+        ?.filter((e) => e?.productImage?.some(e => e.productId === productData?.productId))
+        .map((e) => ({
+            content: (
+                <ImageCard
+                    imageData={e} 
+                    setSelect={false}
+                    ImageBelong={true} 
+                    handleImageLink={handleImageLink}
+                    productId={productData?.productId} 
+                    hasOtherSubCategory={e?.subCategories?.length > 0} 
+                />
+            ),
+        }));
 
-    const OtherImageListData = [
-        {
-            content: <ImageCard imageData={ImageCardData} setSelect={false} handleImageLink={handleImageLink} ImageBelong={false} productId={1}/>
-        },
-    ]
+        const OtherImageListData = imagesData
+        ?.filter((e) => !e?.productImage?.some(e => e.productId === productData?.productId))
+        .map((e) => ({
+            content: (
+                <ImageCard
+                    imageData={e} 
+                    setSelect={false}
+                    ImageBelong={false} 
+                    handleImageLink={handleImageLink}
+                    productId={productData?.productId} 
+                    hasOtherSubCategory={e?.productImage?.length > 0} 
+                />
+            ),
+        }));
+        setProductManagementData({
+            title: productData?.name,
+            isMainComponent: false,
+            components: [
+                {
+                    title: "Editar",
+                    content: <ProductForms form={form} handleForm={handleForm} submitForm={submitForm} setForm={setForm}/>
+                },
+                {
+                    title: "Lista de Imagens Atreladas",
+                    content: <ItemList ListData={ImageListData} title={"Imagens"}/>,
+                },
+                {
+                    title: "Atrelar outra Imagem ao Produto",
+                    content: <ItemList ListData={OtherImageListData} title={"Imagens"}/>,
+                },
+            ]
+        })
+    }, [form, productData, imagesData, handleRefresh])
 
-    const ProductManagementData = {
-        title: productData?.name,
-        isMainComponent: false,
-        components: [
-            {
-                title: "Editar",
-                content: <ProductForms form={form} handleForm={handleForm} submitForm={submitForm} setForm={setForm}/>
-            },
-            {
-                title: "Lista de Imagens Atreladas",
-                content: <ItemList ListData={ImageListData} title={"Imagens"}/>,
-            },
-            {
-                title: "Atrelar outra Imagem ao Produto",
-                content: <ItemList ListData={OtherImageListData} title={"Imagens"}/>,
-            },
-        ]
-    }
+    async function handleImageLink({productId, imageId}){
+        try {
 
-    function handleImageLink({unlink, productId, imageId}){
-        if(unlink){
-            toast.dark("Voce Clicou para deslinkar!!!")
-        } else {
-            toast.dark("Voce Clicou para linkar!!!")
+            if( !(productId > 0) || !(imageId > 0)){
+                return
+            }
+
+            const response = await api.HandleImageProductLink({body: {productId, imageId}, token: adminData?.token})
+
+            handleRefresh()
+            console.log(response, response.status)
+
+        } catch (error) {
+            console.log(error)
         }
     }
     async function submitForm(){
@@ -69,9 +110,9 @@ export default function UniqueProduct ({productData, adminData, handleRefresh, h
                 id: productData?.productId,
                 name: form?.name,
                 description: form?.description,
-                price: form?.price,
-                highPrice: form?.highPrice,
-                stock: form?.stock,
+                price: Number(form?.price),
+                highPrice: Number(form?.highPrice),
+                stock: Number(form?.stock),
                 tecnicDetails: form?.tecnicDetails,
                 subCategories: productData?.subCategories?.map(e => {
                     return {
@@ -105,6 +146,6 @@ export default function UniqueProduct ({productData, adminData, handleRefresh, h
     }
 
     return(
-        <ManagementComponent ManagementData={ProductManagementData}/>
+        <ManagementComponent ManagementData={productManagementData}/>
     )
 }
