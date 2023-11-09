@@ -15,7 +15,7 @@ export default function BannerSlide ({navigateAndMoveUp}) {
     async function getAllBanners() {
         try {
             const response = await api.GetAllBanners()
-            setBanners(response.data)
+            setBanners(response?.data)
         } catch (error) {
             console.log(error)
         }
@@ -41,7 +41,7 @@ export default function BannerSlide ({navigateAndMoveUp}) {
             <>
                 <ImageContainer backgroundImage={banners[slide]?.imageUrl}>
 
-                    <Title>{banners[slide].text}</Title>
+                    <Title>{banners[slide]?.text}</Title>
                     <Button onClick={() => navigateAndMoveUp({locate: "catalogo"})}>Conheça nosso catálogo</Button>
 
                 </ImageContainer>

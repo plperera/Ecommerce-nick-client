@@ -41,11 +41,11 @@ export default function VerticalMenu ({navigateAndMoveUp}) {
                     {
                         return e?.subCategories?.length > 0 
                         ? <>
-                            <div onClick={() => handleSelect(e.categoryName)} key={i}>
-                                {e.categoryName}
+                            <div onClick={() => handleSelect(e?.categoryName)} key={i}>
+                                {e?.categoryName}
                             </div>
 
-                            {selected === e.categoryName ? (
+                            {selected === e?.categoryName ? (
 
                                 e.subCategories.map((e, i) => 
 
