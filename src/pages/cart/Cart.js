@@ -15,33 +15,37 @@ export default function Cart () {
     const [ isLoadingQuantity, setIsLoadingQuantity ] = useState(false)
 
     async function getAllCartProduts(){
-        if (userData?.cart?.length === 0 || !userData?.cart){
-            setCartProducts([])
-            setIsLoading(false)
-            return
-        }
-        const productIds = userData.cart
-            .filter(e => typeof e?.productId === 'number')
-            .map(e => ( e.productId ));
-    
-        const result = await api.GetAllProductsByProductId(JSON.stringify(productIds))
-    
-        let totalPrice = 0;
-        const updatedCartProducts = userData.cart.map(cartItem => {
-            const productData = result.data.find(product => product.productId === cartItem.productId);
-            if(productData) {
-                totalPrice += productData.price * cartItem.quantity;
-                return { ...productData, quantity: cartItem.quantity };
+        try {
+            if (userData?.cart?.length === 0 || !userData?.cart){
+                setCartProducts([])
+                setIsLoading(false)
+                return
             }
-            return cartItem;
-        });
-    
-        setUserData({...userData, totalPrice: totalPrice});
-    
-        const finalCartProducts = updatedCartProducts.filter(product => product.quantity);
+            const productIds = userData.cart
+                .filter(e => typeof e?.productId === 'number')
+                .map(e => ( e.productId ));
         
-        setCartProducts(finalCartProducts)
-        setIsLoading(false)
+            const result = await api.GetAllProductsByProductId(JSON.stringify(productIds))
+        
+            let totalPrice = 0;
+            const updatedCartProducts = userData.cart.map(cartItem => {
+                const productData = result.data.find(product => product?.productId === cartItem.productId);
+                if(productData) {
+                    totalPrice += productData.price * cartItem.quantity;
+                    return { ...productData, quantity: cartItem.quantity };
+                }
+                return cartItem;
+            });
+        
+            setUserData({...userData, totalPrice: totalPrice});
+        
+            const finalCartProducts = updatedCartProducts.filter(product => product?.quantity);
+            
+            setCartProducts(finalCartProducts)
+            setIsLoading(false)
+        } catch (error) {
+                
+        }
     }
 
     function handleProductQuantity(product, change) {
