@@ -85,6 +85,7 @@ export default function UniqueProduct ({productData, adminData, handleRefresh, h
                 },
             ]
         })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [form, productData, imagesData, handleRefresh])
 
     async function handleImageLink({productId, imageId}){

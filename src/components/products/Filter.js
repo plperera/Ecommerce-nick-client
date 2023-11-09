@@ -1,5 +1,4 @@
-import styled, { keyframes } from "styled-components"
-import FilterOptionCard from "./FilterOptionCard"
+import styled from "styled-components"
 import { useEffect, useState } from "react";
 import { IoMdCloseCircle } from 'react-icons/io';
 import api from "../../services/API";
