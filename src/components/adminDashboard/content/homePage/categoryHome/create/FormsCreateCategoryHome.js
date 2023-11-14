@@ -7,26 +7,26 @@ import ImageSelector from "../../../selector/ImageSelector";
 import { IoMdCloseCircle } from 'react-icons/io';
 import Input from "../../../../../../common/form/Input";
 import Button from "../../../../../../common/form/Button";
-import CategoryCreator from "../../../creator/CategoryCreator";
 import CategorySelector from "../../../selector/CategorySelector";
+import SubCategoryCreator from "../../../creator/SubCategoryCreator";
 
 export default function FormsCreateBannerHome ({form, handleForm, setForm, adminData}) {
 
     const [ refreshImage, setRefreshImage ] = useState(false)
-    const [ refreshCategory, setRefreshCategory ] = useState(false)
+    const [ refreshSubCategory, setRefreshSubCategory ] = useState(false)
     const [ getRefresh, setGetRefresh ] = useState(false)
     const [ images, setImages ] = useState(false)
-    const [ categories, setCategories ] = useState(false)
-    const [ showCreate, setShowCreate ] = useState({showCategoryCreate: false, showImageCreate: false})
+    const [ subCategories, setSubCategories ] = useState(false)
+    const [ showCreate, setShowCreate ] = useState({showSubCategoryCreate: false, showImageCreate: false})
     
     async function GetAllImages({token}){
         const response = await api.GetAllImages({token})
         setImages(response.data)
     }
 
-    async function GetAllCategories(){
-        const response = await api.GetAllCategories()
-        setCategories(response.data)
+    async function GetAllSubCategories({token}){
+        const response = await api.GetAllSubCategoriesData(token)
+        setSubCategories(response.data)
     }
 
     function ClearFilter(filterName) {
@@ -36,13 +36,13 @@ export default function FormsCreateBannerHome ({form, handleForm, setForm, admin
             return setRefreshImage(!refreshImage)
         }
         
-        return setRefreshCategory(!refreshCategory)
+        return setRefreshSubCategory(!refreshSubCategory)
     }
 
     useEffect(() => {
 
         GetAllImages({token: adminData?.token})
-        GetAllCategories()
+        GetAllSubCategories({token: adminData?.token})
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [getRefresh])
@@ -62,28 +62,28 @@ export default function FormsCreateBannerHome ({form, handleForm, setForm, admin
         <Container>
             <div>  
                 <h2>
-                    {"Selecione uma Categoria"}
-                    <CreateButton onClick={() => setShowCreate({...showCreate, [`showCategoryCreate`]: !showCreate.showCategoryCreate})}>
-                        {showCreate.showCategoryCreate ?("Minimizar"):("Criar nova")}
+                    {"Selecione uma SubCategoria"}
+                    <CreateButton onClick={() => setShowCreate({...showCreate, [`showSubCategoryCreate`]: !showCreate.showSubCategoryCreate})}>
+                        {showCreate.showSubCategoryCreate ?("Minimizar"):("Criar nova")}
                     </CreateButton>
                 </h2>
 
-                {showCreate.showCategoryCreate ?(<CategoryCreator refresh={getRefresh} setRefresh={setGetRefresh}/>):(<></>)}
+                {showCreate.showSubCategoryCreate ?(<SubCategoryCreator refresh={getRefresh} setRefresh={setGetRefresh}/>):(<></>)}
 
                 <FilterContainer>
                     <Input 
                         label="Filtrar" 
                         type="text" 
-                        name={"categoryFilter"}
-                        value={form?.categoryFilter} 
+                        name={"subCategoryFilter"}
+                        value={form?.subCategoryFilter} 
                         width="30%"
                         onChange={handleForm}
                     />
-                    <Button onClick={() => setRefreshCategory(!refreshCategory)} fontsize={"10px"} background={"#0A1F2A69 !important"}>{"Filtrar Images"}</Button>
-                    {form?.categoryFilter?(<ClearFilterContainer onClick={() => ClearFilter("categoryFilter")}>{"X"}</ClearFilterContainer>):(<></>)}
+                    <Button onClick={() => setRefreshSubCategory(!refreshSubCategory)} fontsize={"10px"} background={"#0A1F2A69 !important"}>{"Filtrar Images"}</Button>
+                    {form?.subCategoryFilter?(<ClearFilterContainer onClick={() => ClearFilter("subCategoryFilter")}>{"X"}</ClearFilterContainer>):(<></>)}
                 </FilterContainer>
                 
-                {categories?(<CategorySelector filter={form.categoryFilter} refresh={refreshCategory} categories={categories} setForm={setForm} form={form} limitSelect={1}/>):(<></>)}
+                {subCategories?(<CategorySelector filter={form.subCategoryFilter} refresh={refreshSubCategory} subCategories={subCategories} setForm={setForm} form={form} limitSelect={1}/>):(<></>)}
             </div>
 
             <div>  

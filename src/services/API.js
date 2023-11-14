@@ -77,7 +77,7 @@ function GetAllBanners(){
     return axios.get(`${BASE_URL}/homepage/banners`);
 }
 function GetAllCategoriesCard(){
-    return axios.get(`${BASE_URL}/homepage/category`);
+    return axios.get(`${BASE_URL}/homepage/subcategory`);
 }
 function CreateBanner({body, token}){
     return axios.post(`${BASE_URL}/homepage/banner/admin`, body, {headers: { Authorization: `Bearer ${token}`}});
@@ -88,14 +88,14 @@ function UpdateBanner({body, token}){
 function DeleteBanner({body, token}){
     return axios.delete(`${BASE_URL}/homepage/banner/admin`, {data: body, headers: { Authorization: `Bearer ${token}`}});
 }
-function CreateHomeCategory({body, token}){
-    return axios.post(`${BASE_URL}/homepage/category/admin`, body, {headers: { Authorization: `Bearer ${token}`}});
+function CreateHomeSubCategory({body, token}){
+    return axios.post(`${BASE_URL}/homepage/subcategory/admin`, body, {headers: { Authorization: `Bearer ${token}`}});
 }
-function UpdateHomeCategory({body, token}){
-    return axios.put(`${BASE_URL}/homepage/category/admin`, body, {headers: { Authorization: `Bearer ${token}`}});
+function UpdateHomeSubCategory({body, token}){
+    return axios.put(`${BASE_URL}/homepage/subcategory/admin`, body, {headers: { Authorization: `Bearer ${token}`}});
 }
-function DeleteHomeCategory({body, token}){
-    return axios.delete(`${BASE_URL}/homepage/category/admin`, {data: body, headers: { Authorization: `Bearer ${token}`}});
+function DeleteHomeSubCategory({body, token}){
+    return axios.delete(`${BASE_URL}/homepage/subcategory/admin`, {data: body, headers: { Authorization: `Bearer ${token}`}});
 }
 function UpdateProduct({body, token}){
     return axios.put(`${BASE_URL}/product/admin`, body, {headers: { Authorization: `Bearer ${token}`}});
@@ -211,10 +211,10 @@ const api = {
     CreateBanner,
     UpdateBanner,
     DeleteBanner,
-    CreateHomeCategory,
+    CreateHomeSubCategory,
     GetAllCategoriesCard,
-    UpdateHomeCategory,
-    DeleteHomeCategory,
+    UpdateHomeSubCategory,
+    DeleteHomeSubCategory,
     UpdateProduct,
     DisableProduct,
     EnableProduct,

@@ -19,7 +19,7 @@ export default function CreateCategoryHome () {
     return(
         <Container>
 
-            <Title text={`Criar Categoria para Pagina Inicial`} form={form} setForm={setForm} adminData={adminData}/>
+            <Title text={`Criar SubCategoria para Pagina Inicial`} form={form} setForm={setForm} adminData={adminData}/>
             <FormsCreateBannerHome form={form} handleForm={handleForm} setForm={setForm} adminData={adminData}/>
             
         </Container>

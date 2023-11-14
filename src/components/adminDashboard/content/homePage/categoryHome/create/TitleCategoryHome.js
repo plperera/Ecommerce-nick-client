@@ -12,20 +12,20 @@ export default function Title ({text, form, adminData, setForm}) {
     async function SubmitForm(){
         try {
 
-            if(!form?.images[0]?.imageId && !form?.categories[0]?.categoryId){
+            if(!form?.images[0]?.imageId && !form?.subCategories[0]?.subCategoryId){
                 return
             }
 
             const body = {
                 imageId: form?.images[0]?.imageId,
-                categoryId: form?.categories[0]?.categoryId
+                subCategoryId: form?.subCategories[0]?.subCategoryId
             }
 
-            const result = await api.CreateHomeCategory({token: adminData?.token, body})
+            const result = await api.CreateHomeSubCategory({token: adminData?.token, body})
 
             if( result.status === 201){
-                toast.dark("Categoria Criada com Sucesso")
-                setForm({images:'', categories:''})
+                toast.dark("SubCategoria Criada com Sucesso")
+                setForm({images:'', subCategories:''})
                 return
             }
 
@@ -36,7 +36,7 @@ export default function Title ({text, form, adminData, setForm}) {
     }
 
     useEffect(() => {
-        if(form?.images?.length > 0 && form?.categories?.length > 0){
+        if(form?.images?.length > 0 && form?.subCategories?.length > 0){
             setHasAllData(true)
             return
         }

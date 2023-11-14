@@ -1,75 +1,75 @@
 import { useEffect, useState } from "react"
 import styled from "styled-components"
 
-export default function CategorySelector ({filter, refresh, categories, setForm, form, limitSelect, initSelect}) {
-    const [categoriesSelected, setCategoriesSelected] = useState(initSelect || [])
-    const [filteredCategories, setFilteredCategories] = useState([])
+export default function CategorySelector ({filter, refresh, subCategories, setForm, form, limitSelect, initSelect}) {
+    const [subCategoriesSelected, setSubCategoriesSelected] = useState(initSelect || [])
+    const [filteredSubCategories, setFilteredSubCategories] = useState([])
 
-    function selectCategory({categoryId}){
+    function selectSubCategory({subCategoryId}){
 
         if (limitSelect) {
 
-            const totalSelected = Object.values(categoriesSelected).filter(Boolean).length;
-            console.log(!categoriesSelected[`category${categoryId}`])
-            if(totalSelected >= limitSelect && !categoriesSelected[`category${categoryId}`]) {
-                setCategoriesSelected({ [`category${categoryId}`]: categoryId })
+            const totalSelected = Object.values(subCategoriesSelected).filter(Boolean).length;
+            console.log(!subCategoriesSelected[`subCategory${subCategoryId}`])
+            if(totalSelected >= limitSelect && !subCategoriesSelected[`subCategory${subCategoryId}`]) {
+                setSubCategoriesSelected({ [`subCategory${subCategoryId}`]: subCategoryId })
                 return;
             }
 
         }
-        if( !categoriesSelected[`category${categoryId}`] ){
-            setCategoriesSelected({...categoriesSelected, [`category${categoryId}`]: categoryId})
+        if( !subCategoriesSelected[`subCategory${subCategoryId}`] ){
+            setSubCategoriesSelected({...subCategoriesSelected, [`subCategory${subCategoryId}`]: subCategoryId})
         } else {
-            setCategoriesSelected({...categoriesSelected, [`category${categoryId}`]: undefined})
+            setSubCategoriesSelected({...subCategoriesSelected, [`subCategory${subCategoryId}`]: undefined})
         }
     }
 
-    function filterCategories(){
+    function filterSubCategories(){
 
         if (!filter){
-            return setFilteredCategories(categories)
+            return setFilteredSubCategories(subCategories)
         }
         
-        const filterResponse = categories.filter(e => e.name.toLowerCase().includes(filter.toLowerCase()))
-        setFilteredCategories(filterResponse)
+        const filterResponse = subCategories.filter(e => e.subCategoryName.toLowerCase().includes(filter.toLowerCase()))
+        setFilteredSubCategories(filterResponse)
         return
     }
 
     useEffect(() => {
         
-        filterCategories()
+        filterSubCategories()
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [refresh])
 
     useEffect(() => {
         
-        setFilteredCategories(categories)
+        setFilteredSubCategories(subCategories)
 
-    }, [categories])
+    }, [subCategories])
 
     useEffect(() => {
-        console.log(categoriesSelected)
-        const bodyFormat = Object.entries(categoriesSelected).reduce((acc, [key, value]) => {
+        console.log(subCategoriesSelected)
+        const bodyFormat = Object.entries(subCategoriesSelected).reduce((acc, [key, value]) => {
             if(value !== undefined) {
-              acc.push({categoryId: value});
+              acc.push({subCategoryId: value});
             }
             return acc;
           }, []);
         
-        setForm({...form, "categories": bodyFormat})
+        setForm({...form, "subCategories": bodyFormat})
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [categoriesSelected])
+    }, [subCategoriesSelected])
 
     return(
         <Container>
-            {filteredCategories ? (
-                filteredCategories.map( e => 
+            {filteredSubCategories ? (
+                filteredSubCategories.map( e => 
 
-                    <CategoryCard key={e.categoryId} onClick={() => selectCategory(e)} isSelected={!!categoriesSelected[`category${e.categoryId}`]}>
-                        {e.categoryName}
-                    </CategoryCard>
+                    <SubCategoryCard key={e.subCategoryId} onClick={() => selectSubCategory(e)} isSelected={!!subCategoriesSelected[`subCategory${e.subCategoryId}`]}>
+                        {e.subCategoryName}
+                    </SubCategoryCard>
 
                 )
             ):(<h3>carregando...</h3>)}
@@ -101,7 +101,7 @@ const Container = styled.div`
         font-size: 20px;
     }
 `
-const CategoryCard = styled.div`
+const SubCategoryCard = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
