@@ -2,8 +2,21 @@ import styled from "styled-components"
 import { BiLink, BiUnlink, BiEditAlt } from 'react-icons/bi';
 import { PiWarningDiamondBold } from 'react-icons/pi';
 import { toast } from "react-toastify";
+import { useEffect, useState } from "react";
 
-export default function SubCategoryCard ({subCategoryData, setSelect, subCategoryBelong, hasOtherMainCategory, handleLinkSubCategory, mainCategoryId}) {
+export default function SubCategoryCard ({subCategoryData, setSelect, subCategoryBelong, hasOtherMainCategory, handleLinkSubCategory, mainCategoryId, selectionData }) {
+    const [isSelected, setIsSelected] = useState(undefined)
+
+    useEffect(() => {
+        const value = selectionData?.includes(subCategoryData?.subCategoryId)
+        setIsSelected(!!value)
+    }, [subCategoryData, selectionData])
+
+    function handleIsSelected(subCategoryId){
+        handleLinkSubCategory({subCategoryId, isSelected})
+        setIsSelected(!isSelected)  
+    }
+
     function handleClick(){
         setSelect(subCategoryData)
     }
@@ -18,19 +31,31 @@ export default function SubCategoryCard ({subCategoryData, setSelect, subCategor
                 <p>{subCategoryData?.products?.length}</p>
             </UpperContainer>
             <ActionsContainer>
-                <StyledIconContainer color={subCategoryBelong ? '#C54F4F': hasOtherMainCategory ? '#79511D':'#32829B'}>
-                    {subCategoryBelong
-                        ? <BiUnlink onClick={() => handleLinkSubCategory({mainCategoryId: mainCategoryId, subCategoryId: subCategoryData?.subCategoryId, unlink: true})}/>
-                        : <BiLink onClick={() => handleLinkSubCategory({mainCategoryId: mainCategoryId, subCategoryId: subCategoryData?.subCategoryId, unlink: false})}/>
-                    }
-                    {hasOtherMainCategory
-                        ? <><PiWarningDiamondBold onClick={handleAlert}/></>
-                    :<></>}
-                </StyledIconContainer>
+                
 
-                <StyledIconContainer color={"#252525"} onClick={handleClick}>
-                    <BiEditAlt/>
-                </StyledIconContainer>
+                {setSelect === undefined //Entra apenas quando não possui uma logica explicita de seleção
+                    ? <>
+                        <StyledIconContainer color={!isSelected ? '#32829B':'#FFFFFF'} background={isSelected ? '#32829B':'none'}>
+                            <BiLink onClick={() => handleIsSelected(subCategoryData?.subCategoryId)}/>
+                        </StyledIconContainer>
+                    </>
+                    : <>
+                        <StyledIconContainer color={subCategoryBelong ? '#C54F4F': hasOtherMainCategory ? '#79511D':'#32829B'}>
+                            {subCategoryBelong
+                                ? <BiUnlink onClick={() => handleLinkSubCategory({mainCategoryId: mainCategoryId, subCategoryId: subCategoryData?.subCategoryId, unlink: true})}/>
+                                : <BiLink onClick={() => handleLinkSubCategory({mainCategoryId: mainCategoryId, subCategoryId: subCategoryData?.subCategoryId, unlink: false})}/>
+                            }
+                            {hasOtherMainCategory
+                                ? <><PiWarningDiamondBold onClick={handleAlert}/></>
+                            :<></>}
+                        </StyledIconContainer>
+
+                        <StyledIconContainer color={"#252525"} onClick={handleClick}>
+                            <BiEditAlt/>
+                        </StyledIconContainer>
+                    </>
+                }
+                
             </ActionsContainer>
         </Container>
     )
@@ -87,6 +112,7 @@ const StyledIconContainer = styled.div`
     > svg {
         font-size: 35px;
         color: ${props => props.color};
+        background-color: ${props => props.background};
         border-radius: 5px;
         padding: 5px;
         cursor: pointer;

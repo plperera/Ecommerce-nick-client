@@ -7,9 +7,10 @@ import ItemList from "../common/ItensList";
 import ProductCard from "../product/ProductCard";
 import UniqueProduct from "../product/UniqueProduct";
 import api from "../../../../../services/API";
+import NewProductForms from "../product/NewProductForms";
 
 export default function UniqueSubCategory ({SubCategoryData, handleLoading, handleRefresh, refresh, adminData }) {
-    const [ form, handleForm ] = useCustomForm({subCategoryName: SubCategoryData?.subCategoryName});
+    const [ form, handleForm, setForm ] = useCustomForm({subCategoryName: SubCategoryData?.subCategoryName});
     const [selectProduct, setSelectProduct] = useState(undefined)
     const [selectOtherProduct, setSelectOtherProduct] = useState(undefined)
     const [categoryManagementData, setCategoryManagementData] = useState(undefined)
@@ -58,6 +59,10 @@ export default function UniqueSubCategory ({SubCategoryData, handleLoading, hand
                 {
                     title: "Editar",
                     content: <SubCategoryForms form={form} handleForm={handleForm} submitForm={submitForm} deleteButton={true}/>
+                },
+                {
+                    title: "Criar novo Produto",
+                    content: <NewProductForms form={form} setForm={setForm} handleForm={handleForm} submitForm={submitNewProductForm} deleteButton={true}/>
                 },
                 {
                     title: "Lista de Produtos Atrelados",
@@ -145,6 +150,36 @@ export default function UniqueSubCategory ({SubCategoryData, handleLoading, hand
             toast.dark("Ocorreu um erro, tente novamente mais tarde ou contate o desenvolvedor")
             console.log(error)
             handleLoading(false) 
+            return
+        }
+    }
+    async function submitNewProductForm(){
+        try {
+            const body = {
+                name: form?.newProductName,
+                description: form?.newProductDescription,
+                price: Number(form?.newProductPrice),
+                highPrice: Number(form?.newProductHighPrice),
+                stock: Number(form?.newProductStock),
+                tecnicDetails: form?.newProductTecnicDetails,
+                subCategories: form?.newProductSubCategories,
+                images: form?.newProductImages,
+            }
+            console.log("body", body)
+            const response = await api.CreateProduct({body, token: adminData?.token})
+            console.log(response)
+            if(response?.status === 201){
+                toast.dark("Produto criado com Sucesso")
+                
+            }
+            handleRefresh()
+            handleLoading(false)
+            return
+        } catch (error) {
+            console.log(error)
+            toast.dark("Ocorreu um erro, tente novamente mais tarde ou contate o desenvolvedor")
+            handleRefresh()
+            handleLoading(false)
             return
         }
     }

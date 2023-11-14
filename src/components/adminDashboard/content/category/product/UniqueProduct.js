@@ -105,7 +105,6 @@ export default function UniqueProduct ({productData, adminData, handleRefresh, h
         }
     }
     async function submitForm(){
-        
         try {
             const body = {
                 id: productData?.productId,
