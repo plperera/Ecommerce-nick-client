@@ -10,7 +10,7 @@ import api from "../../../../../services/API";
 import NewProductForms from "../product/NewProductForms";
 
 export default function UniqueSubCategory ({SubCategoryData, handleLoading, handleRefresh, refresh, adminData }) {
-    const [ form, handleForm, setForm ] = useCustomForm({subCategoryName: SubCategoryData?.subCategoryName});
+    const [ form, handleForm, setForm ] = useCustomForm({subCategoryName: SubCategoryData?.subCategoryName, tecnicDetails: [{topic:'',topicDetail:''}]});
     const [selectProduct, setSelectProduct] = useState(undefined)
     const [selectOtherProduct, setSelectOtherProduct] = useState(undefined)
     const [categoryManagementData, setCategoryManagementData] = useState(undefined)
@@ -161,10 +161,11 @@ export default function UniqueSubCategory ({SubCategoryData, handleLoading, hand
                 price: Number(form?.newProductPrice),
                 highPrice: Number(form?.newProductHighPrice),
                 stock: Number(form?.newProductStock),
-                tecnicDetails: form?.newProductTecnicDetails,
-                subCategories: form?.newProductSubCategories,
-                images: form?.newProductImages,
+                tecnicDetails: form?.productTecnicDetails,
+                subCategories: form?.newProductSubCategories?.map( e => { return {subCategoryId: e}}),
+                images: form?.newProductImages?.map( e => { return {imageId: e, mainImage: false}}),
             }
+            
             console.log("body", body)
             const response = await api.CreateProduct({body, token: adminData?.token})
             console.log(response)

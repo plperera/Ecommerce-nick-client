@@ -1,8 +1,22 @@
 import styled from "styled-components"
 import { BiLink, BiUnlink } from 'react-icons/bi';
 import Image from "../common/Image";
+import { useEffect, useState } from "react";
 
-export default function ImageCard ({productId, imageData, handleImageLink, ImageBelong}) {
+export default function ImageCard ({productId, imageData, handleImageLink, ImageBelong, selectionData }) {
+
+    const [isSelected, setIsSelected] = useState(undefined)
+
+    useEffect(() => {
+        const value = selectionData?.includes(imageData?.id)
+        setIsSelected(!!value)
+    }, [imageData, selectionData])
+
+    function handleIsSelected(imageId){
+        handleImageLink({imageId, isSelected})
+        setIsSelected(!isSelected)  
+    }
+
     return(
         <Container >
             <UpperContainer>
@@ -15,10 +29,19 @@ export default function ImageCard ({productId, imageData, handleImageLink, Image
             </UpperContainer>
             <ActionsContainer>
                 <StyledIconContainer color={ImageBelong ? '#C54F4F': '#32829B'}>
-                    {ImageBelong
-                        ? <BiUnlink onClick={() => handleImageLink({productId: productId, imageId: imageData?.id})}/>
-                        : <BiLink onClick={() => handleImageLink({productId: productId, imageId: imageData?.id})}/>
+                    { productId //Entra apenas quando possui ProductId
+                        ? <StyledIconContainer color={ImageBelong ? '#C54F4F': '#32829B'}>
+                            { ImageBelong
+                                ? <BiUnlink onClick={() => handleImageLink({productId: productId, imageId: imageData?.id})}/>
+                                : <BiLink onClick={() => handleImageLink({productId: productId, imageId: imageData?.id})}/>
+                            }
+                        </StyledIconContainer> 
+
+                        : <StyledIconContainer color={!isSelected ? '#32829B':'#FFFFFF'} background={isSelected ? '#32829B':'none'}>
+                            <BiLink onClick={() => handleIsSelected(imageData?.id)}/>
+                        </StyledIconContainer> 
                     }
+                    
                 </StyledIconContainer>
             </ActionsContainer>
         </Container>
@@ -88,6 +111,7 @@ const StyledIconContainer = styled.div`
     > svg {
         font-size: 35px;
         color: ${props => props.color};
+        background-color: ${props => props.background};
         border-radius: 5px;
         padding: 5px;
         cursor: pointer;

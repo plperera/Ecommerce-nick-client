@@ -185,7 +185,6 @@ export default function UniqueCategory({mainCategoryData, handleLoading, adminDa
             return
         }
     }
-
     async function submitNewSubCategory(){
 
         if(!form?.newSubCategoryName) {

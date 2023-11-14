@@ -19,6 +19,7 @@ export default function ProductSubCategories ({form, setForm}) {
             console.log(error)
         }
     }
+
     async function handleLinkSubCategory({subCategoryId, isSelected}) {
         let productSubCategories
 
@@ -74,8 +75,7 @@ export default function ProductSubCategories ({form, setForm}) {
                             title={"SubCategorias"}
                         />
                         : <></>
-                }
-                
+                } 
             </SubCategoriesListContainer>
         </Container>
     )

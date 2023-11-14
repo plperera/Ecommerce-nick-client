@@ -4,16 +4,17 @@ import Button from "../../../../../common/form/Button"
 import { InputWrapper } from "../common/InputWrapper"
 import ProductTecnicDetails from "./ProductTecnicDetails"
 import ProductSubCategories from "./ProductSubCategories"
+import ProductImages from "./ProductImages"
 
-export default function NewProductForms ({form, handleForm, setForm, submitForm, textButton, deleteButton}) {
+export default function NewProductForms ({form, handleForm, setForm, submitForm}) {
     return(
         <Container>    
             <InputWrapper width={"80%"}>
                 <Input 
                     label="Nome do Produto" 
                     type="text" 
-                    name={"name"} 
-                    value={form?.name} 
+                    name={"newProductName"} 
+                    value={form?.newProductName} 
                     width="100%"
                     onChange={handleForm}
                 />
@@ -25,8 +26,8 @@ export default function NewProductForms ({form, handleForm, setForm, submitForm,
                     label="Descrição sobre o Produto"    
                     placeholder="Descrição do Produto" 
                     type="text" 
-                    name={"description"} 
-                    value={form?.description} 
+                    name={"newProductDescription"} 
+                    value={form?.newProductDescription} 
                     onChange={handleForm}
                     width="100%"
                 />
@@ -36,24 +37,24 @@ export default function NewProductForms ({form, handleForm, setForm, submitForm,
                 <Input 
                     label="Preço" 
                     type="text" 
-                    name={"price"} 
-                    value={form?.price} 
+                    name={"newProductPrice"} 
+                    value={form?.newProductPrice} 
                     width="37%"
                     onChange={handleForm}
                 />
                 <Input 
                     label="Preço antes do Desconto" 
                     type="text" 
-                    name={"highPrice"} 
-                    value={form?.highPrice} 
+                    name={"newProductHighPrice"} 
+                    value={form?.newProductHighPrice} 
                     width="37%"
                     onChange={handleForm}
                 />
                 <Input 
                     label="Estoque" 
                     type="text" 
-                    name={"stock"} 
-                    value={form?.stock} 
+                    name={"newProductStock"} 
+                    value={form?.newProductStock} 
                     width="20%"
                     onChange={handleForm}
                 />
@@ -62,6 +63,8 @@ export default function NewProductForms ({form, handleForm, setForm, submitForm,
             <ProductTecnicDetails form={form} handleForm={handleForm} setForm={setForm}/>
             
             <ProductSubCategories form={form} handleForm={handleForm} setForm={setForm}/>
+
+            <ProductImages form={form} handleForm={handleForm} setForm={setForm}/>
 
             <ButtonContainer>
                 <Button onClick={submitForm} width={"100%"} fontsize={"10px"} background={"#3093C9 !important"} backgroundhover={"#5DB3E2 !important"}>{"Criar"}</Button>
