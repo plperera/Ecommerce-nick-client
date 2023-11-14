@@ -8,6 +8,7 @@ import { useState } from "react";
 import UniqueSubCategory from "./subCategory/UniqueSubCategory";
 import api from "../../../../services/API";
 import { useEffect } from "react";
+import NewSubCategoryForms from "./subCategory/NewSubCategoryForms";
 
 export default function UniqueCategory({mainCategoryData, handleLoading, adminData, handleLinkSubCategory, handleRefresh, refresh}) {
 
@@ -68,6 +69,10 @@ export default function UniqueCategory({mainCategoryData, handleLoading, adminDa
                     content: <CategoryForms form={form} handleForm={handleForm} submitForm={submitForm} deleteButton={true}/>
                 },
                 {
+                    title: "Nova SubCategoria",
+                    content: <NewSubCategoryForms form={form} handleForm={handleForm} submitForm={submitNewSubCategory}/>,
+                },
+                {
                     title: "Lista de SubCategorias",
                     showReturnButton: !!selectSubCategory,
                     handleReturn: handleReturnSubCategoryList,
@@ -109,7 +114,7 @@ export default function UniqueCategory({mainCategoryData, handleLoading, adminDa
         })
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [allSubCategoriesData, mainCategoryData, refresh, selectSubCategory, selectOtherSubCategory])
+    }, [allSubCategoriesData, mainCategoryData, refresh, selectSubCategory, selectOtherSubCategory, form])
 
     async function getAllSubCategoriesData(){
         try {
@@ -169,6 +174,45 @@ export default function UniqueCategory({mainCategoryData, handleLoading, adminDa
             }
             if (error?.response?.status === 400) {
                 toast.error("Nome de categoria inválido")
+                handleRefresh()
+                handleLoading(false)
+                return
+            }
+            toast.dark("Ocorreu um erro, tente novamente mais tarde ou contate o desenvolvedor")
+            console.log(error)
+            handleRefresh()
+            handleLoading(false) 
+            return
+        }
+    }
+
+    async function submitNewSubCategory(){
+
+        if(!form?.newSubCategoryName) {
+            toast.dark("Valor inválido!")
+            return
+        }
+
+        handleLoading(true)
+
+        try {
+            const body = {
+                subCategoryName: form?.newSubCategoryName
+            }
+
+            const response = await api.CreateSubCategory({body, token: adminData?.token})
+
+            if(response.status === 201){
+                toast.dark("SubCategoria criada com sucesso")
+            }
+
+            handleRefresh()
+            handleLoading(false)
+            return
+            
+        } catch (error) {
+            if (error?.response?.status === 409) {
+                toast.error("SubCategoria ja cadastrada")
                 handleRefresh()
                 handleLoading(false)
                 return
