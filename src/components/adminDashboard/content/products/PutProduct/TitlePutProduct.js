@@ -12,10 +12,11 @@ export default function Title ({setSelectedProduct, productData, form, setForm, 
 
     async function SubmitForm(){
         try {
+            console.log(form)
             const body = {
                 id: productData?.productId,  
                 description: form?.description,     
-                categories: form?.categories,
+                subCategories: form?.subCategories,
                 images: form?.images,
                 name: form?.name,       
                 price: Number((convertToNumber(form?.price) * 100).toFixed(0)),    

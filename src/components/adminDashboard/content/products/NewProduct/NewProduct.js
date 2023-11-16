@@ -1,10 +1,8 @@
 import styled from "styled-components"
-import CategorySelector from "../../selector/CategorySelector";
 import ImageSelector from "../../selector/ImageSelector";
 import { useCustomForm } from "../../../../../hooks/useCustomForms";
 import { useEffect, useState } from "react";
 import { IoMdCloseCircle } from 'react-icons/io';
-import CategoryCreator from "../../creator/CategoryCreator";
 import ImageCreator from "../../creator/ImageCreator";
 import api from "../../../../../services/API";
 import TitleComponent from "./TitleNewProduct";
@@ -13,24 +11,28 @@ import TecnicDetailsComponent from "./TecnicDetailsForms";
 import { toast } from "react-toastify";
 import AdminContext from "../../../../../context/AdminContext";
 import { useContext } from "react";
+import Button from "../../../../../common/form/Button";
+import Input from "../../../../../common/form/Input";
+import SubCategoryCreator from "../../creator/SubCategoryCreator";
+import CategorySelector from "../../selector/CategorySelector";
 
 export default function NewProduct () {
 
     const [ form, handleForm, setForm ] = useCustomForm();
     const [ refreshImage, setRefreshImage ] = useState(false)
-    const [ refreshCategory, setRefreshCategory ] = useState(false)
+    const [ refreshSubCategory, setRefreshSubCategory ] = useState(false)
     const [ getRefresh, setGetRefresh ] = useState(false)
-    const [ categories, setCategories ] = useState(false)
+    const [ subCategories, setSubCategories ] = useState(false)
     const [ images, setImages ] = useState(false)
     const [ haveAllData, setHaveAllData ] = useState(false)
     const [tecnicDetails, setTecnicDetails] = useState([{topic: "", topicDetail:""}])
-    const [ showCreate, setShowCreate ] = useState({showCategoryCreate: false, showImageCreate: false})
+    const [ showCreate, setShowCreate ] = useState({showSubCategoryCreate: false, showImageCreate: false})
     const { adminData } = useContext(AdminContext);
     
 
-    async function GetAllCategories(){
-        const response = await api.GetAllCategories()
-        setCategories(response.data)
+    async function GetAllSubCategories(){
+        const response = await api.GetAllSubCategoriesData(adminData?.token)
+        setSubCategories(response.data)
     }
 
     async function GetAllImages({token}){
@@ -46,7 +48,7 @@ export default function NewProduct () {
             return setRefreshImage(!refreshImage)
         }
         
-        return setRefreshCategory(!refreshCategory)
+        return setRefreshSubCategory(!refreshSubCategory)
 
     }
 
@@ -60,7 +62,7 @@ export default function NewProduct () {
 
             tecnicDetails: tecnicDetails.filter( e => (e?.topic.length > 0)),
 
-            categories: form?.categories.filter( e => (!!e?.categoryId)),
+            subCategories: form?.subCategories.filter( e => (!!e?.subCategoryId)),
 
             images: form?.images.filter( e => (!!e?.imageId)),
         }
@@ -90,14 +92,14 @@ export default function NewProduct () {
     }
 
     useEffect(() => {
-        GetAllCategories()
+        GetAllSubCategories()
         GetAllImages({token: adminData.token})
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [getRefresh])
 
     useEffect(() => {
 
-        if(form?.name && form?.description && form?.price && form?.categories && form?.images && form?.stock){
+        if(form?.name && form?.description && form?.price && form?.subCategories && form?.images && form?.stock){
             return setHaveAllData(true)
         }
         return setHaveAllData(false)
@@ -115,29 +117,31 @@ export default function NewProduct () {
 
                 <TecnicDetailsComponent tecnicDetails={tecnicDetails} setTecnicDetails={setTecnicDetails}/>
             
-                <div>
+                <div>  
                     <h2>
-                        {"Selecione a(s) categorias"}
-                        <CreateButton onClick={() => setShowCreate({...showCreate, [`showCategoryCreate`]: !showCreate.showCategoryCreate})}>
-                            {showCreate.showCategoryCreate ?("Minimizar"):("Criar nova")}
+                        {"Selecione uma SubCategoria"}
+                        <CreateButton onClick={() => setShowCreate({...showCreate, [`showSubCategoryCreate`]: !showCreate.showSubCategoryCreate})}>
+                            {showCreate.showSubCategoryCreate ?("Minimizar"):("Criar nova")}
                         </CreateButton>
                     </h2>
-                    
-                    {showCreate.showCategoryCreate ?(<CategoryCreator refresh={getRefresh} setRefresh={setGetRefresh}/>):(<></>)}
+
+                    {showCreate.showSubCategoryCreate ?(<SubCategoryCreator refresh={getRefresh} setRefresh={setGetRefresh}/>):(<></>)}
 
                     <FilterContainer>
-                        <input 
-                            placeholder="Filtrar" 
+                        <Input 
+                            label="Filtrar" 
+                            type="text" 
+                            name={"subCategoryFilter"}
+                            value={form?.subCategoryFilter} 
+                            width="30%"
                             onChange={handleForm}
-                            value={form.categoryFilter}
-                            name={"categoryFilter"}
                         />
-                        <FilterButtonContainer onClick={() => setRefreshCategory(!refreshCategory)}>{"Filtrar Images"}</FilterButtonContainer>
-                        {form?.categoryFilter?(<ClearFilterContainer onClick={() => ClearFilter("categoryFilter")}>{"X"}</ClearFilterContainer>):(<></>)}
+                        <Button onClick={() => setRefreshSubCategory(!refreshSubCategory)} fontsize={"10px"} background={"#0A1F2A69 !important"}>{"Filtrar Images"}</Button>
+                        {form?.subCategoryFilter?(<ClearFilterContainer onClick={() => ClearFilter("subCategoryFilter")}>{"X"}</ClearFilterContainer>):(<></>)}
                     </FilterContainer>
-
-                    {categories?(<CategorySelector filter={form.categoryFilter} refresh={refreshCategory} categories={categories} setForm={setForm} form={form}/>):(<></>)}
-                </div>
+                    
+                    {subCategories?(<CategorySelector filter={form.subCategoryFilter} refresh={refreshSubCategory} subCategories={subCategories} setForm={setForm} form={form} initSelect={[]}/>):(<></>)}
+                </div> 
 
                 <div>  
                     <h2>

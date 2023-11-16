@@ -30,6 +30,7 @@ export default function UpdateCategoryCardHome () {
                 cardImageId: [selectCard?.imageId]
             })
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectCard])
 
     useEffect(() => {
@@ -166,7 +167,4 @@ const MiddleContainer = styled.div`
     padding: 10px 1.4vw;
     row-gap: 4vh;
     padding-bottom: 6vh;
-`
-const ListContainer = styled.div`
-    border: 1px solid red;
 `
