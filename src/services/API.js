@@ -88,6 +88,9 @@ function UpdateBanner({body, token}){
 function DeleteBanner({body, token}){
     return axios.delete(`${BASE_URL}/homepage/banner/admin`, {data: body, headers: { Authorization: `Bearer ${token}`}});
 }
+function GetAllCategoryCardData(token){
+    return axios.get(`${BASE_URL}/homepage/subcategory/admin`, {headers: { Authorization: `Bearer ${token}`}});
+}
 function CreateHomeSubCategory({body, token}){
     return axios.post(`${BASE_URL}/homepage/subcategory/admin`, body, {headers: { Authorization: `Bearer ${token}`}});
 }
@@ -235,7 +238,8 @@ const api = {
     UpdateProductsBannerHome,
     DeleteProductsBannerHome,
     GetAllCategoriesWithAllData,
-    HandleProductLink
+    HandleProductLink,
+    GetAllCategoryCardData
 };
 
 export default api;

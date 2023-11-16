@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
-import ItemList from "../common/ItensList"
-import api from "../../../../../services/API"
-import AdminContext from "../../../../../context/AdminContext"
-import ImageCard from "../image/ImageCard"
+import AdminContext from "../../../../../../context/AdminContext"
+import api from "../../../../../../services/API"
+import ImageCard from "../../../category/image/ImageCard"
+import ItemList from "../../../category/common/ItensList"
 
-export default function ProductImages ({form, setForm, }) {
+export default function CardImages ({form, setForm }) {
     const [ showProductImages, setShowProductImages ] = useState(true)
     const [ allImagesData, setAllImagesData ] = useState(undefined)
     const [ allCardsData, setAllCardsData ] = useState(undefined)
@@ -20,19 +20,9 @@ export default function ProductImages ({form, setForm, }) {
         }
     }
 
-    async function handleLinkImages({imageId, isSelected}) {
-        let productImages
-
-        if (form?.newProductImages?.length > 0){
-            isSelected 
-                ? productImages = [...form?.newProductImages].filter(e => e !== imageId)
-                : productImages = [...form?.newProductImages, imageId]
-            
-        } else {
-            productImages = [imageId] 
-        }
+    async function handleLinkImages({imageId}) {
         const lastForm = {...form}
-        setForm({...lastForm, newProductImages: productImages})
+        setForm({...lastForm, cardImageId: [imageId]})
     }
 
     useEffect(() => {
@@ -47,7 +37,7 @@ export default function ProductImages ({form, setForm, }) {
                 <ImageCard
                     imageData={e} 
                     handleImageLink={handleLinkImages}
-                    selectionData={form?.newProductImages}
+                    selectionData={form?.cardImageId}
                 />
             ),
         }));
@@ -58,7 +48,7 @@ export default function ProductImages ({form, setForm, }) {
     return(
         <Container>    
             <HandleShowContainer>
-                <p>Selecionar Imagens<CountSelection>{form?.newProductImages?.length > 0 ? form?.newProductImages?.length : 0}</CountSelection></p>
+                <p>Selecionar Imagens</p>
                 <p onClick={() => setShowProductImages(!showProductImages)}>{showProductImages ? 'mostrar menos':'expandir'}</p>
             </HandleShowContainer>
 
@@ -100,12 +90,4 @@ const SubCategoriesListContainer = styled.div`
     display: ${props => props.showProductImages ? `flex`:'none'};
     flex-direction: column;
     row-gap: 2vh;
-`
-const CountSelection = styled.span`
-    background-color: #434fb3;
-    color: #FFFFFF;
-    padding: 0 8px;
-    border-radius: 4px;
-    font-size: 16px;
-    margin-left: 15px;
 `

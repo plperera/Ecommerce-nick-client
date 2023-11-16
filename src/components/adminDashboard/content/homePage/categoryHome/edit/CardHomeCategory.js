@@ -1,22 +1,18 @@
 import { useState } from "react";
 import styled, { keyframes } from "styled-components"
 
-export default function CategoryCard ({category, applyAnimation, navigateAndMoveUp}) {
-
+export default function CardHomeCategory ({ cardData, setSelect }) {
+    console.log(cardData)
     const [isLoading, setIsLoading] = useState(true);
-    console.log(category)
-
     return(
-        <Container height={"425px"} applyAnimation={applyAnimation} onClick={() => navigateAndMoveUp({locate:`catalogo/${category?.subCategoryName}`})}>
-
+        <Container onClick={() => setSelect(cardData)}>
             {isLoading && <Spinner />}
             <ImageContainer>
-                <img src={category?.imageUrl} alt="" onLoad={() => setIsLoading(false)}/>
-            </ImageContainer>            
+                <img src={cardData.imageUrl} alt="" onLoad={() => setIsLoading(false)}/>
+            </ImageContainer>  
         </Container>
     )
 }
-
 const fadeIn = keyframes`
     0% {
         transform: translateX(0);
@@ -49,14 +45,9 @@ const Container = styled.div`
     animation-iteration-count: 1;
     position: relative;
 
-    @media (max-width: 1366px) {
-        width: 230px;
-        height: auto;
-    }
-
     @media (max-width: 850px) {
-        width: 160px;
-        height: auto;
+        width: 140px;
+        height: 100%;
     }
     :hover {
         transform: translateY(-1vh)
@@ -74,7 +65,7 @@ const ImageContainer = styled.div`
         max-height: 100%;
     }
     @media (max-width: 850px) {
-        height: 100%;
+        height: 150px;
     }
 `
 const spinAnimation = keyframes`
